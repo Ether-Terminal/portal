@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ether Sovereign OS — Insurance Packages</title>
+    <meta name="description" content="Choose your Ether OS insurance coverage package and complete secure activation.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg:      #060608;
+            --surface: #0c0d10;
+            --card:    #101218;
+            --border:  #1a1d26;
+            --text:    #e2e8f0;
+            --muted:   #64748b;
+            --emerald: #10b981;
+            --cyan:    #06b6d4;
+            --amber:   #f59e0b;
+            --blue:    #3b82f6;
+            --violet:  #8b5cf6;
+        }
+
+        html, body { min-height: 100%; }
+
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--bg);
+            color: var(--text);
+            padding: 48px 20px 80px;
+            background-image:
+                radial-gradient(ellipse 80% 40% at 50% -5%, rgba(16,185,129,0.06) 0%, transparent 70%),
+                linear-gradient(rgba(16,185,129,0.012) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(16,185,129,0.012) 1px, transparent 1px);
+            background-size: auto, 40px 40px, 40px 40px;
+        }
+
+        /* ── Header ── */
+        .header {
+            text-align: center;
+            margin-bottom: 52px;
+        }
+
+        .logo-row {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+
+        .logo-mark {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--emerald), var(--cyan));
+            border-radius: 7px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 800;
+            color: #000;
+        }
+
+        .logo-name {
+            font-size: 16px;
+            font-weight: 800;
+            letter-spacing: 0.28em;
+            color: var(--emerald);
+        }
+
+        h1 {
+            font-size: clamp(20px, 4vw, 30px);
+            font-weight: 800;
+            letter-spacing: 0.04em;
+            margin-bottom: 12px;
+            color: var(--text);
+        }
+
+        h1 em { color: var(--emerald); font-style: normal; }
+
+        .sub {
+            font-size: 10px;
+            color: var(--muted);
+            letter-spacing: 0.1em;
+            max-width: 440px;
+            margin: 0 auto;
+            line-height: 1.75;
+        }
+
+        /* ── Grid ── */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 18px;
+            max-width: 1080px;
+            margin: 0 auto 64px;
+        }
+
+        /* ── Cards ── */
+        .pkg-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 24px 20px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 0;
+            transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .pkg-card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* ── Accent per package ── */
+        .pkg-card[data-accent="cyan"]:hover  { border-color: rgba(6,182,212,0.5);  box-shadow: 0 0 28px rgba(6,182,212,0.1); }
+        .pkg-card[data-accent="amber"]:hover { border-color: rgba(245,158,11,0.5); box-shadow: 0 0 28px rgba(245,158,11,0.1); }
+        .pkg-card[data-accent="emerald"]:hover { border-color: rgba(16,185,129,0.5); box-shadow: 0 0 28px rgba(16,185,129,0.1); }
+        .pkg-card[data-accent="blue"]:hover  { border-color: rgba(59,130,246,0.5);  box-shadow: 0 0 28px rgba(59,130,246,0.1); }
+        .pkg-card[data-accent="violet"]:hover { border-color: rgba(139,92,246,0.5); box-shadow: 0 0 28px rgba(139,92,246,0.1); }
+
+        .pkg-icon { font-size: 34px; margin-bottom: 8px; }
+
+        .pkg-name {
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .pkg-card[data-accent="cyan"]    .pkg-name { color: var(--cyan); }
+        .pkg-card[data-accent="amber"]   .pkg-name { color: var(--amber); }
+        .pkg-card[data-accent="emerald"] .pkg-name { color: var(--emerald); }
+        .pkg-card[data-accent="blue"]    .pkg-name { color: var(--blue); }
+        .pkg-card[data-accent="violet"]  .pkg-name { color: var(--violet); }
+
+        .pkg-desc {
+            font-size: 9px;
+            color: var(--muted);
+            letter-spacing: 0.06em;
+            line-height: 1.7;
+            margin-bottom: 18px;
+        }
+
+        /* QR Box */
+        .qr-box {
+            background: #fff;
+            border-radius: 8px;
+            padding: 9px;
+            margin-bottom: 12px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+        }
+
+        .qr-box canvas, .qr-box img { display: block; }
+
+        .scan-hint {
+            font-size: 8px;
+            letter-spacing: 0.15em;
+            color: var(--muted);
+            margin-bottom: 12px;
+        }
+
+        .pkg-price {
+            font-size: 10px;
+            color: var(--muted);
+        }
+
+        .pkg-price strong {
+            font-size: 20px;
+            font-weight: 800;
+            display: block;
+        }
+
+        .pkg-card[data-accent="cyan"]    .pkg-price strong { color: var(--cyan); }
+        .pkg-card[data-accent="amber"]   .pkg-price strong { color: var(--amber); }
+        .pkg-card[data-accent="emerald"] .pkg-price strong { color: var(--emerald); }
+        .pkg-card[data-accent="blue"]    .pkg-price strong { color: var(--blue); }
+        .pkg-card[data-accent="violet"]  .pkg-price strong { color: var(--violet); }
+
+        /* ── Footer ── */
+        footer {
+            text-align: center;
+            font-size: 9px;
+            color: var(--muted);
+            letter-spacing: 0.1em;
+            line-height: 2.2;
+        }
+
+        footer strong { color: var(--emerald); }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div class="logo-row">
+        <div class="logo-mark">E</div>
+        <span class="logo-name">ETHER OS</span>
+    </div>
+    <h1>Select Your <em>Coverage Package</em></h1>
+    <p class="sub">Scan the QR code for the coverage type you need. You will be taken directly to the secure Ether OS payment screen.</p>
+</div>
+
+<div class="grid" id="grid"></div>
+
+<footer>
+    <p>Powered by <strong>Ether Terminal LLC</strong> &nbsp;·&nbsp; Sovereign OS Settlement Network</p>
+    <p>Carlos Vly &nbsp;·&nbsp; Founder &amp; CEO</p>
+</footer>
+
+<script>
+    // ── Update this base URL once deployed ──────────────────────────────────────────────
+    const BASE = 'https://ether-terminal.github.io/portal/index.html';
+    // ────────────────────────────────────────────────────────────────────────────────────
+
+    const PKGS = [
+        { id: 'aviation',   icon: '✈️',  name: 'Aviation',       accent: 'cyan',    price: '$1,999', desc: 'Private, commercial & charter aircraft operations.' },
+        { id: 'motorcycle', icon: '🏍️', name: 'Motorcycle',     accent: 'amber',   price: '$1,999', desc: 'Motorcycles, trikes & off-road vehicle coverage.' },
+        { id: 'home',       icon: '🏡',  name: 'Home',           accent: 'emerald', price: '$1,999', desc: 'Residential & rental property with full liability.' },
+        { id: 'automotive', icon: '🚗',  name: 'Automotive',     accent: 'blue',    price: '$1,999', desc: 'Fleet & personal vehicles, collision and liability.' },
+        { id: 'yacht',      icon: '⛵',  name: 'Yacht & Marine', accent: 'violet',  price: '$1,999', desc: 'Offshore & inland waterway coverage for all vessels.' }
+    ];
+
+    const grid = document.getElementById('grid');
+
+    PKGS.forEach(pkg => {
+        const url = `${BASE}?package=${pkg.id}`;
+
+        const card = document.createElement('a');
+        card.className = 'pkg-card';
+        card.href = url;
+        card.target = '_blank';
+        card.setAttribute('data-accent', pkg.accent);
+
+        card.innerHTML = `
+            <div class="pkg-icon">${pkg.icon}</div>
+            <div class="pkg-name">${pkg.name}</div>
+            <p class="pkg-desc">${pkg.desc}</p>
+            <div class="qr-box" id="qr-${pkg.id}"></div>
+            <div class="scan-hint">SCAN TO PURCHASE</div>
+            <div class="pkg-price"><strong>${pkg.price}</strong>/year</div>
+        `;
+
+        grid.appendChild(card);
+
+        new QRCode(document.getElementById(`qr-${pkg.id}`), {
+            text: url,
+            width: 148,
+            height: 148,
+            colorDark: '#000000',
+            colorLight: '#ffffff',
+            correctLevel: QRCode.CorrectLevel.H
+        });
+    });
+</script>
+</body>
+</html>
