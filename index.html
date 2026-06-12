@@ -184,11 +184,12 @@
     const packageParam = urlParams.get('package') || 'all';
 
     const PACKAGE_LABELS = {
-        aviation:   '✈️  AVIATION INSURANCE',
-        motorcycle: '🏍️  MOTORCYCLE INSURANCE',
-        home:       '🏡  HOME INSURANCE',
-        automotive: '🚗  AUTOMOTIVE INSURANCE',
-        yacht:      '⛵  YACHT & MARINE INSURANCE'
+        basic_node:       '🔹  BASIC NODE',
+        pro_node:         '⚡  PROFESSIONAL NODE',
+        premium_node:     '💎  PREMIUM NODE',
+        aviation_basic:   '✈️  AVIATION BASIC',
+        aviation_pro:     '🚀  AVIATION PROFESSIONAL',
+        aviation_premium: '🛰️  AVIATION PREMIUM'
     };
 
     const pkgLabel = PACKAGE_LABELS[packageParam] || packageParam.toUpperCase();
