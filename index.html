@@ -3,140 +3,150 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ether Sovereign OS — Secure Settlement Bridge</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
-    
-    <!-- Plaid Link -->
+    <title>Ether Sovereign OS — Secure Settlement</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
-    
+    <script src="https://js.stripe.com/v3/"></script>
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
         :root {
-            --bg:        #070709;
-            --surface:   #0e0f12;
-            --border:    #1c1f26;
-            --cyan:      #00f0ff;
-            --emerald:   #10b981;
-            --red:       #ef4444;
-            --text:      #cbd5e1;
-            --muted:     #475569;
+            --bg: #060608;
+            --surface: #0c0d10;
+            --card: #101218;
+            --border: #1a1d26;
+            --text: #e2e8f0;
+            --muted: #64748b;
+            --emerald: #10b981;
+            --cyan: #06b6d4;
+            --red: #ef4444;
         }
-
         body {
             font-family: 'JetBrains Mono', monospace;
             background: var(--bg);
             color: var(--text);
-            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 24px;
-            background-image:
-                linear-gradient(to right, rgba(0,240,255,0.03) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(0,240,255,0.03) 1px, transparent 1px);
-            background-size: 32px 32px;
+            min-height: 100vh;
+            padding: 20px;
         }
-
         .panel {
-            width: 100%;
-            max-width: 440px;
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: 12px;
+            width: 100%;
+            max-width: 440px;
             padding: 32px;
-            box-shadow: 0 0 40px rgba(0,240,255,0.06), 0 20px 60px rgba(0,0,0,0.6);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.5);
         }
-
         .header {
             display: flex;
-            align-items: center;
             justify-content: space-between;
-            margin-bottom: 6px;
+            align-items: flex-start;
+            margin-bottom: 24px;
         }
-
-        .header h1 {
-            color: var(--emerald);
-            font-size: 13px;
+        h1 {
+            font-size: 14px;
             font-weight: 800;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: #fff;
         }
-
         .badge {
             font-size: 9px;
-            background: rgba(16,185,129,0.1);
-            color: var(--emerald);
-            border: 1px solid rgba(16,185,129,0.3);
-            padding: 3px 8px;
+            background: rgba(6,182,212,0.15);
+            color: var(--cyan);
+            padding: 4px 8px;
             border-radius: 4px;
-            letter-spacing: 0.15em;
-        }
-
-        .machine-line {
-            font-size: 10px;
-            color: var(--muted);
-            margin-bottom: 28px;
-            margin-top: 4px;
-        }
-
-        .machine-line span {
-            color: var(--emerald);
+            letter-spacing: 0.1em;
             font-weight: 700;
+        }
+        .machine-line {
+            font-size: 11px;
+            color: var(--muted);
+            margin-bottom: 32px;
+            padding-bottom: 16px;
+            border-bottom: 1px dashed var(--border);
+        }
+        
+        /* TABS */
+        .tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+        .tab {
+            flex: 1;
+            background: transparent;
+            color: var(--muted);
+            border: 1px solid var(--border);
+            padding: 10px;
+            font-family: inherit;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+        .tab.active {
+            background: var(--card);
+            color: #fff;
+            border-color: var(--cyan);
+            box-shadow: 0 0 12px rgba(6,182,212,0.15);
+        }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        /* STRIPE UI */
+        #payment-element {
+            margin-bottom: 24px;
         }
 
         .btn {
             width: 100%;
-            margin-top: 24px;
-            padding: 16px;
+            background: #fff;
+            color: #000;
             border: none;
-            border-radius: 8px;
+            padding: 14px;
             font-family: inherit;
             font-size: 12px;
             font-weight: 800;
-            letter-spacing: 0.2em;
+            letter-spacing: 0.1em;
             cursor: pointer;
+            border-radius: 6px;
             transition: all 0.2s;
         }
+        .btn:hover { background: #e2e8f0; }
+        .btn:disabled { background: var(--border); color: var(--muted); cursor: not-allowed; }
 
         .btn-pay {
-            background: var(--emerald);
+            background: linear-gradient(135deg, var(--emerald), var(--cyan));
             color: #000;
         }
-
-        .btn-pay:hover { background: #34d399; }
-        .btn-pay:disabled { background: #1c3a2f; color: var(--muted); cursor: not-allowed; }
+        .btn-pay:hover {
+            opacity: 0.9;
+        }
 
         .status-bar {
             margin-top: 20px;
             font-size: 10px;
-            color: var(--muted);
-            text-align: center;
-            letter-spacing: 0.1em;
-            line-height: 1.5;
+            padding: 12px;
+            border-radius: 6px;
+            background: var(--card);
+            color: var(--text);
+            text-align: left;
         }
-
-        .status-bar.error { color: var(--red); }
-        .status-bar.ok    { color: var(--emerald); }
-
-        #payment-panel {
-            min-height: 200px;
-            margin-bottom: 12px;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
+        .status-bar.error { border-left: 3px solid var(--red); color: #fff; }
+        .status-bar.ok { border-left: 3px solid var(--emerald); color: #fff; }
+        
+        @keyframes spin { 100% { transform: rotate(360deg); } }
         .spinner {
             display: inline-block;
-            width: 12px;
-            height: 12px;
-            border: 2px solid rgba(0,0,0,0.3);
-            border-radius: 50%;
+            width: 14px; height: 14px;
+            border: 2px solid rgba(0,0,0,0.2);
             border-top-color: #000;
+            border-radius: 50%;
             animation: spin 1s ease-in-out infinite;
             vertical-align: middle;
             margin-right: 8px;
@@ -148,29 +158,48 @@
 <div class="panel">
     <div class="header">
         <h1 id="pkg-title">ETHAN SETTLEMENT</h1>
-        <span class="badge" id="pkg-badge">STRIPE BRIDGE</span>
+        <span class="badge" id="pkg-badge">SECURE GATEWAY</span>
     </div>
     <p class="machine-line">
         Coverage: <span id="display-package" style="color:var(--emerald); font-weight:700;">—</span>
         &nbsp;·&nbsp; Machine: <span id="display-machine-id">DETECTING...</span>
     </p>
 
-    <!-- Plaid Integration -->
-    <div id="payment-panel" style="text-align: center; padding-top: 20px;">
-        <button type="button" class="btn btn-pay" id="plaid-btn">
-            <span class="spinner" id="btn-spinner" style="display: none;"></span>
-            <span id="btn-text">AUTHORIZE SECURE ACH SETTLEMENT</span>
-        </button>
+    <div class="tabs">
+        <button class="tab active" onclick="switchTab('plaid')">SECURE ACH (PLAID)</button>
+        <button class="tab" onclick="switchTab('stripe')">CREDIT CARD (STRIPE)</button>
     </div>
 
-    <div id="payment-message" class="status-bar"></div>
+    <!-- PLAID TAB -->
+    <div id="tab-plaid" class="tab-content active" style="text-align: center; padding-top: 10px;">
+        <button type="button" class="btn btn-pay" id="plaid-btn">
+            <span class="spinner" id="btn-spinner-plaid" style="display: none;"></span>
+            <span id="btn-text-plaid">LINK BANK ACCOUNT</span>
+        </button>
+        <div id="plaid-message" class="status-bar" style="display:none;"></div>
+    </div>
+
+    <!-- STRIPE TAB -->
+    <div id="tab-stripe" class="tab-content">
+        <form id="payment-form">
+            <div id="payment-element">
+                <!-- Stripe elements injected here -->
+            </div>
+            <button type="submit" class="btn btn-pay" id="stripe-btn" disabled>
+                <span class="spinner" id="btn-spinner-stripe" style="display: none;"></span>
+                <span id="btn-text-stripe">INITIALIZING...</span>
+            </button>
+            <div id="stripe-message" class="status-bar" style="display:none;"></div>
+        </form>
+    </div>
 </div>
 
 <script>
-    // --- PLAID BACKEND ENDPOINT ---
-    const BACKEND_URL = 'http://localhost:8080';
-
-    // 1. Parse machine ID and package from URL
+    // Constants
+    const BACKEND_URL = 'http://localhost:8080'; 
+    const STRIPE_PK = 'pk_test_51ThQAyHLrAQPVk7GvlFB2hn1vbHuesVnTWpjA1UuBgILCZ9RmnaHOF7Yk4vr0jnP4HO0MLrJC6YShloFBeFyi24i00Bw2nwVj8';
+    
+    // Parse URL Params
     const urlParams = new URLSearchParams(window.location.search);
     const challenge = urlParams.get('challenge') || '';
     const paymentStatus = urlParams.get('status');
@@ -188,11 +217,16 @@
     };
 
     const pkgLabel = PACKAGE_LABELS[packageParam] || packageParam.toUpperCase();
-    if (document.getElementById('display-package')) {
-        document.getElementById('display-package').textContent = pkgLabel;
-    }
-    if (document.getElementById('pkg-badge')) {
-        document.getElementById('pkg-badge').textContent = 'PLAID ACH BRIDGE';
+    document.getElementById('display-package').textContent = pkgLabel;
+    document.getElementById('display-machine-id').textContent = machineId;
+
+    // Tab Switching Logic
+    function switchTab(tabId) {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
+        
+        event.target.classList.add('active');
+        document.getElementById(`tab-${tabId}`).classList.add('active');
     }
 
     if (paymentStatus === 'success') {
@@ -202,18 +236,16 @@
                 <h1 style="font-size: 16px;">SETTLEMENT SUCCESSFUL</h1>
             </div>
             <p class="status-bar ok" style="font-size: 12px; text-align: center;">
-                Your license for <strong>${machineId}</strong> has been provisioned via secure ACH.
+                Your license for <strong>${machineId}</strong> has been securely provisioned.
                 <br><br>
                 You may now return to the terminal and resume operations.
             </p>
         `;
     } else {
-        document.getElementById('display-machine-id').textContent = machineId;
-
-        // Fetch Link Token and initialize Plaid Link
+        // --- 1. INITIALIZE PLAID ---
         async function initPlaid() {
             const btn = document.getElementById('plaid-btn');
-            const messageDiv = document.getElementById('payment-message');
+            const messageDiv = document.getElementById('plaid-message');
             
             try {
                 const response = await fetch(BACKEND_URL + '/api/create_link_token', { method: 'POST' });
@@ -222,58 +254,134 @@
                 if (data.error) {
                     messageDiv.textContent = 'Error connecting to Plaid: ' + data.error;
                     messageDiv.className = 'status-bar error';
+                    messageDiv.style.display = 'block';
                     return;
                 }
                 
                 const handler = Plaid.create({
                     token: data.link_token,
                     onSuccess: async (public_token, metadata) => {
+                        messageDiv.style.display = 'block';
                         messageDiv.textContent = 'Authenticating ledger data...';
                         btn.disabled = true;
-                        document.getElementById('btn-spinner').style.display = 'inline-block';
-                        document.getElementById('btn-text').textContent = 'PROCESSING SETTLEMENT...';
+                        document.getElementById('btn-spinner-plaid').style.display = 'inline-block';
+                        document.getElementById('btn-text-plaid').textContent = 'PROCESSING SETTLEMENT...';
                         
-                        // Exchange token
                         const exchangeRes = await fetch(BACKEND_URL + '/api/set_access_token', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({ public_token, machine_id: machineId, package: packageParam })
                         });
-                        
                         const exchangeData = await exchangeRes.json();
                         
                         if (exchangeData.error) {
                             messageDiv.textContent = 'Settlement failed: ' + exchangeData.error;
                             messageDiv.className = 'status-bar error';
                             btn.disabled = false;
-                            document.getElementById('btn-spinner').style.display = 'none';
-                            document.getElementById('btn-text').textContent = 'AUTHORIZE SECURE ACH SETTLEMENT';
+                            document.getElementById('btn-spinner-plaid').style.display = 'none';
+                            document.getElementById('btn-text-plaid').textContent = 'LINK BANK ACCOUNT';
                         } else {
                             window.location.href = window.location.href.split('?')[0] + '?status=success&machine_id=' + machineId;
                         }
                     },
-                    onLoad: () => {
-                        // Link loaded
-                    },
-                    onExit: (err, metadata) => {
+                    onExit: (err) => {
                         if (err != null) {
+                            messageDiv.style.display = 'block';
                             messageDiv.textContent = 'Plaid error: ' + err.display_message;
                             messageDiv.className = 'status-bar error';
                         }
                     }
                 });
                 
-                btn.addEventListener('click', () => {
-                    handler.open();
-                });
-                
+                btn.addEventListener('click', () => handler.open());
             } catch (err) {
+                messageDiv.style.display = 'block';
                 messageDiv.textContent = 'Network error: ' + err.message;
                 messageDiv.className = 'status-bar error';
             }
         }
-        
         initPlaid();
+
+        // --- 2. INITIALIZE STRIPE ---
+        const stripe = Stripe(STRIPE_PK);
+        let elements;
+        
+        async function initStripe() {
+            const btn = document.getElementById('stripe-btn');
+            const btnText = document.getElementById('btn-text-stripe');
+            const messageDiv = document.getElementById('stripe-message');
+
+            try {
+                // IMPORTANT: Change this URL to the deployed GCP Cloud Function URL if you want Stripe to run live
+                const CLOUD_FUNCTION_URL = 'http://localhost:8081/create-payment-intent';
+                
+                const response = await fetch(CLOUD_FUNCTION_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ machine_id: machineId, package: packageParam })
+                });
+                
+                const data = await response.json();
+                
+                if (data.error) { throw new Error(data.error); }
+                
+                elements = stripe.elements({
+                    clientSecret: data.clientSecret,
+                    theme: 'night',
+                    variables: {
+                        colorPrimary: '#06b6d4',
+                        colorBackground: '#101218',
+                        colorText: '#e2e8f0',
+                        colorDanger: '#ef4444',
+                        fontFamily: 'JetBrains Mono, monospace',
+                        borderRadius: '6px'
+                    }
+                });
+
+                const paymentElement = elements.create('payment');
+                paymentElement.mount('#payment-element');
+                
+                paymentElement.on('ready', () => {
+                    btn.disabled = false;
+                    btnText.textContent = 'AUTHORIZE CREDIT SETTLEMENT';
+                });
+                
+            } catch (err) {
+                messageDiv.style.display = 'block';
+                messageDiv.textContent = 'Failed to load secure payment gateway: ' + err.message;
+                messageDiv.className = 'status-bar error';
+            }
+        }
+        initStripe();
+
+        // Stripe Form Submission
+        document.getElementById('payment-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('stripe-btn');
+            const spinner = document.getElementById('btn-spinner-stripe');
+            const messageDiv = document.getElementById('stripe-message');
+            
+            btn.disabled = true;
+            spinner.style.display = 'inline-block';
+            document.getElementById('btn-text-stripe').textContent = 'PROCESSING...';
+            messageDiv.style.display = 'none';
+
+            const { error } = await stripe.confirmPayment({
+                elements,
+                confirmParams: {
+                    return_url: window.location.href.split('?')[0] + '?status=success&machine_id=' + machineId
+                }
+            });
+
+            if (error) {
+                messageDiv.style.display = 'block';
+                messageDiv.textContent = error.message;
+                messageDiv.className = 'status-bar error';
+                btn.disabled = false;
+                spinner.style.display = 'none';
+                document.getElementById('btn-text-stripe').textContent = 'AUTHORIZE CREDIT SETTLEMENT';
+            }
+        });
     }
 </script>
 
