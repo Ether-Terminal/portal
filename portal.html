@@ -43,7 +43,7 @@
         /* ── Header ── */
         .header {
             text-align: center;
-            margin-bottom: 52px;
+            margin-bottom: 32px;
         }
 
         .logo-row {
@@ -92,6 +92,97 @@
             line-height: 1.75;
         }
 
+        /* ── Controls ── */
+        .controls-panel {
+            max-width: 600px;
+            margin: 0 auto 48px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .toggle-group {
+            display: flex;
+            background: #000;
+            border-radius: 8px;
+            padding: 4px;
+            width: 100%;
+        }
+
+        .toggle-btn {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: var(--muted);
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            padding: 10px 0;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        .toggle-btn.active {
+            background: var(--card);
+            color: #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+        }
+
+        .wholesale-bar {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .wholesale-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            color: var(--text);
+        }
+
+        #wholesale-discount-badge {
+            background: rgba(6,182,212,0.15);
+            color: var(--cyan);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+        }
+
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            background: var(--cyan);
+            cursor: pointer;
+            margin-top: -8px;
+            box-shadow: 0 0 12px rgba(6,182,212,0.4);
+        }
+
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: var(--border);
+            border-radius: 2px;
+        }
+
         /* ── Grid ── */
         .grid {
             display: grid;
@@ -127,6 +218,7 @@
         .pkg-card[data-accent="emerald"]:hover { border-color: rgba(16,185,129,0.5); box-shadow: 0 0 28px rgba(16,185,129,0.1); }
         .pkg-card[data-accent="blue"]:hover  { border-color: rgba(59,130,246,0.5);  box-shadow: 0 0 28px rgba(59,130,246,0.1); }
         .pkg-card[data-accent="violet"]:hover { border-color: rgba(139,92,246,0.5); box-shadow: 0 0 28px rgba(139,92,246,0.1); }
+        .pkg-card[data-accent="white"]:hover  { border-color: rgba(255,255,255,0.5); box-shadow: 0 0 28px rgba(255,255,255,0.1); }
 
         .pkg-icon { font-size: 34px; margin-bottom: 8px; }
 
@@ -143,6 +235,7 @@
         .pkg-card[data-accent="emerald"] .pkg-name { color: var(--emerald); }
         .pkg-card[data-accent="blue"]    .pkg-name { color: var(--blue); }
         .pkg-card[data-accent="violet"]  .pkg-name { color: var(--violet); }
+        .pkg-card[data-accent="white"]   .pkg-name { color: #fff; }
 
         .pkg-desc {
             font-size: 9px;
@@ -187,6 +280,7 @@
         .pkg-card[data-accent="emerald"] .pkg-price strong { color: var(--emerald); }
         .pkg-card[data-accent="blue"]    .pkg-price strong { color: var(--blue); }
         .pkg-card[data-accent="violet"]  .pkg-price strong { color: var(--violet); }
+        .pkg-card[data-accent="white"]   .pkg-price strong { color: #fff; }
 
         /* ── Footer ── */
         footer {
@@ -211,6 +305,21 @@
     <p class="sub">Scan the QR code for your deployment tier to securely activate your node on the Ether OS Settlement Network.</p>
 </div>
 
+<div class="controls-panel">
+    <div class="toggle-group">
+        <button id="btn-monthly" class="toggle-btn" onclick="setBilling('monthly')">MONTHLY BILLING</button>
+        <button id="btn-annual" class="toggle-btn active" onclick="setBilling('annual')">ANNUAL BILLING (SAVE 20%)</button>
+    </div>
+
+    <div class="wholesale-bar">
+        <div class="wholesale-header">
+            <span>WHOLESALE VOLUME: <span id="display-nodes" style="color:var(--text)">50</span> NODES</span>
+            <span id="wholesale-discount-badge">-10% DISCOUNT</span>
+        </div>
+        <input type="range" id="slider-nodes" min="10" max="200" step="5" value="50" oninput="updateWholesale()">
+    </div>
+</div>
+
 <div class="grid" id="grid"></div>
 
 <footer>
@@ -222,19 +331,91 @@
     const BASE = 'https://ether-terminal.github.io/portal/index.html';
     // ────────────────────────────────────────────────────────────────────────────────────
 
+    let isAnnual = true;
+    let wholesaleNodes = 50;
+
     const PKGS = [
-        { id: 'basic_node',   icon: '🔹',  name: 'Basic Node',       accent: 'blue',    price: '$12,000', desc: 'Core risk evaluation entrypoint for single localized branches.' },
-        { id: 'pro_node',     icon: '⚡',  name: 'Professional Node',accent: 'emerald', price: '$35,000', desc: 'Advanced multi-line coverage with zero-trust local verification.' },
-        { id: 'premium_node', icon: '💎',  name: 'Premium Node',     accent: 'violet',  price: '$80,000', desc: 'Full enterprise pipeline featuring zero-wait settlement engine.' },
-        { id: 'aviation_basic',icon: '✈️', name: 'Aviation Basic',   accent: 'cyan',    price: '$85,000', desc: 'Commercial hull & regional logistics tracking module.' },
-        { id: 'aviation_pro',  icon: '🚀', name: 'Aviation Pro',     accent: 'amber',   price: '$195,000',desc: 'Fleet operations with edge-computed risk models.' },
-        { id: 'aviation_premium',icon: '🛰️',name: 'Aviation Premium', accent: 'violet',  price: '$450,000',desc: 'Orbital, hypersonic, & premium military-grade risk command.' }
+        { id: 'basic_node',   icon: '🔹',  name: 'Basic Node',       accent: 'blue',    priceMo: 1200, priceYr: 12000, desc: 'Core risk evaluation entrypoint for single localized branches.' },
+        { id: 'pro_node',     icon: '⚡',  name: 'Professional Node',accent: 'emerald', priceMo: 3500, priceYr: 35000, desc: 'Advanced multi-line coverage with zero-trust local verification.' },
+        { id: 'premium_node', icon: '💎',  name: 'Premium Node',     accent: 'violet',  priceMo: 8000, priceYr: 80000, desc: 'Full enterprise pipeline featuring zero-wait settlement engine.' },
+        { id: 'aviation_basic',icon: '✈️', name: 'Aviation Basic',   accent: 'cyan',    priceMo: 8500, priceYr: 85000, desc: 'Commercial hull & regional logistics tracking module.' },
+        { id: 'aviation_pro',  icon: '🚀', name: 'Aviation Pro',     accent: 'amber',   priceMo: 19500,priceYr: 195000,desc: 'Fleet operations with edge-computed risk models.' },
+        { id: 'aviation_premium',icon: '🛰️',name: 'Aviation Premium', accent: 'violet',  priceMo: 45000,priceYr: 450000,desc: 'Orbital, hypersonic, & premium military-grade risk command.' }
     ];
 
-    const grid = document.getElementById('grid');
+    const formatter = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        maximumFractionDigits: 0
+    });
 
-    PKGS.forEach(pkg => {
-        const url = `${BASE}?package=${pkg.id}`;
+    function setBilling(mode) {
+        isAnnual = (mode === 'annual');
+        document.getElementById('btn-annual').classList.toggle('active', isAnnual);
+        document.getElementById('btn-monthly').classList.toggle('active', !isAnnual);
+        renderGrid();
+    }
+
+    function updateWholesale() {
+        wholesaleNodes = parseInt(document.getElementById('slider-nodes').value);
+        document.getElementById('display-nodes').textContent = wholesaleNodes;
+        
+        let discount = 0;
+        if (wholesaleNodes < 25) discount = 0;
+        else if (wholesaleNodes < 50) discount = 10;
+        else if (wholesaleNodes < 100) discount = 20;
+        else discount = 35;
+        
+        const badge = document.getElementById('wholesale-discount-badge');
+        badge.textContent = `-${discount}% DISCOUNT`;
+        badge.style.display = discount > 0 ? 'inline-block' : 'none';
+        
+        renderGrid();
+    }
+
+    function renderGrid() {
+        const grid = document.getElementById('grid');
+        grid.innerHTML = '';
+        
+        // Render Wholesale Block First
+        let discount = 0;
+        if (wholesaleNodes < 25) discount = 0;
+        else if (wholesaleNodes < 50) discount = 10;
+        else if (wholesaleNodes < 100) discount = 20;
+        else discount = 35;
+
+        // Base price: Premium node ($8k/mo or $80k/yr) per node
+        let baseRate = isAnnual ? (80000 * wholesaleNodes) : (8000 * wholesaleNodes);
+        let finalRate = baseRate * (1 - (discount / 100));
+
+        renderCard({
+            id: 'wholesale_block',
+            icon: '🏢',
+            name: `Wholesale Block (x${wholesaleNodes})`,
+            accent: 'white',
+            price: formatter.format(finalRate),
+            period: isAnnual ? '/year' : '/month',
+            desc: `Provision ${wholesaleNodes} enterprise nodes across your organizational perimeter.`
+        });
+
+        // Render Standard Packages
+        PKGS.forEach(pkg => {
+            const priceVal = isAnnual ? pkg.priceYr : pkg.priceMo;
+            renderCard({
+                id: pkg.id,
+                icon: pkg.icon,
+                name: pkg.name,
+                accent: pkg.accent,
+                price: formatter.format(priceVal),
+                period: isAnnual ? '/year' : '/month',
+                desc: pkg.desc
+            });
+        });
+    }
+
+    function renderCard(pkg) {
+        const grid = document.getElementById('grid');
+        const url = `${BASE}?package=${pkg.id}&billing=${isAnnual ? 'annual' : 'monthly'}${pkg.id === 'wholesale_block' ? '&nodes=' + wholesaleNodes : ''}`;
 
         const card = document.createElement('a');
         card.className = 'pkg-card';
@@ -248,20 +429,26 @@
             <p class="pkg-desc">${pkg.desc}</p>
             <div class="qr-box" id="qr-${pkg.id}"></div>
             <div class="scan-hint">SCAN TO PURCHASE</div>
-            <div class="pkg-price"><strong>${pkg.price}</strong>/year</div>
+            <div class="pkg-price"><strong>${pkg.price}</strong>${pkg.period}</div>
         `;
 
         grid.appendChild(card);
 
-        new QRCode(document.getElementById(`qr-${pkg.id}`), {
-            text: url,
-            width: 148,
-            height: 148,
-            colorDark: '#000000',
-            colorLight: '#ffffff',
-            correctLevel: QRCode.CorrectLevel.H
+        // Generate QR code safely using requestAnimationFrame to ensure DOM is ready
+        requestAnimationFrame(() => {
+            new QRCode(document.getElementById(`qr-${pkg.id}`), {
+                text: url,
+                width: 148,
+                height: 148,
+                colorDark: '#000000',
+                colorLight: '#ffffff',
+                correctLevel: QRCode.CorrectLevel.H
+            });
         });
-    });
+    }
+
+    // Initialize
+    updateWholesale();
 </script>
 </body>
 </html>
