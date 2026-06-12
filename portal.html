@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ether Sovereign OS — Insurance Packages</title>
-    <meta name="description" content="Choose your Ether OS insurance coverage package and complete secure activation.">
+    <title>Ether Sovereign OS — License Activation</title>
+    <meta name="description" content="Select your Ether OS license node and complete secure activation.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
@@ -95,7 +95,7 @@
         /* ── Grid ── */
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
             gap: 18px;
             max-width: 1080px;
             margin: 0 auto 64px;
@@ -133,7 +133,7 @@
         .pkg-name {
             font-size: 11px;
             font-weight: 800;
-            letter-spacing: 0.22em;
+            letter-spacing: 0.1em;
             text-transform: uppercase;
             margin-bottom: 6px;
         }
@@ -150,6 +150,7 @@
             letter-spacing: 0.06em;
             line-height: 1.7;
             margin-bottom: 18px;
+            flex-grow: 1;
         }
 
         /* QR Box */
@@ -206,8 +207,8 @@
         <div class="logo-mark">E</div>
         <span class="logo-name">ETHER OS</span>
     </div>
-    <h1>Select Your <em>Coverage Package</em></h1>
-    <p class="sub">Scan the QR code for the coverage type you need. You will be taken directly to the secure Ether OS payment screen.</p>
+    <h1>Select Your <em>License Node</em></h1>
+    <p class="sub">Scan the QR code for your deployment tier to securely activate your node on the Ether OS Settlement Network.</p>
 </div>
 
 <div class="grid" id="grid"></div>
@@ -222,11 +223,12 @@
     // ────────────────────────────────────────────────────────────────────────────────────
 
     const PKGS = [
-        { id: 'aviation',   icon: '✈️',  name: 'Aviation',       accent: 'cyan',    price: '$1,999', desc: 'Private, commercial & charter aircraft operations.' },
-        { id: 'motorcycle', icon: '🏍️', name: 'Motorcycle',     accent: 'amber',   price: '$1,999', desc: 'Motorcycles, trikes & off-road vehicle coverage.' },
-        { id: 'home',       icon: '🏡',  name: 'Home',           accent: 'emerald', price: '$1,999', desc: 'Residential & rental property with full liability.' },
-        { id: 'automotive', icon: '🚗',  name: 'Automotive',     accent: 'blue',    price: '$1,999', desc: 'Fleet & personal vehicles, collision and liability.' },
-        { id: 'yacht',      icon: '⛵',  name: 'Yacht & Marine', accent: 'violet',  price: '$1,999', desc: 'Offshore & inland waterway coverage for all vessels.' }
+        { id: 'basic_node',   icon: '🔹',  name: 'Basic Node',       accent: 'blue',    price: '$12,000', desc: 'Core risk evaluation entrypoint for single localized branches.' },
+        { id: 'pro_node',     icon: '⚡',  name: 'Professional Node',accent: 'emerald', price: '$35,000', desc: 'Advanced multi-line coverage with zero-trust local verification.' },
+        { id: 'premium_node', icon: '💎',  name: 'Premium Node',     accent: 'violet',  price: '$80,000', desc: 'Full enterprise pipeline featuring zero-wait settlement engine.' },
+        { id: 'aviation_basic',icon: '✈️', name: 'Aviation Basic',   accent: 'cyan',    price: '$85,000', desc: 'Commercial hull & regional logistics tracking module.' },
+        { id: 'aviation_pro',  icon: '🚀', name: 'Aviation Pro',     accent: 'amber',   price: '$195,000',desc: 'Fleet operations with edge-computed risk models.' },
+        { id: 'aviation_premium',icon: '🛰️',name: 'Aviation Premium', accent: 'violet',  price: '$450,000',desc: 'Orbital, hypersonic, & premium military-grade risk command.' }
     ];
 
     const grid = document.getElementById('grid');
