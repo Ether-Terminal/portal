@@ -7,8 +7,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
     
-    <!-- Stripe.js v3 -->
-    <script src="https://js.stripe.com/v3/"></script>
+    <!-- Plaid Link -->
+    <script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
     
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -155,26 +155,20 @@
         &nbsp;·&nbsp; Machine: <span id="display-machine-id">DETECTING...</span>
     </p>
 
-    <!-- Stripe Form Element -->
-    <form id="payment-form">
-        <div id="payment-panel">
-            <!-- Stripe.js dynamically injects the secure Payment Element here -->
-        </div>
-
-        <button type="submit" class="btn btn-pay" id="submit-btn" disabled>
+    <!-- Plaid Integration -->
+    <div id="payment-panel" style="text-align: center; padding-top: 20px;">
+        <button type="button" class="btn btn-pay" id="plaid-btn">
             <span class="spinner" id="btn-spinner" style="display: none;"></span>
-            <span id="btn-text">LOADING SECURE BRIDGE...</span>
+            <span id="btn-text">AUTHORIZE SECURE ACH SETTLEMENT</span>
         </button>
+    </div>
 
-        <div id="payment-message" class="status-bar"></div>
-    </form>
+    <div id="payment-message" class="status-bar"></div>
 </div>
 
 <script>
-    // --- CLOUD FUNCTION ENDPOINT URL ---
-    // Change this to your deployed GCP function URL in production
-    const CLOUD_FUNCTION_URL = 'http://localhost:8080'; 
-    const STRIPE_PUBLIC_KEY = 'pk_test_PLACEHOLDER_KEY';
+    // --- PLAID BACKEND ENDPOINT ---
+    const BACKEND_URL = 'http://localhost:8080';
 
     // 1. Parse machine ID and package from URL
     const urlParams = new URLSearchParams(window.location.search);
@@ -189,7 +183,8 @@
         premium_node:     '💎  PREMIUM NODE',
         aviation_basic:   '✈️  AVIATION BASIC',
         aviation_pro:     '🚀  AVIATION PROFESSIONAL',
-        aviation_premium: '🛰️  AVIATION PREMIUM'
+        aviation_premium: '🛰️  AVIATION PREMIUM',
+        wholesale_block:  '🏢  WHOLESALE ENTERPRISE BLOCK'
     };
 
     const pkgLabel = PACKAGE_LABELS[packageParam] || packageParam.toUpperCase();
@@ -197,17 +192,17 @@
         document.getElementById('display-package').textContent = pkgLabel;
     }
     if (document.getElementById('pkg-badge')) {
-        document.getElementById('pkg-badge').textContent = packageParam.toUpperCase();
+        document.getElementById('pkg-badge').textContent = 'PLAID ACH BRIDGE';
     }
 
     if (paymentStatus === 'success') {
         const panel = document.querySelector('.panel');
         panel.innerHTML = `
             <div class="header" style="justify-content: center; margin-bottom: 24px;">
-                <h1 style="font-size: 16px;">PAYMENT SUCCESSFUL</h1>
+                <h1 style="font-size: 16px;">SETTLEMENT SUCCESSFUL</h1>
             </div>
             <p class="status-bar ok" style="font-size: 12px; text-align: center;">
-                Your license for <strong>${machineId}</strong> has been provisioned.
+                Your license for <strong>${machineId}</strong> has been provisioned via secure ACH.
                 <br><br>
                 You may now return to the terminal and resume operations.
             </p>
@@ -215,103 +210,70 @@
     } else {
         document.getElementById('display-machine-id').textContent = machineId;
 
-        // 2. Initialize Stripe
-        const stripe = Stripe(STRIPE_PUBLIC_KEY);
-        let elements;
-
-    // 3. Dynamic initialization logic
-    async function initialize() {
-        try {
-            const response = await fetch(CLOUD_FUNCTION_URL + '/create-payment-intent', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ machine_id: machineId, package: packageParam }),
-            });
-            
-            const { clientSecret, error } = await response.json();
-            
-            if (error) {
-                document.getElementById('payment-message').textContent = 'Error connecting to backend: ' + error;
-                document.getElementById('payment-message').className = 'status-bar error';
-                return;
-            }
-
-            // Configure deep dark mode theme
-            const appearance = {
-                theme: 'night',
-                variables: {
-                    colorPrimary: '#10b981',
-                    colorBackground: '#0e0f12',
-                    colorText: '#cbd5e1',
-                    colorDanger: '#ef4444',
-                    fontFamily: '"JetBrains Mono", monospace',
-                    spacingUnit: '4px',
-                    borderRadius: '6px',
-                },
-                rules: {
-                    '.Input': { border: '1px solid #1c1f26', boxShadow: 'none', backgroundColor: '#070709' },
-                    '.Input:focus': { border: '1px solid #10b981', boxShadow: '0 0 0 1px #10b981' },
-                    '.Label': { color: '#475569', fontSize: '9px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.15em' }
-                }
-            };
-            
-            elements = stripe.elements({ clientSecret, appearance });
-            const paymentElement = elements.create('payment');
-            paymentElement.mount('#payment-panel');
-            
-            paymentElement.on('ready', () => {
-                const btn = document.getElementById('submit-btn');
-                const btnText = document.getElementById('btn-text');
-                btn.disabled = false;
-                btnText.textContent = 'AUTHORIZE SECURE PAYMENT';
-            });
-            
-        } catch (err) {
-            document.getElementById('payment-message').textContent = 'Network error: ' + err.message;
-            document.getElementById('payment-message').className = 'status-bar error';
-        }
-    }
-
-    // Run immediately if not success
-    if (paymentStatus !== 'success') {
-        initialize();
-
-        // 4. Handle Form Submission
-        const form = document.getElementById('payment-form');
-        
-        form.addEventListener('submit', async (event) => {
-            event.preventDefault();
-            
-            if (!elements) return; // Prevent clicking before init
-            
-            const submitBtn = document.getElementById('submit-btn');
-            const btnText = document.getElementById('btn-text');
-            const spinner = document.getElementById('btn-spinner');
+        // Fetch Link Token and initialize Plaid Link
+        async function initPlaid() {
+            const btn = document.getElementById('plaid-btn');
             const messageDiv = document.getElementById('payment-message');
             
-            submitBtn.disabled = true;
-            btnText.textContent = 'PROCESSING SETTLEMENT...';
-            spinner.style.display = 'inline-block';
-            messageDiv.textContent = 'Contacting clearinghouse...';
-            messageDiv.className = 'status-bar';
-            
-            // Confirm payment with Stripe.js
-            const { error } = await stripe.confirmPayment({
-                elements,
-                confirmParams: {
-                    // Where Stripe redirects the user after 3D Secure or payment completion
-                    return_url: window.location.href.split('?')[0] + '?status=success&machine_id=' + machineId,
-                },
-            });
-
-            if (error) {
-                messageDiv.textContent = `ERROR: ${error.message}`;
+            try {
+                const response = await fetch(BACKEND_URL + '/api/create_link_token', { method: 'POST' });
+                const data = await response.json();
+                
+                if (data.error) {
+                    messageDiv.textContent = 'Error connecting to Plaid: ' + data.error;
+                    messageDiv.className = 'status-bar error';
+                    return;
+                }
+                
+                const handler = Plaid.create({
+                    token: data.link_token,
+                    onSuccess: async (public_token, metadata) => {
+                        messageDiv.textContent = 'Authenticating ledger data...';
+                        btn.disabled = true;
+                        document.getElementById('btn-spinner').style.display = 'inline-block';
+                        document.getElementById('btn-text').textContent = 'PROCESSING SETTLEMENT...';
+                        
+                        // Exchange token
+                        const exchangeRes = await fetch(BACKEND_URL + '/api/set_access_token', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ public_token, machine_id: machineId, package: packageParam })
+                        });
+                        
+                        const exchangeData = await exchangeRes.json();
+                        
+                        if (exchangeData.error) {
+                            messageDiv.textContent = 'Settlement failed: ' + exchangeData.error;
+                            messageDiv.className = 'status-bar error';
+                            btn.disabled = false;
+                            document.getElementById('btn-spinner').style.display = 'none';
+                            document.getElementById('btn-text').textContent = 'AUTHORIZE SECURE ACH SETTLEMENT';
+                        } else {
+                            window.location.href = window.location.href.split('?')[0] + '?status=success&machine_id=' + machineId;
+                        }
+                    },
+                    onLoad: () => {
+                        // Link loaded
+                    },
+                    onExit: (err, metadata) => {
+                        if (err != null) {
+                            messageDiv.textContent = 'Plaid error: ' + err.display_message;
+                            messageDiv.className = 'status-bar error';
+                        }
+                    }
+                });
+                
+                btn.addEventListener('click', () => {
+                    handler.open();
+                });
+                
+            } catch (err) {
+                messageDiv.textContent = 'Network error: ' + err.message;
                 messageDiv.className = 'status-bar error';
-                submitBtn.disabled = false;
-                btnText.textContent = 'AUTHORIZE SECURE PAYMENT';
-                spinner.style.display = 'none';
             }
-        });
+        }
+        
+        initPlaid();
     }
 </script>
 
