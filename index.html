@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ether Sovereign OS — Secure Settlement Bridge</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Stripe.js v3 -->
+    <script src="https://js.stripe.com/v3/"></script>
+    
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg:        #070709;
+            --surface:   #0e0f12;
+            --border:    #1c1f26;
+            --cyan:      #00f0ff;
+            --emerald:   #10b981;
+            --red:       #ef4444;
+            --text:      #cbd5e1;
+            --muted:     #475569;
+        }
+
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            background-image:
+                linear-gradient(to right, rgba(0,240,255,0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0,240,255,0.03) 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+
+        .panel {
+            width: 100%;
+            max-width: 440px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 32px;
+            box-shadow: 0 0 40px rgba(0,240,255,0.06), 0 20px 60px rgba(0,0,0,0.6);
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 6px;
+        }
+
+        .header h1 {
+            color: var(--emerald);
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+
+        .badge {
+            font-size: 9px;
+            background: rgba(16,185,129,0.1);
+            color: var(--emerald);
+            border: 1px solid rgba(16,185,129,0.3);
+            padding: 3px 8px;
+            border-radius: 4px;
+            letter-spacing: 0.15em;
+        }
+
+        .machine-line {
+            font-size: 10px;
+            color: var(--muted);
+            margin-bottom: 28px;
+            margin-top: 4px;
+        }
+
+        .machine-line span {
+            color: var(--emerald);
+            font-weight: 700;
+        }
+
+        .btn {
+            width: 100%;
+            margin-top: 24px;
+            padding: 16px;
+            border: none;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 0.2em;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-pay {
+            background: var(--emerald);
+            color: #000;
+        }
+
+        .btn-pay:hover { background: #34d399; }
+        .btn-pay:disabled { background: #1c3a2f; color: var(--muted); cursor: not-allowed; }
+
+        .status-bar {
+            margin-top: 20px;
+            font-size: 10px;
+            color: var(--muted);
+            text-align: center;
+            letter-spacing: 0.1em;
+            line-height: 1.5;
+        }
+
+        .status-bar.error { color: var(--red); }
+        .status-bar.ok    { color: var(--emerald); }
+
+        #payment-panel {
+            min-height: 200px;
+            margin-bottom: 12px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border: 2px solid rgba(0,0,0,0.3);
+            border-radius: 50%;
+            border-top-color: #000;
+            animation: spin 1s ease-in-out infinite;
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="panel">
+    <div class="header">
+        <h1 id="pkg-title">ETHAN SETTLEMENT</h1>
+        <span class="badge" id="pkg-badge">STRIPE BRIDGE</span>
+    </div>
+    <p class="machine-line">
+        Coverage: <span id="display-package" style="color:var(--emerald); font-weight:700;">—</span>
+        &nbsp;·&nbsp; Machine: <span id="display-machine-id">DETECTING...</span>
+    </p>
+
+    <!-- Stripe Form Element -->
+    <form id="payment-form">
+        <div id="payment-panel">
+            <!-- Stripe.js dynamically injects the secure Payment Element here -->
+        </div>
+
+        <button type="submit" class="btn btn-pay" id="submit-btn" disabled>
+            <span class="spinner" id="btn-spinner" style="display: none;"></span>
+            <span id="btn-text">LOADING SECURE BRIDGE...</span>
+        </button>
+
+        <div id="payment-message" class="status-bar"></div>
+    </form>
+</div>
+
+<script>
+    // --- CLOUD FUNCTION ENDPOINT URL ---
+    // Change this to your deployed GCP function URL in production
+    const CLOUD_FUNCTION_URL = 'http://localhost:8080'; 
+    const STRIPE_PUBLIC_KEY = 'pk_test_PLACEHOLDER_KEY';
+
+    // 1. Parse machine ID and package from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const challenge = urlParams.get('challenge') || '';
+    const paymentStatus = urlParams.get('status');
+    const machineId = challenge.replace('ETHER_CHALLENGE_', '') || urlParams.get('machine_id') || 'TEST-MACHINE';
+    const packageParam = urlParams.get('package') || 'all';
+
+    const PACKAGE_LABELS = {
+        aviation:   '✈️  AVIATION INSURANCE',
+        motorcycle: '🏍️  MOTORCYCLE INSURANCE',
+        home:       '🏡  HOME INSURANCE',
+        automotive: '🚗  AUTOMOTIVE INSURANCE',
+        yacht:      '⛵  YACHT & MARINE INSURANCE'
+    };
+
+    const pkgLabel = PACKAGE_LABELS[packageParam] || packageParam.toUpperCase();
+    if (document.getElementById('display-package')) {
+        document.getElementById('display-package').textContent = pkgLabel;
+    }
+    if (document.getElementById('pkg-badge')) {
+        document.getElementById('pkg-badge').textContent = packageParam.toUpperCase();
+    }
+
+    if (paymentStatus === 'success') {
+        const panel = document.querySelector('.panel');
+        panel.innerHTML = `
+            <div class="header" style="justify-content: center; margin-bottom: 24px;">
+                <h1 style="font-size: 16px;">PAYMENT SUCCESSFUL</h1>
+            </div>
+            <p class="status-bar ok" style="font-size: 12px; text-align: center;">
+                Your license for <strong>${machineId}</strong> has been provisioned.
+                <br><br>
+                You may now return to the terminal and resume operations.
+            </p>
+        `;
+    } else {
+        document.getElementById('display-machine-id').textContent = machineId;
+
+        // 2. Initialize Stripe
+        const stripe = Stripe(STRIPE_PUBLIC_KEY);
+        let elements;
+
+    // 3. Dynamic initialization logic
+    async function initialize() {
+        try {
+            const response = await fetch(CLOUD_FUNCTION_URL + '/create-payment-intent', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ machine_id: machineId, package: packageParam }),
+            });
+            
+            const { clientSecret, error } = await response.json();
+            
+            if (error) {
+                document.getElementById('payment-message').textContent = 'Error connecting to backend: ' + error;
+                document.getElementById('payment-message').className = 'status-bar error';
+                return;
+            }
+
+            // Configure deep dark mode theme
+            const appearance = {
+                theme: 'night',
+                variables: {
+                    colorPrimary: '#10b981',
+                    colorBackground: '#0e0f12',
+                    colorText: '#cbd5e1',
+                    colorDanger: '#ef4444',
+                    fontFamily: '"JetBrains Mono", monospace',
+                    spacingUnit: '4px',
+                    borderRadius: '6px',
+                },
+                rules: {
+                    '.Input': { border: '1px solid #1c1f26', boxShadow: 'none', backgroundColor: '#070709' },
+                    '.Input:focus': { border: '1px solid #10b981', boxShadow: '0 0 0 1px #10b981' },
+                    '.Label': { color: '#475569', fontSize: '9px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.15em' }
+                }
+            };
+            
+            elements = stripe.elements({ clientSecret, appearance });
+            const paymentElement = elements.create('payment');
+            paymentElement.mount('#payment-panel');
+            
+            paymentElement.on('ready', () => {
+                const btn = document.getElementById('submit-btn');
+                const btnText = document.getElementById('btn-text');
+                btn.disabled = false;
+                btnText.textContent = 'AUTHORIZE SECURE PAYMENT';
+            });
+            
+        } catch (err) {
+            document.getElementById('payment-message').textContent = 'Network error: ' + err.message;
+            document.getElementById('payment-message').className = 'status-bar error';
+        }
+    }
+
+    // Run immediately if not success
+    if (paymentStatus !== 'success') {
+        initialize();
+
+        // 4. Handle Form Submission
+        const form = document.getElementById('payment-form');
+        
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            
+            if (!elements) return; // Prevent clicking before init
+            
+            const submitBtn = document.getElementById('submit-btn');
+            const btnText = document.getElementById('btn-text');
+            const spinner = document.getElementById('btn-spinner');
+            const messageDiv = document.getElementById('payment-message');
+            
+            submitBtn.disabled = true;
+            btnText.textContent = 'PROCESSING SETTLEMENT...';
+            spinner.style.display = 'inline-block';
+            messageDiv.textContent = 'Contacting clearinghouse...';
+            messageDiv.className = 'status-bar';
+            
+            // Confirm payment with Stripe.js
+            const { error } = await stripe.confirmPayment({
+                elements,
+                confirmParams: {
+                    // Where Stripe redirects the user after 3D Secure or payment completion
+                    return_url: window.location.href.split('?')[0] + '?status=success&machine_id=' + machineId,
+                },
+            });
+
+            if (error) {
+                messageDiv.textContent = `ERROR: ${error.message}`;
+                messageDiv.className = 'status-bar error';
+                submitBtn.disabled = false;
+                btnText.textContent = 'AUTHORIZE SECURE PAYMENT';
+                spinner.style.display = 'none';
+            }
+        });
+    }
+</script>
+
+</body>
+</html>
