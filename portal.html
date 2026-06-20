@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ether Sovereign OS — License Activation</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg:      #060608;
+            --surface: #0c0d10;
+            --card:    #101218;
+            --border:  #1a1d26;
+            --text:    #e2e8f0;
+            --muted:   #64748b;
+            --emerald: #10b981;
+            --cyan:    #06b6d4;
+            --amber:   #f59e0b;
+            --blue:    #3b82f6;
+            --violet:  #8b5cf6;
+        }
+
+        html, body { min-height: 100%; }
+
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--bg);
+            color: var(--text);
+            padding: 48px 20px 80px;
+            background-image:
+                radial-gradient(ellipse 80% 40% at 50% -5%, rgba(16,185,129,0.06) 0%, transparent 70%),
+                linear-gradient(rgba(16,185,129,0.012) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(16,185,129,0.012) 1px, transparent 1px);
+            background-size: auto, 40px 40px, 40px 40px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .logo-row {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+
+        .logo-mark {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--emerald), var(--cyan));
+            border-radius: 7px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 800;
+            color: #000;
+        }
+
+        .logo-name {
+            font-size: 16px;
+            font-weight: 800;
+            letter-spacing: 0.28em;
+            color: var(--emerald);
+        }
+
+        h1 {
+            font-size: clamp(20px, 4vw, 30px);
+            font-weight: 800;
+            letter-spacing: 0.04em;
+            margin-bottom: 12px;
+            color: var(--text);
+        }
+
+        h1 em { color: var(--emerald); font-style: normal; }
+
+        .sub {
+            font-size: 10px;
+            color: var(--muted);
+            letter-spacing: 0.1em;
+            max-width: 440px;
+            margin: 0 auto;
+            line-height: 1.75;
+        }
+
+        .controls-panel {
+            max-width: 600px;
+            margin: 0 auto 48px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .toggle-group {
+            display: flex;
+            background: #000;
+            border-radius: 8px;
+            padding: 4px;
+            width: 100%;
+        }
+
+        .toggle-btn {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: var(--muted);
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            padding: 10px 0;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        .toggle-btn.active {
+            background: var(--card);
+            color: #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+        }
+
+        .wholesale-bar {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .wholesale-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            color: var(--text);
+        }
+
+        #wholesale-discount-badge {
+            background: rgba(6,182,212,0.15);
+            color: var(--cyan);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+        }
+
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            background: var(--cyan);
+            cursor: pointer;
+            margin-top: -8px;
+            box-shadow: 0 0 12px rgba(6,182,212,0.4);
+        }
+
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: var(--border);
+            border-radius: 2px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 18px;
+            max-width: 1080px;
+            margin: 0 auto 64px;
+        }
+
+        .pkg-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 24px 20px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 0;
+            transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .pkg-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .pkg-card[data-accent="cyan"]:hover  { border-color: rgba(6,182,212,0.5);  box-shadow: 0 0 28px rgba(6,182,212,0.1); }
+        .pkg-card[data-accent="amber"]:hover { border-color: rgba(245,158,11,0.5); box-shadow: 0 0 28px rgba(245,158,11,0.1); }
+        .pkg-card[data-accent="emerald"]:hover { border-color: rgba(16,185,129,0.5); box-shadow: 0 0 28px rgba(16,185,129,0.1); }
+        .pkg-card[data-accent="blue"]:hover  { border-color: rgba(59,130,246,0.5);  box-shadow: 0 0 28px rgba(59,130,246,0.1); }
+        .pkg-card[data-accent="violet"]:hover { border-color: rgba(139,92,246,0.5); box-shadow: 0 0 28px rgba(139,92,246,0.1); }
+        .pkg-card[data-accent="white"]:hover  { border-color: rgba(255,255,255,0.5); box-shadow: 0 0 28px rgba(255,255,255,0.1); }
+
+        .pkg-icon { font-size: 34px; margin-bottom: 8px; }
+
+        .pkg-name {
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .pkg-card[data-accent="cyan"]    .pkg-name { color: var(--cyan); }
+        .pkg-card[data-accent="amber"]   .pkg-name { color: var(--amber); }
+        .pkg-card[data-accent="emerald"] .pkg-name { color: var(--emerald); }
+        .pkg-card[data-accent="blue"]    .pkg-name { color: var(--blue); }
+        .pkg-card[data-accent="violet"]  .pkg-name { color: var(--violet); }
+        .pkg-card[data-accent="white"]   .pkg-name { color: #fff; }
+
+        .pkg-desc {
+            font-size: 9px;
+            color: var(--muted);
+            letter-spacing: 0.06em;
+            line-height: 1.7;
+            margin-bottom: 18px;
+            flex-grow: 1;
+        }
+
+        .qr-box {
+            background: #fff;
+            border-radius: 8px;
+            padding: 9px;
+            margin-bottom: 12px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+        }
+
+        .qr-box canvas, .qr-box img { display: block; }
+
+        .scan-hint {
+            font-size: 8px;
+            letter-spacing: 0.15em;
+            color: var(--muted);
+            margin-bottom: 12px;
+        }
+
+        .pkg-price {
+            font-size: 10px;
+            color: var(--muted);
+        }
+
+        .pkg-price strong {
+            font-size: 20px;
+            font-weight: 800;
+            display: block;
+        }
+
+        .pkg-card[data-accent="cyan"]    .pkg-price strong { color: var(--cyan); }
+        .pkg-card[data-accent="amber"]   .pkg-price strong { color: var(--amber); }
+        .pkg-card[data-accent="emerald"] .pkg-price strong { color: var(--emerald); }
+        .pkg-card[data-accent="blue"]    .pkg-price strong { color: var(--blue); }
+        .pkg-card[data-accent="violet"]  .pkg-price strong { color: var(--violet); }
+        .pkg-card[data-accent="white"]   .pkg-price strong { color: #fff; }
+
+        footer {
+            text-align: center;
+            font-size: 9px;
+            color: var(--muted);
+            letter-spacing: 0.1em;
+            line-height: 2.2;
+        }
+
+        footer strong { color: var(--emerald); }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div class="logo-row">
+        <div class="logo-mark">E</div>
+        <span class="logo-name">ETHER OS</span>
+    </div>
+    <h1>Select Your <em>License Node</em></h1>
+    <p class="sub">Scan the QR code for your deployment tier to securely activate your node on the Ether OS Settlement Network.</p>
+</div>
+
+<div class="controls-panel">
+    <div class="toggle-group">
+        <button id="btn-monthly" class="toggle-btn" onclick="setBilling('monthly')">MONTHLY BILLING</button>
+        <button id="btn-annual" class="toggle-btn active" onclick="setBilling('annual')">ANNUAL BILLING (SAVE 20%)</button>
+    </div>
+
+    <div class="wholesale-bar">
+        <div class="wholesale-header">
+            <span>WHOLESALE VOLUME: <span id="display-nodes" style="color:var(--text)">50</span> NODES</span>
+            <span id="wholesale-discount-badge">-10% DISCOUNT</span>
+        </div>
+        <input type="range" id="slider-nodes" min="10" max="200" step="5" value="50" oninput="updateWholesale()">
+    </div>
+</div>
+
+<div class="grid" id="grid"></div>
+
+<footer>
+    <p>Powered by <strong>Ether Terminal LLC</strong> &nbsp;·&nbsp; Sovereign OS Settlement Network</p>
+</footer>
+
+<script>
+
+    const BASE = 'https://ether-terminal.github.io/portal/index.html';
+
+    let isAnnual = true;
+    let wholesaleNodes = 50;
+
+    const PKGS = [
+        { id: 'basic_node',   icon: '🔹',  name: 'Basic Node',       accent: 'blue',    priceMo: 1200, priceYr: 12000, desc: 'Core risk evaluation entrypoint for single localized branches.' },
+        { id: 'pro_node',     icon: '⚡',  name: 'Professional Node',accent: 'emerald', priceMo: 3500, priceYr: 35000, desc: 'Advanced multi-line coverage with zero-trust local verification.' },
+        { id: 'premium_node', icon: '💎',  name: 'Premium Node',     accent: 'violet',  priceMo: 8000, priceYr: 80000, desc: 'Full enterprise pipeline featuring zero-wait settlement engine.' },
+        { id: 'aviation_basic',  icon: '✈️', name: 'Aviation Basic',   accent: 'cyan',   priceMo: 8500,  priceYr: 85000,  desc: 'Commercial hull & regional logistics tracking module.' },
+        { id: 'aviation_pro',    icon: '🚀', name: 'Aviation Pro',     accent: 'amber',  priceMo: 19500, priceYr: 195000, desc: 'Fleet operations with edge-computed risk models.' },
+        { id: 'aviation_premium',icon: '🛰️', name: 'Aviation Premium',  accent: 'violet', priceMo: 45000, priceYr: 450000, desc: 'Orbital, hypersonic, & premium military-grade risk command.' },
+        { id: 'aviation_jet',    icon: '🛩️', name: 'Aviation Jet',      accent: 'white',  priceMo: 28000, priceYr: 280000, desc: 'Private & charter jet telematics with real-time hull valuation and risk scoring.' }
+    ];
+
+    const formatter = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        maximumFractionDigits: 0
+    });
+
+    function setBilling(mode) {
+        isAnnual = (mode === 'annual');
+        document.getElementById('btn-annual').classList.toggle('active', isAnnual);
+        document.getElementById('btn-monthly').classList.toggle('active', !isAnnual);
+        renderGrid();
+    }
+
+    function updateWholesale() {
+        wholesaleNodes = parseInt(document.getElementById('slider-nodes').value);
+        document.getElementById('display-nodes').textContent = wholesaleNodes;
+
+        let discount = 0;
+        if (wholesaleNodes < 25) discount = 0;
+        else if (wholesaleNodes < 50) discount = 10;
+        else if (wholesaleNodes < 100) discount = 20;
+        else discount = 35;
+
+        const badge = document.getElementById('wholesale-discount-badge');
+        badge.textContent = `-${discount}% DISCOUNT`;
+        badge.style.display = discount > 0 ? 'inline-block' : 'none';
+
+        renderGrid();
+    }
+
+    function renderGrid() {
+        const grid = document.getElementById('grid');
+        grid.innerHTML = '';
+
+        let discount = 0;
+        if (wholesaleNodes < 25) discount = 0;
+        else if (wholesaleNodes < 50) discount = 10;
+        else if (wholesaleNodes < 100) discount = 20;
+        else discount = 35;
+
+        let baseRate = isAnnual ? (80000 * wholesaleNodes) : (8000 * wholesaleNodes);
+        let finalRate = baseRate * (1 - (discount / 100));
+
+        renderCard({
+            id: 'wholesale_block',
+            icon: '🏢',
+            name: `Wholesale Block (x${wholesaleNodes})`,
+            accent: 'white',
+            price: formatter.format(finalRate),
+            period: isAnnual ? '/year' : '/month',
+            desc: `Provision ${wholesaleNodes} enterprise nodes across your organizational perimeter.`
+        });
+
+        PKGS.forEach(pkg => {
+            const priceVal = isAnnual ? pkg.priceYr : pkg.priceMo;
+            renderCard({
+                id: pkg.id,
+                icon: pkg.icon,
+                name: pkg.name,
+                accent: pkg.accent,
+                price: formatter.format(priceVal),
+                period: isAnnual ? '/year' : '/month',
+                desc: pkg.desc
+            });
+        });
+    }
+
+    function renderCard(pkg) {
+        const grid = document.getElementById('grid');
+        const url = `${BASE}?package=${pkg.id}&billing=${isAnnual ? 'annual' : 'monthly'}${pkg.id === 'wholesale_block' ? '&nodes=' + wholesaleNodes : ''}`;
+
+        const card = document.createElement('a');
+        card.className = 'pkg-card';
+        card.href = url;
+        card.target = '_blank';
+        card.setAttribute('data-accent', pkg.accent);
+
+        card.innerHTML = `
+            <div class="pkg-icon">${pkg.icon}</div>
+            <div class="pkg-name">${pkg.name}</div>
+            <p class="pkg-desc">${pkg.desc}</p>
+            <div class="qr-box" id="qr-${pkg.id}"></div>
+            <div class="scan-hint">SCAN TO PURCHASE</div>
+            <div class="pkg-price"><strong>${pkg.price}</strong>${pkg.period}</div>
+        `;
+
+        grid.appendChild(card);
+
+        requestAnimationFrame(() => {
+            new QRCode(document.getElementById(`qr-${pkg.id}`), {
+                text: url,
+                width: 148,
+                height: 148,
+                colorDark: '#000000',
+                colorLight: '#ffffff',
+                correctLevel: QRCode.CorrectLevel.H
+            });
+        });
+    }
+
+    updateWholesale();
+</script>
+</body>
+</html>
