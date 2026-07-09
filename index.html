@@ -2730,6 +2730,7 @@
 
                 <div class="pricing-controls">
                     <div class="usecase-filters" style="margin-bottom: 0;">
+                        <button type="button" class="filter-btn pricing-filter-btn" data-pricing-sector="command">⚙ Command Nodes</button>
                         <button type="button" class="filter-btn pricing-filter-btn active" data-pricing-sector="aviation">Aviation</button>
                         <button type="button" class="filter-btn pricing-filter-btn" data-pricing-sector="auto">Auto</button>
                         <button type="button" class="filter-btn pricing-filter-btn" data-pricing-sector="home">Home</button>
@@ -2737,7 +2738,7 @@
                         <button type="button" class="filter-btn pricing-filter-btn" data-pricing-sector="wholesale">Wholesale Enterprise</button>
                     </div>
 
-                    <div class="billing-toggle-wrap">
+                    <div class="billing-toggle-wrap" id="billingToggleWrap">
                         <span class="billing-label active" id="billing-monthly-label">Monthly</span>
                         <button class="billing-switch" id="billingToggle"></button>
                         <span class="billing-label" id="billing-annual-label">Annual</span>
@@ -6234,6 +6235,7 @@
 
             let currentPricingSector = 'aviation';
             let billingIsAnnual = true;
+            const CAPEX_SECTORS = ['command'];
 
             const PRICING_DATA = {
                 aviation: [
@@ -6566,6 +6568,83 @@
                         btnText: '⚡ Activate with EtherPay',
                         btnClass: 'premium-btn'
                     }
+                ],
+                command: [
+                    {
+                        class: 'basic',
+                        title: 'Proof of Concept Node',
+                        desc: '90-day evaluation appliance. Fully refundable as credit toward Tier 1 purchase. No commitment required.',
+                        capex: true,
+                        capexPrice: 4500,
+                        slaPrice: 0,
+                        features: [
+                            'Client-procured Apple Silicon — we lock, harden & provision',
+                            'Full Ether OS provisioning & biometric calibration',
+                            '2 executive biometric profile enrollments',
+                            '1 treasury account Plaid integration',
+                            '100% refundable as Tier 1 purchase credit'
+                        ],
+                        btnText: 'Start Evaluation',
+                        btnClass: 'basic-btn'
+                    },
+                    {
+                        class: 'pro',
+                        title: 'Tier 1 Command Node',
+                        desc: 'Single-site zero-trust treasury gateway. One CapEx purchase. No monthly SaaS.',
+                        capex: true,
+                        capexPrice: 38500,
+                        slaPrice: 5500,
+                        features: [
+                            'Client-procured Apple Silicon — we lock, harden & provision',
+                            'Ether OS Perpetual License (cryptographically locked to device)',
+                            'Biometric calibration for up to 5 C-suite executives',
+                            'Full Plaid integration (Novo, Mercury, or legacy bank)',
+                            '48-hr pre-imaged hardware replacement SLA',
+                            'Outbound-only TLS 1.3 tunnel patching included'
+                        ],
+                        btnText: 'Provision Tier 1',
+                        btnClass: 'pro-btn'
+                    },
+                    {
+                        class: 'premium',
+                        title: 'Tier 2 Command Cluster',
+                        desc: '3-node physical consensus ring. 2-of-3 authorization required to move funds.',
+                        capex: true,
+                        capexPrice: 141500,
+                        slaPrice: 20900,
+                        instapay: true,
+                        recommended: true,
+                        features: [
+                            '3-node Apple Silicon consensus ring + 1 on-site hot-spare',
+                            'Ether OS Cluster License (multi-node cryptographic binding)',
+                            '2-of-3 physical node sign-off required per transaction',
+                            'Biometric calibration for up to 10 executives',
+                            'Up to 5 multi-party treasury account integrations',
+                            '4-hour failover SLA — hot-spare activates automatically'
+                        ],
+                        btnText: '⚡ Deploy Command Cluster',
+                        btnClass: 'premium-btn'
+                    },
+                    {
+                        class: 'jet',
+                        title: 'Tier 3 Sovereign Network',
+                        desc: 'Full-rack global sovereign network for multinational institutions. SWIFT & Fedwire ready.',
+                        capex: true,
+                        capexPrice: 510000,
+                        slaPrice: 77000,
+                        instapay: true,
+                        features: [
+                            '8-node Apple Silicon rack + dual HSM cryptographic signing modules',
+                            'Ether OS Global Perpetual License (unlimited node capacity)',
+                            'Custom ZK-SNARK protocol engineering (30-day white-glove deployment)',
+                            'Direct SWIFT / Fedwire / core banking API integration',
+                            'Biometric enrollment for up to 50 global executives',
+                            '24-hr on-site engineer response SLA — worldwide',
+                            '24/7/365 dedicated engineering team on retainer'
+                        ],
+                        btnText: '⚡ Activate Sovereign Network',
+                        btnClass: 'premium-btn'
+                    }
                 ]
             };
 
@@ -6582,22 +6661,46 @@
                     const sector = currentPricingSector;
                     const isAnnual = billingIsAnnual;
                     const cards = PRICING_DATA[sector];
+                    const isCapex = CAPEX_SECTORS.includes(sector);
+
+                    // Show/hide billing toggle for capex sectors
+                    const toggleWrap = document.getElementById('billingToggleWrap');
+                    if (toggleWrap) toggleWrap.style.display = isCapex ? 'none' : '';
 
                     let html = '';
                     cards.forEach(card => {
-                        const priceVal = isAnnual ? card.annualPriceValue : card.monthlyPrice;
-                        const priceStr = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(priceVal);
-                        const periodStr = isAnnual ? ' / yr' : ' / mo';
-
-                        let priceSubHtml = '';
-                        if (isAnnual) {
-                            const equivVal = Math.round(card.annualPriceValue / 12);
-                            const equivStr = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(equivVal);
-                            priceSubHtml = `<div class="card-price-sub">(Equivalent to ${equivStr}/mo)</div>`;
+                        let priceBlockHtml = '';
+                        if (card.capex) {
+                            const capexStr = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(card.capexPrice);
+                            if (card.slaPrice > 0) {
+                                const slaStr = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(card.slaPrice);
+                                priceBlockHtml = `
+                                    <div class="card-price-block">
+                                        <div class="card-price">${capexStr}<span style="font-size:0.6em;"> CapEx</span></div>
+                                        <div class="card-price-sub" style="color:var(--ether-cyan);font-size:0.8rem;margin-top:4px;">+ ${slaStr}/yr SLA after Year 1</div>
+                                    </div>`;
+                            } else {
+                                priceBlockHtml = `
+                                    <div class="card-price-block">
+                                        <div class="card-price">${capexStr}<span style="font-size:0.6em;"> One-Time</span></div>
+                                        <div class="card-price-sub" style="color:var(--ether-cyan);font-size:0.8rem;margin-top:4px;">Fully refundable as Tier 1 credit</div>
+                                    </div>`;
+                            }
                         } else {
-                            const equivVal = card.annualPriceValue;
-                            const equivStr = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(equivVal);
-                            priceSubHtml = `<div class="card-price-sub" style="color: var(--text-muted); font-size: 0.75rem;">(Billed monthly, ${equivStr}/yr equiv)</div>`;
+                            const priceVal = isAnnual ? card.annualPriceValue : card.monthlyPrice;
+                            const priceStr = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(priceVal);
+                            const periodStr = isAnnual ? ' / yr' : ' / mo';
+                            let priceSubHtml = '';
+                            if (isAnnual) {
+                                const equivVal = Math.round(card.annualPriceValue / 12);
+                                const equivStr = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(equivVal);
+                                priceSubHtml = `<div class="card-price-sub">(Equivalent to ${equivStr}/mo)</div>`;
+                            } else {
+                                const equivVal = card.annualPriceValue;
+                                const equivStr = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(equivVal);
+                                priceSubHtml = `<div class="card-price-sub" style="color: var(--text-muted); font-size: 0.75rem;">(Billed monthly, ${equivStr}/yr equiv)</div>`;
+                            }
+                            priceBlockHtml = `<div class="card-price-block"><div class="card-price">${priceStr}<span>${periodStr}</span></div>${priceSubHtml}</div>`;
                         }
 
                         let instapayHtml = card.instapay ? `<div class="instapay-badge"><span>⚡</span><span>ETHERPAY</span></div>` : '';
@@ -6617,10 +6720,7 @@
                                 <div>
                                     <h3 class="card-title">${card.title}</h3>
                                     <p class="card-desc">${card.desc}</p>
-                                    <div class="card-price-block">
-                                        <div class="card-price">${priceStr}<span>${periodStr}</span></div>
-                                        ${priceSubHtml}
-                                    </div>
+                                    ${priceBlockHtml}
                                     <div class="card-features-title">PROVISION DETAILS:</div>
                                     <ul class="card-features-list">
                                         ${featuresHtml}
