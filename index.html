@@ -35,13 +35,86 @@
             display: block;
         }
 
+        /* ── Cinematic Space Background ── */
+        /* Outer wrap: handles slow horizontal rotation */
+        #cinematic-wrap {
+            position: fixed;
+            top: -15%;
+            left: -15%;
+            width: 130%;
+            height: 130%;
+            z-index: 0;
+            pointer-events: none;
+            will-change: transform;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            animation: bg-spin 180s linear infinite;
+            -webkit-animation: bg-spin 180s linear infinite;
+        }
+
+        /* Inner bg: handles scale approach (ground coming at you) */
+        #cinematic-bg {
+            width: 100%;
+            height: 100%;
+            background-image: url('space_bg.jpg');
+            background-size: cover;
+            background-position: center 58%;
+            will-change: transform;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            animation: bg-approach 22s ease-in-out infinite alternate;
+            -webkit-animation: bg-approach 22s ease-in-out infinite alternate;
+        }
+
+        /* Slow spin: surface slides left like a rotating globe */
+        @keyframes bg-spin {
+            from { transform: translateX(0px) translateZ(0); }
+            to   { transform: translateX(-220px) translateZ(0); }
+        }
+        @-webkit-keyframes bg-spin {
+            from { -webkit-transform: translateX(0px) translateZ(0); }
+            to   { -webkit-transform: translateX(-220px) translateZ(0); }
+        }
+
+        /* Forward approach: ground zooms in like a treadmill then breathes back */
+        @keyframes bg-approach {
+            0%   {
+                transform: scale(1.00) translateY(0px) translateZ(0);
+            }
+            100% {
+                transform: scale(1.22) translateY(-60px) translateZ(0);
+            }
+        }
+        @-webkit-keyframes bg-approach {
+            0%   {
+                -webkit-transform: scale(1.00) translateY(0px) translateZ(0);
+            }
+            100% {
+                -webkit-transform: scale(1.22) translateY(-60px) translateZ(0);
+            }
+        }
+
+        #cinematic-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            background: linear-gradient(
+                to bottom,
+                rgba(2, 2, 10, 0.42) 0%,
+                rgba(2, 2, 10, 0.15) 45%,
+                rgba(2, 2, 10, 0.42) 100%
+            );
+        }
+
         #space-canvas {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 0;
+            z-index: 1;
             pointer-events: none;
         }
 
@@ -51,7 +124,7 @@
             left: 0;
             width: 100%;
             height: 180px;
-            z-index: 1;
+            z-index: 2;
             pointer-events: none;
         }
 
@@ -72,27 +145,28 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 28px;
+            padding: 0 20px;
+            gap: 12px;
             transition: all 0.3s ease;
-        }
-
-        .nav-links {
-            position: fixed;
-            top: 0;
-            right: 0;
-            height: 64px;
-            display: flex;
-            align-items: center;
-            gap: 2px;
-            padding: 0 28px;
-            z-index: 200;
-            flex-wrap: nowrap;
         }
 
         .nav-brand {
             display: flex;
             align-items: center;
             gap: 12px;
+            flex-shrink: 0;
+            cursor: pointer;
+            user-select: none;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+
+        .nav-brand:hover {
+            opacity: 0.95;
+            transform: scale(1.02);
+        }
+
+        .nav-brand:active {
+            transform: scale(0.98);
         }
 
         .nav-brand .brand-logo {
@@ -109,60 +183,85 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             font-family: monospace;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2px;
-            flex-wrap: nowrap;
-        }
-
-        .nav-tab {
-            background: transparent;
-            border: 1px solid transparent;
-            color: var(--text-muted);
-            padding: 6px 8px;
-            font-size: 0.68rem;
-            font-weight: 700;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
             white-space: nowrap;
-            touch-action: manipulation;
-            -webkit-tap-highlight-color: transparent;
         }
 
-        .nav-tab:hover {
-            color: var(--text-main);
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .nav-tab.active {
-            color: var(--ether-cyan);
-            background: rgba(76, 224, 255, 0.1);
-            border-color: rgba(76, 224, 255, 0.2);
-        }
-
+        /* Nav hamburger — always visible */
         .menu-toggle {
-            display: none;
+            display: flex;
             flex-direction: column;
             justify-content: space-between;
-            width: 24px;
-            height: 18px;
+            width: 28px;
+            height: 20px;
             background: transparent;
             border: none;
             cursor: pointer;
             padding: 0;
-            z-index: 101;
+            z-index: 300;
+            flex-shrink: 0;
         }
 
         .hamburger-bar {
             width: 100%;
             height: 2px;
             background-color: var(--text-main);
+            border-radius: 2px;
             transition: all 0.3s ease;
+        }
+
+        .menu-toggle:hover .hamburger-bar {
+            background-color: var(--ether-cyan);
+        }
+
+        /* Full-screen dropdown menu */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 64px;
+            left: 0;
+            right: 0;
+            background: rgba(5, 5, 15, 0.98);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-bottom: 1px solid rgba(76, 224, 255, 0.15);
+            z-index: 250;
+            flex-direction: column;
+            padding: 8px 0 16px;
+            max-height: calc(100vh - 64px);
+            overflow-y: auto;
+        }
+
+        .mobile-menu.open {
+            display: flex;
+        }
+
+        .mobile-nav-tab {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+            color: var(--text-muted);
+            padding: 15px 32px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            text-align: left;
+            transition: all 0.18s ease;
+            width: 100%;
+        }
+
+        .mobile-nav-tab:hover {
+            color: var(--ether-cyan);
+            background: rgba(76, 224, 255, 0.06);
+            padding-left: 44px;
+        }
+
+        .mobile-nav-tab.active {
+            color: var(--ether-cyan);
+            background: rgba(76, 224, 255, 0.08);
+            border-left: 3px solid var(--ether-cyan);
+            padding-left: 29px;
         }
 
         .container {
@@ -2385,35 +2484,43 @@
     </style>
 </head>
 <body>
+    <!-- Cinematic space background -->
+    <div id="cinematic-wrap">
+        <div id="cinematic-bg"></div>
+    </div>
+    <div id="cinematic-overlay"></div>
+
     <canvas id="space-canvas"></canvas>
     <canvas id="planet-canvas"></canvas>
 
     <a href="#main-content" class="skip-link">Skip to main content</a>
 
     <header class="glass-nav">
-        <div class="nav-brand">
+        <div class="nav-brand" onclick="switchTab('home'); closeMobileMenu();" role="button" tabindex="0" aria-label="Go to homepage" onkeydown="if(event.key === 'Enter' || event.key === ' ') { switchTab('home'); closeMobileMenu(); }">
             <img src="logo.png" class="brand-logo">
             <span class="nav-brand-text brand-name">ETHER TERMINAL</span>
         </div>
-        <button class="menu-toggle" id="menuToggle">
+        <button class="menu-toggle" id="menuToggle" aria-label="Open navigation menu" aria-expanded="false">
             <span class="hamburger-bar"></span>
             <span class="hamburger-bar"></span>
             <span class="hamburger-bar"></span>
         </button>
     </header>
-    <nav class="nav-links" id="navLinks">
-        <button class="nav-tab active" data-tab="home">Home</button>
-        <button class="nav-tab" data-tab="solutions">Solutions</button>
-        <button class="nav-tab" data-tab="licensing">Licensing</button>
-        <button class="nav-tab" data-tab="technology">Technology</button>
-        <button class="nav-tab" data-tab="usecases">Deployment Scenarios</button>
-        <button class="nav-tab" data-tab="about">About</button>
-        <button class="nav-tab" data-tab="events">Events</button>
-        <button class="nav-tab" data-tab="partners">Partners</button>
-        <button class="nav-tab" data-tab="press">Press</button>
-        <button class="nav-tab" data-tab="careers">Node Operators</button>
-        <button class="nav-tab" data-tab="contact">Contact</button>
-    </nav>
+
+    <!-- Mobile dropdown menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="mobile-nav-tab active" data-tab="home" onclick="switchTab('home'); closeMobileMenu();">Home</button>
+        <button class="mobile-nav-tab" data-tab="solutions" onclick="switchTab('solutions'); closeMobileMenu();">Solutions</button>
+        <button class="mobile-nav-tab" data-tab="licensing" onclick="switchTab('licensing'); closeMobileMenu();">Licensing</button>
+        <button class="mobile-nav-tab" data-tab="technology" onclick="switchTab('technology'); closeMobileMenu();">Technology</button>
+        <button class="mobile-nav-tab" data-tab="usecases" onclick="switchTab('usecases'); closeMobileMenu();">Deployment Scenarios</button>
+        <button class="mobile-nav-tab" data-tab="about" onclick="switchTab('about'); closeMobileMenu();">About</button>
+        <button class="mobile-nav-tab" data-tab="events" onclick="switchTab('events'); closeMobileMenu();">Events</button>
+        <button class="mobile-nav-tab" data-tab="partners" onclick="switchTab('partners'); closeMobileMenu();">Partners</button>
+        <button class="mobile-nav-tab" data-tab="press" onclick="switchTab('press'); closeMobileMenu();">Press</button>
+        <button class="mobile-nav-tab" data-tab="careers" onclick="switchTab('careers'); closeMobileMenu();">Node Operators</button>
+        <button class="mobile-nav-tab" data-tab="contact" onclick="switchTab('contact'); closeMobileMenu();">Contact</button>
+    </div>
 
     <main id="main-content" class="container">
 
@@ -4914,24 +5021,24 @@
                     <h2>Privacy Policy</h2>
                     <p style="font-size: 0.78rem; font-family: monospace; color: var(--ether-cyan);">LAST UPDATE: JUN 2026</p>
                     <section>
-                        <h3>1. Information We Collect</h3>
-                        <p>Ether Terminal LLC collects information provided directly by you, such as your name, contact information, and business credentials. In connection with financial services (powered by Plaid), we collect data necessary to facilitate ACH transfers, including account ownership information and transaction history.</p>
+                        <h3>1. Zero Data Collection Architecture</h3>
+                        <p>Ether Terminal LLC operates on a strict zero-data collection architecture. We do not collect, harvest, monitor, or store any personal data, biometric parameters, financial credentials, or transaction details. All biometric cryptographic attestations and processing occur locally and transiently on your hardware node.</p>
                     </section>
                     <section>
-                        <h3>2. How We Use Information</h3>
-                        <p>We use your information to operate, maintain, and provide the features of our services. Specifically, we use financial data to verify accounts and execute authorized ACH transfers as requested by you within our platform.</p>
+                        <h3>2. Data Sovereignty and Storage</h3>
+                        <p>Since we do not collect any personal data, we do not store, compile, or maintain any user, corporate, or financial profiles on our systems. Telemetry calculations are processed instantaneously in an encrypted state and discarded immediately following verification.</p>
                     </section>
                     <section>
-                        <h3>3. Zero Data Selling Policy</h3>
-                        <p><strong>We never sell your data.</strong> Ether Terminal LLC operates on a strict zero data-selling policy. This guarantees complete confidentiality and provides a distinct advantage to our partners in the insurance industry. We share data only as strictly necessary to provide our core services—specifically with financial service providers like Plaid and Stripe—and as required by law.</p>
+                        <h3>3. Structural Impossibility of Data Selling</h3>
+                        <p><strong>We never sell your data because we do not collect it.</strong> This zero-collection infrastructure is designed specifically to give our partners in the insurance and underwriting industries a complete privacy and compliance advantage, ensuring 100% regulatory isolation.</p>
                     </section>
                     <section>
-                        <h3>4. Data Security</h3>
-                        <p>Ether Terminal LLC employs industry-standard security measures, including air-gapped cryptographic protocols and encrypted data storage, to protect your information from unauthorized access.</p>
+                        <h3>4. Zero-Knowledge Integrity</h3>
+                        <p>Ether Terminal LLC utilizes a Zero-Knowledge Architecture. Because no sensitive information is ever transmitted to or stored on our servers, there is no centralized database to compromise. Financial integrations (such as Plaid) verify account access directly and securely via encrypted protocols without sharing details with us.</p>
                     </section>
                     <section>
-                        <h3>5. Your Rights</h3>
-                        <p>You may request access to or deletion of your personal data by contacting us at our official business address.</p>
+                        <h3>5. Data Sovereignty Rights</h3>
+                        <p>Because zero personal data is collected or stored on our networks, there is no data database for users to access, rectify, or delete. You retain absolute ownership over your hardware keys and cryptographic credentials. For any policy inquiries, contact our secure mail: <strong>etherterminal@proton.me</strong>.</p>
                     </section>
                 </div>
 
@@ -5313,13 +5420,6 @@
 
                 ctx.clearRect(0, 0, W, H);
 
-                const bg = ctx.createLinearGradient(0, 0, W * 0.6, H);
-                bg.addColorStop(0,   '#05050d');
-                bg.addColorStop(0.5, '#080812');
-                bg.addColorStop(1,   '#06060f');
-                ctx.fillStyle = bg;
-                ctx.fillRect(0, 0, W, H);
-
                 nebulae.forEach(n => {
                     const t2 = time * n.speed;
                     const nx = n.x + Math.sin(t2 + n.phase) * n.driftX;
@@ -5569,7 +5669,7 @@
                 ctx.stroke();
             }
 
-            ctx.fillStyle = 'rgba(9, 9, 14, 0.85)';
+            ctx.fillStyle = 'rgba(9, 9, 14, 0.45)';
             ctx.fillRect(0, vpY, W, H - vpY);
 
             ctx.beginPath();
@@ -5783,7 +5883,7 @@
 
                 if (oldPanel === newPanel) return;
 
-                document.querySelectorAll('.nav-tab').forEach(btn => {
+                document.querySelectorAll('.nav-tab, .mobile-nav-tab').forEach(btn => {
                     if (btn.getAttribute('data-tab') === targetTabId) {
                         btn.classList.add('active');
                         btn.setAttribute('aria-selected', 'true');
@@ -5792,11 +5892,6 @@
                         btn.removeAttribute('aria-selected');
                     }
                 });
-
-                const navLinks = document.getElementById('navLinks');
-                if (navLinks.classList.contains('open')) {
-                    closeMenu();
-                }
 
                 if (oldPanel) {
                     oldPanel.style.opacity = 0;
@@ -5839,47 +5934,35 @@
             });
 
             const menuToggle = document.getElementById('menuToggle');
-            const navLinks = document.getElementById('navLinks');
+            const mobileMenu = document.getElementById('mobileMenu');
 
-            function openMenu() {
-                navLinks.style.display = 'flex';
-                navLinks.getBoundingClientRect();
-                requestAnimationFrame(function() {
-                    requestAnimationFrame(function() {
-                        navLinks.classList.add('open');
-                        menuToggle.setAttribute('aria-expanded', 'true');
-                    });
-                });
-            }
-
-            function closeMenu() {
-                navLinks.classList.remove('open');
+            function closeMobileMenu() {
+                mobileMenu.classList.remove('open');
                 menuToggle.setAttribute('aria-expanded', 'false');
-                navLinks.addEventListener('transitionend', function handler() {
-                    if (!navLinks.classList.contains('open')) {
-                        navLinks.style.display = 'none';
-                    }
-                    navLinks.removeEventListener('transitionend', handler);
-                });
             }
+
+            // Make closeMobileMenu globally accessible for inline onclick handlers
+            window.closeMobileMenu = closeMobileMenu;
 
             menuToggle.addEventListener('click', function() {
-                if (navLinks.classList.contains('open')) {
-                    closeMenu();
+                const isOpen = mobileMenu.classList.contains('open');
+                if (isOpen) {
+                    closeMobileMenu();
                 } else {
-                    openMenu();
+                    mobileMenu.classList.add('open');
+                    menuToggle.setAttribute('aria-expanded', 'true');
                 }
             });
 
             document.addEventListener('click', function(e) {
-                if (navLinks.classList.contains('open') && !navLinks.contains(e.target) && !menuToggle.contains(e.target)) {
-                    closeMenu();
+                if (mobileMenu.classList.contains('open') && !mobileMenu.contains(e.target) && !menuToggle.contains(e.target)) {
+                    closeMobileMenu();
                 }
             });
 
             document.addEventListener('touchstart', function(e) {
-                if (navLinks.classList.contains('open') && !navLinks.contains(e.target) && !menuToggle.contains(e.target)) {
-                    closeMenu();
+                if (mobileMenu.classList.contains('open') && !mobileMenu.contains(e.target) && !menuToggle.contains(e.target)) {
+                    closeMobileMenu();
                 }
             }, { passive: true });
 
