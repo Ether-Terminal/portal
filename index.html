@@ -7278,8 +7278,6 @@
                 document.body.classList.add('modal-open');
                 document.documentElement.classList.add('modal-open');
                 modal.scrollTop = 0;
-                var firstInput = modal.querySelector('input[name="company"]');
-                if (firstInput) firstInput.focus();
             };
             var requestNode = window.requestNode;
 
@@ -7351,7 +7349,8 @@
                         }
 
                         let instapayHtml = card.instapay ? `<div class="instapay-badge"><span>⚡</span><span>ETHERPAY</span></div>` : '';
-                        let recommendedHtml = card.recommended ? `<div class="card-top-tag">COMMAND TIER</div>` : '';
+                        let tagLabel = card.topTag || (card.recommended ? (card.class === 'jet' ? 'SOVEREIGN TIER' : 'RECOMMENDED TIER') : '');
+                        let recommendedHtml = tagLabel ? `<div class="card-top-tag">${tagLabel}</div>` : '';
 
                         let featuresHtml = '';
                         card.features.forEach(f => {
@@ -7359,7 +7358,7 @@
                         });
 
                         html += `
-                            <div class="pricing-card ${card.class}">
+                            <div class="pricing-card ${card.class}" onclick="requestNode('${card.title}', '${card.class}', window.__billingIsAnnual ? 'Annual' : 'Monthly')" style="cursor: pointer;">
                                 ${recommendedHtml}
                                 <div class="card-tag-row">
                                     ${instapayHtml}
@@ -7373,7 +7372,7 @@
                                         ${featuresHtml}
                                     </ul>
                                 </div>
-                                <button class="pricing-btn ${card.btnClass}" type="button" onclick="requestNode('${card.title}', '${card.class}', window.__billingIsAnnual ? 'Annual' : 'Monthly')">${card.btnText}</button>
+                                <button class="pricing-btn ${card.btnClass}" type="button" onclick="event.stopPropagation(); requestNode('${card.title}', '${card.class}', window.__billingIsAnnual ? 'Annual' : 'Monthly')">${card.btnText}</button>
                             </div>
                         `;
                     });
