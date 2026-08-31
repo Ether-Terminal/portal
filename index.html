@@ -5417,27 +5417,27 @@
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
                         <div class="form-group" style="margin-bottom: 0;">
                             <label for="demo-company" style="font-size: 0.78rem;">Company Legal Name *</label>
-                            <input type="text" name="company" id="demo-company" placeholder="e.g. Lockheed Martin, Chubb" required>
+                            <input type="text" name="company" id="demo-company" required>
                         </div>
                         <div class="form-group" style="margin-bottom: 0;">
                             <label for="demo-website" style="font-size: 0.78rem;">Company Website / Domain *</label>
-                            <input type="text" name="website" id="demo-website" placeholder="e.g. lockheedmartin.com" required>
+                            <input type="text" name="website" id="demo-website" required>
                         </div>
                         <div class="form-group" style="margin-bottom: 0;">
                             <label for="demo-name" style="font-size: 0.78rem;">Buyer Full Name *</label>
-                            <input type="text" name="name" id="demo-name" placeholder="e.g. Carlos Mendez" required>
+                            <input type="text" name="name" id="demo-name" required>
                         </div>
                         <div class="form-group" style="margin-bottom: 0;">
                             <label for="demo-title" style="font-size: 0.78rem;">Job Title / Role *</label>
-                            <input type="text" name="title" id="demo-title" placeholder="e.g. VP of Claims, CTO, Fleet Director" required>
+                            <input type="text" name="title" id="demo-title" required>
                         </div>
                         <div class="form-group" style="margin-bottom: 0;">
                             <label for="demo-email" style="font-size: 0.78rem;">Corporate Work Email *</label>
-                            <input type="email" name="email" id="demo-email" placeholder="e.g. mendez@company.com" required>
+                            <input type="email" name="email" id="demo-email" required>
                         </div>
                         <div class="form-group" style="margin-bottom: 0;">
                             <label for="demo-phone" style="font-size: 0.78rem;">Direct Business Phone *</label>
-                            <input type="tel" name="phone" id="demo-phone" placeholder="e.g. +1 (555) 392-8810" required>
+                            <input type="tel" name="phone" id="demo-phone" required>
                         </div>
                     </div>
                 </div>
@@ -5519,7 +5519,7 @@
                         </div>
                         <div class="form-group" style="grid-column: span 2; margin-bottom: 0;">
                             <label for="demo-notes" style="font-size: 0.78rem;">Special Requirements / Architecture Notes</label>
-                            <textarea name="notes" id="demo-notes" rows="2" placeholder="e.g. FAA Part 121 compliance, SOC2 Type II audit trail, custom CAN-bus bitrate..." style="width: 100%; padding: 10px; background: rgba(5, 7, 15, 0.85); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 6px; color: #fff; font-size: 0.85rem; font-family: inherit; resize: vertical;"></textarea>
+                            <textarea name="notes" id="demo-notes" rows="2" style="width: 100%; padding: 10px; background: rgba(5, 7, 15, 0.85); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 6px; color: #fff; font-size: 0.85rem; font-family: inherit; resize: vertical;"></textarea>
                         </div>
                     </div>
                 </div>
@@ -7750,17 +7750,41 @@
                 }
             }
 
-            // Find tier details from PRICING_DATA
-            var sectorData = (typeof PRICING_DATA !== 'undefined' && PRICING_DATA[currentPricingSector]) ? PRICING_DATA[currentPricingSector] : [];
-            var foundCard = sectorData.find(c => c.title === title) || {};
-            
-            if (foundCard.capex) {
-                window.__currentModalBasePrice = foundCard.capexPrice || 38500;
-            } else if (billing === 'Annual' || billing === 'Annual Billing') {
-                window.__currentModalBasePrice = foundCard.annualPriceValue || 85000;
-            } else {
-                window.__currentModalBasePrice = foundCard.monthlyPrice || 8500;
+            // Find tier details from PRICING_DATA across all sectors
+            var foundCard = null;
+            if (typeof PRICING_DATA !== 'undefined') {
+                if (typeof currentPricingSector !== 'undefined' && PRICING_DATA[currentPricingSector]) {
+                    foundCard = PRICING_DATA[currentPricingSector].find(c => c.title === title);
+                }
+                if (!foundCard) {
+                    for (var s in PRICING_DATA) {
+                        foundCard = PRICING_DATA[s].find(c => c.title === title);
+                        if (foundCard) break;
+                    }
+                }
             }
+            foundCard = foundCard || {};
+            
+            var isAnnual = (billing === 'Annual' || billing === 'Annual Billing');
+            var billingLabel = isAnnual ? 'Annual' : 'Monthly';
+            var exactPrice = 85000;
+
+            if (foundCard.capex) {
+                exactPrice = foundCard.capexPrice || 38500;
+                billingLabel = 'One-Time CapEx';
+            } else if (isAnnual) {
+                exactPrice = foundCard.annualPriceValue || 85000;
+            } else {
+                exactPrice = foundCard.monthlyPrice || 8500;
+            }
+
+            window.__currentModalBasePrice = exactPrice;
+            window.__currentModalTierName = title;
+            window.__currentModalBilling = billingLabel;
+
+            if (subjectInput) subjectInput.value = 'Node Provisioning Request: ' + title + ' (' + billingLabel + ' @ $' + exactPrice.toLocaleString('en-US') + ')';
+            if (tierInput) tierInput.value = title + ' — ' + billingLabel + ' ($' + exactPrice.toLocaleString('en-US') + ')';
+            if (heading) heading.textContent = '⚡ Provision ' + title + ' (' + billingLabel + ')';
 
             var tierDetailsBox = document.getElementById('modalTierDetails');
             if (!tierDetailsBox) {
@@ -7775,7 +7799,7 @@
                 <div style="background: rgba(76, 224, 255, 0.08); border: 1px solid rgba(76, 224, 255, 0.3); border-radius: 8px; padding: 10px 14px; margin-bottom: 14px; font-family: monospace;">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
                         <span style="color:#4ce0ff; font-weight:800; font-size:0.85rem;">📦 SELECTED TIER: ${title}</span>
-                        <span style="color:#00ff7f; font-weight:800; font-size:0.75rem; background:rgba(0,255,127,0.12); padding:2px 6px; border-radius:4px;">${billing}</span>
+                        <span style="color:#00ff7f; font-weight:800; font-size:0.75rem; background:rgba(0,255,127,0.12); padding:2px 6px; border-radius:4px;">${billingLabel} — $${exactPrice.toLocaleString('en-US')}</span>
                     </div>
                     <ul style="list-style:none; padding-left:0; margin:4px 0 0 0;">
                         ${featuresListHtml}
