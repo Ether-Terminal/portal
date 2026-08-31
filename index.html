@@ -1140,10 +1140,8 @@
             letter-spacing: 0.5px;
         }
 
-        body.modal-open, html.modal-open {
+        body.modal-open {
             overflow: hidden !important;
-            touch-action: none;
-            -webkit-overflow-scrolling: auto;
         }
 
         .modal-overlay {
@@ -1164,11 +1162,12 @@
             align-items: flex-start;
             overflow-y: auto !important;
             -webkit-overflow-scrolling: touch !important;
-            overscroll-behavior: contain;
+            overscroll-behavior-y: contain;
             padding: 24px 12px 60px 12px;
             opacity: 0;
             pointer-events: none;
-            transition: opacity 0.25s ease;
+            transition: opacity 0.2s ease;
+            touch-action: pan-y !important;
         }
 
         .modal-overlay.open {
@@ -1182,18 +1181,22 @@
             margin: auto;
             position: relative;
             transform: translateY(15px);
-            transition: transform 0.25s ease;
+            transition: transform 0.2s ease;
             max-height: none !important;
             overflow-y: visible !important;
             touch-action: pan-y !important;
             -webkit-overflow-scrolling: touch;
         }
 
+        .modal-content * {
+            touch-action: pan-y !important;
+        }
+
         .modal-input-field {
             font-size: 16px !important;
             -webkit-user-select: text !important;
             user-select: text !important;
-            touch-action: manipulation !important;
+            touch-action: pan-y !important;
             -webkit-tap-highlight-color: transparent !important;
             transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
         }
@@ -7993,10 +7996,126 @@
             line-height: 1.5;
         }
 
+        @media (max-width: 768px) {
+            body {
+                padding: 12px 6px;
+            }
+            .control-panel {
+                padding: 14px 12px;
+                margin-bottom: 15px;
+            }
+            .memorandum-sheet {
+                padding: 35px 20px;
+                outline-offset: -6px;
+                border-width: 3px;
+            }
+            .corner-filigree {
+                width: 45px;
+                height: 45px;
+            }
+            .corner-filigree.top-left { top: 6px; left: 6px; }
+            .corner-filigree.top-right { top: 6px; right: 6px; }
+            .corner-filigree.bottom-left { bottom: 6px; left: 6px; }
+            .corner-filigree.bottom-right { bottom: 6px; right: 6px; }
+            
+            .seal-emblem {
+                width: 76px;
+                height: 76px;
+            }
+            .letterhead-title {
+                font-size: 1.05rem;
+                letter-spacing: 2.5px;
+            }
+            .letterhead-subtitle {
+                font-size: 0.68rem;
+                letter-spacing: 1.5px;
+            }
+            .classification-bar {
+                font-size: 0.65rem;
+                letter-spacing: 1px;
+                margin: 12px 0 18px 0;
+            }
+            .memo-headers {
+                margin-bottom: 18px;
+                padding-bottom: 10px;
+            }
+            .memo-row {
+                flex-direction: column;
+                gap: 2px;
+                margin-bottom: 10px;
+            }
+            .memo-label {
+                width: 100%;
+                font-size: 0.8rem;
+                letter-spacing: 0.5px;
+            }
+            .memo-value {
+                font-size: 0.98rem;
+                padding-left: 0;
+                line-height: 1.4;
+            }
+            .treasury-box {
+                padding: 12px 14px;
+                font-size: 0.74rem;
+            }
+            .signature-block {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
+                margin-top: 30px;
+            }
+            .signature-name {
+                min-width: unset;
+                width: 100%;
+                font-size: 1.1rem;
+            }
+            .cryptographic-seal-stamp {
+                width: 100%;
+                font-size: 0.62rem;
+                padding: 8px 10px;
+                box-sizing: border-box;
+            }
+            .paid-stamp {
+                top: 140px;
+                right: 15px;
+                font-size: 0.95rem;
+                letter-spacing: 1.5px;
+                padding: 4px 10px;
+                border-width: 2px;
+            }
+        }
+
+        @page {
+            size: letter portrait;
+            margin: 0.5in;
+        }
+
         @media print {
-            body { background: #fff; padding: 0; }
-            .control-panel { display: none; }
-            .memorandum-sheet { box-shadow: none; max-width: 100%; padding: 40px 50px; }
+            body { background: #fff !important; padding: 0 !important; margin: 0 !important; }
+            .control-panel { display: none !important; }
+            .memorandum-sheet {
+                box-shadow: none !important;
+                max-width: 100% !important;
+                width: 100% !important;
+                padding: 45px 55px !important;
+                border: 4px double #b8860b !important;
+                outline: 1px solid #d4af37 !important;
+                outline-offset: -10px !important;
+                page-break-inside: avoid;
+            }
+            .memo-row {
+                flex-direction: row !important;
+            }
+            .memo-label {
+                width: 170px !important;
+            }
+            .signature-block {
+                flex-direction: row !important;
+                align-items: flex-end !important;
+            }
+            .cryptographic-seal-stamp {
+                width: auto !important;
+            }
         }
     </style>
 </head>
