@@ -7744,7 +7744,7 @@
         <div class="memo-headers">
             <div class="memo-row">
                 <div class="memo-label">MEMORANDUM FOR:</div>
-                <div class="memo-value"><b>${d.name}</b>, ${d.title}<br>${d.company} (${d.website || 'Corporate Domain'})</div>
+                <div class="memo-value"><b>${d.name}</b>, ${d.title}<br>${d.company} (${d.website || 'Corporate Domain'})<br><span style="font-size:0.9rem; color:#444;">Contact: ${d.email} | Tel: ${d.phone || 'On Record'}</span></div>
             </div>
             <div class="memo-row">
                 <div class="memo-label">FROM:</div>
@@ -7762,14 +7762,17 @@
 
         <h2 class="section-heading">I. PROVISIONING AUTHORIZATION & CREDENTIALS</h2>
         <p class="directive-text">
-            Pursuant to the commercial submission received from <b>${d.company}</b>, the Office of Sovereign Protocol Operations has provisionally authorized and minted the cryptographic credentials for the deployment of your designated sovereign node array.
+            Pursuant to the institutional procurement dossier received from <b>${d.company}</b>, the Office of Sovereign Protocol Operations has formally authenticated and minted the sovereign credentials for your node deployment.
         </p>
-        <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; background: #f1f5f9; padding: 12px 16px; border-left: 3px solid #002244; margin-bottom: 14px; line-height: 1.6;">
-            <b>ASSIGNED OPERATOR ID:</b> ${d.opId}<br>
-            <b>CRYPTOGRAPHIC LICENSE KEY:</b> ${d.licenseKey}<br>
-            <b>DEPLOYMENT TIER:</b> ${d.tier}<br>
-            <b>SECTOR & SCALE:</b> ${d.sector} | ${d.fleetScale}<br>
-            <b>INFRASTRUCTURE:</b> ${d.environment}
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; background: #f8fafc; padding: 14px 18px; border-left: 3px solid #002244; margin-bottom: 14px; line-height: 1.65; border-radius: 2px;">
+            <div style="display:flex; justify-content:space-between;"><span style="color:#666;">OPERATOR ID:</span> <span style="font-weight:700; color:#002244;">${d.opId}</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:#666;">LICENSE KEY:</span> <span style="font-weight:700; color:#002244;">${d.licenseKey}</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:#666;">DEPLOYMENT TIER:</span> <span style="font-weight:700; color:#002244;">${d.tier}</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:#666;">SECTOR / SCALE:</span> <span style="font-weight:700; color:#002244;">${d.sector} (${d.fleetScale})</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:#666;">ENVIRONMENT:</span> <span style="font-weight:700; color:#002244;">${d.environment}</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:#666;">SETTLEMENT METHOD:</span> <span style="font-weight:700; color:#002244;">${d.paymentMethod}</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:#666;">TARGET TIMELINE:</span> <span style="font-weight:700; color:#002244;">${d.timeline}</span></div>
+            ${d.notes ? `<div style="display:flex; justify-content:space-between; border-top:1px dashed #cbd5e1; margin-top:6px; padding-top:6px;"><span style="color:#666;">ARCHITECTURE NOTES:</span> <span style="font-weight:600; color:#222; max-width:60%; text-align:right;">${d.notes}</span></div>` : ''}
         </div>
 
         <h2 class="section-heading">II. TREASURY SPECIFICATIONS & SETTLEMENT WIRE</h2>
@@ -7790,7 +7793,7 @@
 
         <h2 class="section-heading">III. DEPLOYMENT TIMELINE & CHAIN-OF-CUSTODY</h2>
         <p class="directive-text">
-            Upon treasury confirmation of the wire settlement referencing memo <code>${d.memoCode}</code>, the cryptographic deployment desk will dispatch your designated hardware units and initiate the live protocol handshake with your technical officers (${d.email}).
+            Upon treasury confirmation of the wire settlement referencing memo <code>${d.memoCode}</code>, the cryptographic deployment desk will dispatch your designated hardware units and initiate the live protocol handshake with your technical officers (${d.email}) within your requested schedule (<b>${d.timeline}</b>).
         </p>
 
         <div class="signature-block">
