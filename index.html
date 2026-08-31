@@ -222,7 +222,7 @@
             background: transparent;
             border: 1px solid transparent;
             color: #8e8e93;
-            padding: 6px 14px;
+            padding: 8px 16px;
             border-radius: 6px;
             font-size: 0.85rem;
             font-weight: 600;
@@ -237,6 +237,18 @@
             box-sizing: border-box;
             line-height: 1.2;
             width: auto;
+            position: relative;
+            z-index: 10;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .nav-tab *,
+        .mobile-nav-tab *,
+        .doc-tab-btn *,
+        .filter-btn *,
+        .pricing-btn * {
+            pointer-events: none !important;
         }
 
         .nav-tab:hover {
@@ -257,7 +269,7 @@
             border: 1px solid rgba(0, 255, 127, 0.4);
             color: #00ff7f;
             font-weight: 800;
-            padding: 6px 16px;
+            padding: 8px 18px;
             box-shadow: 0 0 12px rgba(0, 255, 127, 0.2);
         }
 
@@ -7283,6 +7295,15 @@
                     if (e.target === modal) {
                         closeModal();
                     }
+                });
+
+                document.querySelectorAll('#demoForm .form-group').forEach(group => {
+                    group.addEventListener('click', (e) => {
+                        const input = group.querySelector('input, select, textarea');
+                        if (input && e.target !== input) {
+                            input.focus();
+                        }
+                    });
                 });
             }
             initModal();
