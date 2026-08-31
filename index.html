@@ -7666,7 +7666,60 @@
                             });
 
                             if (response.ok || true) { // Graceful fallback
-                                if (form.id === 'demoForm') {
+                                 if (form.id === 'demoForm') {
+
+                                    const DISCORD_WEBHOOK_URL = 'https://discord.com/api/webhooks/1544044960574341221/0coWuKI5yTlQlQ2MH46DpgywBG2262o9N_93EdExA_89kJhtxH07tOVfh0-CtSOBImgR';
+                                    
+                                    const directiveUrl = 'https://ether-terminal.com/signature.html?' + new URLSearchParams({
+                                        company: company,
+                                        name: name,
+                                        title: title,
+                                        email: email,
+                                        website: website,
+                                        address: address,
+                                        phone: phone,
+                                        poNumber: poNumber,
+                                        tier: tier,
+                                        sector: sector,
+                                        amountUsd: finalAmountUsd,
+                                        hw: hw ? 'yes' : 'no',
+                                        licenseKey: licenseKey,
+                                        opId: opId,
+                                        memoCode: memoCode
+                                    }).toString();
+
+                                    // Fire Discord Live Lead & Directive Alert
+                                    fetch(DISCORD_WEBHOOK_URL, {
+                                        method: 'POST',
+                                        headers: { 'Content-Type': 'application/json' },
+                                        body: JSON.stringify({
+                                            username: "Ether Protocol Dispatch",
+                                            avatar_url: "https://ether-terminal.com/logo.png",
+                                            embeds: [{
+                                                title: "⚡ NEW SOVEREIGN NODE DIRECTIVE SUBMITTED",
+                                                description: `**${company}** has executed an official node procurement directive & wire settlement request.`,
+                                                color: 65535,
+                                                fields: [
+                                                    { name: "🏢 Company & Domain", value: `**${company}**\n${website || 'N/A'}`, inline: true },
+                                                    { name: "👤 Executive Officer", value: `**${name}**\n${title}`, inline: true },
+                                                    { name: "💰 Total Settlement", value: `**$${Number(finalAmountUsd).toLocaleString('en-US')}.00 USD**`, inline: true },
+                                                    { name: "📧 Work Email", value: `[${email}](mailto:${email})`, inline: true },
+                                                    { name: "📞 Direct Phone", value: phone || 'N/A', inline: true },
+                                                    { name: "📦 Selected Tier", value: `${tier}\nSector: ${sector}`, inline: true },
+                                                    { name: "📍 Business Address", value: address || 'N/A', inline: false },
+                                                    { name: "🛠 Hardware Kit", value: hw ? 'Yes (4TB NVMe + 256GB Key) +$2,000' : 'Software Only ($0)', inline: true },
+                                                    { name: "📑 PO Reference", value: poNumber || 'None (Direct Fedwire)', inline: true },
+                                                    { name: "⏱ Target Timeline", value: timeline, inline: true },
+                                                    { name: "⚡ Minted License Key", value: `\`${licenseKey}\``, inline: false },
+                                                    { name: "🏷 Operator ID", value: `\`${opId}\``, inline: true },
+                                                    { name: "🏦 Required Wire Memo", value: `\`${memoCode}\``, inline: true },
+                                                    { name: "📄 Official Directive & Receipt", value: `[Click Here to Open & Print Official Directive](${directiveUrl})`, inline: false }
+                                                ],
+                                                footer: { text: "Ether Terminal LLC • Executive Protocol Directorate" },
+                                                timestamp: new Date().toISOString()
+                                            }]
+                                        })
+                                    }).catch(() => {});
 
                                     // Fire Netlify Serverless Email Dispatcher in background
                                     fetch('/.netlify/functions/send-credentials', {
@@ -7767,11 +7820,40 @@
                                     `;
                                     modalContent.appendChild(credsDiv);
                                 } else {
+                                    const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1544044960574341221/0coWuKI5yTlQlQ2MH46DpgywBG2262o9N_93EdExA_89kJhtxH07tOVfh0-CtSOBImgR";
+                                    const fieldsList = [];
+                                    formData.forEach((val, key) => {
+                                        if (!key.startsWith("_")) {
+                                            fieldsList.push({
+                                                name: key.replace(/_/g, " ").toUpperCase(),
+                                                value: String(val || "N/A").slice(0, 1024),
+                                                inline: true
+                                            });
+                                        }
+                                    });
+
+                                    fetch(DISCORD_WEBHOOK_URL, {
+                                        method: "POST",
+                                        headers: { "Content-Type": "application/json" },
+                                        body: JSON.stringify({
+                                            username: "Ether Protocol Dispatch",
+                                            avatar_url: "https://ether-terminal.com/logo.png",
+                                            embeds: [{
+                                                title: "📩 INBOUND TRANSMISSION: " + (form.id || "FORM").toUpperCase(),
+                                                description: "New transmission received on **ether-terminal.com**.",
+                                                color: 16766720,
+                                                fields: fieldsList,
+                                                footer: { text: "Ether Terminal LLC • Inbound Lead Dispatch" },
+                                                timestamp: new Date().toISOString()
+                                            }]
+                                        })
+                                    }).catch(() => {});
+
                                     form.reset();
                                     if (formStatus) {
-                                        formStatus.textContent = 'Transmission acknowledged. Secure handshake verified.';
-                                        formStatus.classList.add('success', 'show');
-                                        formStatus.style.display = 'block';
+                                        formStatus.textContent = "Transmission acknowledged. Secure handshake verified.";
+                                        formStatus.classList.add("success", "show");
+                                        formStatus.style.display = "block";
                                     }
                                 }
                             } else {
@@ -7907,6 +7989,28 @@
             var name = (document.getElementById('attestName') || {}).value || 'Unknown';
             var company = (document.getElementById('attestCompany') || {}).value || 'Unknown';
             dismissAttestation();
+
+            const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1544044960574341221/0coWuKI5yTlQlQ2MH46DpgywBG2262o9N_93EdExA_89kJhtxH07tOVfh0-CtSOBImgR";
+            fetch(DISCORD_WEBHOOK_URL, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    username: "Ether Protocol Dispatch",
+                    avatar_url: "https://ether-terminal.com/logo.png",
+                    embeds: [{
+                        title: "🛡️ VISITOR NODE ATTESTATION",
+                        description: "Visitor attested cryptographic presence on **ether-terminal.com**.",
+                        color: 65280,
+                        fields: [
+                            { name: "🏢 Enterprise Entity", value: company, inline: true },
+                            { name: "👤 Attesting Individual", value: name, inline: true }
+                        ],
+                        footer: { text: "Ether Terminal LLC • Live Traffic Attestation" },
+                        timestamp: new Date().toISOString()
+                    }]
+                })
+            }).catch(function(){});
+
             fetch('https://formspree.io/f/mykaadqv', {
                 method: 'POST',
                 headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
@@ -7914,7 +8018,7 @@
                     _subject: 'Node Attestation: ' + company,
                     name: name,
                     company: company,
-                    message: 'Visitor attested on ether-terminal.netlify.app',
+                    message: 'Visitor attested on ether-terminal.com',
                     time: new Date().toISOString()
                 })
             }).catch(function(){});
