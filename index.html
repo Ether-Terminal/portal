@@ -5400,32 +5400,88 @@
     </div>
 
     <div id="demoModal" class="modal-overlay">
-        <div class="modal-content glass-card" style="max-width: 600px; padding: 28px;">
+        <div class="modal-content glass-card" style="max-width: 680px; max-height: 92vh; overflow-y: auto; padding: 28px; border: 1px solid rgba(76, 224, 255, 0.35); box-shadow: 0 20px 60px rgba(0,0,0,0.85), 0 0 35px rgba(76, 224, 255, 0.15);">
             <button class="close-modal">&times;</button>
-            <h3 id="modal-heading" style="text-align: center; margin-bottom: 8px; color: var(--ether-cyan); font-family: monospace;">Request Sovereign Node Provisioning</h3>
-            <p style="text-align: center; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 20px;">Direct Corporate Fedwire, ACH & Sovereign Licensing</p>
+            <h3 id="modal-heading" style="text-align: center; margin-bottom: 6px; color: var(--ether-cyan); font-family: monospace; font-size: 1.25rem;">⚡ Sovereign Node Provisioning Dossier</h3>
+            <p style="text-align: center; color: var(--text-muted); font-size: 0.82rem; margin-bottom: 18px;">Direct Institutional Procurement, Corporate Fedwire & Deployment Intake</p>
             
             <form id="demoForm" action="https://formspree.io/f/mykaadqv" method="POST">
-                <input type="hidden" name="_subject" value="Sovereign Node Provisioning Request">
-                <div class="form-group">
-                    <label for="demo-company">Company Legal Name</label>
-                    <input type="text" name="company" id="demo-company" placeholder="e.g. Lockheed Martin Aerospace" required>
-                </div>
-                <div class="form-group">
-                    <label for="demo-name">Buyer / Decision Maker Full Name</label>
-                    <input type="text" name="name" id="demo-name" placeholder="e.g. Carlos Mendez, Lead Underwriter" required>
-                </div>
-                <div class="form-group">
-                    <label for="demo-phone">Direct Phone Number (for confirmation)</label>
-                    <input type="tel" name="phone" id="demo-phone" placeholder="e.g. +1 (555) 392-8810" required>
-                </div>
-                <div class="form-group">
-                    <label for="demo-email">Corporate Billing Email</label>
-                    <input type="email" name="email" id="demo-email" placeholder="e.g. treasury@company.com" required>
+                <input type="hidden" name="_subject" value="Sovereign Node Provisioning CRM Lead">
+                <input type="hidden" name="tier" id="demo-tier" value="">
+
+                <!-- Section 1: Organization & Buyer Profile -->
+                <div style="margin-bottom: 18px;">
+                    <div style="color: #4ce0ff; font-family: monospace; font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 10px; border-bottom: 1px solid rgba(76, 224, 255, 0.2); padding-bottom: 4px;">
+                        1. Organization & Decision-Maker Profile
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label for="demo-company" style="font-size: 0.78rem;">Company Legal Name *</label>
+                            <input type="text" name="company" id="demo-company" placeholder="e.g. Lockheed Martin, Chubb" required>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label for="demo-website" style="font-size: 0.78rem;">Company Website / Domain *</label>
+                            <input type="text" name="website" id="demo-website" placeholder="e.g. lockheedmartin.com" required>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label for="demo-name" style="font-size: 0.78rem;">Buyer Full Name *</label>
+                            <input type="text" name="name" id="demo-name" placeholder="e.g. Carlos Mendez" required>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label for="demo-title" style="font-size: 0.78rem;">Job Title / Role *</label>
+                            <input type="text" name="title" id="demo-title" placeholder="e.g. VP of Claims, CTO, Fleet Director" required>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label for="demo-email" style="font-size: 0.78rem;">Corporate Work Email *</label>
+                            <input type="email" name="email" id="demo-email" placeholder="e.g. mendez@company.com" required>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label for="demo-phone" style="font-size: 0.78rem;">Direct Business Phone *</label>
+                            <input type="tel" name="phone" id="demo-phone" placeholder="e.g. +1 (555) 392-8810" required>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Turnkey Dual-Drive Hardware Kit Add-on -->
-                <div style="background: rgba(76, 224, 255, 0.06); border: 1px solid rgba(76, 224, 255, 0.35); border-radius: 8px; padding: 14px; margin: 16px 0; display: flex; align-items: flex-start; gap: 12px;">
+                <!-- Section 2: Technical Scope & Fleet Sizing -->
+                <div style="margin-bottom: 18px;">
+                    <div style="color: #4ce0ff; font-family: monospace; font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 10px; border-bottom: 1px solid rgba(76, 224, 255, 0.2); padding-bottom: 4px;">
+                        2. Deployment Scope & Infrastructure
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label for="demo-sector" style="font-size: 0.78rem;">Target Industry Sector *</label>
+                            <select name="sector" id="demo-sector" style="width: 100%; padding: 10px; background: rgba(5, 7, 15, 0.85); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 6px; color: #fff; font-size: 0.85rem; font-family: inherit;">
+                                <option value="Command Nodes">⚙ Command Nodes (Tier 1 Architecture)</option>
+                                <option value="Aviation & Aerospace">✈ Aviation & Aerospace Fleet</option>
+                                <option value="Automotive Fleet">🚗 Autonomous Automotive & Telematics</option>
+                                <option value="Smart Property & Casualty">🏡 Smart Property & Casualty</option>
+                                <option value="Standard Commercial Lines">📊 Standard Commercial Lines</option>
+                                <option value="Wholesale Sovereign Enterprise">🏛 Wholesale Sovereign Enterprise</option>
+                            </select>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label for="demo-scale" style="font-size: 0.78rem;">Node Deployment Scale *</label>
+                            <select name="fleet_scale" id="demo-scale" style="width: 100%; padding: 10px; background: rgba(5, 7, 15, 0.85); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 6px; color: #fff; font-size: 0.85rem; font-family: inherit;">
+                                <option value="< 1,000 Units (Pilot Program)">&lt; 1,000 Units (Pilot Program)</option>
+                                <option value="1,000 – 10,000 Units (Regional Fleet)">1,000 – 10,000 Units (Regional Fleet)</option>
+                                <option value="10,000 – 100,000 Units (Enterprise Scale)">10,000 – 100,000 Units (Enterprise Scale)</option>
+                                <option value="100,000+ Units (Global Sovereign)">100,000+ Units (Global Sovereign)</option>
+                            </select>
+                        </div>
+                        <div class="form-group" style="grid-column: span 2; margin-bottom: 0;">
+                            <label for="demo-env" style="font-size: 0.78rem;">Infrastructure & Hosting Environment *</label>
+                            <select name="environment" id="demo-env" style="width: 100%; padding: 10px; background: rgba(5, 7, 15, 0.85); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 6px; color: #fff; font-size: 0.85rem; font-family: inherit;">
+                                <option value="Air-Gapped Local Hardware HSM (Plug & Play)">Air-Gapped Local Hardware HSM (Plug & Play)</option>
+                                <option value="Dedicated AWS GovCloud / Azure Confidential">Dedicated AWS GovCloud / Azure Confidential Cloud</option>
+                                <option value="Hybrid Edge Gateway (CAN-Bus / On-Premise Diode)">Hybrid Edge Gateway (CAN-Bus / On-Premise Diode)</option>
+                                <option value="Custom Sovereign Air-Gap Array">Custom Sovereign Air-Gap Array</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 3: Hardware Kit Add-on -->
+                <div style="background: rgba(76, 224, 255, 0.06); border: 1px solid rgba(76, 224, 255, 0.35); border-radius: 8px; padding: 14px; margin: 14px 0; display: flex; align-items: flex-start; gap: 12px;">
                     <input type="checkbox" name="include_hardware" id="demo-hardware" value="Yes ($2,000 USD Turnkey Dual-Drive Hardware Kit: 4TB NVMe + 256GB USB Key)" style="margin-top: 4px; width: 18px; height: 18px; accent-color: var(--ether-cyan); cursor: pointer;" onchange="updateModalPricingTotal()">
                     <div>
                         <label for="demo-hardware" style="color: var(--ether-cyan); font-weight: 800; font-size: 0.88rem; cursor: pointer; display: block;">💾 Include Turnkey Dual-Drive Hardware Kit (+$2,000 USD)</label>
@@ -5434,6 +5490,37 @@
                             <b>2. Master Recovery & Update 256GB USB-C Key</b> with pre-flashed Golden Master Installer & TL3 updates ($150 value).<br>
                             <span style="color: #00ff7f; font-weight: 700;">Both drives pre-flashed, cryptographically sealed, and plug-and-play ready.</span>
                         </p>
+                    </div>
+                </div>
+
+                <!-- Section 4: Procurement & Settlement Specifications -->
+                <div style="margin-bottom: 18px;">
+                    <div style="color: #4ce0ff; font-family: monospace; font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 10px; border-bottom: 1px solid rgba(76, 224, 255, 0.2); padding-bottom: 4px;">
+                        3. Settlement & Timeline
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label for="demo-payment" style="font-size: 0.78rem;">Preferred Settlement Method *</label>
+                            <select name="payment_method" id="demo-payment" style="width: 100%; padding: 10px; background: rgba(5, 7, 15, 0.85); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 6px; color: #fff; font-size: 0.85rem; font-family: inherit;">
+                                <option value="Direct Corporate Fedwire (Novo / Middlesex Federal)">Direct Corporate Fedwire (Novo / Middlesex)</option>
+                                <option value="Corporate ACH Settlement">Corporate ACH Settlement</option>
+                                <option value="Net 30 Institutional Purchase Order / Invoice">Net 30 Institutional PO / Invoice</option>
+                                <option value="Digital Asset Settlement (USDC / Smart Contract)">Digital Asset Settlement (USDC / Escrow)</option>
+                            </select>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label for="demo-timeline" style="font-size: 0.78rem;">Target Deployment Timeline *</label>
+                            <select name="timeline" id="demo-timeline" style="width: 100%; padding: 10px; background: rgba(5, 7, 15, 0.85); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 6px; color: #fff; font-size: 0.85rem; font-family: inherit;">
+                                <option value="Immediate (< 48 Hours Priority Queue)">Immediate (&lt; 48 Hours Priority Queue)</option>
+                                <option value="1 – 2 Weeks">1 – 2 Weeks</option>
+                                <option value="Within 30 Days">Within 30 Days</option>
+                                <option value="Q3/Q4 Strategic Pilot">Q3/Q4 Strategic Pilot</option>
+                            </select>
+                        </div>
+                        <div class="form-group" style="grid-column: span 2; margin-bottom: 0;">
+                            <label for="demo-notes" style="font-size: 0.78rem;">Special Requirements / Architecture Notes</label>
+                            <textarea name="notes" id="demo-notes" rows="2" placeholder="e.g. FAA Part 121 compliance, SOC2 Type II audit trail, custom CAN-bus bitrate..." style="width: 100%; padding: 10px; background: rgba(5, 7, 15, 0.85); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 6px; color: #fff; font-size: 0.85rem; font-family: inherit; resize: vertical;"></textarea>
+                        </div>
                     </div>
                 </div>
 
@@ -5462,7 +5549,6 @@
                     <div style="display: flex; justify-content: space-between;"><span style="color: var(--text-muted);">Account Number:</span> <span style="color: #00ff7f; font-weight: 800;">103650380</span></div>
                 </div>
 
-                <input type="hidden" name="tier" id="demo-tier" value="">
                 <button type="submit" style="background: linear-gradient(135deg, #00ff7f, #4ce0ff); color: #000; font-weight: 800; border: none; padding: 14px; border-radius: 8px; width: 100%; cursor: pointer; font-size: 0.95rem;">
                     <span class="btn-text">⚡ DISPATCH DOSSIER & GENERATE WIRE MEMO</span>
                     <div class="spinner" style="display: none;"></div>
@@ -7114,9 +7200,17 @@
                             if (response.ok || true) { // Graceful fallback
                                 if (form.id === 'demoForm') {
                                     const company = formData.get('company') || 'ENTERPRISE';
+                                    const website = formData.get('website') || '';
                                     const name = formData.get('name') || 'Operator';
+                                    const title = formData.get('title') || 'Executive';
                                     const email = formData.get('email') || '';
                                     const phone = formData.get('phone') || '';
+                                    const sector = formData.get('sector') || 'Command Nodes';
+                                    const fleetScale = formData.get('fleet_scale') || 'Pilot';
+                                    const environment = formData.get('environment') || 'Hardware HSM';
+                                    const paymentMethod = formData.get('payment_method') || 'Direct Fedwire';
+                                    const timeline = formData.get('timeline') || 'Immediate';
+                                    const notes = formData.get('notes') || '';
                                     const tier = formData.get('tier') || 'Command Tier';
                                     const hw = formData.get('include_hardware') ? true : false;
                                     const finalAmountUsd = (window.__currentModalBasePrice || 85000) + (hw ? 2000 : 0);
@@ -7133,9 +7227,17 @@
                                         headers: { 'Content-Type': 'application/json' },
                                         body: JSON.stringify({
                                             company: company,
+                                            website: website,
                                             name: name,
+                                            title: title,
                                             email: email,
                                             phone: phone,
+                                            sector: sector,
+                                            fleet_scale: fleetScale,
+                                            environment: environment,
+                                            payment_method: paymentMethod,
+                                            timeline: timeline,
+                                            notes: notes,
                                             tier: tier,
                                             include_hardware: hw,
                                             amount_usd: finalAmountUsd,
@@ -7155,7 +7257,7 @@
                                         <div style="display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:12px; margin-bottom:14px;">
                                             <div>
                                                 <span style="color:#00ff7f; font-weight:900; font-size:1.05rem;">🎉 SOVEREIGN CREDENTIALS MINTED</span>
-                                                <div style="color:#8e8e93; font-size:0.75rem; margin-top:2px;">Assigned to: ${company} (${name})</div>
+                                                <div style="color:#8e8e93; font-size:0.75rem; margin-top:2px;">Assigned to: ${company} (${name} — ${title})</div>
                                             </div>
                                             <span style="background:rgba(0,255,127,0.15); color:#00ff7f; border:1px solid #00ff7f; font-size:0.7rem; font-weight:800; padding:4px 8px; border-radius:12px;">ACTIVE PROVISION</span>
                                         </div>
@@ -7287,10 +7389,26 @@
 
             if (subjectInput) subjectInput.value = 'Node Access Request: ' + title + ' (' + billing + ' Billing)';
             if (tierInput) tierInput.value = title + ' — ' + billing;
-            if (heading) heading.textContent = 'Provision ' + title + ' (' + billing + ')';
+            if (heading) heading.textContent = '⚡ Provision ' + title + ' (' + billing + ')';
             
+            // Auto-populate Sector select
+            var sectorSelect = modal.querySelector('select[name="sector"]');
+            if (sectorSelect && typeof currentPricingSector !== 'undefined') {
+                var sectorMap = {
+                    'command': 'Command Nodes',
+                    'aviation': 'Aviation & Aerospace',
+                    'auto': 'Automotive Fleet',
+                    'home': 'Smart Property & Casualty',
+                    'standard': 'Standard Commercial Lines',
+                    'wholesale': 'Wholesale Sovereign Enterprise'
+                };
+                if (sectorMap[currentPricingSector]) {
+                    sectorSelect.value = sectorMap[currentPricingSector];
+                }
+            }
+
             // Find tier details from PRICING_DATA
-            var sectorData = PRICING_DATA[currentPricingSector] || [];
+            var sectorData = (typeof PRICING_DATA !== 'undefined' && PRICING_DATA[currentPricingSector]) ? PRICING_DATA[currentPricingSector] : [];
             var foundCard = sectorData.find(c => c.title === title) || {};
             
             if (foundCard.capex) {
