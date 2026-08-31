@@ -5610,6 +5610,10 @@
                             <label for="demo-website">Company Website / Domain *</label>
                             <input type="text" name="website" id="demo-website" class="modal-input-field" placeholder="lockheedmartin.com" required>
                         </div>
+                        <div class="form-group full-width">
+                            <label for="demo-address">Corporate Business / HQ Address *</label>
+                            <input type="text" name="address" id="demo-address" class="modal-input-field" placeholder="6801 Rockledge Dr, Bethesda, MD 20817, USA" required>
+                        </div>
                         <div class="form-group">
                             <label for="demo-name">Buyer Full Name *</label>
                             <input type="text" name="name" id="demo-name" class="modal-input-field" placeholder="Jonathan Vance" required>
@@ -7133,6 +7137,120 @@
                 ]
             };
 
+            window.updateModalPricingTotal = function() {
+                const hwCheckbox = document.getElementById('demo-hardware');
+                const isHw = hwCheckbox && hwCheckbox.checked;
+                const hwPrice = isHw ? 2000 : 0;
+                const totalPrice = (window.__currentModalBasePrice || 85000) + hwPrice;
+
+                const baseEl = document.getElementById('modalBasePriceDisplay');
+                const hwEl = document.getElementById('modalHwPriceDisplay');
+                const totalEl = document.getElementById('modalTotalPriceDisplay');
+
+                if (baseEl) baseEl.textContent = '$' + (window.__currentModalBasePrice || 85000).toLocaleString('en-US') + '.00 USD';
+                if (hwEl) {
+                    hwEl.textContent = isHw ? '+$2,000.00 USD (4TB NVMe + 256GB Key)' : '+$0.00 USD';
+                    hwEl.style.color = isHw ? '#00ff7f' : 'var(--text-muted)';
+                }
+                if (totalEl) totalEl.textContent = '$' + totalPrice.toLocaleString('en-US') + '.00 USD';
+            };
+
+            window.requestNode = function(title, tierClass, billing) {
+                var modal = document.getElementById('demoModal');
+                if (!modal) return;
+                var subjectInput = modal.querySelector('input[name="_subject"]');
+                var tierInput = modal.querySelector('input[name="tier"]');
+                var heading = modal.querySelector('#modal-heading');
+                var form = document.getElementById('demoForm');
+                if (form) form.style.display = 'block';
+                var existingCreds = modal.querySelector('.credentials-result-card');
+                if (existingCreds) existingCreds.remove();
+
+                // Auto-populate Sector select
+                var sectorSelect = modal.querySelector('select[name="sector"]');
+                if (sectorSelect && typeof currentPricingSector !== 'undefined') {
+                    var sectorMap = {
+                        'command': 'Command Nodes',
+                        'aviation': 'Aviation & Aerospace',
+                        'auto': 'Automotive Fleet',
+                        'home': 'Smart Property & Casualty',
+                        'standard': 'Standard Commercial Lines',
+                        'wholesale': 'Wholesale Sovereign Enterprise'
+                    };
+                    if (sectorMap[currentPricingSector]) {
+                        sectorSelect.value = sectorMap[currentPricingSector];
+                    }
+                }
+
+                // Find tier details from PRICING_DATA across all sectors
+                var foundCard = null;
+                if (typeof PRICING_DATA !== 'undefined') {
+                    if (typeof currentPricingSector !== 'undefined' && PRICING_DATA[currentPricingSector]) {
+                        foundCard = PRICING_DATA[currentPricingSector].find(c => c.title === title);
+                    }
+                    if (!foundCard) {
+                        for (var s in PRICING_DATA) {
+                            foundCard = PRICING_DATA[s].find(c => c.title === title);
+                            if (foundCard) break;
+                        }
+                    }
+                }
+                foundCard = foundCard || {};
+                
+                var isAnnual = (billing === 'Annual' || billing === 'Annual Billing' || window.__billingIsAnnual);
+                var billingLabel = isAnnual ? 'Annual' : 'Monthly';
+                var exactPrice = 85000;
+
+                if (foundCard.capex) {
+                    exactPrice = foundCard.capexPrice || 38500;
+                    billingLabel = 'One-Time CapEx';
+                } else if (isAnnual) {
+                    exactPrice = foundCard.annualPriceValue || 85000;
+                } else {
+                    exactPrice = foundCard.monthlyPrice || 8500;
+                }
+
+                window.__currentModalBasePrice = exactPrice;
+                window.__currentModalTierName = title;
+                window.__currentModalBilling = billingLabel;
+
+                if (subjectInput) subjectInput.value = 'Node Provisioning Request: ' + title + ' (' + billingLabel + ' @ $' + exactPrice.toLocaleString('en-US') + ')';
+                if (tierInput) tierInput.value = title + ' — ' + billingLabel + ' ($' + exactPrice.toLocaleString('en-US') + ')';
+                if (heading) heading.textContent = '⚡ Provision ' + title + ' (' + billingLabel + ')';
+
+                var tierDetailsBox = document.getElementById('modalTierDetails');
+                if (!tierDetailsBox) {
+                    tierDetailsBox = document.createElement('div');
+                    tierDetailsBox.id = 'modalTierDetails';
+                    var formEl = document.getElementById('demoForm');
+                    formEl.insertBefore(tierDetailsBox, formEl.firstChild);
+                }
+                
+                var featuresListHtml = (foundCard.features || []).slice(0, 3).map(f => `<li style="color:#cbd5e1; font-size:0.75rem; margin-bottom:2px;">✓ ${f}</li>`).join('');
+                tierDetailsBox.innerHTML = `
+                    <div style="background: rgba(76, 224, 255, 0.08); border: 1px solid rgba(76, 224, 255, 0.3); border-radius: 8px; padding: 10px 14px; margin-bottom: 14px; font-family: monospace;">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                            <span style="color:#4ce0ff; font-weight:800; font-size:0.85rem;">📦 SELECTED TIER: ${title}</span>
+                            <span style="color:#00ff7f; font-weight:800; font-size:0.75rem; background:rgba(0,255,127,0.12); padding:2px 6px; border-radius:4px;">${billingLabel} — $${exactPrice.toLocaleString('en-US')}</span>
+                        </div>
+                        <ul style="list-style:none; padding-left:0; margin:4px 0 0 0;">
+                            ${featuresListHtml}
+                        </ul>
+                    </div>
+                `;
+
+                window.updateModalPricingTotal();
+
+                modal.classList.add('open');
+                modal.setAttribute('aria-hidden', 'false');
+                document.body.classList.add('modal-open');
+                document.documentElement.classList.add('modal-open');
+                modal.scrollTop = 0;
+                var firstInput = modal.querySelector('input[name="company"]');
+                if (firstInput) firstInput.focus();
+            };
+            var requestNode = window.requestNode;
+
             function initPricingTiers() {
                 const grid = document.getElementById('pricingGrid');
                 const toggle = document.getElementById('billingToggle');
@@ -7387,6 +7505,7 @@
 
                         const company = formData.get('company') || 'ENTERPRISE';
                         const website = formData.get('website') || '';
+                        const address = formData.get('address') || '';
                         const name = formData.get('name') || 'Operator';
                         const title = formData.get('title') || 'Executive';
                         const email = formData.get('email') || '';
@@ -7411,6 +7530,7 @@
                         formData.set('_subject', 'Sovereign Node Provisioning Order: ' + company + ' — ' + tier + ' ($' + Number(finalAmountUsd).toLocaleString('en-US') + '.00 USD)');
                         formData.set('company', company);
                         formData.set('website', website);
+                        formData.set('address', address);
                         formData.set('name', name);
                         formData.set('title', title);
                         formData.set('email', email);
@@ -7449,6 +7569,7 @@
                                         body: JSON.stringify({
                                             company: company,
                                             website: website,
+                                            address: address,
                                             name: name,
                                             title: title,
                                             email: email,
@@ -7476,6 +7597,7 @@
                                     window.__lastDossierData = {
                                         company: company,
                                         website: website,
+                                        address: address,
                                         name: name,
                                         title: title,
                                         email: email,
@@ -8437,7 +8559,10 @@
             if (company || website) {
                 memoForHtml += (company || "") + (website ? " (" + website + ")" : "") + "<br>";
             }
-            memoForHtml += "<span style='font-size:0.9rem; color:#444;'>Contact: " + (email || "On Record") + " | Tel: Direct on Record</span>";
+            if (address) {
+                memoForHtml += "<span style='color:#555;'>" + address + "</span><br>";
+            }
+            memoForHtml += "<span style='font-size:0.9rem; color:#444;'>Contact: " + (email || "On Record") + (phone ? " | Tel: " + phone : " | Tel: Direct on Record") + "</span>";
             document.getElementById("docMemoFor").innerHTML = memoForHtml;
 
             document.getElementById("docOpId").textContent = opId;
@@ -8464,122 +8589,6 @@
             win.document.write(html);
             win.document.close();
         };
-        window.updateModalPricingTotal = function() {
-            const hwCheckbox = document.getElementById('demo-hardware');
-            const isHw = hwCheckbox && hwCheckbox.checked;
-            const hwPrice = isHw ? 2000 : 0;
-            const totalPrice = (window.__currentModalBasePrice || 85000) + hwPrice;
-
-            const baseEl = document.getElementById('modalBasePriceDisplay');
-            const hwEl = document.getElementById('modalHwPriceDisplay');
-            const totalEl = document.getElementById('modalTotalPriceDisplay');
-
-            if (baseEl) baseEl.textContent = '$' + (window.__currentModalBasePrice || 85000).toLocaleString('en-US') + '.00 USD';
-            if (hwEl) {
-                hwEl.textContent = isHw ? '+$2,000.00 USD (4TB NVMe + 256GB Key)' : '+$0.00 USD';
-                hwEl.style.color = isHw ? '#00ff7f' : 'var(--text-muted)';
-            }
-            if (totalEl) totalEl.textContent = '$' + totalPrice.toLocaleString('en-US') + '.00 USD';
-        };
-
-        function requestNode(title, tierClass, billing) {
-            var modal = document.getElementById('demoModal');
-            if (!modal) return;
-            var subjectInput = modal.querySelector('input[name="_subject"]');
-            var tierInput = modal.querySelector('input[name="tier"]');
-            var heading = modal.querySelector('#modal-heading');
-            var form = document.getElementById('demoForm');
-            if (form) form.style.display = 'block';
-            var existingCreds = modal.querySelector('.credentials-result-card');
-            if (existingCreds) existingCreds.remove();
-
-            if (subjectInput) subjectInput.value = 'Node Access Request: ' + title + ' (' + billing + ' Billing)';
-            if (tierInput) tierInput.value = title + ' — ' + billing;
-            if (heading) heading.textContent = '⚡ Provision ' + title + ' (' + billing + ')';
-            
-            // Auto-populate Sector select
-            var sectorSelect = modal.querySelector('select[name="sector"]');
-            if (sectorSelect && typeof currentPricingSector !== 'undefined') {
-                var sectorMap = {
-                    'command': 'Command Nodes',
-                    'aviation': 'Aviation & Aerospace',
-                    'auto': 'Automotive Fleet',
-                    'home': 'Smart Property & Casualty',
-                    'standard': 'Standard Commercial Lines',
-                    'wholesale': 'Wholesale Sovereign Enterprise'
-                };
-                if (sectorMap[currentPricingSector]) {
-                    sectorSelect.value = sectorMap[currentPricingSector];
-                }
-            }
-
-            // Find tier details from PRICING_DATA across all sectors
-            var foundCard = null;
-            if (typeof PRICING_DATA !== 'undefined') {
-                if (typeof currentPricingSector !== 'undefined' && PRICING_DATA[currentPricingSector]) {
-                    foundCard = PRICING_DATA[currentPricingSector].find(c => c.title === title);
-                }
-                if (!foundCard) {
-                    for (var s in PRICING_DATA) {
-                        foundCard = PRICING_DATA[s].find(c => c.title === title);
-                        if (foundCard) break;
-                    }
-                }
-            }
-            foundCard = foundCard || {};
-            
-            var isAnnual = (billing === 'Annual' || billing === 'Annual Billing');
-            var billingLabel = isAnnual ? 'Annual' : 'Monthly';
-            var exactPrice = 85000;
-
-            if (foundCard.capex) {
-                exactPrice = foundCard.capexPrice || 38500;
-                billingLabel = 'One-Time CapEx';
-            } else if (isAnnual) {
-                exactPrice = foundCard.annualPriceValue || 85000;
-            } else {
-                exactPrice = foundCard.monthlyPrice || 8500;
-            }
-
-            window.__currentModalBasePrice = exactPrice;
-            window.__currentModalTierName = title;
-            window.__currentModalBilling = billingLabel;
-
-            if (subjectInput) subjectInput.value = 'Node Provisioning Request: ' + title + ' (' + billingLabel + ' @ $' + exactPrice.toLocaleString('en-US') + ')';
-            if (tierInput) tierInput.value = title + ' — ' + billingLabel + ' ($' + exactPrice.toLocaleString('en-US') + ')';
-            if (heading) heading.textContent = '⚡ Provision ' + title + ' (' + billingLabel + ')';
-
-            var tierDetailsBox = document.getElementById('modalTierDetails');
-            if (!tierDetailsBox) {
-                tierDetailsBox = document.createElement('div');
-                tierDetailsBox.id = 'modalTierDetails';
-                var formEl = document.getElementById('demoForm');
-                formEl.insertBefore(tierDetailsBox, formEl.firstChild);
-            }
-            
-            var featuresListHtml = (foundCard.features || []).slice(0, 3).map(f => `<li style="color:#cbd5e1; font-size:0.75rem; margin-bottom:2px;">✓ ${f}</li>`).join('');
-            tierDetailsBox.innerHTML = `
-                <div style="background: rgba(76, 224, 255, 0.08); border: 1px solid rgba(76, 224, 255, 0.3); border-radius: 8px; padding: 10px 14px; margin-bottom: 14px; font-family: monospace;">
-                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
-                        <span style="color:#4ce0ff; font-weight:800; font-size:0.85rem;">📦 SELECTED TIER: ${title}</span>
-                        <span style="color:#00ff7f; font-weight:800; font-size:0.75rem; background:rgba(0,255,127,0.12); padding:2px 6px; border-radius:4px;">${billingLabel} — $${exactPrice.toLocaleString('en-US')}</span>
-                    </div>
-                    <ul style="list-style:none; padding-left:0; margin:4px 0 0 0;">
-                        ${featuresListHtml}
-                    </ul>
-                </div>
-            `;
-
-            updateModalPricingTotal();
-
-            modal.classList.add('open');
-            modal.setAttribute('aria-hidden', 'false');
-            document.body.classList.add('modal-open');
-            document.documentElement.classList.add('modal-open');
-            modal.scrollTop = 0;
-            var firstInput = modal.querySelector('input[name="company"]');
-            if (firstInput) firstInput.focus();
-        }
 
         function attestNode() {
             var notice = document.getElementById('cookieNotice');

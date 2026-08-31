@@ -805,7 +805,10 @@
             if (company || website) {
                 memoForHtml += (company || "") + (website ? " (" + website + ")" : "") + "<br>";
             }
-            memoForHtml += "<span style='font-size:0.9rem; color:#444;'>Contact: " + (email || "On Record") + " | Tel: Direct on Record</span>";
+            if (address) {
+                memoForHtml += "<span style='color:#555;'>" + address + "</span><br>";
+            }
+            memoForHtml += "<span style='font-size:0.9rem; color:#444;'>Contact: " + (email || "On Record") + (phone ? " | Tel: " + phone : " | Tel: Direct on Record") + "</span>";
             document.getElementById("docMemoFor").innerHTML = memoForHtml;
 
             document.getElementById("docOpId").textContent = opId;
