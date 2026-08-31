@@ -7336,18 +7336,18 @@
                                     credsDiv.innerHTML = `
                                         <div style="display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:12px; margin-bottom:14px;">
                                             <div>
-                                                <span style="color:#00ff7f; font-weight:900; font-size:1.05rem;">🎉 SOVEREIGN CREDENTIALS MINTED</span>
-                                                <div style="color:#8e8e93; font-size:0.75rem; margin-top:2px;">Assigned to: ${company} (${name} — ${title})</div>
+                                                <span style="color:#00ff7f; font-weight:900; font-size:1.05rem; letter-spacing:0.5px;">SOVEREIGN CREDENTIALS MINTED</span>
+                                                <div style="color:#8e8e93; font-size:0.75rem; margin-top:2px;">ASSIGNED TO: ${company} (${name} — ${title})</div>
                                             </div>
                                             <span style="background:rgba(0,255,127,0.15); color:#00ff7f; border:1px solid #00ff7f; font-size:0.7rem; font-weight:800; padding:4px 8px; border-radius:12px;">ACTIVE PROVISION</span>
                                         </div>
 
                                         <p style="color:#cbd5e1; font-size:0.8rem; margin-bottom:14px; line-height:1.45;">
-                                            Your deployment dossier has been submitted and transmitted to our engineering desk. Click below to view and print your <b>Official Sovereign Directive</b> with your gold seal letterhead:
+                                            Your deployment dossier has been submitted and transmitted to our engineering desk. Click below to view and print your <b>Official Sovereign Directive</b> on executive letterhead:
                                         </p>
 
                                         <div style="background:#03050a; border:1px solid rgba(255,255,255,0.08); border-radius:8px; padding:12px; margin-bottom:12px;">
-                                            <div style="color:#8e8e93; font-size:0.75rem; margin-bottom:4px;">🔑 CRYPTOGRAPHIC LICENSE KEY:</div>
+                                            <div style="color:#8e8e93; font-size:0.75rem; margin-bottom:4px;">CRYPTOGRAPHIC LICENSE KEY:</div>
                                             <div style="color:#4ce0ff; font-weight:800; font-size:0.85rem; word-break:break-all;" id="dispMintedKey">${licenseKey}</div>
                                             
                                             <div style="display:flex; justify-content:space-between; margin-top:8px; font-size:0.8rem;">
@@ -7357,7 +7357,7 @@
                                         </div>
 
                                         <div style="background:rgba(0,255,127,0.04); border:1px solid rgba(0,255,127,0.25); border-radius:8px; padding:12px; margin-bottom:14px; font-size:0.8rem;">
-                                            <div style="color:#00ff7f; font-weight:800; margin-bottom:6px;">🏛️ NOVO DIRECT CORPORATE WIRE COORDINATES:</div>
+                                            <div style="color:#00ff7f; font-weight:800; margin-bottom:6px;">NOVO DIRECT CORPORATE WIRE COORDINATES:</div>
                                             <div style="display:flex; justify-content:space-between; margin-bottom:3px;"><span style="color:#8e8e93;">Beneficiary:</span> <span style="color:#fff; font-weight:700;">Ether Terminal LLC</span></div>
                                             <div style="display:flex; justify-content:space-between; margin-bottom:3px;"><span style="color:#8e8e93;">Bank:</span> <span style="color:#fff;">Middlesex Federal Savings FA / Novo</span></div>
                                             <div style="display:flex; justify-content:space-between; margin-bottom:3px;"><span style="color:#8e8e93;">Routing (Wire/ACH):</span> <span style="color:#00ff7f; font-weight:800;">211370150</span></div>
@@ -7368,8 +7368,8 @@
                                         </div>
 
                                         <div style="display:flex; gap:10px; flex-wrap:wrap;">
-                                            <button type="button" onclick="navigator.clipboard.writeText('LICENSE KEY: ${licenseKey}\\nOPERATOR ID: ${opId}\\nBENEFICIARY: Ether Terminal LLC\\nBANK: Middlesex Federal Savings FA / Novo\\nROUTING: 211370150\\nACCOUNT: 103650380\\nMEMO: ${memoCode}\\nTOTAL: $' + Number(${finalAmountUsd}).toLocaleString('en-US') + '.00 USD'); alert('✓ Credentials & Wire Specs Copied to Clipboard!');" style="flex:1; min-width:180px; background:#fff; color:#000; font-weight:800; border:none; padding:12px; border-radius:6px; font-family:monospace; cursor:pointer; font-size:0.8rem;">📋 COPY ALL CREDENTIALS</button>
-                                            <button type="button" onclick="window.openExecutiveDirective(window.__lastDossierData);" style="flex:1; min-width:180px; background:linear-gradient(135deg, #b8860b, #e5c158); border:none; color:#050b14; font-weight:900; padding:12px; border-radius:6px; font-family:monospace; cursor:pointer; font-size:0.82rem; box-shadow: 0 0 15px rgba(229,193,88,0.4);">🏛️ VIEW OFFICIAL DIRECTIVE (SEAL)</button>
+                                            <button type="button" onclick="navigator.clipboard.writeText('LICENSE KEY: ${licenseKey}\\nOPERATOR ID: ${opId}\\nBENEFICIARY: Ether Terminal LLC\\nBANK: Middlesex Federal Savings FA / Novo\\nROUTING: 211370150\\nACCOUNT: 103650380\\nMEMO: ${memoCode}\\nTOTAL: $' + Number(${finalAmountUsd}).toLocaleString('en-US') + '.00 USD'); alert('Credentials and wire specifications copied to clipboard.');" style="flex:1; min-width:180px; background:#fff; color:#000; font-weight:800; border:none; padding:12px; border-radius:6px; font-family:monospace; cursor:pointer; font-size:0.8rem; letter-spacing:0.5px;">COPY CREDENTIALS & WIRE SPECS</button>
+                                            <button type="button" onclick="window.openExecutiveDirective(window.__lastDossierData);" style="flex:1; min-width:180px; background:linear-gradient(135deg, #b8860b, #e5c158); border:none; color:#050b14; font-weight:900; padding:12px; border-radius:6px; font-family:monospace; cursor:pointer; font-size:0.82rem; letter-spacing:0.5px; box-shadow: 0 0 15px rgba(229,193,88,0.4);">VIEW OFFICIAL DIRECTIVE (GOLD SEAL)</button>
                                         </div>
                                     `;
                                     modalContent.appendChild(credsDiv);
@@ -7475,7 +7475,7 @@
 
         window.openExecutiveDirective = function(d) {
             if (!d) return;
-            var win = window.open('', '_blank', 'width=900,height=1000');
+            var win = window.open('', '_blank', 'width=920,height=1050');
             if (!win) {
                 alert('Please allow popups to view your Official Sovereign Directive.');
                 return;
@@ -7506,24 +7506,37 @@
         .memorandum-sheet {
             background: #ffffff;
             width: 100%;
-            max-width: 800px;
-            padding: 60px 70px;
-            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.7);
+            max-width: 820px;
+            padding: 65px 75px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
             position: relative;
             line-height: 1.6;
-            border-top: 6px solid #002244;
+            border: 4px double #b8860b;
+            outline: 1px solid #d4af37;
+            outline-offset: -10px;
         }
+        .corner-filigree {
+            position: absolute;
+            width: 70px;
+            height: 70px;
+            pointer-events: none;
+        }
+        .corner-filigree.top-left { top: 12px; left: 12px; }
+        .corner-filigree.top-right { top: 12px; right: 12px; }
+        .corner-filigree.bottom-left { bottom: 12px; left: 12px; }
+        .corner-filigree.bottom-right { bottom: 12px; right: 12px; }
+
         .crest-container {
             text-align: center;
-            margin-bottom: 22px;
+            margin-bottom: 24px;
         }
         .seal-emblem {
-            width: 90px;
-            height: 90px;
+            width: 96px;
+            height: 96px;
             border-radius: 50%;
-            border: 2px solid #b8860b;
-            padding: 5px;
-            box-shadow: 0 0 0 2px rgba(184, 134, 11, 0.3), inset 0 0 15px rgba(184, 134, 11, 0.2);
+            border: 3px double #b8860b;
+            padding: 6px;
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.3), inset 0 0 18px rgba(184, 134, 11, 0.25);
             display: inline-block;
             background: #050b14;
         }
@@ -7534,20 +7547,21 @@
         }
         .letterhead-title {
             font-family: 'Cinzel', serif;
-            font-size: 1.2rem;
-            letter-spacing: 3px;
+            font-size: 1.25rem;
+            letter-spacing: 4px;
             font-weight: 900;
             color: #002244;
-            margin-top: 10px;
+            margin-top: 12px;
             text-transform: uppercase;
         }
         .letterhead-subtitle {
             font-family: 'Cinzel', serif;
-            font-size: 0.75rem;
-            letter-spacing: 2px;
+            font-size: 0.76rem;
+            letter-spacing: 2.5px;
             color: #b8860b;
             font-weight: 700;
-            margin-top: 2px;
+            margin-top: 3px;
+            text-transform: uppercase;
         }
         .classification-bar {
             text-align: center;
@@ -7560,6 +7574,7 @@
             border-top: 1px solid #ddd;
             border-bottom: 1px solid #ddd;
             padding: 5px 0;
+            text-transform: uppercase;
         }
         .memo-headers {
             font-family: 'Cinzel', serif;
@@ -7644,13 +7659,14 @@
         .cryptographic-seal-stamp {
             text-align: center;
             border: 2px double #b8860b;
-            padding: 8px 14px;
+            padding: 8px 16px;
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.68rem;
             color: #b8860b;
             text-transform: uppercase;
             letter-spacing: 1px;
             background: #fafaf5;
+            line-height: 1.5;
         }
         .print-btn-bar {
             text-align: center;
@@ -7677,11 +7693,42 @@
     </style>
 </head>
 <body>
-<div style="width: 100%; max-width: 800px;">
+<div style="width: 100%; max-width: 820px;">
     <div class="print-btn-bar">
-        <button class="print-btn" onclick="window.print();">🖨️ PRINT / SAVE AS OFFICIAL PDF</button>
+        <button class="print-btn" onclick="window.print();">PRINT / SAVE AS OFFICIAL PDF</button>
     </div>
     <div class="memorandum-sheet">
+        <!-- Ornate Gold Floral Corner Filigrees -->
+        <svg class="corner-filigree top-left" viewBox="0 0 100 100">
+            <path d="M0,0 L90,0 C75,0 45,15 35,35 C15,45 0,75 0,90 Z" fill="rgba(184,134,11,0.06)" stroke="#b8860b" stroke-width="1.5"/>
+            <path d="M10,10 L75,10 C60,10 38,22 30,38 C22,38 10,60 10,75 Z" fill="none" stroke="#d4af37" stroke-width="1"/>
+            <circle cx="28" cy="28" r="3.5" fill="#b8860b"/>
+            <path d="M5,95 C15,65 35,45 65,35" stroke="#b8860b" stroke-width="1.2" fill="none"/>
+            <path d="M95,5 C65,15 45,35 35,65" stroke="#b8860b" stroke-width="1.2" fill="none"/>
+        </svg>
+        <svg class="corner-filigree top-right" viewBox="0 0 100 100">
+            <path d="M100,0 L10,0 C25,0 55,15 65,35 C85,45 100,75 100,90 Z" fill="rgba(184,134,11,0.06)" stroke="#b8860b" stroke-width="1.5"/>
+            <path d="M90,10 L25,10 C40,10 62,22 70,38 C78,38 90,60 90,75 Z" fill="none" stroke="#d4af37" stroke-width="1"/>
+            <circle cx="72" cy="28" r="3.5" fill="#b8860b"/>
+            <path d="M95,95 C85,65 65,45 35,35" stroke="#b8860b" stroke-width="1.2" fill="none"/>
+            <path d="M5,5 C35,15 55,35 65,65" stroke="#b8860b" stroke-width="1.2" fill="none"/>
+        </svg>
+        <svg class="corner-filigree bottom-left" viewBox="0 0 100 100">
+            <path d="M0,100 L90,100 C75,100 45,85 35,65 C15,55 0,25 0,10 Z" fill="rgba(184,134,11,0.06)" stroke="#b8860b" stroke-width="1.5"/>
+            <path d="M10,90 L75,90 C60,90 38,78 30,62 C22,62 10,40 10,25 Z" fill="none" stroke="#d4af37" stroke-width="1"/>
+            <circle cx="28" cy="72" r="3.5" fill="#b8860b"/>
+            <path d="M5,5 C15,35 35,55 65,65" stroke="#b8860b" stroke-width="1.2" fill="none"/>
+            <path d="M95,95 C65,85 45,65 35,35" stroke="#b8860b" stroke-width="1.2" fill="none"/>
+        </svg>
+        <svg class="corner-filigree bottom-right" viewBox="0 0 100 100">
+            <path d="M100,100 L10,100 C25,100 55,85 65,65 C85,55 100,25 100,10 Z" fill="rgba(184,134,11,0.06)" stroke="#b8860b" stroke-width="1.5"/>
+            <path d="M90,90 L25,90 C40,90 62,78 70,62 C78,62 90,40 90,25 Z" fill="none" stroke="#d4af37" stroke-width="1"/>
+            <circle cx="72" cy="72" r="3.5" fill="#b8860b"/>
+            <path d="M95,5 C85,35 65,55 35,65" stroke="#b8860b" stroke-width="1.2" fill="none"/>
+            <path d="M5,95 C35,85 55,65 65,35" stroke="#b8860b" stroke-width="1.2" fill="none"/>
+        </svg>
+
+        <!-- Centered Sovereign Ether Seal -->
         <div class="crest-container">
             <div class="seal-emblem">
                 <img src="https://ether-terminal.com/logo.png" alt="Ether Sovereign Seal">
@@ -7752,9 +7799,9 @@
                 <div class="signature-title">Executive Protocol Director<br>Ether Terminal LLC</div>
             </div>
             <div class="cryptographic-seal-stamp">
-                ★ OFFICIAL SOVEREIGN SEAL ★<br>
+                OFFICIAL SOVEREIGN SEAL<br>
                 CRYPTOGRAPHICALLY VERIFIED<br>
-                SHA-256 SEALED
+                SHA-256 AUTHENTICATED
             </div>
         </div>
     </div>
