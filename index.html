@@ -3053,12 +3053,12 @@
 
                 <div class="pricing-controls">
                     <div class="usecase-filters" style="margin-bottom: 0;">
-                        <button type="button" class="filter-btn pricing-filter-btn active" data-pricing-sector="command">⚙ Command Nodes</button>
-                        <button type="button" class="filter-btn pricing-filter-btn" data-pricing-sector="aviation">Aviation</button>
-                        <button type="button" class="filter-btn pricing-filter-btn" data-pricing-sector="auto">Auto</button>
-                        <button type="button" class="filter-btn pricing-filter-btn" data-pricing-sector="home">Home</button>
-                        <button type="button" class="filter-btn pricing-filter-btn" data-pricing-sector="standard">Standard Lines</button>
-                        <button type="button" class="filter-btn pricing-filter-btn" data-pricing-sector="wholesale">Wholesale Enterprise</button>
+                        <button type="button" class="filter-btn pricing-filter-btn active" data-pricing-sector="command" onclick="setPricingSector('command')">⚙ Command Nodes</button>
+                        <button type="button" class="filter-btn pricing-filter-btn" data-pricing-sector="aviation" onclick="setPricingSector('aviation')">Aviation</button>
+                        <button type="button" class="filter-btn pricing-filter-btn" data-pricing-sector="auto" onclick="setPricingSector('auto')">Auto</button>
+                        <button type="button" class="filter-btn pricing-filter-btn" data-pricing-sector="home" onclick="setPricingSector('home')">Home</button>
+                        <button type="button" class="filter-btn pricing-filter-btn" data-pricing-sector="standard" onclick="setPricingSector('standard')">Standard Lines</button>
+                        <button type="button" class="filter-btn pricing-filter-btn" data-pricing-sector="wholesale" onclick="setPricingSector('wholesale')">Wholesale Enterprise</button>
                     </div>
 
                     <div class="billing-toggle-wrap" id="billingToggleWrap">
@@ -3149,16 +3149,16 @@
                 </p>
 
                 <div class="usecase-filters" style="margin-bottom: 24px;">
-                    <button type="button" class="filter-btn matrix-btn active" data-sector="banking">Banking & Finance</button>
-                    <button type="button" class="filter-btn matrix-btn" data-sector="healthcare">Healthcare & Clinical</button>
-                    <button type="button" class="filter-btn matrix-btn" data-sector="corporate">Corporate & IT</button>
-                    <button type="button" class="filter-btn matrix-btn" data-sector="infrastructure">Critical Infra</button>
-                    <button type="button" class="filter-btn matrix-btn" data-sector="aerospace">Defense & Aero</button>
-                    <button type="button" class="filter-btn matrix-btn" data-sector="government">Public Service</button>
-                    <button type="button" class="filter-btn matrix-btn" data-sector="legal">Legal & Trust</button>
-                    <button type="button" class="filter-btn matrix-btn" data-sector="logistics">Auto & Logistics</button>
-                    <button type="button" class="filter-btn matrix-btn" data-sector="retail">Retail & Luxury</button>
-                    <button type="button" class="filter-btn matrix-btn" data-sector="industrial">Industrial IoT</button>
+                    <button type="button" class="filter-btn matrix-btn active" data-sector="banking" onclick="filterMatrix('banking')">Banking & Finance</button>
+                    <button type="button" class="filter-btn matrix-btn" data-sector="healthcare" onclick="filterMatrix('healthcare')">Healthcare & Clinical</button>
+                    <button type="button" class="filter-btn matrix-btn" data-sector="corporate" onclick="filterMatrix('corporate')">Corporate & IT</button>
+                    <button type="button" class="filter-btn matrix-btn" data-sector="infrastructure" onclick="filterMatrix('infrastructure')">Critical Infra</button>
+                    <button type="button" class="filter-btn matrix-btn" data-sector="aerospace" onclick="filterMatrix('aerospace')">Defense & Aero</button>
+                    <button type="button" class="filter-btn matrix-btn" data-sector="government" onclick="filterMatrix('government')">Public Service</button>
+                    <button type="button" class="filter-btn matrix-btn" data-sector="legal" onclick="filterMatrix('legal')">Legal & Trust</button>
+                    <button type="button" class="filter-btn matrix-btn" data-sector="logistics" onclick="filterMatrix('logistics')">Auto & Logistics</button>
+                    <button type="button" class="filter-btn matrix-btn" data-sector="retail" onclick="filterMatrix('retail')">Retail & Luxury</button>
+                    <button type="button" class="filter-btn matrix-btn" data-sector="industrial" onclick="filterMatrix('industrial')">Industrial IoT</button>
                 </div>
 
                 <div class="grid-2" id="matrixGrid">
@@ -3637,15 +3637,15 @@
                 </header>
 
                 <div class="usecase-filters" style="margin-bottom: 32px;" id="insFilters">
-                    <button type="button" class="filter-btn ins-filter-btn active" data-ins-filter="all">All Channels</button>
-                    <button type="button" class="filter-btn ins-filter-btn" data-ins-filter="claims">Claims & Fraud</button>
-                    <button type="button" class="filter-btn ins-filter-btn" data-ins-filter="underwriting">Underwriting</button>
-                    <button type="button" class="filter-btn ins-filter-btn" data-ins-filter="life">Life & Disability</button>
-                    <button type="button" class="filter-btn ins-filter-btn" data-ins-filter="medical">Medical & Health</button>
-                    <button type="button" class="filter-btn ins-filter-btn" data-ins-filter="property">Property & Casualty</button>
-                    <button type="button" class="filter-btn ins-filter-btn" data-ins-filter="liability">Liability & Workers Comp</button>
-                    <button type="button" class="filter-btn ins-filter-btn" data-ins-filter="commercial">Commercial Lines</button>
-                    <button type="button" class="filter-btn ins-filter-btn" data-ins-filter="reinsurance">Reinsurance</button>
+                    <button type="button" class="filter-btn ins-filter-btn active" data-ins-filter="all" onclick="filterInsurance('all')">All Channels</button>
+                    <button type="button" class="filter-btn ins-filter-btn" data-ins-filter="claims" onclick="filterInsurance('claims')">Claims & Fraud</button>
+                    <button type="button" class="filter-btn ins-filter-btn" data-ins-filter="underwriting" onclick="filterInsurance('underwriting')">Underwriting</button>
+                    <button type="button" class="filter-btn ins-filter-btn" data-ins-filter="life" onclick="filterInsurance('life')">Life & Disability</button>
+                    <button type="button" class="filter-btn ins-filter-btn" data-ins-filter="medical" onclick="filterInsurance('medical')">Medical & Health</button>
+                    <button type="button" class="filter-btn ins-filter-btn" data-ins-filter="property" onclick="filterInsurance('property')">Property & Casualty</button>
+                    <button type="button" class="filter-btn ins-filter-btn" data-ins-filter="liability" onclick="filterInsurance('liability')">Liability & Workers Comp</button>
+                    <button type="button" class="filter-btn ins-filter-btn" data-ins-filter="commercial" onclick="filterInsurance('commercial')">Commercial Lines</button>
+                    <button type="button" class="filter-btn ins-filter-btn" data-ins-filter="reinsurance" onclick="filterInsurance('reinsurance')">Reinsurance</button>
                 </div>
 
                 <div class="grid-3" id="insGrid">
@@ -4509,12 +4509,12 @@
                 </header>
 
                 <div class="usecase-filters" id="mainUseCasesFilters">
-                    <button type="button" class="filter-btn active" data-filter="all">All Cases</button>
-                    <button type="button" class="filter-btn" data-filter="pc">Commercial P&C</button>
-                    <button type="button" class="filter-btn" data-filter="health">Life & Health</button>
-                    <button type="button" class="filter-btn" data-filter="specialty">Aviation & Specialty</button>
-                    <button type="button" class="filter-btn" data-filter="auto">Auto & Fleet</button>
-                    <button type="button" class="filter-btn" data-filter="digital">Digital Assets</button>
+                    <button type="button" class="filter-btn active" data-filter="all" onclick="filterUseCases('all')">All Cases</button>
+                    <button type="button" class="filter-btn" data-filter="pc" onclick="filterUseCases('pc')">Commercial P&C</button>
+                    <button type="button" class="filter-btn" data-filter="health" onclick="filterUseCases('health')">Life & Health</button>
+                    <button type="button" class="filter-btn" data-filter="specialty" onclick="filterUseCases('specialty')">Aviation & Specialty</button>
+                    <button type="button" class="filter-btn" data-filter="auto" onclick="filterUseCases('auto')">Auto & Fleet</button>
+                    <button type="button" class="filter-btn" data-filter="digital" onclick="filterUseCases('digital')">Digital Assets</button>
                 </div>
 
                 <div class="grid-3" id="mainUseCasesGrid">
@@ -6657,129 +6657,63 @@
             }
             initScrollReveals();
 
-            function initUseCasesFilters() {
-                const container = document.getElementById('mainUseCasesFilters');
-                if (!container) return;
-                const filterBtns = container.querySelectorAll('.filter-btn');
+            window.filterUseCases = function(filterVal) {
+                if (!filterVal) return;
+                document.querySelectorAll('#mainUseCasesFilters .filter-btn').forEach(b => {
+                    b.classList.toggle('active', b.getAttribute('data-filter') === filterVal);
+                });
                 const usecaseItems = document.querySelectorAll('#mainUseCasesGrid .usecase-item');
-
-                filterBtns.forEach(btn => {
-                    let touched = false;
-                    const selectCase = (e) => {
-                        if (e && e.type === 'touchend') touched = true;
-                        if (e && e.type === 'click' && touched) {
-                            touched = false;
-                            return;
-                        }
-                        filterBtns.forEach(b => b.classList.remove('active'));
-                        btn.classList.add('active');
-
-                        const filterVal = btn.getAttribute('data-filter');
-
-                        usecaseItems.forEach(item => {
-                            const cat = item.getAttribute('data-cat');
-                            if (filterVal === 'all' || cat === filterVal) {
-                                item.classList.remove('hidden-case');
-                                item.classList.add('revealed');
-                                item.style.opacity = 0;
-                                item.style.transform = 'translateY(10px)';
-                                item.offsetHeight; 
-                                item.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-                                item.style.opacity = 1;
-                                item.style.transform = 'translateY(0)';
-                            } else {
-                                item.classList.add('hidden-case');
-                            }
-                        });
-                    };
-                    btn.addEventListener('click', selectCase);
-                    btn.addEventListener('touchend', selectCase, { passive: true });
+                usecaseItems.forEach(item => {
+                    const cat = item.getAttribute('data-cat');
+                    if (filterVal === 'all' || cat === filterVal) {
+                        item.classList.remove('hidden-case');
+                        item.classList.add('revealed');
+                        item.style.opacity = '1';
+                        item.style.transform = 'translateY(0)';
+                    } else {
+                        item.classList.add('hidden-case');
+                    }
                 });
-            }
-            initUseCasesFilters();
+            };
 
-            function initInsuranceFilters() {
-                const container = document.getElementById('insFilters');
-                if (!container) return;
-                const filterBtns = container.querySelectorAll('.ins-filter-btn');
+            window.filterInsurance = function(val) {
+                if (!val) return;
+                document.querySelectorAll('.ins-filter-btn').forEach(b => {
+                    b.classList.toggle('active', b.getAttribute('data-ins-filter') === val);
+                });
                 const items = document.querySelectorAll('#insGrid .usecase-item');
-
-                filterBtns.forEach(btn => {
-                    let touched = false;
-                    const selectIns = (e) => {
-                        if (e && e.type === 'touchend') touched = true;
-                        if (e && e.type === 'click' && touched) {
-                            touched = false;
-                            return;
-                        }
-                        filterBtns.forEach(b => b.classList.remove('active'));
-                        btn.classList.add('active');
-                        const val = btn.getAttribute('data-ins-filter');
-
-                        items.forEach(item => {
-                            const cat = item.getAttribute('data-ins-cat');
-                            if (val === 'all' || cat === val) {
-                                item.classList.remove('hidden-case');
-                                item.classList.add('revealed');
-                                item.style.opacity = 0;
-                                item.style.transform = 'translateY(10px)';
-                                item.offsetHeight; 
-                                item.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-                                item.style.opacity = 1;
-                                item.style.transform = 'translateY(0)';
-                            } else {
-                                item.classList.add('hidden-case');
-                            }
-                        });
-                    };
-                    btn.addEventListener('click', selectIns);
-                    btn.addEventListener('touchend', selectIns, { passive: true });
+                items.forEach(item => {
+                    const cat = item.getAttribute('data-ins-cat');
+                    if (val === 'all' || cat === val) {
+                        item.classList.remove('hidden-case');
+                        item.classList.add('revealed');
+                        item.style.opacity = '1';
+                        item.style.transform = 'translateY(0)';
+                    } else {
+                        item.classList.add('hidden-case');
+                    }
                 });
-            }
-            initInsuranceFilters();
+            };
 
-            function initAttestationMatrix() {
-                const buttons = document.querySelectorAll('.matrix-btn');
+            window.filterMatrix = function(sector) {
+                if (!sector) return;
+                document.querySelectorAll('.matrix-btn').forEach(b => {
+                    b.classList.toggle('active', b.getAttribute('data-sector') === sector);
+                });
                 const items = document.querySelectorAll('.matrix-item');
-                if (buttons.length === 0 || items.length === 0) return;
-
-                function filterSector(sector) {
-                    items.forEach(item => {
-                        const itemSector = item.getAttribute('data-sector');
-                        if (itemSector === sector) {
-                            item.classList.remove('hidden-case');
-                            item.style.opacity = '0';
-                            item.style.transform = 'translateY(10px)';
-                            item.offsetHeight; 
-                            item.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-                            item.style.opacity = '1';
-                            item.style.transform = 'translateY(0)';
-                        } else {
-                            item.classList.add('hidden-case');
-                        }
-                    });
-                }
-
-                buttons.forEach(btn => {
-                    let touched = false;
-                    const selectMatrix = (e) => {
-                        if (e && e.type === 'touchend') touched = true;
-                        if (e && e.type === 'click' && touched) {
-                            touched = false;
-                            return;
-                        }
-                        buttons.forEach(b => b.classList.remove('active'));
-                        btn.classList.add('active');
-                        const sector = btn.getAttribute('data-sector');
-                        filterSector(sector);
-                    };
-                    btn.addEventListener('click', selectMatrix);
-                    btn.addEventListener('touchend', selectMatrix, { passive: true });
+                items.forEach(item => {
+                    const itemSector = item.getAttribute('data-sector');
+                    if (itemSector === sector) {
+                        item.classList.remove('hidden-case');
+                        item.style.opacity = '1';
+                        item.style.transform = 'translateY(0)';
+                    } else {
+                        item.classList.add('hidden-case');
+                    }
                 });
+            };
 
-                filterSector('banking');
-            }
-            initAttestationMatrix();
+            filterMatrix('banking');
 
             let currentPricingSector = 'command';
             let billingIsAnnual = true;
@@ -7316,27 +7250,25 @@
                     });
                 }
 
+                window.setPricingSector = function(sector) {
+                    if (!sector) return;
+                    currentPricingSector = sector;
+                    document.querySelectorAll('.pricing-filter-btn').forEach(b => {
+                        b.classList.toggle('active', b.getAttribute('data-pricing-sector') === sector);
+                    });
+                    render();
+                };
+
                 filterBtns.forEach(btn => {
-                    let touched = false;
-                    const selectSector = (e) => {
-                        if (e && e.type === 'touchend') touched = true;
-                        if (e && e.type === 'click' && touched) {
-                            touched = false;
-                            return;
-                        }
-                        filterBtns.forEach(b => b.classList.remove('active'));
-                        btn.classList.add('active');
-                        currentPricingSector = btn.getAttribute('data-pricing-sector');
-                        render();
-                    };
-                    btn.addEventListener('click', selectSector);
-                    btn.addEventListener('touchend', selectSector, { passive: true });
+                    btn.addEventListener('click', () => {
+                        const s = btn.getAttribute('data-pricing-sector');
+                        if (s) window.setPricingSector(s);
+                    });
                 });
 
                 render();
             }
             initPricingTiers();
-            initAttestationMatrix();
 
             function initModal() {
                 const modal = document.getElementById('demoModal');
