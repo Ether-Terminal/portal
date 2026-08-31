@@ -474,7 +474,7 @@
             var currentDate = new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
 
             document.getElementById("docDate").textContent = currentDate;
-            document.getElementById("docMemoFor").innerHTML = "<b>" + name + "</b>, " + title + "<br>" + company + " (" + website + ")<br><span style="font-size:0.9rem; color:#444;">Contact: " + email + " | Tel: Direct on Record</span>";
+            document.getElementById("docMemoFor").innerHTML = "<b>" + name + "</b>, " + title + "<br>" + company + " (" + website + ")<br><span style='font-size:0.9rem; color:#444;'>Contact: " + email + " | Tel: Direct on Record</span>";
             document.getElementById("docAuthText").innerHTML = "Pursuant to the institutional procurement dossier received from <b>" + company + "</b>, the Office of Sovereign Protocol Operations has formally authenticated and minted the sovereign credentials for your node deployment.";
             
             document.getElementById("docOpId").textContent = currentOpId;
