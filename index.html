@@ -7275,6 +7275,27 @@
                                     const modalContent = form.parentNode;
                                     if (modalContent) modalContent.scrollTop = 0;
                                     
+                                    window.__lastDossierData = {
+                                        company: company,
+                                        website: website,
+                                        name: name,
+                                        title: title,
+                                        email: email,
+                                        phone: phone,
+                                        sector: sector,
+                                        fleetScale: fleetScale,
+                                        environment: environment,
+                                        paymentMethod: paymentMethod,
+                                        timeline: timeline,
+                                        notes: notes,
+                                        tier: tier,
+                                        hw: hw,
+                                        amountUsd: finalAmountUsd,
+                                        licenseKey: licenseKey,
+                                        opId: opId,
+                                        memoCode: memoCode
+                                    };
+
                                     const credsDiv = document.createElement('div');
                                     credsDiv.className = 'credentials-result-card';
                                     credsDiv.style.cssText = 'background:#060a12; border:1px solid #00ff7f; border-radius:10px; padding:22px; font-family:monospace; margin-top:10px; box-shadow:0 0 30px rgba(0,255,127,0.18); animation: fadeIn 0.4s ease;';
@@ -7288,7 +7309,7 @@
                                         </div>
 
                                         <p style="color:#cbd5e1; font-size:0.8rem; margin-bottom:14px; line-height:1.45;">
-                                            Your deployment dossier has been submitted and transmitted to our engineering desk. Use the credentials and wire authorization below to execute sovereign activation:
+                                            Your deployment dossier has been submitted and transmitted to our engineering desk. Click below to view and print your <b>Official Sovereign Directive</b> with your gold seal letterhead:
                                         </p>
 
                                         <div style="background:#03050a; border:1px solid rgba(255,255,255,0.08); border-radius:8px; padding:12px; margin-bottom:12px;">
@@ -7312,9 +7333,9 @@
                                             <div style="display:flex; justify-content:space-between; margin-top:3px; font-size:0.92rem;"><span style="color:#00ff7f; font-weight:800;">Total Settlement Wire:</span> <span style="color:#00ff7f; font-weight:900;">$${Number(finalAmountUsd).toLocaleString('en-US')}.00 USD</span></div>
                                         </div>
 
-                                        <div style="display:flex; gap:10px;">
-                                            <button type="button" onclick="navigator.clipboard.writeText('LICENSE KEY: ${licenseKey}\\nOPERATOR ID: ${opId}\\nBENEFICIARY: Ether Terminal LLC\\nBANK: Middlesex Federal Savings FA / Novo\\nROUTING: 211370150\\nACCOUNT: 103650380\\nMEMO: ${memoCode}\\nTOTAL: $' + Number(${finalAmountUsd}).toLocaleString('en-US') + '.00 USD'); alert('✓ Credentials & Wire Specs Copied to Clipboard!');" style="flex:1; background:#fff; color:#000; font-weight:800; border:none; padding:10px; border-radius:6px; font-family:monospace; cursor:pointer; font-size:0.8rem;">📋 COPY ALL CREDENTIALS</button>
-                                            <button type="button" onclick="window.print();" style="flex:1; background:rgba(76,224,255,0.15); border:1px solid #4ce0ff; color:#4ce0ff; font-weight:800; padding:10px; border-radius:6px; font-family:monospace; cursor:pointer; font-size:0.8rem;">🖨️ PRINT INVOICE</button>
+                                        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                                            <button type="button" onclick="navigator.clipboard.writeText('LICENSE KEY: ${licenseKey}\\nOPERATOR ID: ${opId}\\nBENEFICIARY: Ether Terminal LLC\\nBANK: Middlesex Federal Savings FA / Novo\\nROUTING: 211370150\\nACCOUNT: 103650380\\nMEMO: ${memoCode}\\nTOTAL: $' + Number(${finalAmountUsd}).toLocaleString('en-US') + '.00 USD'); alert('✓ Credentials & Wire Specs Copied to Clipboard!');" style="flex:1; min-width:180px; background:#fff; color:#000; font-weight:800; border:none; padding:12px; border-radius:6px; font-family:monospace; cursor:pointer; font-size:0.8rem;">📋 COPY ALL CREDENTIALS</button>
+                                            <button type="button" onclick="window.openExecutiveDirective(window.__lastDossierData);" style="flex:1; min-width:180px; background:linear-gradient(135deg, #b8860b, #e5c158); border:none; color:#050b14; font-weight:900; padding:12px; border-radius:6px; font-family:monospace; cursor:pointer; font-size:0.82rem; box-shadow: 0 0 15px rgba(229,193,88,0.4);">🏛️ VIEW OFFICIAL DIRECTIVE (SEAL)</button>
                                         </div>
                                     `;
                                     modalContent.appendChild(credsDiv);
@@ -7386,6 +7407,300 @@
         });
 
         window.__currentModalBasePrice = 85000;
+
+        window.openExecutiveDirective = function(d) {
+            if (!d) return;
+            var win = window.open('', '_blank', 'width=900,height=1000');
+            if (!win) {
+                alert('Please allow popups to view your Official Sovereign Directive.');
+                return;
+            }
+
+            var currentDate = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+            var hwText = d.hw ? 'Turnkey Dual-Drive Hardware Kit (4TB Samsung 990 PRO NVMe in 40Gbps Thunderbolt 4 Enclosure + Master 256GB USB Recovery Key)' : 'Software Licensing Only';
+            var formattedAmount = Number(d.amountUsd).toLocaleString('en-US');
+
+            var html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Executive Directive — ${d.company}</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;700&display=swap');
+        
+        * { box-sizing: border-box; }
+        body {
+            background-color: #0b0f19;
+            color: #1a1a1a;
+            font-family: 'EB Garamond', Georgia, serif;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .memorandum-sheet {
+            background: #ffffff;
+            width: 100%;
+            max-width: 800px;
+            padding: 60px 70px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.7);
+            position: relative;
+            line-height: 1.6;
+            border-top: 6px solid #002244;
+        }
+        .crest-container {
+            text-align: center;
+            margin-bottom: 22px;
+        }
+        .seal-emblem {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            border: 2px solid #b8860b;
+            padding: 5px;
+            box-shadow: 0 0 0 2px rgba(184, 134, 11, 0.3), inset 0 0 15px rgba(184, 134, 11, 0.2);
+            display: inline-block;
+            background: #050b14;
+        }
+        .seal-emblem img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        .letterhead-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            letter-spacing: 3px;
+            font-weight: 900;
+            color: #002244;
+            margin-top: 10px;
+            text-transform: uppercase;
+        }
+        .letterhead-subtitle {
+            font-family: 'Cinzel', serif;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            color: #b8860b;
+            font-weight: 700;
+            margin-top: 2px;
+        }
+        .classification-bar {
+            text-align: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem;
+            letter-spacing: 2px;
+            color: #8b0000;
+            font-weight: 700;
+            margin: 15px 0 25px 0;
+            border-top: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+            padding: 5px 0;
+        }
+        .memo-headers {
+            font-family: 'Cinzel', serif;
+            font-size: 0.9rem;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #002244;
+            padding-bottom: 14px;
+        }
+        .memo-row {
+            display: flex;
+            margin-bottom: 6px;
+        }
+        .memo-label {
+            width: 160px;
+            font-weight: 900;
+            color: #002244;
+            letter-spacing: 1px;
+        }
+        .memo-value {
+            flex: 1;
+            font-family: 'EB Garamond', Georgia, serif;
+            font-size: 1.05rem;
+            color: #111;
+        }
+        h2.section-heading {
+            font-family: 'Cinzel', serif;
+            font-size: 0.95rem;
+            color: #002244;
+            letter-spacing: 1.5px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 4px;
+            margin-top: 25px;
+            margin-bottom: 10px;
+        }
+        p.directive-text {
+            font-size: 1.02rem;
+            text-align: justify;
+            margin-bottom: 12px;
+            color: #222;
+        }
+        .treasury-box {
+            border: 1.5px solid #002244;
+            background: #f8fafc;
+            padding: 16px 20px;
+            margin: 16px 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.82rem;
+        }
+        .treasury-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 4px 0;
+            border-bottom: 1px dotted #ccc;
+        }
+        .treasury-row:last-child {
+            border-bottom: none;
+            padding-top: 8px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: #002244;
+        }
+        .signature-block {
+            margin-top: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+        .signature-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #002244;
+            border-top: 1px solid #333;
+            padding-top: 6px;
+            display: inline-block;
+            min-width: 240px;
+        }
+        .signature-title {
+            font-size: 0.9rem;
+            color: #555;
+            font-style: italic;
+        }
+        .cryptographic-seal-stamp {
+            text-align: center;
+            border: 2px double #b8860b;
+            padding: 8px 14px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.68rem;
+            color: #b8860b;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background: #fafaf5;
+        }
+        .print-btn-bar {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .print-btn {
+            background: #002244;
+            color: #fff;
+            border: none;
+            padding: 10px 24px;
+            font-family: 'Cinzel', serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            border-radius: 4px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        @media print {
+            body { background: #fff; padding: 0; }
+            .print-btn-bar { display: none; }
+            .memorandum-sheet { box-shadow: none; max-width: 100%; padding: 40px 50px; }
+        }
+    </style>
+</head>
+<body>
+<div style="width: 100%; max-width: 800px;">
+    <div class="print-btn-bar">
+        <button class="print-btn" onclick="window.print();">🖨️ PRINT / SAVE AS OFFICIAL PDF</button>
+    </div>
+    <div class="memorandum-sheet">
+        <div class="crest-container">
+            <div class="seal-emblem">
+                <img src="https://ether-terminal.com/logo.png" alt="Ether Sovereign Seal">
+            </div>
+            <div class="letterhead-title">Ether Terminal LLC</div>
+            <div class="letterhead-subtitle">Office of Sovereign Protocol Operations</div>
+        </div>
+
+        <div class="classification-bar">
+            RESTRICTED // COMMERCIAL DIRECTIVE // SPECIFICATION DOSSIER
+        </div>
+
+        <div class="memo-headers">
+            <div class="memo-row">
+                <div class="memo-label">MEMORANDUM FOR:</div>
+                <div class="memo-value"><b>${d.name}</b>, ${d.title}<br>${d.company} (${d.website || 'Corporate Domain'})</div>
+            </div>
+            <div class="memo-row">
+                <div class="memo-label">FROM:</div>
+                <div class="memo-value">Carlos House, Chief Protocol Architect</div>
+            </div>
+            <div class="memo-row">
+                <div class="memo-label">DATE:</div>
+                <div class="memo-value">${currentDate}</div>
+            </div>
+            <div class="memo-row">
+                <div class="memo-label">SUBJECT:</div>
+                <div class="memo-value"><b>DIRECTIVE ON SOVEREIGN NODE PROVISIONING & WIRE SETTLEMENT</b></div>
+            </div>
+        </div>
+
+        <h2 class="section-heading">I. PROVISIONING AUTHORIZATION & CREDENTIALS</h2>
+        <p class="directive-text">
+            Pursuant to the commercial submission received from <b>${d.company}</b>, the Office of Sovereign Protocol Operations has provisionally authorized and minted the cryptographic credentials for the deployment of your designated sovereign node array.
+        </p>
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; background: #f1f5f9; padding: 12px 16px; border-left: 3px solid #002244; margin-bottom: 14px; line-height: 1.6;">
+            <b>ASSIGNED OPERATOR ID:</b> ${d.opId}<br>
+            <b>CRYPTOGRAPHIC LICENSE KEY:</b> ${d.licenseKey}<br>
+            <b>DEPLOYMENT TIER:</b> ${d.tier}<br>
+            <b>SECTOR & SCALE:</b> ${d.sector} | ${d.fleetScale}<br>
+            <b>INFRASTRUCTURE:</b> ${d.environment}
+        </div>
+
+        <h2 class="section-heading">II. TREASURY SPECIFICATIONS & SETTLEMENT WIRE</h2>
+        <p class="directive-text">
+            Corporate treasury settlement is authorized via direct Federal Reserve Wire Network (Fedwire) or Corporate Automated Clearing House (ACH). Remit specified settlement funds in accordance with the mandatory coordinates below:
+        </p>
+
+        <div class="treasury-box">
+            <div class="treasury-row"><span>BENEFICIARY:</span> <span>Ether Terminal LLC</span></div>
+            <div class="treasury-row"><span>RECEIVING BANK:</span> <span>Middlesex Federal Savings FA / Novo</span></div>
+            <div class="treasury-row"><span>BANK ADDRESS:</span> <span>One Broadway, Somerville, MA 02145</span></div>
+            <div class="treasury-row"><span>BANK ROUTING (FEDWIRE / ACH):</span> <span>211370150</span></div>
+            <div class="treasury-row"><span>ACCOUNT NUMBER:</span> <span>103650380</span></div>
+            <div class="treasury-row"><span>REQUIRED WIRE MEMO:</span> <span style="color:#b8860b; font-weight:700;">${d.memoCode}</span></div>
+            <div class="treasury-row"><span>HARDWARE PACKAGE:</span> <span>${hwText}</span></div>
+            <div class="treasury-row"><span>TOTAL SETTLEMENT AMOUNT:</span> <span>$${formattedAmount}.00 USD</span></div>
+        </div>
+
+        <h2 class="section-heading">III. DEPLOYMENT TIMELINE & CHAIN-OF-CUSTODY</h2>
+        <p class="directive-text">
+            Upon treasury confirmation of the wire settlement referencing memo <code>${d.memoCode}</code>, the cryptographic deployment desk will dispatch your designated hardware units and initiate the live protocol handshake with your technical officers (${d.email}).
+        </p>
+
+        <div class="signature-block">
+            <div class="signature-details">
+                <div class="signature-name">Carlos House</div>
+                <div class="signature-title">Executive Protocol Director<br>Ether Terminal LLC</div>
+            </div>
+            <div class="cryptographic-seal-stamp">
+                ★ OFFICIAL SOVEREIGN SEAL ★<br>
+                CRYPTOGRAPHICALLY VERIFIED<br>
+                SHA-256 SEALED
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>`;
+
+            win.document.open();
+            win.document.write(html);
+            win.document.close();
+        };
         window.updateModalPricingTotal = function() {
             const hwCheckbox = document.getElementById('demo-hardware');
             const isHw = hwCheckbox && hwCheckbox.checked;
