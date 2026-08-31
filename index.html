@@ -6449,11 +6449,29 @@
 
         document.addEventListener('DOMContentLoaded', () => {
 
-            window.switchTab = function switchTab(targetTabId) {
+            window.switchTab = function switchTab(targetTabId, updateHistory) {
+                if (updateHistory === undefined) updateHistory = true;
+                if (!targetTabId) return;
+
+                // Handle aliases
+                if (targetTabId === 'etherpay' || targetTabId === 'pricing') {
+                    targetTabId = 'licensing';
+                }
+
                 const oldPanel = document.querySelector('.tab-panel.active');
                 const newPanel = document.getElementById(`panel-${targetTabId}`);
 
-                if (oldPanel === newPanel) return;
+                if (!newPanel) return;
+
+                if (updateHistory) {
+                    try {
+                        history.replaceState(null, '', '#' + targetTabId);
+                    } catch (e) {}
+                }
+
+                try {
+                    localStorage.setItem('ether_active_tab', targetTabId);
+                } catch (e) {}
 
                 document.querySelectorAll('.nav-tab, .mobile-nav-tab').forEach(btn => {
                     if (btn.getAttribute('data-tab') === targetTabId) {
@@ -6465,7 +6483,7 @@
                     }
                 });
 
-                if (oldPanel) {
+                if (oldPanel && oldPanel !== newPanel) {
                     oldPanel.style.opacity = 0;
                     oldPanel.style.transform = 'translateY(10px)';
                     setTimeout(() => {
@@ -6475,9 +6493,15 @@
                 } else {
                     showNewPanel(newPanel, targetTabId);
                 }
-            }
+            };
 
             function showNewPanel(panel, tabId) {
+                document.querySelectorAll('.tab-panel').forEach(p => {
+                    if (p !== panel) {
+                        p.classList.remove('active');
+                        p.style.opacity = 0;
+                    }
+                });
                 panel.classList.add('active');
                 panel.offsetHeight;
                 panel.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
@@ -6494,8 +6518,6 @@
                 requestAnimationFrame(function() {
                     initScrollReveals();
                 });
-
-                window.scrollTo({ top: 0, behavior: 'smooth' });
             }
 
             document.querySelectorAll('.nav-tab').forEach(btn => {
@@ -7298,6 +7320,9 @@
             window.setPricingSector = function(sector) {
                 if (!sector) return;
                 currentPricingSector = sector;
+                try {
+                    localStorage.setItem('ether_active_sector', sector);
+                } catch (e) {}
                 document.querySelectorAll('.pricing-filter-btn').forEach(b => {
                     b.classList.toggle('active', b.getAttribute('data-pricing-sector') === sector);
                 });
@@ -7437,6 +7462,37 @@
                 render();
             }
             initPricingTiers();
+
+            function restoreActiveState() {
+                var hash = (window.location.hash || '').replace('#', '').trim();
+                var savedTab = null;
+                try {
+                    savedTab = localStorage.getItem('ether_active_tab');
+                } catch (e) {}
+
+                var tabToOpen = hash || savedTab || 'home';
+                if (tabToOpen === 'etherpay' || tabToOpen === 'pricing') tabToOpen = 'licensing';
+
+                if (tabToOpen && document.getElementById(`panel-${tabToOpen}`)) {
+                    window.switchTab(tabToOpen, false);
+                }
+
+                var savedSector = null;
+                try {
+                    savedSector = localStorage.getItem('ether_active_sector');
+                } catch (e) {}
+                if (savedSector && typeof window.setPricingSector === 'function') {
+                    window.setPricingSector(savedSector);
+                }
+            }
+            restoreActiveState();
+
+            window.addEventListener('hashchange', () => {
+                var hash = (window.location.hash || '').replace('#', '').trim();
+                if (hash) {
+                    window.switchTab(hash, false);
+                }
+            });
 
             function initModal() {
                 const modal = document.getElementById('demoModal');
