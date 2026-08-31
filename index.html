@@ -2441,7 +2441,7 @@
             border-radius: 12px;
             border: 1px solid rgba(255, 255, 255, 0.08);
             box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-            transition: all 0.3s ease;
+            touch-action: pan-y;
         }
 
         .pricing-card::before {
@@ -2454,40 +2454,45 @@
             z-index: -1;
         }
 
-        .pricing-card:hover {
-            transform: translateY(-4px);
+        @media (hover: hover) and (pointer: fine) {
+            .pricing-card {
+                transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            }
+            .pricing-card:hover {
+                transform: translateY(-4px);
+            }
+            .pricing-card.basic:hover {
+                box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 15px rgba(255, 255, 255, 0.08);
+            }
+            .pricing-card.pro:hover {
+                border-color: var(--ether-cyan);
+                box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 20px rgba(76, 224, 255, 0.15);
+            }
+            .pricing-card.premium:hover {
+                border-color: #00e676;
+                box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 20px rgba(0, 230, 118, 0.15);
+            }
+            .pricing-card.jet:hover {
+                border-color: var(--ether-cyan);
+                box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 25px rgba(76, 224, 255, 0.2);
+            }
         }
 
         .pricing-card.basic {
             border-color: rgba(255, 255, 255, 0.15);
         }
-        .pricing-card.basic:hover {
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 15px rgba(255, 255, 255, 0.08);
-        }
 
         .pricing-card.pro {
             border-color: rgba(76, 224, 255, 0.25);
-        }
-        .pricing-card.pro:hover {
-            border-color: var(--ether-cyan);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 20px rgba(76, 224, 255, 0.15);
         }
 
         .pricing-card.premium {
             border-color: rgba(0, 230, 118, 0.25);
         }
-        .pricing-card.premium:hover {
-            border-color: #00e676;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 20px rgba(0, 230, 118, 0.15);
-        }
 
         .pricing-card.jet {
             border-color: rgba(76, 224, 255, 0.3);
             background: linear-gradient(180deg, rgba(8, 20, 35, 0.5) 0%, rgba(8, 8, 18, 0.6) 100%);
-        }
-        .pricing-card.jet:hover {
-            border-color: var(--ether-cyan);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 25px rgba(76, 224, 255, 0.2);
         }
 
         .card-top-tag {
@@ -2612,50 +2617,74 @@
 
         .pricing-btn {
             width: 100%;
-            padding: 12px 16px;
+            min-height: 52px;
+            padding: 14px 20px;
             border-radius: 8px;
             font-family: monospace;
-            font-size: 0.85rem;
-            font-weight: bold;
+            font-size: 0.88rem;
+            font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 1px;
             cursor: pointer;
-            transition: all 0.2s ease;
             text-align: center;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 6px;
             border: 1px solid transparent;
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+            position: relative;
+            z-index: 10;
+            margin-top: 24px;
+        }
+
+        .pricing-btn:active {
+            transform: scale(0.97);
         }
 
         .pricing-btn.basic-btn {
-            background: transparent;
+            background: rgba(255, 255, 255, 0.05);
             border-color: #fff;
             color: #fff;
-        }
-        .pricing-btn.basic-btn:hover {
-            background: #fff;
-            color: #05050d;
-            box-shadow: 0 0 15px rgba(255,255,255,0.25);
         }
 
         .pricing-btn.pro-btn {
             background: var(--ether-cyan);
             color: #05050d;
-        }
-        .pricing-btn.pro-btn:hover {
-            background: #fff;
-            box-shadow: 0 0 15px rgba(76, 224, 255, 0.4);
+            border-color: var(--ether-cyan);
         }
 
         .pricing-btn.premium-btn {
             background: #00e676;
             color: #05050d;
+            border-color: #00e676;
         }
-        .pricing-btn.premium-btn:hover {
-            background: #fff;
-            box-shadow: 0 0 15px rgba(0, 230, 118, 0.4);
+
+        @media (hover: hover) and (pointer: fine) {
+            .pricing-btn {
+                transition: all 0.2s ease;
+            }
+            .pricing-btn.basic-btn:hover {
+                background: #fff;
+                color: #05050d;
+                box-shadow: 0 0 15px rgba(255,255,255,0.25);
+                transform: translateY(-1px);
+            }
+            .pricing-btn.pro-btn:hover {
+                background: #fff;
+                color: #05050d;
+                box-shadow: 0 0 15px rgba(76, 224, 255, 0.4);
+                transform: translateY(-1px);
+            }
+            .pricing-btn.premium-btn:hover {
+                background: #fff;
+                color: #05050d;
+                box-shadow: 0 0 15px rgba(0, 230, 118, 0.4);
+                transform: translateY(-1px);
+            }
         }
 
         @media (max-width: 960px) {
