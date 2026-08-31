@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Official Sovereign Directive — Ether Terminal LLC</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;700&display=swap');
+        
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background-color: #0b0f19;
+            color: #1a1a1a;
+            font-family: 'EB Garamond', Georgia, serif;
+            padding: 30px 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .control-panel {
+            width: 100%;
+            max-width: 840px;
+            background: #111827;
+            border: 1px solid rgba(76, 224, 255, 0.3);
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            color: #fff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        .control-panel h2 {
+            font-size: 1rem;
+            color: #4ce0ff;
+            margin-bottom: 12px;
+            font-family: 'Cinzel', serif;
+            letter-spacing: 1px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .control-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .control-group label {
+            font-size: 0.75rem;
+            color: #9ca3af;
+        }
+        .control-group input, .control-group select {
+            background: #1f2937;
+            border: 1px solid #374151;
+            color: #fff;
+            padding: 8px 10px;
+            border-radius: 4px;
+            font-size: 0.82rem;
+            outline: none;
+        }
+        .control-group input:focus, .control-group select:focus {
+            border-color: #4ce0ff;
+        }
+        .btn-bar {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+        .btn-action {
+            background: linear-gradient(135deg, #b8860b, #e5c158);
+            border: none;
+            color: #050b14;
+            font-weight: 800;
+            padding: 9px 18px;
+            border-radius: 4px;
+            font-family: 'Cinzel', serif;
+            font-size: 0.8rem;
+            cursor: pointer;
+            letter-spacing: 0.5px;
+        }
+        .btn-print {
+            background: #002244;
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.2);
+            font-weight: 700;
+            padding: 9px 18px;
+            border-radius: 4px;
+            font-family: 'Cinzel', serif;
+            font-size: 0.8rem;
+            cursor: pointer;
+            letter-spacing: 0.5px;
+        }
+
+        /* Presidential Memorandum Document Styling */
+        .memorandum-sheet {
+            background: #ffffff;
+            width: 100%;
+            max-width: 840px;
+            padding: 65px 75px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+            position: relative;
+            line-height: 1.6;
+            border: 4px double #b8860b;
+            outline: 1px solid #d4af37;
+            outline-offset: -10px;
+        }
+
+        .corner-filigree {
+            position: absolute;
+            width: 70px;
+            height: 70px;
+            pointer-events: none;
+        }
+        .corner-filigree.top-left { top: 12px; left: 12px; }
+        .corner-filigree.top-right { top: 12px; right: 12px; }
+        .corner-filigree.bottom-left { bottom: 12px; left: 12px; }
+        .corner-filigree.bottom-right { bottom: 12px; right: 12px; }
+
+        .crest-container {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        .seal-emblem {
+            width: 96px;
+            height: 96px;
+            border-radius: 50%;
+            border: 3px double #b8860b;
+            padding: 6px;
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.3), inset 0 0 18px rgba(184, 134, 11, 0.25);
+            display: inline-block;
+            background: #050b14;
+        }
+        .seal-emblem img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        .letterhead-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.25rem;
+            letter-spacing: 4px;
+            font-weight: 900;
+            color: #002244;
+            margin-top: 12px;
+            text-transform: uppercase;
+        }
+        .letterhead-subtitle {
+            font-family: 'Cinzel', serif;
+            font-size: 0.76rem;
+            letter-spacing: 2.5px;
+            color: #b8860b;
+            font-weight: 700;
+            margin-top: 3px;
+            text-transform: uppercase;
+        }
+        .classification-bar {
+            text-align: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem;
+            letter-spacing: 2px;
+            color: #8b0000;
+            font-weight: 700;
+            margin: 15px 0 25px 0;
+            border-top: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+            padding: 5px 0;
+            text-transform: uppercase;
+        }
+        .memo-headers {
+            font-family: 'Cinzel', serif;
+            font-size: 0.9rem;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #002244;
+            padding-bottom: 14px;
+        }
+        .memo-row {
+            display: flex;
+            margin-bottom: 6px;
+        }
+        .memo-label {
+            width: 160px;
+            font-weight: 900;
+            color: #002244;
+            letter-spacing: 1px;
+        }
+        .memo-value {
+            flex: 1;
+            font-family: 'EB Garamond', Georgia, serif;
+            font-size: 1.05rem;
+            color: #111;
+        }
+        h2.section-heading {
+            font-family: 'Cinzel', serif;
+            font-size: 0.95rem;
+            color: #002244;
+            letter-spacing: 1.5px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 4px;
+            margin-top: 25px;
+            margin-bottom: 10px;
+        }
+        p.directive-text {
+            font-size: 1.02rem;
+            text-align: justify;
+            margin-bottom: 12px;
+            color: #222;
+        }
+        .treasury-box {
+            border: 1.5px solid #002244;
+            background: #f8fafc;
+            padding: 16px 20px;
+            margin: 16px 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.82rem;
+        }
+        .treasury-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 4px 0;
+            border-bottom: 1px dotted #ccc;
+        }
+        .treasury-row:last-child {
+            border-bottom: none;
+            padding-top: 8px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: #002244;
+        }
+        .signature-block {
+            margin-top: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+        .signature-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #002244;
+            border-top: 1px solid #333;
+            padding-top: 6px;
+            display: inline-block;
+            min-width: 240px;
+        }
+        .signature-title {
+            font-size: 0.9rem;
+            color: #555;
+            font-style: italic;
+        }
+        .cryptographic-seal-stamp {
+            text-align: center;
+            border: 2px double #b8860b;
+            padding: 8px 16px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.68rem;
+            color: #b8860b;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background: #fafaf5;
+            line-height: 1.5;
+        }
+
+        @media print {
+            body { background: #fff; padding: 0; }
+            .control-panel { display: none; }
+            .memorandum-sheet { box-shadow: none; max-width: 100%; padding: 40px 50px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Interactive Live Generator Controls -->
+    <div class="control-panel">
+        <h2>
+            <span>ETHER TERMINAL DIRECTIVE GENERATOR</span>
+            <span style="font-size: 0.72rem; color: #10b981; font-family: monospace;">STATUS: LIVE DATA BOUND</span>
+        </h2>
+        <div class="control-grid">
+            <div class="control-group">
+                <label>Company Legal Name</label>
+                <input type="text" id="inCompany" value="Lockheed Martin Corporation" oninput="renderDirective()">
+            </div>
+            <div class="control-group">
+                <label>Executive Buyer Name</label>
+                <input type="text" id="inName" value="Jonathan Vance" oninput="renderDirective()">
+            </div>
+            <div class="control-group">
+                <label>Executive Job Title</label>
+                <input type="text" id="inTitle" value="VP of Autonomous Systems" oninput="renderDirective()">
+            </div>
+            <div class="control-group">
+                <label>Work Email</label>
+                <input type="email" id="inEmail" value="j.vance@lockheedmartin.com" oninput="renderDirective()">
+            </div>
+            <div class="control-group">
+                <label>Corporate Domain</label>
+                <input type="text" id="inWebsite" value="lockheedmartin.com" oninput="renderDirective()">
+            </div>
+            <div class="control-group">
+                <label>Deployment Tier & Sector</label>
+                <select id="inTier" onchange="renderDirective()">
+                    <option value="Tier 2 Command Cluster — Annual ($185,000)">Tier 2 Command Cluster — Annual ($185,000)</option>
+                    <option value="Tier 1 Sovereign Root — Annual ($85,000)">Tier 1 Sovereign Root — Annual ($85,000)</option>
+                    <option value="Aviation Fleet Control Node — Annual ($145,000)">Aviation Fleet Control Node — Annual ($145,000)</option>
+                    <option value="Enterprise Sovereign CapEx ($250,000)">Enterprise Sovereign CapEx ($250,000)</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <label>Hardware Package</label>
+                <select id="inHw" onchange="renderDirective()">
+                    <option value="yes">Turnkey Dual-Drive Hardware Kit (4TB NVMe + 256GB Key) +$2,000</option>
+                    <option value="no">Software Licensing Only ($0)</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <label>Base Price ($ USD)</label>
+                <input type="number" id="inBasePrice" value="185000" oninput="renderDirective()">
+            </div>
+        </div>
+        <div class="btn-bar">
+            <button class="btn-action" onclick="mintNewCredentials()">RE-MINT CREDENTIALS & MEMO</button>
+            <button class="btn-print" onclick="window.print()">PRINT / SAVE AS PDF</button>
+        </div>
+    </div>
+
+    <!-- Official Sovereign Directive Paperwork -->
+    <div class="memorandum-sheet">
+        <!-- Ornate Gold Floral Corner Filigrees -->
+        <svg class="corner-filigree top-left" viewBox="0 0 100 100">
+            <path d="M0,0 L90,0 C75,0 45,15 35,35 C15,45 0,75 0,90 Z" fill="rgba(184,134,11,0.06)" stroke="#b8860b" stroke-width="1.5"/>
+            <path d="M10,10 L75,10 C60,10 38,22 30,38 C22,38 10,60 10,75 Z" fill="none" stroke="#d4af37" stroke-width="1"/>
+            <circle cx="28" cy="28" r="3.5" fill="#b8860b"/>
+            <path d="M5,95 C15,65 35,45 65,35" stroke="#b8860b" stroke-width="1.2" fill="none"/>
+            <path d="M95,5 C65,15 45,35 35,65" stroke="#b8860b" stroke-width="1.2" fill="none"/>
+        </svg>
+        <svg class="corner-filigree top-right" viewBox="0 0 100 100">
+            <path d="M100,0 L10,0 C25,0 55,15 65,35 C85,45 100,75 100,90 Z" fill="rgba(184,134,11,0.06)" stroke="#b8860b" stroke-width="1.5"/>
+            <path d="M90,10 L25,10 C40,10 62,22 70,38 C78,38 90,60 90,75 Z" fill="none" stroke="#d4af37" stroke-width="1"/>
+            <circle cx="72" cy="28" r="3.5" fill="#b8860b"/>
+            <path d="M95,95 C85,65 65,45 35,35" stroke="#b8860b" stroke-width="1.2" fill="none"/>
+            <path d="M5,5 C35,15 55,35 65,65" stroke="#b8860b" stroke-width="1.2" fill="none"/>
+        </svg>
+        <svg class="corner-filigree bottom-left" viewBox="0 0 100 100">
+            <path d="M0,100 L90,100 C75,100 45,85 35,65 C15,55 0,25 0,10 Z" fill="rgba(184,134,11,0.06)" stroke="#b8860b" stroke-width="1.5"/>
+            <path d="M10,90 L75,90 C60,90 38,78 30,62 C22,62 10,40 10,25 Z" fill="none" stroke="#d4af37" stroke-width="1"/>
+            <circle cx="28" cy="72" r="3.5" fill="#b8860b"/>
+            <path d="M5,5 C15,35 35,55 65,65" stroke="#b8860b" stroke-width="1.2" fill="none"/>
+            <path d="M95,95 C65,85 45,65 35,35" stroke="#b8860b" stroke-width="1.2" fill="none"/>
+        </svg>
+        <svg class="corner-filigree bottom-right" viewBox="0 0 100 100">
+            <path d="M100,100 L10,100 C25,100 55,85 65,65 C85,55 100,25 100,10 Z" fill="rgba(184,134,11,0.06)" stroke="#b8860b" stroke-width="1.5"/>
+            <path d="M90,90 L25,90 C40,90 62,78 70,62 C78,62 90,40 90,25 Z" fill="none" stroke="#d4af37" stroke-width="1"/>
+            <circle cx="72" cy="72" r="3.5" fill="#b8860b"/>
+            <path d="M95,5 C85,35 65,55 35,65" stroke="#b8860b" stroke-width="1.2" fill="none"/>
+            <path d="M5,95 C35,85 55,65 65,35" stroke="#b8860b" stroke-width="1.2" fill="none"/>
+        </svg>
+
+        <!-- Centered Sovereign Ether Seal -->
+        <div class="crest-container">
+            <div class="seal-emblem">
+                <img src="https://ether-terminal.com/logo.png" alt="Ether Sovereign Seal">
+            </div>
+            <div class="letterhead-title">Ether Terminal LLC</div>
+            <div class="letterhead-subtitle">Office of Sovereign Protocol Operations</div>
+        </div>
+
+        <div class="classification-bar">
+            RESTRICTED // COMMERCIAL DIRECTIVE // SPECIFICATION DOSSIER
+        </div>
+
+        <div class="memo-headers">
+            <div class="memo-row">
+                <div class="memo-label">MEMORANDUM FOR:</div>
+                <div class="memo-value" id="docMemoFor">
+                    <b>Jonathan Vance</b>, VP of Autonomous Systems<br>
+                    Lockheed Martin Corporation (lockheedmartin.com)<br>
+                    <span style="font-size:0.9rem; color:#444;">Contact: j.vance@lockheedmartin.com | Tel: Direct on Record</span>
+                </div>
+            </div>
+            <div class="memo-row">
+                <div class="memo-label">FROM:</div>
+                <div class="memo-value">Carlos House, Chief Protocol Architect</div>
+            </div>
+            <div class="memo-row">
+                <div class="memo-label">DATE:</div>
+                <div class="memo-value" id="docDate">August 30, 2026</div>
+            </div>
+            <div class="memo-row">
+                <div class="memo-label">SUBJECT:</div>
+                <div class="memo-value"><b>DIRECTIVE ON SOVEREIGN NODE PROVISIONING & WIRE SETTLEMENT</b></div>
+            </div>
+        </div>
+
+        <h2 class="section-heading">I. PROVISIONING AUTHORIZATION & CREDENTIALS</h2>
+        <p class="directive-text" id="docAuthText">
+            Pursuant to the institutional procurement dossier received from <b>Lockheed Martin Corporation</b>, the Office of Sovereign Protocol Operations has formally authenticated and minted the sovereign credentials for your node deployment.
+        </p>
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; background: #f8fafc; padding: 14px 18px; border-left: 3px solid #002244; margin-bottom: 14px; line-height: 1.65; border-radius: 2px;">
+            <div style="display:flex; justify-content:space-between;"><span style="color:#666;">OPERATOR ID:</span> <span style="font-weight:700; color:#002244;" id="docOpId">OP-ETH-4912</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:#666;">LICENSE KEY:</span> <span style="font-weight:700; color:#002244;" id="docLicenseKey">LIC-ET-LOCKHE-7F83B165-SEALED</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:#666;">DEPLOYMENT TIER:</span> <span style="font-weight:700; color:#002244;" id="docTier">Tier 2 Command Cluster — Annual ($185,000)</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:#666;">SECTOR / SCALE:</span> <span style="font-weight:700; color:#002244;">Command Nodes (Enterprise Scale)</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:#666;">ENVIRONMENT:</span> <span style="font-weight:700; color:#002244;">Air-Gapped Local Hardware HSM (Plug & Play)</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:#666;">SETTLEMENT METHOD:</span> <span style="font-weight:700; color:#002244;">Direct Corporate Fedwire (Novo / Middlesex)</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:#666;">TARGET TIMELINE:</span> <span style="font-weight:700; color:#002244;">Immediate (&lt; 48 Hours Priority Queue)</span></div>
+        </div>
+
+        <h2 class="section-heading">II. TREASURY SPECIFICATIONS & SETTLEMENT WIRE</h2>
+        <p class="directive-text">
+            Corporate treasury settlement is authorized via direct Federal Reserve Wire Network (Fedwire) or Corporate Automated Clearing House (ACH). Remit specified settlement funds in accordance with the mandatory coordinates below:
+        </p>
+
+        <div class="treasury-box">
+            <div class="treasury-row"><span>BENEFICIARY:</span> <span>Ether Terminal LLC</span></div>
+            <div class="treasury-row"><span>RECEIVING BANK:</span> <span>Middlesex Federal Savings FA / Novo</span></div>
+            <div class="treasury-row"><span>BANK ADDRESS:</span> <span>One Broadway, Somerville, MA 02145</span></div>
+            <div class="treasury-row"><span>BANK ROUTING (FEDWIRE / ACH):</span> <span>211370150</span></div>
+            <div class="treasury-row"><span>ACCOUNT NUMBER:</span> <span>103650380</span></div>
+            <div class="treasury-row"><span>REQUIRED WIRE MEMO:</span> <span style="color:#b8860b; font-weight:700;" id="docMemoCode">ET-LOCKHE-WIRE</span></div>
+            <div class="treasury-row"><span>HARDWARE PACKAGE:</span> <span id="docHwText">Turnkey Dual-Drive Hardware Kit (4TB Samsung 990 PRO NVMe + Master 256GB USB Recovery Key)</span></div>
+            <div class="treasury-row"><span>TOTAL SETTLEMENT AMOUNT:</span> <span id="docTotalAmount">$187,000.00 USD</span></div>
+        </div>
+
+        <h2 class="section-heading">III. DEPLOYMENT TIMELINE & CHAIN-OF-CUSTODY</h2>
+        <p class="directive-text" id="docTimelineText">
+            Upon treasury confirmation of the wire settlement referencing memo <code id="docMemoCodeInline">ET-LOCKHE-WIRE</code>, the cryptographic deployment desk will dispatch your designated hardware units and initiate the live protocol handshake with your technical officers (<span id="docEmailInline">j.vance@lockheedmartin.com</span>) within your requested schedule (<b>Immediate</b>).
+        </p>
+
+        <div class="signature-block">
+            <div class="signature-details">
+                <div class="signature-name">Carlos House</div>
+                <div class="signature-title">Executive Protocol Director<br>Ether Terminal LLC</div>
+            </div>
+            <div class="cryptographic-seal-stamp">
+                OFFICIAL SOVEREIGN SEAL<br>
+                CRYPTOGRAPHICALLY VERIFIED<br>
+                SHA-256 AUTHENTICATED
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var currentLicenseKey = "LIC-ET-LOCKHE-7F83B165-SEALED";
+        var currentOpId = "OP-ETH-4912";
+        var currentMemoCode = "ET-LOCKHE-WIRE";
+
+        function mintNewCredentials() {
+            var co = document.getElementById("inCompany").value || "ENTERPRISE";
+            var cleanCo = co.replace(/[^a-zA-Z0-9]/g, "").toUpperCase().slice(0, 6) || "SOV";
+            var randHex = Math.random().toString(16).substring(2, 10).toUpperCase() + Math.random().toString(16).substring(2, 10).toUpperCase();
+            currentOpId = "OP-ETH-" + Math.floor(1000 + Math.random() * 9000);
+            currentLicenseKey = "LIC-ET-" + cleanCo + "-" + randHex + "-SEALED";
+            currentMemoCode = "ET-" + cleanCo + "-WIRE";
+            renderDirective();
+        }
+
+        function renderDirective() {
+            var company = document.getElementById("inCompany").value || "ENTERPRISE";
+            var name = document.getElementById("inName").value || "Operator";
+            var title = document.getElementById("inTitle").value || "Executive";
+            var email = document.getElementById("inEmail").value || "contact@domain.com";
+            var website = document.getElementById("inWebsite").value || "company.com";
+            var tier = document.getElementById("inTier").value;
+            var isHw = document.getElementById("inHw").value === "yes";
+            var basePrice = Number(document.getElementById("inBasePrice").value) || 85000;
+            var total = basePrice + (isHw ? 2000 : 0);
+
+            var currentDate = new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+
+            document.getElementById("docDate").textContent = currentDate;
+            document.getElementById("docMemoFor").innerHTML = "<b>" + name + "</b>, " + title + "<br>" + company + " (" + website + ")<br><span style="font-size:0.9rem; color:#444;">Contact: " + email + " | Tel: Direct on Record</span>";
+            document.getElementById("docAuthText").innerHTML = "Pursuant to the institutional procurement dossier received from <b>" + company + "</b>, the Office of Sovereign Protocol Operations has formally authenticated and minted the sovereign credentials for your node deployment.";
+            
+            document.getElementById("docOpId").textContent = currentOpId;
+            document.getElementById("docLicenseKey").textContent = currentLicenseKey;
+            document.getElementById("docTier").textContent = tier;
+            document.getElementById("docMemoCode").textContent = currentMemoCode;
+            document.getElementById("docMemoCodeInline").textContent = currentMemoCode;
+            document.getElementById("docHwText").textContent = isHw ? "Turnkey Dual-Drive Hardware Kit (4TB Samsung 990 PRO NVMe in 40Gbps Thunderbolt 4 Enclosure + Master 256GB USB Recovery Key)" : "Software Licensing Only";
+            document.getElementById("docTotalAmount").textContent = "$" + total.toLocaleString("en-US") + ".00 USD";
+            document.getElementById("docEmailInline").textContent = email;
+        }
+
+        renderDirective();
+    </script>
+</body>
+</html>
