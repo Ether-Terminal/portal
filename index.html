@@ -5183,79 +5183,128 @@
         <div class="doc-modal-content">
             <button class="close-doc-modal" onclick="closeDocModal('legal')">&times;</button>
             <div class="doc-modal-sidebar">
-                <h3>Legal Core</h3>
-                <button class="doc-tab-btn active" onclick="switchDocTab('legal', 'terms', this)">Terms of Service</button>
-                <button class="doc-tab-btn" onclick="switchDocTab('legal', 'privacy', this)">Privacy Policy</button>
+                <h3>Institutional Legal Suite</h3>
+                <button class="doc-tab-btn active" onclick="switchDocTab('legal', 'terms', this)">Master EULA &amp; Terms</button>
+                <button class="doc-tab-btn" onclick="switchDocTab('legal', 'liability', this)">Absolute Liability Waiver</button>
+                <button class="doc-tab-btn" onclick="switchDocTab('legal', 'hardware', this)">Hardware Kit &amp; NVMe Terms</button>
+                <button class="doc-tab-btn" onclick="switchDocTab('legal', 'privacy', this)">Zero-Data Privacy Policy</button>
                 <button class="doc-tab-btn" onclick="switchDocTab('legal', 'dpa', this)">Data Processing (DPA)</button>
+                <button class="doc-tab-btn" onclick="switchDocTab('legal', 'export', this)">Export Controls &amp; Sanctions</button>
             </div>
             <div class="doc-modal-body doc-content">
-                <!-- Terms of Service -->
+                <!-- Master EULA & Terms of Service -->
                 <div id="panel-legal-terms" class="doc-panel active">
-                    <h2>Terms of Service</h2>
-                    <p style="font-size: 0.78rem; font-family: monospace; color: var(--ether-cyan);">LAST UPDATE: JUN 2026</p>
+                    <h2>Master Enterprise Sovereign License Agreement (EULA &amp; Terms)</h2>
+                    <p style="font-size: 0.78rem; font-family: monospace; color: var(--ether-cyan);">GOVERNING INSTITUTIONAL SPECIFICATION // VERSION 4.2 (2026)</p>
+                    
+                    <div class="alert-box" style="border-left-color: #e5c158; background: rgba(229,193,88,0.06); margin: 15px 0;">
+                        <p><strong>IMPORTANT LEGAL NOTICE:</strong> By downloading, accessing, acquiring, licensing, or operating Ether Sovereign OS, TL3 Node Software, or associated cryptographic appliances, Customer and its Authorized Representatives agree to be unconditionally bound by all provisions of this Agreement.</p>
+                    </div>
+
                     <section>
-                        <h3>1. Acceptance of Terms</h3>
-                        <p>By accessing or using the services provided by Ether Terminal LLC, you agree to be bound by these Terms. If you do not agree to these terms, you may not use the services.</p>
+                        <h3>1. Grant of Limited, Revocable License</h3>
+                        <p>Ether Terminal LLC grants Customer a non-exclusive, non-transferable, non-sublicensable, revocable license to deploy and execute the compiled Ether OS binary runtime solely within the scope of the purchased node tier and fleet limits. All rights not expressly granted are strictly reserved by Ether Terminal LLC.</p>
                     </section>
                     <section>
-                        <h3>2. Use of Services</h3>
-                        <p>Ether Terminal LLC provides software services and technical support. You agree to use these services only for lawful purposes and in accordance with these Terms. You are solely responsible for the security of your account credentials and any actions taken through your account.</p>
+                        <h3>2. Strict Prohibition on Reverse Engineering &amp; Circumvention</h3>
+                        <p>Customer shall not, directly or indirectly: (a) reverse engineer, decompile, disassemble, or attempt to derive source code or cryptographic primitives of Ether OS or TL3; (b) bypass, alter, or defeat any cryptographic license verification or enclave boundaries; (c) distribute, resell, lease, or syndicate node credentials to unauthorized third parties.</p>
                     </section>
                     <section>
-                        <h3>3. Limitation of Liability</h3>
-                        <p>To the maximum extent permitted by applicable law, Ether Terminal LLC shall not be liable for any indirect, incidental, special, consequential, or punitive damages, or any loss of profits or revenues, whether incurred directly or indirectly. In no event shall the total aggregate liability of Ether Terminal LLC for any claims arising out of or related to these Terms exceed the total fees paid by you to Ether Terminal LLC during the twelve (12) month period immediately preceding the event giving rise to the claim.</p>
+                        <h3>3. ABSOLUTE "AS-IS" AND "WITH ALL FAULTS" DISCLAIMER</h3>
+                        <p>TO THE MAXIMUM EXTENT PERMITTED BY LAW, ALL SOFTWARE, ENCLAVES, HARDWARE RECOVERY KEYS, PROTOCOL APPLIANCES, TELEMATICS ALGORITHMS, AND CRYPTOGRAPHIC DIRECTIVES ARE PROVIDED STRICTLY <strong>"AS-IS", "AS AVAILABLE", AND "WITH ALL FAULTS"</strong>. ETHER TERMINAL LLC, CARLOS HOUSE, AND ITS AFFILIATES EXPRESSLY DISCLAIM ALL WARRANTIES OF ANY KIND, WHETHER EXPRESS, IMPLIED, STATUTORY, OR OTHERWISE, INCLUDING BUT NOT LIMITED TO ANY IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, NON-INFRINGEMENT, AND QUIET ENJOYMENT.</p>
                     </section>
                     <section>
-                        <h3>4. Intellectual Property</h3>
-                        <p>All software, code, architecture, designs, and content provided by Ether Terminal LLC are the exclusive intellectual property of Ether Terminal LLC and are protected by applicable copyright and trademark laws.</p>
+                        <h3>4. ABSOLUTE EXCLUSION OF ALL LIABILITY &amp; NON-RECOURSE</h3>
+                        <p>UNDER NO LEGAL THEORY (WHETHER CONTRACT, TORT, NEGLIGENCE, STRICT LIABILITY, PRODUCT LIABILITY, OR INDEMNITY) SHALL ETHER TERMINAL LLC, CARLOS HOUSE, OR ITS PRINCIPALS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, PUNITIVE, OR EXEMPLARY DAMAGES, INCLUDING BUT NOT LIMITED TO LOSS OF DATA, LOSS OF REVENUE, LOSS OF GOODWILL, BUSINESS INTERRUPTION, HARDWARE FAILURE, TELEMATICS DISCREPANCIES, AVIONICS DISPATCH ANOMALIES, COLLISION OR PROPERTY DAMAGE, AUTOMOTIVE SYSTEM SHUTDOWN, AIR-GAP BREACHES, OR REGULATORY FINES.</p>
                     </section>
                     <section>
-                        <h3>5. Disclaimer of Warranties</h3>
-                        <p>The services are provided on an "as is" and "as available" basis. Ether Terminal LLC makes no warranties, express or implied, regarding the reliability, accuracy, or security of the services. While our systems utilize secure, air-gapped architectures, we do not guarantee that the services will be error-free or uninterrupted.</p>
+                        <h3>5. Irrevocable Covenant Not to Sue</h3>
+                        <p>Customer irrevocably covenants and agrees that it will not institute, maintain, or assert against Ether Terminal LLC, Carlos House, or its officers any suit, claim, arbitration, or legal proceeding arising out of or related to the operation, failure, malfunction, performance, or deployment of the software, nodes, or hardware kits.</p>
                     </section>
                     <section>
-                        <h3>6. Changes to Terms</h3>
-                        <p>Ether Terminal LLC reserves the right to modify these Terms at any time. Your continued use of the services following any changes constitutes your acceptance of the new Terms.</p>
+                        <h3>6. Broad Customer Indemnification</h3>
+                        <p>Customer agrees to defend, indemnify, and hold harmless Ether Terminal LLC, its officers, managers, architects, contractors, and agents from and against any and all claims, liabilities, losses, damages, fines, expenses (including reasonable attorneys' fees) arising out of or relating to: (a) Customer's deployment or operational use of Ether OS; (b) Customer's violation of any laws or regulations; (c) any third-party claims relating to vehicle operations, aviation telemetry, smart building automation, or insurance underwriting outputs.</p>
+                    </section>
+                    <section>
+                        <h3>7. Governing Law, Venue &amp; Mandatory Binding Arbitration</h3>
+                        <p>This Agreement shall be governed by and construed in accordance with the laws of the Commonwealth of Massachusetts and the State of Delaware, without giving effect to conflict of laws principles. Any dispute shall be resolved through final and binding arbitration administered by JAMS or the American Arbitration Association (AAA) on an individual basis. Customer expressly waives all rights to participate in any class action or consolidated proceeding.</p>
+                    </section>
+                </div>
+
+                <!-- Absolute Liability Waiver Panel -->
+                <div id="panel-legal-liability" class="doc-panel">
+                    <h2>Absolute Limitation of Liability &amp; Non-Recourse Covenant</h2>
+                    <p style="font-size: 0.78rem; font-family: monospace; color: var(--ether-cyan);">MANDATORY PROCUREMENT COVENANT // STRICT LIABILITY WAIVER</p>
+                    
+                    <div style="background: rgba(255, 0, 85, 0.08); border: 1px solid rgba(255, 0, 85, 0.4); border-radius: 6px; padding: 14px; margin: 16px 0;">
+                        <p style="color: #ff4d79; font-weight: 800; font-size: 0.85rem; margin-bottom: 6px;">TOTAL CUMULATIVE LIABILITY CAP: $0.00 USD</p>
+                        <p style="font-size: 0.8rem; color: #cbd5e1; line-height: 1.5;">Customer explicitly acknowledges and agrees that the pricing of Ether Sovereign software and hardware reflects this comprehensive, non-recourse risk allocation. If this absolute liability waiver is found unenforceable, Ether Terminal LLC's maximum cumulative aggregate liability for all claims shall be strictly limited to the actual amount received by Ether Terminal LLC from Customer during the prior 30-day period, not to exceed $100.00 USD.</p>
+                    </div>
+
+                    <section>
+                        <h3>1. Sector-Specific Operational Disclaimers</h3>
+                        <ul>
+                            <li><strong>Aviation &amp; Aerospace:</strong> Ether OS nodes, ADS-B sentinels, and flight telemetry gateways are advisory software systems only. They do NOT replace certified avionics, FAA/EASA flight control systems, or pilot-in-command judgment. Ether Terminal LLC bears zero liability for flight delays, route deviations, airspace violations, or incidents.</li>
+                            <li><strong>Autonomous &amp; Commercial Automotive:</strong> CAN-Bus edge diodes and fleet nodes provide passive telemetry ingestion and cryptographic logging. Customer is solely responsible for vehicle safety, driver oversight, brake-by-wire integrity, and compliance with FMVSS/DOT standards.</li>
+                            <li><strong>Smart Property &amp; Catastrophe Underwriting:</strong> IoT sensor sentinels and drone verification attestations are analytical estimates. Ether Terminal LLC is not an insurer, underwriter, or guarantor of property damage, storm claims, or facility losses.</li>
+                            <li><strong>Treasury &amp; Financial Settlement:</strong> Fedwire, ACH, and USDC integrations operate via third-party banking rails (Middlesex Federal Savings FA / Novo / Circle). Ether Terminal LLC is not a custodian, bank, or money transmitter, and is never liable for wire routing delays, intermediary bank holds, or blockchain network congestion.</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h3>2. Self-Sovereign Key Custody &amp; Air-Gap Responsibility</h3>
+                        <p>Customer retains 100% exclusive control and custody of its master private keys, passphrases, and cryptographic enclaves. Ether Terminal LLC maintains no backdoor, key recovery escrow, or secondary access. Loss of cryptographic keys results in permanent, irrecoverable loss of node authority, for which Ether Terminal LLC bears zero responsibility.</p>
+                    </section>
+                </div>
+
+                <!-- Hardware Kit & NVMe Terms -->
+                <div id="panel-legal-hardware" class="doc-panel">
+                    <h2>Turnkey Dual-Drive Hardware Kit &amp; NVMe Terms</h2>
+                    <p style="font-size: 0.78rem; font-family: monospace; color: var(--ether-cyan);">CHAIN-OF-CUSTODY &amp; PASS-THROUGH HARDWARE SPECIFICATION</p>
+                    <section>
+                        <h3>1. OEM Component Pass-Through</h3>
+                        <p>Turnkey Dual-Drive Hardware Kits utilize OEM hardware components (including Samsung 990 PRO NVMe Solid State Drives, Thunderbolt 4 CNC aluminum enclosures, and USB-C flash keys). All hardware warranties are provided solely by the original equipment manufacturers (OEMs). Ether Terminal LLC provides zero hardware warranties beyond confirming that drives are pre-flashed with the verified Golden Master image upon dispatch.</p>
+                    </section>
+                    <section>
+                        <h3>2. Tamper-Evident Delivery Acceptance</h3>
+                        <p>Hardware packages are shipped in tamper-evident security packaging. Customer's receipt and breaking of the tamper-evident seal constitutes irrevocable acceptance of the hardware in its as-shipped physical condition.</p>
+                    </section>
+                    <section>
+                        <h3>3. Environmental &amp; Thermal Compliance</h3>
+                        <p>Customer is solely responsible for maintaining appropriate ambient operating conditions, airflow, and electrical surge protection for all deployed hardware appliances.</p>
                     </section>
                 </div>
 
                 <!-- Privacy Policy -->
                 <div id="panel-legal-privacy" class="doc-panel">
-                    <h2>Privacy Policy</h2>
-                    <p style="font-size: 0.78rem; font-family: monospace; color: var(--ether-cyan);">LAST UPDATE: JUN 2026</p>
+                    <h2>Zero-Data Privacy Policy &amp; Architecture</h2>
+                    <p style="font-size: 0.78rem; font-family: monospace; color: var(--ether-cyan);">AIR-GAPPED ZERO-KNOWLEDGE PROTOCOL</p>
                     <section>
                         <h3>1. Zero Data Collection Architecture</h3>
                         <p>Ether Terminal LLC operates on a strict zero-data collection architecture. We do not collect, harvest, monitor, or store any personal data, biometric parameters, financial credentials, or transaction details. All biometric cryptographic attestations and processing occur locally and transiently on your hardware node.</p>
                     </section>
                     <section>
-                        <h3>2. Data Sovereignty and Storage</h3>
-                        <p>Since we do not collect any personal data, we do not store, compile, or maintain any user, corporate, or financial profiles on our systems. Telemetry calculations are processed instantaneously in an encrypted state and discarded immediately following verification.</p>
-                    </section>
-                    <section>
-                        <h3>3. Structural Impossibility of Data Selling</h3>
+                        <h3>2. Structural Impossibility of Data Selling</h3>
                         <p><strong>We never sell your data because we do not collect it.</strong> This zero-collection infrastructure is designed specifically to give our partners in the insurance and underwriting industries a complete privacy and compliance advantage, ensuring 100% regulatory isolation.</p>
-                    </section>
-                    <section>
-                        <h3>4. Zero-Knowledge Integrity</h3>
-                        <p>Ether Terminal LLC utilizes a Zero-Knowledge Architecture. Because no sensitive information is ever transmitted to or stored on our servers, there is no centralized database to compromise. Financial integrations (such as Plaid) verify account access directly and securely via encrypted protocols without sharing details with us.</p>
-                    </section>
-                    <section>
-                        <h3>5. Data Sovereignty Rights</h3>
-                        <p>Because zero personal data is collected or stored on our networks, there is no data database for users to access, rectify, or delete. You retain absolute ownership over your hardware keys and cryptographic credentials. For any policy inquiries, contact our secure mail: <strong>etherterminal@proton.me</strong>.</p>
                     </section>
                 </div>
 
                 <!-- DPA -->
                 <div id="panel-legal-dpa" class="doc-panel">
                     <h2>Data Processing Agreement (DPA)</h2>
-                    <p style="font-size: 0.78rem; font-family: monospace; color: var(--ether-cyan);">STANDARD TEMPLATE PROTOCOL</p>
+                    <p style="font-size: 0.78rem; font-family: monospace; color: var(--ether-cyan);">STANDARD ENTERPRISE DPA TEMPLATE</p>
                     <section>
-                        <h3>1. Data Processing Agreement (DPA) Template</h3>
-                        <p>"Ether Terminal LLC, acting as the Data Processor, agrees to process personal data only on documented instructions from the Client (the Data Controller). We implement appropriate technical and organizational measures to ensure a level of security appropriate to the risk, including encryption and regular security testing. We will notify the Client without undue delay upon becoming aware of any personal data breach."</p>
+                        <h3>1. Processing Scope</h3>
+                        <p>Ether Terminal LLC processes data strictly as a local software provider. Customer acts as the sole Data Controller and Data Processor for all data ingested into deployed nodes.</p>
                     </section>
+                </div>
+
+                <!-- Export Controls -->
+                <div id="panel-legal-export" class="doc-panel">
+                    <h2>Export Controls &amp; Sanctions Compliance</h2>
+                    <p style="font-size: 0.78rem; font-family: monospace; color: var(--ether-cyan);">ITAR // EAR // OFAC REGULATORY COMPLIANCE</p>
                     <section>
-                        <h3>2. Scope of Processing</h3>
-                        <p>This agreement outlines the operational data flows and data isolation policies deployed when customer enclaves synchronize operations over the Ether OS network.</p>
+                        <h3>1. Compliance with United States Export Laws</h3>
+                        <p>Customer represents and warrants that it is not located in, under the control of, or a national or resident of any country or territory subject to United States government sanctions (including Cuba, Iran, North Korea, Syria, or the Crimea/Donetsk/Luhansk regions). Customer will not export, re-export, or transfer Ether OS software or cryptographic keys in violation of the U.S. Export Administration Regulations (EAR) or International Traffic in Arms Regulations (ITAR).</p>
                     </section>
                 </div>
             </div>
@@ -5560,6 +5609,16 @@
                     <div style="display: flex; justify-content: space-between; margin-bottom: 4px;"><span style="color: var(--text-muted);">Bank:</span> <span style="color: #fff;">Middlesex Federal Savings FA / Novo</span></div>
                     <div style="display: flex; justify-content: space-between; margin-bottom: 4px;"><span style="color: var(--text-muted);">Routing (ACH/Wire):</span> <span style="color: #00ff7f; font-weight: 800;">211370150</span></div>
                     <div style="display: flex; justify-content: space-between;"><span style="color: var(--text-muted);">Account Number:</span> <span style="color: #00ff7f; font-weight: 800;">103650380</span></div>
+                </div>
+
+                <!-- Mandatory Enterprise Legal & Non-Recourse Attestation -->
+                <div style="background: rgba(184, 134, 11, 0.08); border: 1px solid rgba(184, 134, 11, 0.4); border-radius: 8px; padding: 14px; margin-bottom: 16px;">
+                    <label style="display: flex; align-items: flex-start; gap: 10px; cursor: pointer; font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">
+                        <input type="checkbox" name="terms_acknowledged" id="demo-terms-check" required style="margin-top: 3px; width: 18px; height: 18px; accent-color: #e5c158; cursor: pointer;">
+                        <span>
+                            <b style="color: #e5c158;">MANDATORY ENTERPRISE LEGAL & NON-RECOURSE ATTESTATION:</b> I hereby represent and warrant that I possess full legal and corporate authority to bind the procurement entity. I have reviewed, understood, and unconditionally agree to the <a href="#" onclick="openDocModal('legal', 'terms'); return false;" style="color: #4ce0ff; text-decoration: underline; font-weight: 700;">Master Enterprise Sovereign License (EULA)</a>, the <a href="#" onclick="openDocModal('legal', 'liability'); return false;" style="color: #4ce0ff; text-decoration: underline; font-weight: 700;">Absolute Limitation of Liability & Non-Recourse Terms</a>, and the <a href="#" onclick="openDocModal('legal', 'hardware'); return false;" style="color: #4ce0ff; text-decoration: underline; font-weight: 700;">Hardware Kit Terms</a>. I expressly acknowledge that all software, cryptographic nodes, and hardware are provided strictly <b>"AS-IS" AND "WITH ALL FAULTS" WITH ZERO EXPRESS OR IMPLIED WARRANTIES</b>, and that <b>Ether Terminal LLC, its officers, protocol architects, and affiliates shall bear ZERO TOTAL LIABILITY ($0.00)</b> under any legal theory, claim, cause of action, or event whatsoever.
+                        </span>
+                    </label>
                 </div>
 
                 <button type="submit" style="background: linear-gradient(135deg, #00ff7f, #4ce0ff); color: #000; font-weight: 800; border: none; padding: 14px; border-radius: 8px; width: 100%; cursor: pointer; font-size: 0.95rem;">
@@ -7265,6 +7324,7 @@
                         formData.set('minted_license_key', licenseKey);
                         formData.set('assigned_operator_id', opId);
                         formData.set('required_wire_memo', memoCode);
+                        formData.set('legal_terms_waiver', 'ACCEPTED - Irrevocable Absolute Liability Waiver & Non-Recourse Agreement Signed');
                         formData.set('notes', notes);
 
                         try {
@@ -7794,6 +7854,11 @@
         <h2 class="section-heading">III. DEPLOYMENT TIMELINE & CHAIN-OF-CUSTODY</h2>
         <p class="directive-text">
             Upon treasury confirmation of the wire settlement referencing memo <code>${d.memoCode}</code>, the cryptographic deployment desk will dispatch your designated hardware units and initiate the live protocol handshake with your technical officers (${d.email}) within your requested schedule (<b>${d.timeline}</b>).
+        </p>
+
+        <h2 class="section-heading">IV. LEGAL ATTESTATION & ABSOLUTE NON-RECOURSE COVENANT</h2>
+        <p class="directive-text" style="font-size:0.85rem; color:#444; line-height:1.45;">
+            By remitting settlement funds referencing wire memo <code>${d.memoCode}</code>, the procurement entity (${d.company}) irrevocably ratifies the Master Enterprise Sovereign License (EULA), Zero-Warranty ("AS-IS" / "WITH ALL FAULTS") Disclaimer, and Absolute Limitation of Liability Covenant. Ether Terminal LLC, Carlos House, and its affiliates bear ZERO TOTAL LIABILITY ($0.00) under all legal theories, operational variances, hardware events, or claims whatsoever.
         </p>
 
         <div class="signature-block">

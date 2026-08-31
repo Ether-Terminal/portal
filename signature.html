@@ -93,6 +93,25 @@
             box-shadow: 0 0 20px rgba(0, 255, 127, 0.4);
         }
 
+        .legal-check-box {
+            background: rgba(184, 134, 11, 0.08);
+            border: 1px solid rgba(184, 134, 11, 0.35);
+            border-radius: 6px;
+            padding: 10px 14px;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.76rem;
+            color: #e5c158;
+        }
+        .legal-check-box input {
+            accent-color: #e5c158;
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+
         .btn-bar {
             display: flex;
             gap: 10px;
@@ -370,6 +389,12 @@
                 <input type="number" id="inBasePrice" value="185000" oninput="onFieldChange()">
             </div>
         </div>
+
+        <div class="legal-check-box">
+            <input type="checkbox" id="legalTermsAccepted" checked>
+            <label for="legalTermsAccepted"><b>Institutional Legal Covenant:</b> Master Enterprise Sovereign License (EULA), Zero-Warranty ("AS-IS") & Absolute $0.00 Limitation of Liability Ratified.</label>
+        </div>
+
         <div class="btn-bar">
             <button class="btn-action" onclick="mintNewCredentials()" id="btnRemint">⚡ RE-MINT CREDENTIALS & MEMO</button>
             <button class="btn-print" onclick="window.print()">PRINT / SAVE AS PDF</button>
@@ -479,6 +504,11 @@
             Upon treasury confirmation of the wire settlement referencing memo <code id="docMemoCodeInline">ET-LOCKHE-WIRE</code>, the cryptographic deployment desk will dispatch your designated hardware units and initiate the live protocol handshake with your technical officers (<span id="docEmailInline">j.vance@lockheedmartin.com</span>) within your requested schedule (<b>Immediate</b>).
         </p>
 
+        <h2 class="section-heading">IV. LEGAL ATTESTATION & ABSOLUTE NON-RECOURSE COVENANT</h2>
+        <p class="directive-text" id="docLegalText" style="font-size:0.85rem; color:#444; line-height:1.45;">
+            By remitting settlement funds referencing wire memo <code id="docMemoCodeInlineLegal">ET-LOCKHE-WIRE</code>, the procurement entity (<b id="docCompanyLegal">Lockheed Martin Corporation</b>) unconditionally ratifies the Master Enterprise Sovereign License (EULA), Zero-Warranty ("AS-IS" / "WITH ALL FAULTS") Disclaimer, and Absolute Limitation of Liability Covenant. Ether Terminal LLC, Carlos House, and its affiliates bear ZERO TOTAL LIABILITY ($0.00) under all legal theories, operational variances, hardware events, or claims whatsoever.
+        </p>
+
         <div class="signature-block">
             <div class="signature-details">
                 <div class="signature-name">Carlos House</div>
@@ -568,6 +598,8 @@
             document.getElementById("docTier").textContent = tier;
             document.getElementById("docMemoCode").textContent = memoCode;
             document.getElementById("docMemoCodeInline").textContent = memoCode;
+            document.getElementById("docMemoCodeInlineLegal").textContent = memoCode;
+            document.getElementById("docCompanyLegal").textContent = company || "the enterprise entity";
             document.getElementById("docHwText").textContent = isHw ? "Turnkey Dual-Drive Hardware Kit (4TB Samsung 990 PRO NVMe in 40Gbps Thunderbolt 4 Enclosure + Master 256GB USB Recovery Key)" : "Software Licensing Only";
             document.getElementById("docTotalAmount").textContent = "$" + total.toLocaleString("en-US") + ".00 USD";
             document.getElementById("docEmailInline").textContent = email || "designated officers";
