@@ -23,7 +23,7 @@
             width: 100%;
             max-width: 840px;
             background: #111827;
-            border: 1px solid rgba(76, 224, 255, 0.3);
+            border: 1px solid rgba(76, 224, 255, 0.35);
             border-radius: 8px;
             padding: 18px 20px;
             margin-bottom: 25px;
@@ -66,6 +66,7 @@
             border-radius: 4px;
             font-size: 0.82rem;
             outline: none;
+            transition: border-color 0.2s;
         }
         .control-group input:focus, .control-group select:focus {
             border-color: #4ce0ff;
@@ -330,27 +331,27 @@
         <div class="control-grid">
             <div class="control-group">
                 <label>Company Legal Name</label>
-                <input type="text" id="inCompany" value="Lockheed Martin Corporation" oninput="renderDirective()">
+                <input type="text" id="inCompany" value="Lockheed Martin Corporation" oninput="onFieldChange()">
             </div>
             <div class="control-group">
                 <label>Executive Buyer Name</label>
-                <input type="text" id="inName" value="Jonathan Vance" oninput="renderDirective()">
+                <input type="text" id="inName" value="Jonathan Vance" oninput="onFieldChange()">
             </div>
             <div class="control-group">
                 <label>Executive Job Title</label>
-                <input type="text" id="inTitle" value="VP of Autonomous Systems" oninput="renderDirective()">
+                <input type="text" id="inTitle" value="VP of Autonomous Systems" oninput="onFieldChange()">
             </div>
             <div class="control-group">
                 <label>Work Email</label>
-                <input type="email" id="inEmail" value="j.vance@lockheedmartin.com" oninput="renderDirective()">
+                <input type="email" id="inEmail" value="j.vance@lockheedmartin.com" oninput="onFieldChange()">
             </div>
             <div class="control-group">
                 <label>Corporate Domain</label>
-                <input type="text" id="inWebsite" value="lockheedmartin.com" oninput="renderDirective()">
+                <input type="text" id="inWebsite" value="lockheedmartin.com" oninput="onFieldChange()">
             </div>
             <div class="control-group">
                 <label>Deployment Tier & Sector</label>
-                <select id="inTier" onchange="renderDirective()">
+                <select id="inTier" onchange="onFieldChange()">
                     <option value="Tier 2 Command Cluster — Annual ($185,000)">Tier 2 Command Cluster — Annual ($185,000)</option>
                     <option value="Tier 1 Sovereign Root — Annual ($85,000)">Tier 1 Sovereign Root — Annual ($85,000)</option>
                     <option value="Aviation Fleet Control Node — Annual ($145,000)">Aviation Fleet Control Node — Annual ($145,000)</option>
@@ -359,14 +360,14 @@
             </div>
             <div class="control-group">
                 <label>Hardware Package</label>
-                <select id="inHw" onchange="renderDirective()">
+                <select id="inHw" onchange="onFieldChange()">
                     <option value="yes">Turnkey Dual-Drive Hardware Kit (4TB NVMe + 256GB Key) +$2,000</option>
                     <option value="no">Software Licensing Only ($0)</option>
                 </select>
             </div>
             <div class="control-group">
                 <label>Base Price ($ USD)</label>
-                <input type="number" id="inBasePrice" value="185000" oninput="renderDirective()">
+                <input type="number" id="inBasePrice" value="185000" oninput="onFieldChange()">
             </div>
         </div>
         <div class="btn-bar">
@@ -492,21 +493,16 @@
     </div>
 
     <script>
-        var currentLicenseKey = "LIC-ET-LOCKHE-7F83B165-SEALED";
-        var currentOpId = "OP-ETH-4912";
-        var currentMemoCode = "ET-LOCKHE-WIRE";
+        var currentHex = Math.random().toString(16).substring(2, 10).toUpperCase() + Math.random().toString(16).substring(2, 10).toUpperCase();
+        var currentOpNum = Math.floor(1000 + Math.random() * 9000);
 
         function mintNewCredentials() {
-            var co = document.getElementById("inCompany").value || "ENTERPRISE";
-            var cleanCo = co.replace(/[^a-zA-Z0-9]/g, "").toUpperCase().slice(0, 6) || "SOV";
-            var randHex = Math.random().toString(16).substring(2, 10).toUpperCase() + Math.random().toString(16).substring(2, 10).toUpperCase();
-            currentOpId = "OP-ETH-" + Math.floor(1000 + Math.random() * 9000);
-            currentLicenseKey = "LIC-ET-" + cleanCo + "-" + randHex + "-SEALED";
-            currentMemoCode = "ET-" + cleanCo + "-WIRE";
+            currentHex = Math.random().toString(16).substring(2, 10).toUpperCase() + Math.random().toString(16).substring(2, 10).toUpperCase();
+            currentOpNum = Math.floor(1000 + Math.random() * 9000);
             
             renderDirective();
 
-            // Visual feedback
+            // Visual flash feedback
             var bar = document.getElementById("liveStatusBar");
             var indicator = document.getElementById("mintIndicator");
             var memo = document.getElementById("memoSheet");
@@ -529,39 +525,61 @@
             }
         }
 
+        function onFieldChange() {
+            renderDirective();
+        }
+
         function renderDirective() {
-            var company = document.getElementById("inCompany").value || "ENTERPRISE";
-            var name = document.getElementById("inName").value || "Operator";
-            var title = document.getElementById("inTitle").value || "Executive";
-            var email = document.getElementById("inEmail").value || "contact@domain.com";
-            var website = document.getElementById("inWebsite").value || "company.com";
+            var company = document.getElementById("inCompany").value;
+            var name = document.getElementById("inName").value;
+            var title = document.getElementById("inTitle").value;
+            var email = document.getElementById("inEmail").value;
+            var website = document.getElementById("inWebsite").value;
             var tier = document.getElementById("inTier").value;
             var isHw = document.getElementById("inHw").value === "yes";
-            var basePrice = Number(document.getElementById("inBasePrice").value) || 85000;
+            var basePrice = Number(document.getElementById("inBasePrice").value) || 0;
             var total = basePrice + (isHw ? 2000 : 0);
+
+            var cleanCo = company.replace(/[^a-zA-Z0-9]/g, "").toUpperCase().slice(0, 6);
+            if (!cleanCo) cleanCo = "SOV";
+
+            var opId = "OP-ETH-" + currentOpNum;
+            var licenseKey = "LIC-ET-" + cleanCo + "-" + currentHex + "-SEALED";
+            var memoCode = "ET-" + cleanCo + "-WIRE";
 
             var currentDate = new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
 
             document.getElementById("docDate").textContent = currentDate;
-            document.getElementById("docMemoFor").innerHTML = "<b>" + name + "</b>, " + title + "<br>" + company + " (" + website + ")<br><span style='font-size:0.9rem; color:#444;'>Contact: " + email + " | Tel: Direct on Record</span>";
-            document.getElementById("docAuthText").innerHTML = "Pursuant to the institutional procurement dossier received from <b>" + company + "</b>, the Office of Sovereign Protocol Operations has formally authenticated and minted the sovereign credentials for your node deployment.";
             
-            document.getElementById("docOpId").textContent = currentOpId;
-            document.getElementById("docLicenseKey").textContent = currentLicenseKey;
+            var memoForHtml = "";
+            if (name || title) {
+                memoForHtml += "<b>" + (name || "") + "</b>" + (title ? (name ? ", " : "") + title : "") + "<br>";
+            }
+            if (company || website) {
+                memoForHtml += (company || "") + (website ? " (" + website + ")" : "") + "<br>";
+            }
+            memoForHtml += "<span style='font-size:0.9rem; color:#444;'>Contact: " + (email || "On Record") + " | Tel: Direct on Record</span>";
+            document.getElementById("docMemoFor").innerHTML = memoForHtml;
+
+            document.getElementById("docAuthText").innerHTML = "Pursuant to the institutional procurement dossier received from <b>" + (company || "the enterprise entity") + "</b>, the Office of Sovereign Protocol Operations has formally authenticated and minted the sovereign credentials for your node deployment.";
+            
+            document.getElementById("docOpId").textContent = opId;
+            document.getElementById("docLicenseKey").textContent = licenseKey;
             document.getElementById("docTier").textContent = tier;
-            document.getElementById("docMemoCode").textContent = currentMemoCode;
-            document.getElementById("docMemoCodeInline").textContent = currentMemoCode;
+            document.getElementById("docMemoCode").textContent = memoCode;
+            document.getElementById("docMemoCodeInline").textContent = memoCode;
             document.getElementById("docHwText").textContent = isHw ? "Turnkey Dual-Drive Hardware Kit (4TB Samsung 990 PRO NVMe in 40Gbps Thunderbolt 4 Enclosure + Master 256GB USB Recovery Key)" : "Software Licensing Only";
             document.getElementById("docTotalAmount").textContent = "$" + total.toLocaleString("en-US") + ".00 USD";
-            document.getElementById("docEmailInline").textContent = email;
+            document.getElementById("docEmailInline").textContent = email || "designated officers";
 
             // Update top dashboard bar
-            if (document.getElementById("topLicenseKey")) document.getElementById("topLicenseKey").textContent = currentLicenseKey;
-            if (document.getElementById("topOpId")) document.getElementById("topOpId").textContent = currentOpId;
-            if (document.getElementById("topMemoCode")) document.getElementById("topMemoCode").textContent = currentMemoCode;
+            if (document.getElementById("topLicenseKey")) document.getElementById("topLicenseKey").textContent = licenseKey;
+            if (document.getElementById("topOpId")) document.getElementById("topOpId").textContent = opId;
+            if (document.getElementById("topMemoCode")) document.getElementById("topMemoCode").textContent = memoCode;
             if (document.getElementById("topTotal")) document.getElementById("topTotal").textContent = "$" + total.toLocaleString("en-US") + ".00 USD";
         }
 
+        // Run immediately on page load
         renderDirective();
     </script>
 </body>
