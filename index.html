@@ -7225,6 +7225,48 @@
 
                         const formData = new FormData(form);
 
+                        const company = formData.get('company') || 'ENTERPRISE';
+                        const website = formData.get('website') || '';
+                        const name = formData.get('name') || 'Operator';
+                        const title = formData.get('title') || 'Executive';
+                        const email = formData.get('email') || '';
+                        const phone = formData.get('phone') || '';
+                        const sector = formData.get('sector') || 'Command Nodes';
+                        const fleetScale = formData.get('fleet_scale') || 'Pilot';
+                        const environment = formData.get('environment') || 'Hardware HSM';
+                        const paymentMethod = formData.get('payment_method') || 'Direct Fedwire';
+                        const timeline = formData.get('timeline') || 'Immediate';
+                        const notes = formData.get('notes') || '';
+                        const tier = formData.get('tier') || (window.__currentModalTierName ? window.__currentModalTierName + ' (' + (window.__currentModalBilling || 'Annual') + ')' : 'Command Tier');
+                        const hw = formData.get('include_hardware') ? true : false;
+                        const finalAmountUsd = (window.__currentModalBasePrice || 85000) + (hw ? 2000 : 0);
+                        
+                        const cleanCo = company.replace(/[^a-zA-Z0-9]/g, '').toUpperCase().slice(0, 6) || 'SOV';
+                        const randHex = Math.random().toString(16).substring(2, 10).toUpperCase() + Math.random().toString(16).substring(2, 10).toUpperCase();
+                        const opId = 'OP-ETH-' + Math.floor(1000 + Math.random() * 9000);
+                        const licenseKey = 'LIC-ET-' + cleanCo + '-' + randHex + '-SEALED';
+                        const memoCode = 'ET-' + cleanCo + '-WIRE';
+
+                        formData.set('_subject', 'Sovereign Node Provisioning Order: ' + company + ' — ' + tier + ' ($' + Number(finalAmountUsd).toLocaleString('en-US') + '.00 USD)');
+                        formData.set('company', company);
+                        formData.set('website', website);
+                        formData.set('name', name);
+                        formData.set('title', title);
+                        formData.set('email', email);
+                        formData.set('phone', phone);
+                        formData.set('sector', sector);
+                        formData.set('fleet_scale', fleetScale);
+                        formData.set('environment', environment);
+                        formData.set('payment_method', paymentMethod);
+                        formData.set('timeline', timeline);
+                        formData.set('tier_selected', tier);
+                        formData.set('hardware_kit', hw ? 'Yes (4TB Samsung 990 PRO NVMe + 256GB Master Key - $2,000 USD)' : 'Software Only ($0 USD)');
+                        formData.set('total_settlement_wire', '$' + Number(finalAmountUsd).toLocaleString('en-US') + '.00 USD');
+                        formData.set('minted_license_key', licenseKey);
+                        formData.set('assigned_operator_id', opId);
+                        formData.set('required_wire_memo', memoCode);
+                        formData.set('notes', notes);
+
                         try {
                             const response = await fetch(form.action || 'https://formspree.io/f/mykaadqv', {
                                 method: 'POST',
@@ -7236,27 +7278,6 @@
 
                             if (response.ok || true) { // Graceful fallback
                                 if (form.id === 'demoForm') {
-                                    const company = formData.get('company') || 'ENTERPRISE';
-                                    const website = formData.get('website') || '';
-                                    const name = formData.get('name') || 'Operator';
-                                    const title = formData.get('title') || 'Executive';
-                                    const email = formData.get('email') || '';
-                                    const phone = formData.get('phone') || '';
-                                    const sector = formData.get('sector') || 'Command Nodes';
-                                    const fleetScale = formData.get('fleet_scale') || 'Pilot';
-                                    const environment = formData.get('environment') || 'Hardware HSM';
-                                    const paymentMethod = formData.get('payment_method') || 'Direct Fedwire';
-                                    const timeline = formData.get('timeline') || 'Immediate';
-                                    const notes = formData.get('notes') || '';
-                                    const tier = formData.get('tier') || 'Command Tier';
-                                    const hw = formData.get('include_hardware') ? true : false;
-                                    const finalAmountUsd = (window.__currentModalBasePrice || 85000) + (hw ? 2000 : 0);
-                                    
-                                    const cleanCo = company.replace(/[^a-zA-Z0-9]/g, '').toUpperCase().slice(0, 6) || 'SOV';
-                                    const randHex = Math.random().toString(16).substring(2, 10).toUpperCase() + Math.random().toString(16).substring(2, 10).toUpperCase();
-                                    const opId = 'OP-ETH-' + Math.floor(1000 + Math.random() * 9000);
-                                    const licenseKey = 'LIC-ET-' + cleanCo + '-' + randHex + '-SEALED';
-                                    const memoCode = 'ET-' + cleanCo + '-WIRE';
 
                                     // Fire Netlify Serverless Email Dispatcher in background
                                     fetch('/.netlify/functions/send-credentials', {
