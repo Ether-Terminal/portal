@@ -537,17 +537,20 @@
                 <input type="text" id="inWebsite" value="lockheedmartin.com" oninput="onFieldChange()">
             </div>
             <div class="control-group">
+                <label>Company Address</label>
+                <input type="text" id="inAddress" value="6801 Rockledge Dr, Bethesda, MD 20817" oninput="onFieldChange()">
+            </div>
+            <div class="control-group">
+                <label>Direct Phone</label>
+                <input type="text" id="inPhone" value="+1 (301) 897-6000" oninput="onFieldChange()">
+            </div>
+            <div class="control-group">
                 <label>Purchase Order (PO) / Project Ref</label>
                 <input type="text" id="inPoNumber" value="PO-2026-LM-8924" oninput="onFieldChange()">
             </div>
             <div class="control-group">
                 <label>Deployment Tier & Sector</label>
-                <select id="inTier" onchange="onFieldChange()">
-                    <option value="Tier 2 Command Cluster — Annual ($185,000)">Tier 2 Command Cluster — Annual ($185,000)</option>
-                    <option value="Tier 1 Sovereign Root — Annual ($85,000)">Tier 1 Sovereign Root — Annual ($85,000)</option>
-                    <option value="Aviation Fleet Control Node — Annual ($145,000)">Aviation Fleet Control Node — Annual ($145,000)</option>
-                    <option value="Enterprise Sovereign CapEx ($250,000)">Enterprise Sovereign CapEx ($250,000)</option>
-                </select>
+                <input type="text" id="inTier" value="Tier 2 Command Cluster — Annual ($185,000)" oninput="onFieldChange()">
             </div>
             <div class="control-group">
                 <label>Hardware Package</label>
@@ -710,6 +713,55 @@
         var currentHex = Math.random().toString(16).substring(2, 10).toUpperCase() + Math.random().toString(16).substring(2, 10).toUpperCase();
         var currentOpNum = Math.floor(1000 + Math.random() * 9000);
 
+        function initDossierFromStorageOrUrl() {
+            var params = new URLSearchParams(window.location.search);
+            var saved = null;
+            try {
+                saved = JSON.parse(localStorage.getItem('ether_directive_data') || 'null');
+            } catch(e) {}
+
+            var company = params.get('company') || (saved && saved.company);
+            var name = params.get('name') || (saved && saved.name);
+            var title = params.get('title') || (saved && saved.title);
+            var email = params.get('email') || (saved && saved.email);
+            var website = params.get('website') || (saved && saved.website);
+            var address = params.get('address') || (saved && saved.address);
+            var phone = params.get('phone') || (saved && saved.phone);
+            var poNumber = params.get('poNumber') || (saved && saved.poNumber);
+            var tier = params.get('tier') || (saved && saved.tier);
+            var hw = params.get('hw') || (saved && (saved.hw ? 'yes' : 'no'));
+            var amountUsd = params.get('amountUsd') || (saved && saved.amountUsd);
+            var state = params.get('state') || (saved && saved.state);
+            var licenseKey = params.get('licenseKey') || (saved && saved.licenseKey);
+            var opId = params.get('opId') || (saved && saved.opId);
+
+            if (company && document.getElementById('inCompany')) document.getElementById('inCompany').value = company;
+            if (name && document.getElementById('inName')) document.getElementById('inName').value = name;
+            if (title && document.getElementById('inTitle')) document.getElementById('inTitle').value = title;
+            if (email && document.getElementById('inEmail')) document.getElementById('inEmail').value = email;
+            if (website && document.getElementById('inWebsite')) document.getElementById('inWebsite').value = website;
+            if (address && document.getElementById('inAddress')) document.getElementById('inAddress').value = address;
+            if (phone && document.getElementById('inPhone')) document.getElementById('inPhone').value = phone;
+            if (poNumber && document.getElementById('inPoNumber')) document.getElementById('inPoNumber').value = poNumber;
+            if (tier && document.getElementById('inTier')) document.getElementById('inTier').value = tier;
+            if (hw && document.getElementById('inHw')) document.getElementById('inHw').value = hw;
+            if (state && document.getElementById('inDocState')) document.getElementById('inDocState').value = state;
+
+            if (amountUsd && document.getElementById('inBasePrice')) {
+                var baseVal = Number(amountUsd) || 185000;
+                if (hw === 'yes' && baseVal > 2000) baseVal -= 2000;
+                document.getElementById('inBasePrice').value = baseVal;
+            }
+
+            if (licenseKey && licenseKey.indexOf('-') !== -1) {
+                var parts = licenseKey.split('-');
+                if (parts.length >= 4) currentHex = parts[3];
+            }
+            if (opId) {
+                currentOpNum = opId.replace('OP-ETH-', '');
+            }
+        }
+
         function mintNewCredentials() {
             currentHex = Math.random().toString(16).substring(2, 10).toUpperCase() + Math.random().toString(16).substring(2, 10).toUpperCase();
             currentOpNum = Math.floor(1000 + Math.random() * 9000);
@@ -743,18 +795,20 @@
         }
 
         function renderDirective() {
-            var docState = document.getElementById("inDocState").value;
+            var docState = (document.getElementById("inDocState") || {}).value || "pending";
             var isPaid = (docState === "paid");
 
-            var company = document.getElementById("inCompany").value;
-            var name = document.getElementById("inName").value;
-            var title = document.getElementById("inTitle").value;
-            var email = document.getElementById("inEmail").value;
-            var website = document.getElementById("inWebsite").value;
-            var poNumber = document.getElementById("inPoNumber") ? document.getElementById("inPoNumber").value : "";
-            var tier = document.getElementById("inTier").value;
-            var isHw = document.getElementById("inHw").value === "yes";
-            var basePrice = Number(document.getElementById("inBasePrice").value) || 0;
+            var company = (document.getElementById("inCompany") || {}).value || "";
+            var name = (document.getElementById("inName") || {}).value || "";
+            var title = (document.getElementById("inTitle") || {}).value || "";
+            var email = (document.getElementById("inEmail") || {}).value || "";
+            var website = (document.getElementById("inWebsite") || {}).value || "";
+            var address = (document.getElementById("inAddress") || {}).value || "";
+            var phone = (document.getElementById("inPhone") || {}).value || "";
+            var poNumber = (document.getElementById("inPoNumber") || {}).value || "";
+            var tier = (document.getElementById("inTier") || {}).value || "";
+            var isHw = (document.getElementById("inHw") || {}).value === "yes";
+            var basePrice = Number((document.getElementById("inBasePrice") || {}).value) || 0;
             var total = basePrice + (isHw ? 2000 : 0);
 
             var cleanCo = company.replace(/[^a-zA-Z0-9]/g, "").toUpperCase().slice(0, 6);
@@ -765,7 +819,7 @@
             var memoCode = "ET-" + cleanCo + "-WIRE";
 
             var currentDate = new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
-            document.getElementById("docDate").textContent = currentDate;
+            if (document.getElementById("docDate")) document.getElementById("docDate").textContent = currentDate;
             
             // Paid stamp toggle
             var stamp = document.getElementById("paidStamp");
@@ -776,15 +830,15 @@
 
             // Subject and Header updates for Paid State
             if (isPaid) {
-                document.getElementById("docSubject").innerHTML = "<b>OFFICIAL SETTLEMENT RECEIPT &amp; NODE ACTIVATION ORDER</b>";
-                document.getElementById("docClassification").innerHTML = "OFFICIAL RECORD // SETTLED INVOICE &amp; ACTIVATION RECEIPT";
-                document.getElementById("docAuthText").innerHTML = "Pursuant to verified settlement funds from <b>" + (company || "the enterprise entity") + "</b> referencing wire memo <code>" + memoCode + "</code>, the Office of Sovereign Protocol Operations certifies that sovereign node activation is authorized and deployed.";
-                document.getElementById("docTimelineText").innerHTML = "Treasury settlement has been authenticated. Hardware packaging and cryptographic node enclave activation for technical officers (" + (email || "on record") + ") are active under priority chain-of-custody.";
+                if (document.getElementById("docSubject")) document.getElementById("docSubject").innerHTML = "<b>OFFICIAL SETTLEMENT RECEIPT &amp; NODE ACTIVATION ORDER</b>";
+                if (document.getElementById("docClassification")) document.getElementById("docClassification").innerHTML = "OFFICIAL RECORD // SETTLED INVOICE &amp; ACTIVATION RECEIPT";
+                if (document.getElementById("docAuthText")) document.getElementById("docAuthText").innerHTML = "Pursuant to verified settlement funds from <b>" + (company || "the enterprise entity") + "</b> referencing wire memo <code>" + memoCode + "</code>, the Office of Sovereign Protocol Operations certifies that sovereign node activation is authorized and deployed.";
+                if (document.getElementById("docTimelineText")) document.getElementById("docTimelineText").innerHTML = "Treasury settlement has been authenticated. Hardware packaging and cryptographic node enclave activation for technical officers (" + (email || "on record") + ") are active under priority chain-of-custody.";
             } else {
-                document.getElementById("docSubject").innerHTML = "<b>DIRECTIVE ON SOVEREIGN NODE PROVISIONING &amp; WIRE SETTLEMENT</b>";
-                document.getElementById("docClassification").innerHTML = "RESTRICTED // COMMERCIAL DIRECTIVE &amp; SETTLEMENT DOSSIER";
-                document.getElementById("docAuthText").innerHTML = "Pursuant to the institutional procurement dossier received from <b>" + (company || "the enterprise entity") + "</b>, the Office of Sovereign Protocol Operations has formally authenticated and minted the sovereign credentials for your node deployment.";
-                document.getElementById("docTimelineText").innerHTML = "Upon treasury confirmation of the wire settlement referencing memo <code>" + memoCode + "</code>, the cryptographic deployment desk will dispatch your designated hardware units and initiate the live protocol handshake with your technical officers (" + (email || "on record") + ") within your requested schedule.";
+                if (document.getElementById("docSubject")) document.getElementById("docSubject").innerHTML = "<b>DIRECTIVE ON SOVEREIGN NODE PROVISIONING &amp; WIRE SETTLEMENT</b>";
+                if (document.getElementById("docClassification")) document.getElementById("docClassification").innerHTML = "RESTRICTED // COMMERCIAL DIRECTIVE &amp; SETTLEMENT DOSSIER";
+                if (document.getElementById("docAuthText")) document.getElementById("docAuthText").innerHTML = "Pursuant to the institutional procurement dossier received from <b>" + (company || "the enterprise entity") + "</b>, the Office of Sovereign Protocol Operations has formally authenticated and minted the sovereign credentials for your node deployment.";
+                if (document.getElementById("docTimelineText")) document.getElementById("docTimelineText").innerHTML = "Upon treasury confirmation of the wire settlement referencing memo <code>" + memoCode + "</code>, the cryptographic deployment desk will dispatch your designated hardware units and initiate the live protocol handshake with your technical officers (" + (email || "on record") + ") within your requested schedule.";
             }
 
             // PO Row
@@ -792,7 +846,7 @@
             if (poRow) {
                 if (poNumber && poNumber.trim() !== "") {
                     poRow.style.display = "flex";
-                    document.getElementById("docPoValue").textContent = poNumber;
+                    if (document.getElementById("docPoValue")) document.getElementById("docPoValue").textContent = poNumber;
                 } else {
                     poRow.style.display = "none";
                 }
@@ -809,27 +863,50 @@
                 memoForHtml += "<span style='color:#555;'>" + address + "</span><br>";
             }
             memoForHtml += "<span style='font-size:0.9rem; color:#444;'>Contact: " + (email || "On Record") + (phone ? " | Tel: " + phone : " | Tel: Direct on Record") + "</span>";
-            document.getElementById("docMemoFor").innerHTML = memoForHtml;
+            if (document.getElementById("docMemoFor")) document.getElementById("docMemoFor").innerHTML = memoForHtml;
 
-            document.getElementById("docOpId").textContent = opId;
-            document.getElementById("docLicenseKey").textContent = licenseKey;
-            document.getElementById("docTier").textContent = tier;
-            document.getElementById("docMemoCode").textContent = memoCode;
-            document.getElementById("docMemoCodeInline").textContent = memoCode;
-            document.getElementById("docMemoCodeInlineLegal").textContent = memoCode;
-            document.getElementById("docCompanyLegal").textContent = company || "the enterprise entity";
-            document.getElementById("docHwText").textContent = isHw ? "Turnkey Dual-Drive Hardware Kit (4TB Samsung 990 PRO NVMe in 40Gbps Thunderbolt 4 Enclosure + Master 256GB USB Recovery Key)" : "Software Licensing Only";
-            document.getElementById("docTotalAmount").textContent = "$" + total.toLocaleString("en-US") + ".00 USD" + (isPaid ? " (PAID IN FULL)" : "");
-            document.getElementById("docEmailInline").textContent = email || "designated officers";
+            if (document.getElementById("docOpId")) document.getElementById("docOpId").textContent = opId;
+            if (document.getElementById("docLicenseKey")) document.getElementById("docLicenseKey").textContent = licenseKey;
+            if (document.getElementById("docTier")) document.getElementById("docTier").textContent = tier;
+            if (document.getElementById("docMemoCode")) document.getElementById("docMemoCode").textContent = memoCode;
+            if (document.getElementById("docMemoCodeInline")) document.getElementById("docMemoCodeInline").textContent = memoCode;
+            if (document.getElementById("docMemoCodeInlineLegal")) document.getElementById("docMemoCodeInlineLegal").textContent = memoCode;
+            if (document.getElementById("docCompanyLegal")) document.getElementById("docCompanyLegal").textContent = company || "the enterprise entity";
+            if (document.getElementById("docHwText")) document.getElementById("docHwText").textContent = isHw ? "Turnkey Dual-Drive Hardware Kit (4TB Samsung 990 PRO NVMe in 40Gbps Thunderbolt 4 Enclosure + Master 256GB USB Recovery Key)" : "Software Licensing Only";
+            if (document.getElementById("docTotalAmount")) document.getElementById("docTotalAmount").textContent = "$" + total.toLocaleString("en-US") + ".00 USD" + (isPaid ? " (PAID IN FULL)" : "");
+            if (document.getElementById("docEmailInline")) document.getElementById("docEmailInline").textContent = email || "designated officers";
 
             // Update top dashboard bar
             if (document.getElementById("topLicenseKey")) document.getElementById("topLicenseKey").textContent = licenseKey;
             if (document.getElementById("topOpId")) document.getElementById("topOpId").textContent = opId;
             if (document.getElementById("topMemoCode")) document.getElementById("topMemoCode").textContent = memoCode;
             if (document.getElementById("topTotal")) document.getElementById("topTotal").textContent = "$" + total.toLocaleString("en-US") + ".00 USD" + (isPaid ? " (SETTLED)" : "");
+
+            // Save state to localStorage
+            try {
+                var currentDossier = {
+                    company: company,
+                    name: name,
+                    title: title,
+                    email: email,
+                    website: website,
+                    address: address,
+                    phone: phone,
+                    poNumber: poNumber,
+                    tier: tier,
+                    hw: isHw,
+                    amountUsd: total,
+                    state: docState,
+                    licenseKey: licenseKey,
+                    opId: opId,
+                    memoCode: memoCode
+                };
+                localStorage.setItem('ether_directive_data', JSON.stringify(currentDossier));
+            } catch(e) {}
         }
 
-        // Run immediately on load
+        // Initialize and render on page load
+        initDossierFromStorageOrUrl();
         renderDirective();
     </script>
 </body>
