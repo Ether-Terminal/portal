@@ -1153,21 +1153,18 @@
             width: 100vw;
             height: 100vh;
             height: 100dvh;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            background: rgba(0, 0, 0, 0.88);
             z-index: 9999;
             display: flex;
             justify-content: center;
             align-items: flex-start;
-            overflow-y: auto !important;
+            overflow-y: scroll !important;
             -webkit-overflow-scrolling: touch !important;
             overscroll-behavior-y: contain;
             padding: 24px 12px 60px 12px;
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.2s ease;
-            touch-action: pan-y !important;
         }
 
         .modal-overlay.open {
@@ -1180,23 +1177,21 @@
             max-width: 680px;
             margin: auto;
             position: relative;
+            background: #0c101d !important;
+            border: 1px solid rgba(76, 224, 255, 0.35);
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.95), 0 0 35px rgba(76, 224, 255, 0.15);
             transform: translateY(15px);
             transition: transform 0.2s ease;
             max-height: none !important;
-            overflow-y: visible !important;
-            touch-action: pan-y !important;
+            overflow: visible !important;
             -webkit-overflow-scrolling: touch;
-        }
-
-        .modal-content * {
-            touch-action: pan-y !important;
         }
 
         .modal-input-field {
             font-size: 16px !important;
             -webkit-user-select: text !important;
             user-select: text !important;
-            touch-action: pan-y !important;
             -webkit-tap-highlight-color: transparent !important;
             transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
         }
@@ -5538,7 +5533,7 @@
     </div>
 
     <div id="demoModal" class="modal-overlay">
-        <div class="modal-content glass-card" style="max-width: 680px; padding: 28px; border: 1px solid rgba(76, 224, 255, 0.35); box-shadow: 0 20px 60px rgba(0,0,0,0.85), 0 0 35px rgba(76, 224, 255, 0.15);">
+        <div class="modal-content" style="max-width: 680px; padding: 28px; background: #0c101d; border: 1px solid rgba(76, 224, 255, 0.35); border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,0.95), 0 0 35px rgba(76, 224, 255, 0.15);">
             <button class="close-modal">&times;</button>
             <h3 id="modal-heading" style="text-align: center; margin-bottom: 6px; color: var(--ether-cyan); font-family: monospace; font-size: 1.25rem;">⚡ Sovereign Node Provisioning Dossier</h3>
             <p style="text-align: center; color: var(--text-muted); font-size: 0.82rem; margin-bottom: 18px;">Direct Institutional Procurement, Corporate Fedwire & Deployment Intake</p>
@@ -5555,27 +5550,27 @@
                     <div class="modal-form-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
                         <div class="form-group" style="margin-bottom: 0;">
                             <label for="demo-company" style="font-size: 0.78rem; cursor: pointer; display: block; padding-bottom: 2px;">Company Legal Name *</label>
-                            <input type="text" name="company" id="demo-company" class="modal-input-field" placeholder="Lockheed Martin Corporation" required style="width: 100%; min-height: 46px; padding: 12px 14px; background: rgba(5, 7, 15, 0.9); border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 6px; color: #fff; font-size: 16px !important; outline: none; touch-action: manipulation;">
+                            <input type="text" name="company" id="demo-company" class="modal-input-field" placeholder="Lockheed Martin Corporation" required style="width: 100%; min-height: 46px; padding: 12px 14px; background: rgba(5, 7, 15, 0.95); border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 6px; color: #fff; font-size: 16px !important; outline: none;">
                         </div>
                         <div class="form-group" style="margin-bottom: 0;">
                             <label for="demo-website" style="font-size: 0.78rem; cursor: pointer; display: block; padding-bottom: 2px;">Company Website / Domain *</label>
-                            <input type="text" name="website" id="demo-website" class="modal-input-field" placeholder="lockheedmartin.com" required style="width: 100%; min-height: 46px; padding: 12px 14px; background: rgba(5, 7, 15, 0.9); border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 6px; color: #fff; font-size: 16px !important; outline: none; touch-action: manipulation;">
+                            <input type="text" name="website" id="demo-website" class="modal-input-field" placeholder="lockheedmartin.com" required style="width: 100%; min-height: 46px; padding: 12px 14px; background: rgba(5, 7, 15, 0.95); border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 6px; color: #fff; font-size: 16px !important; outline: none;">
                         </div>
                         <div class="form-group" style="margin-bottom: 0;">
                             <label for="demo-name" style="font-size: 0.78rem; cursor: pointer; display: block; padding-bottom: 2px;">Buyer Full Name *</label>
-                            <input type="text" name="name" id="demo-name" class="modal-input-field" placeholder="Jonathan Vance" required style="width: 100%; min-height: 46px; padding: 12px 14px; background: rgba(5, 7, 15, 0.9); border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 6px; color: #fff; font-size: 16px !important; outline: none; touch-action: manipulation;">
+                            <input type="text" name="name" id="demo-name" class="modal-input-field" placeholder="Jonathan Vance" required style="width: 100%; min-height: 46px; padding: 12px 14px; background: rgba(5, 7, 15, 0.95); border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 6px; color: #fff; font-size: 16px !important; outline: none;">
                         </div>
                         <div class="form-group" style="margin-bottom: 0;">
                             <label for="demo-title" style="font-size: 0.78rem; cursor: pointer; display: block; padding-bottom: 2px;">Job Title / Role *</label>
-                            <input type="text" name="title" id="demo-title" class="modal-input-field" placeholder="VP of Autonomous Systems" required style="width: 100%; min-height: 46px; padding: 12px 14px; background: rgba(5, 7, 15, 0.9); border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 6px; color: #fff; font-size: 16px !important; outline: none; touch-action: manipulation;">
+                            <input type="text" name="title" id="demo-title" class="modal-input-field" placeholder="VP of Autonomous Systems" required style="width: 100%; min-height: 46px; padding: 12px 14px; background: rgba(5, 7, 15, 0.95); border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 6px; color: #fff; font-size: 16px !important; outline: none;">
                         </div>
                         <div class="form-group" style="margin-bottom: 0;">
                             <label for="demo-email" style="font-size: 0.78rem; cursor: pointer; display: block; padding-bottom: 2px;">Corporate Work Email *</label>
-                            <input type="email" name="email" id="demo-email" class="modal-input-field" placeholder="j.vance@lockheedmartin.com" required style="width: 100%; min-height: 46px; padding: 12px 14px; background: rgba(5, 7, 15, 0.9); border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 6px; color: #fff; font-size: 16px !important; outline: none; touch-action: manipulation;">
+                            <input type="email" name="email" id="demo-email" class="modal-input-field" placeholder="j.vance@lockheedmartin.com" required style="width: 100%; min-height: 46px; padding: 12px 14px; background: rgba(5, 7, 15, 0.95); border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 6px; color: #fff; font-size: 16px !important; outline: none;">
                         </div>
                         <div class="form-group" style="margin-bottom: 0;">
                             <label for="demo-phone" style="font-size: 0.78rem; cursor: pointer; display: block; padding-bottom: 2px;">Direct Business Phone *</label>
-                            <input type="tel" name="phone" id="demo-phone" class="modal-input-field" placeholder="+1 (703) 555-0199" required style="width: 100%; min-height: 46px; padding: 12px 14px; background: rgba(5, 7, 15, 0.9); border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 6px; color: #fff; font-size: 16px !important; outline: none; touch-action: manipulation;">
+                            <input type="tel" name="phone" id="demo-phone" class="modal-input-field" placeholder="+1 (703) 555-0199" required style="width: 100%; min-height: 46px; padding: 12px 14px; background: rgba(5, 7, 15, 0.95); border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 6px; color: #fff; font-size: 16px !important; outline: none;">
                         </div>
                     </div>
                 </div>
@@ -5588,7 +5583,7 @@
                     <div class="modal-form-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
                         <div class="form-group" style="margin-bottom: 0;">
                             <label for="demo-sector" style="font-size: 0.78rem; cursor: pointer; display: block; padding-bottom: 2px;">Target Industry Sector *</label>
-                            <select name="sector" id="demo-sector" class="modal-input-field" style="width: 100%; min-height: 46px; padding: 12px 14px; background: rgba(5, 7, 15, 0.9); border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 6px; color: #fff; font-size: 16px !important; font-family: inherit; outline: none; touch-action: manipulation;">
+                            <select name="sector" id="demo-sector" class="modal-input-field" style="width: 100%; min-height: 46px; padding: 12px 14px; background: rgba(5, 7, 15, 0.95); border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 6px; color: #fff; font-size: 16px !important; font-family: inherit; outline: none;">
                                 <option value="Command Nodes">⚙ Command Nodes (Tier 1 Architecture)</option>
                                 <option value="Aviation & Aerospace">✈ Aviation & Aerospace Fleet</option>
                                 <option value="Automotive Fleet">🚗 Autonomous Automotive & Telematics</option>
@@ -5599,7 +5594,7 @@
                         </div>
                         <div class="form-group" style="margin-bottom: 0;">
                             <label for="demo-scale" style="font-size: 0.78rem; cursor: pointer; display: block; padding-bottom: 2px;">Node Deployment Scale *</label>
-                            <select name="fleet_scale" id="demo-scale" class="modal-input-field" style="width: 100%; min-height: 46px; padding: 12px 14px; background: rgba(5, 7, 15, 0.9); border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 6px; color: #fff; font-size: 16px !important; font-family: inherit; outline: none; touch-action: manipulation;">
+                            <select name="fleet_scale" id="demo-scale" class="modal-input-field" style="width: 100%; min-height: 46px; padding: 12px 14px; background: rgba(5, 7, 15, 0.95); border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 6px; color: #fff; font-size: 16px !important; font-family: inherit; outline: none;">
                                 <option value="< 1,000 Units (Pilot Program)">&lt; 1,000 Units (Pilot Program)</option>
                                 <option value="1,000 – 10,000 Units (Regional Fleet)">1,000 – 10,000 Units (Regional Fleet)</option>
                                 <option value="10,000 – 100,000 Units (Enterprise Scale)">10,000 – 100,000 Units (Enterprise Scale)</option>
@@ -5608,7 +5603,7 @@
                         </div>
                         <div class="form-group" style="grid-column: span 2; margin-bottom: 0;">
                             <label for="demo-env" style="font-size: 0.78rem; cursor: pointer; display: block; padding-bottom: 2px;">Infrastructure & Hosting Environment *</label>
-                            <select name="environment" id="demo-env" class="modal-input-field" style="width: 100%; min-height: 46px; padding: 12px 14px; background: rgba(5, 7, 15, 0.9); border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 6px; color: #fff; font-size: 16px !important; font-family: inherit; outline: none; touch-action: manipulation;">
+                            <select name="environment" id="demo-env" class="modal-input-field" style="width: 100%; min-height: 46px; padding: 12px 14px; background: rgba(5, 7, 15, 0.95); border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 6px; color: #fff; font-size: 16px !important; font-family: inherit; outline: none;">
                                 <option value="Air-Gapped Local Hardware HSM (Plug & Play)">Air-Gapped Local Hardware HSM (Plug & Play)</option>
                                 <option value="Dedicated AWS GovCloud / Azure Confidential">Dedicated AWS GovCloud / Azure Confidential Cloud</option>
                                 <option value="Hybrid Edge Gateway (CAN-Bus / On-Premise Diode)">Hybrid Edge Gateway (CAN-Bus / On-Premise Diode)</option>
@@ -5620,7 +5615,7 @@
 
                 <!-- Section 3: Hardware Kit Add-on -->
                 <div style="background: rgba(76, 224, 255, 0.06); border: 1px solid rgba(76, 224, 255, 0.35); border-radius: 8px; padding: 14px; margin: 14px 0; display: flex; align-items: flex-start; gap: 12px;">
-                    <input type="checkbox" name="include_hardware" id="demo-hardware" value="Yes ($2,000 USD Turnkey Dual-Drive Hardware Kit: 4TB NVMe + 256GB USB Key)" style="margin-top: 4px; width: 22px; height: 22px; accent-color: var(--ether-cyan); cursor: pointer; touch-action: manipulation;" onchange="updateModalPricingTotal()">
+                    <input type="checkbox" name="include_hardware" id="demo-hardware" value="Yes ($2,000 USD Turnkey Dual-Drive Hardware Kit: 4TB NVMe + 256GB USB Key)" style="margin-top: 4px; width: 22px; height: 22px; accent-color: var(--ether-cyan); cursor: pointer;" onchange="updateModalPricingTotal()">
                     <div>
                         <label for="demo-hardware" style="color: var(--ether-cyan); font-weight: 800; font-size: 0.88rem; cursor: pointer; display: block;">💾 Include Turnkey Dual-Drive Hardware Kit (+$2,000 USD)</label>
                         <p style="color: #cbd5e1; font-size: 0.76rem; margin-top: 4px; line-height: 1.45;">
@@ -5639,7 +5634,7 @@
                     <div class="modal-form-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
                         <div class="form-group" style="margin-bottom: 0;">
                             <label for="demo-payment" style="font-size: 0.78rem; cursor: pointer; display: block; padding-bottom: 2px;">Preferred Settlement Method *</label>
-                            <select name="payment_method" id="demo-payment" class="modal-input-field" style="width: 100%; min-height: 46px; padding: 12px 14px; background: rgba(5, 7, 15, 0.9); border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 6px; color: #fff; font-size: 16px !important; font-family: inherit; outline: none; touch-action: manipulation;">
+                            <select name="payment_method" id="demo-payment" class="modal-input-field" style="width: 100%; min-height: 46px; padding: 12px 14px; background: rgba(5, 7, 15, 0.95); border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 6px; color: #fff; font-size: 16px !important; font-family: inherit; outline: none;">
                                 <option value="Direct Corporate Fedwire (Novo / Middlesex Federal)">Direct Corporate Fedwire (Novo / Middlesex)</option>
                                 <option value="Corporate ACH Settlement">Corporate ACH Settlement</option>
                                 <option value="Net 30 Institutional Purchase Order / Invoice">Net 30 Institutional PO / Invoice</option>
@@ -5648,7 +5643,7 @@
                         </div>
                         <div class="form-group" style="margin-bottom: 0;">
                             <label for="demo-timeline" style="font-size: 0.78rem; cursor: pointer; display: block; padding-bottom: 2px;">Target Deployment Timeline *</label>
-                            <select name="timeline" id="demo-timeline" class="modal-input-field" style="width: 100%; min-height: 46px; padding: 12px 14px; background: rgba(5, 7, 15, 0.9); border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 6px; color: #fff; font-size: 16px !important; font-family: inherit; outline: none; touch-action: manipulation;">
+                            <select name="timeline" id="demo-timeline" class="modal-input-field" style="width: 100%; min-height: 46px; padding: 12px 14px; background: rgba(5, 7, 15, 0.95); border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 6px; color: #fff; font-size: 16px !important; font-family: inherit; outline: none;">
                                 <option value="Immediate (< 48 Hours Priority Queue)">Immediate (&lt; 48 Hours Priority Queue)</option>
                                 <option value="1 – 2 Weeks">1 – 2 Weeks</option>
                                 <option value="Within 30 Days">Within 30 Days</option>
@@ -5657,11 +5652,11 @@
                         </div>
                         <div class="form-group" style="grid-column: span 2; margin-bottom: 0;">
                             <label for="demo-po" style="font-size: 0.78rem; cursor: pointer; display: block; padding-bottom: 2px;">Corporate Purchase Order (PO) / Billing Ref (Optional)</label>
-                            <input type="text" name="po_number" id="demo-po" class="modal-input-field" placeholder="e.g. PO-2026-LM-8924" style="width: 100%; min-height: 46px; padding: 12px 14px; background: rgba(5, 7, 15, 0.9); border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 6px; color: #fff; font-size: 16px !important; outline: none; touch-action: manipulation;">
+                            <input type="text" name="po_number" id="demo-po" class="modal-input-field" placeholder="e.g. PO-2026-LM-8924" style="width: 100%; min-height: 46px; padding: 12px 14px; background: rgba(5, 7, 15, 0.95); border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 6px; color: #fff; font-size: 16px !important; outline: none;">
                         </div>
                         <div class="form-group" style="grid-column: span 2; margin-bottom: 0;">
                             <label for="demo-notes" style="font-size: 0.78rem; cursor: pointer; display: block; padding-bottom: 2px;">Special Requirements / Architecture Notes</label>
-                            <textarea name="notes" id="demo-notes" class="modal-input-field" rows="2" placeholder="Specific enclave requirements, IP whitelist, or telemetry diode configs..." style="width: 100%; min-height: 54px; padding: 12px 14px; background: rgba(5, 7, 15, 0.9); border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 6px; color: #fff; font-size: 16px !important; font-family: inherit; resize: vertical; outline: none; touch-action: manipulation;"></textarea>
+                            <textarea name="notes" id="demo-notes" class="modal-input-field" rows="2" placeholder="Specific enclave requirements, IP whitelist, or telemetry diode configs..." style="width: 100%; min-height: 54px; padding: 12px 14px; background: rgba(5, 7, 15, 0.95); border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 6px; color: #fff; font-size: 16px !important; font-family: inherit; resize: vertical; outline: none;"></textarea>
                         </div>
                     </div>
                 </div>
