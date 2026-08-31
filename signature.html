@@ -356,6 +356,10 @@
             font-style: italic;
         }
         .cryptographic-seal-stamp {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
             text-align: center;
             border: 2px double #b8860b;
             padding: 8px 16px;
@@ -366,6 +370,19 @@
             letter-spacing: 1px;
             background: #fafaf5;
             line-height: 1.5;
+            box-shadow: inset 0 0 10px rgba(184, 134, 11, 0.08);
+        }
+        .stamp-sigil {
+            width: 36px;
+            height: 36px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 3px rgba(76, 224, 255, 0.4));
+            flex-shrink: 0;
+            display: block;
+        }
+        .stamp-text {
+            text-align: center;
+            flex-grow: 1;
         }
 
         @media (max-width: 768px) {
@@ -446,6 +463,14 @@
                 font-size: 0.62rem;
                 padding: 8px 10px;
                 box-sizing: border-box;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 8px;
+            }
+            .stamp-sigil {
+                width: 28px;
+                height: 28px;
             }
             .paid-stamp {
                 top: 140px;
@@ -487,6 +512,17 @@
             }
             .cryptographic-seal-stamp {
                 width: auto !important;
+                display: inline-flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                gap: 14px !important;
+            }
+            .stamp-sigil {
+                width: 32px !important;
+                height: 32px !important;
+                display: block !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
             }
         }
     </style>
@@ -702,9 +738,13 @@
                 <div class="signature-title">Office of Sovereign Operations<br>Ether Terminal LLC</div>
             </div>
             <div class="cryptographic-seal-stamp">
-                OFFICIAL SOVEREIGN SEAL<br>
-                CRYPTOGRAPHICALLY VERIFIED<br>
-                SHA-256 AUTHENTICATED
+                <img src="ether_sigil.png" class="stamp-sigil left" alt="Ether Sovereign Sigil">
+                <div class="stamp-text">
+                    OFFICIAL SOVEREIGN SEAL<br>
+                    CRYPTOGRAPHICALLY VERIFIED<br>
+                    SHA-256 AUTHENTICATED
+                </div>
+                <img src="ether_sigil.png" class="stamp-sigil right" alt="Ether Sovereign Sigil">
             </div>
         </div>
     </div>
