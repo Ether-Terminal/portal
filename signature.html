@@ -25,7 +25,7 @@
             background: #111827;
             border: 1px solid rgba(76, 224, 255, 0.3);
             border-radius: 8px;
-            padding: 16px 20px;
+            padding: 18px 20px;
             margin-bottom: 25px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.6);
             color: #fff;
@@ -40,6 +40,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
         }
         .control-grid {
             display: grid;
@@ -68,32 +70,63 @@
         .control-group input:focus, .control-group select:focus {
             border-color: #4ce0ff;
         }
+
+        .live-status-bar {
+            background: #090e17;
+            border: 1px solid rgba(0, 255, 127, 0.35);
+            border-radius: 6px;
+            padding: 10px 14px;
+            margin-bottom: 14px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.76rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+        .live-status-bar.flash {
+            background: rgba(0, 255, 127, 0.15);
+            border-color: #00ff7f;
+            box-shadow: 0 0 20px rgba(0, 255, 127, 0.4);
+        }
+
         .btn-bar {
             display: flex;
             gap: 10px;
             justify-content: flex-end;
+            align-items: center;
         }
         .btn-action {
             background: linear-gradient(135deg, #b8860b, #e5c158);
             border: none;
             color: #050b14;
-            font-weight: 800;
-            padding: 9px 18px;
+            font-weight: 900;
+            padding: 10px 20px;
             border-radius: 4px;
             font-family: 'Cinzel', serif;
-            font-size: 0.8rem;
+            font-size: 0.82rem;
             cursor: pointer;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.8px;
+            box-shadow: 0 0 15px rgba(229,193,88,0.3);
+            transition: transform 0.1s ease, box-shadow 0.2s ease;
+        }
+        .btn-action:hover {
+            box-shadow: 0 0 25px rgba(229,193,88,0.6);
+        }
+        .btn-action:active {
+            transform: scale(0.97);
         }
         .btn-print {
             background: #002244;
             color: #fff;
             border: 1px solid rgba(255,255,255,0.2);
             font-weight: 700;
-            padding: 9px 18px;
+            padding: 10px 20px;
             border-radius: 4px;
             font-family: 'Cinzel', serif;
-            font-size: 0.8rem;
+            font-size: 0.82rem;
             cursor: pointer;
             letter-spacing: 0.5px;
         }
@@ -110,6 +143,10 @@
             border: 4px double #b8860b;
             outline: 1px solid #d4af37;
             outline-offset: -10px;
+            transition: box-shadow 0.4s ease;
+        }
+        .memorandum-sheet.pulse-glow {
+            box-shadow: 0 0 40px rgba(0, 255, 127, 0.5);
         }
 
         .corner-filigree {
@@ -279,8 +316,17 @@
     <div class="control-panel">
         <h2>
             <span>ETHER TERMINAL DIRECTIVE GENERATOR</span>
-            <span style="font-size: 0.72rem; color: #10b981; font-family: monospace;">STATUS: LIVE DATA BOUND</span>
+            <span id="mintIndicator" style="font-size: 0.75rem; color: #10b981; font-family: monospace;">STATUS: LIVE DATA BOUND</span>
         </h2>
+
+        <!-- Prominent Live Mints Bar -->
+        <div class="live-status-bar" id="liveStatusBar">
+            <div><span style="color:#9ca3af;">LICENSE:</span> <span id="topLicenseKey" style="color:#4ce0ff; font-weight:700;">LIC-ET-LOCKHE-7F83B165-SEALED</span></div>
+            <div><span style="color:#9ca3af;">OPERATOR:</span> <span id="topOpId" style="color:#00ff7f; font-weight:700;">OP-ETH-4912</span></div>
+            <div><span style="color:#9ca3af;">WIRE MEMO:</span> <span id="topMemoCode" style="color:#e5c158; font-weight:700;">ET-LOCKHE-WIRE</span></div>
+            <div><span style="color:#9ca3af;">TOTAL:</span> <span id="topTotal" style="color:#00ff7f; font-weight:700;">$187,000.00 USD</span></div>
+        </div>
+
         <div class="control-grid">
             <div class="control-group">
                 <label>Company Legal Name</label>
@@ -324,13 +370,13 @@
             </div>
         </div>
         <div class="btn-bar">
-            <button class="btn-action" onclick="mintNewCredentials()">RE-MINT CREDENTIALS & MEMO</button>
+            <button class="btn-action" onclick="mintNewCredentials()" id="btnRemint">⚡ RE-MINT CREDENTIALS & MEMO</button>
             <button class="btn-print" onclick="window.print()">PRINT / SAVE AS PDF</button>
         </div>
     </div>
 
     <!-- Official Sovereign Directive Paperwork -->
-    <div class="memorandum-sheet">
+    <div class="memorandum-sheet" id="memoSheet">
         <!-- Ornate Gold Floral Corner Filigrees -->
         <svg class="corner-filigree top-left" viewBox="0 0 100 100">
             <path d="M0,0 L90,0 C75,0 45,15 35,35 C15,45 0,75 0,90 Z" fill="rgba(184,134,11,0.06)" stroke="#b8860b" stroke-width="1.5"/>
@@ -457,7 +503,30 @@
             currentOpId = "OP-ETH-" + Math.floor(1000 + Math.random() * 9000);
             currentLicenseKey = "LIC-ET-" + cleanCo + "-" + randHex + "-SEALED";
             currentMemoCode = "ET-" + cleanCo + "-WIRE";
+            
             renderDirective();
+
+            // Visual feedback
+            var bar = document.getElementById("liveStatusBar");
+            var indicator = document.getElementById("mintIndicator");
+            var memo = document.getElementById("memoSheet");
+            
+            if (bar) {
+                bar.classList.add("flash");
+                setTimeout(function() { bar.classList.remove("flash"); }, 600);
+            }
+            if (indicator) {
+                indicator.textContent = "⚡ NEW CREDENTIALS MINTED & STAMPED!";
+                indicator.style.color = "#00ff7f";
+                setTimeout(function() { 
+                    indicator.textContent = "STATUS: LIVE DATA BOUND";
+                    indicator.style.color = "#10b981";
+                }, 2000);
+            }
+            if (memo) {
+                memo.classList.add("pulse-glow");
+                setTimeout(function() { memo.classList.remove("pulse-glow"); }, 600);
+            }
         }
 
         function renderDirective() {
@@ -485,6 +554,12 @@
             document.getElementById("docHwText").textContent = isHw ? "Turnkey Dual-Drive Hardware Kit (4TB Samsung 990 PRO NVMe in 40Gbps Thunderbolt 4 Enclosure + Master 256GB USB Recovery Key)" : "Software Licensing Only";
             document.getElementById("docTotalAmount").textContent = "$" + total.toLocaleString("en-US") + ".00 USD";
             document.getElementById("docEmailInline").textContent = email;
+
+            // Update top dashboard bar
+            if (document.getElementById("topLicenseKey")) document.getElementById("topLicenseKey").textContent = currentLicenseKey;
+            if (document.getElementById("topOpId")) document.getElementById("topOpId").textContent = currentOpId;
+            if (document.getElementById("topMemoCode")) document.getElementById("topMemoCode").textContent = currentMemoCode;
+            if (document.getElementById("topTotal")) document.getElementById("topTotal").textContent = "$" + total.toLocaleString("en-US") + ".00 USD";
         }
 
         renderDirective();
