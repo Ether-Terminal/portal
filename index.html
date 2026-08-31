@@ -6708,6 +6708,7 @@
                     }
                 });
             };
+            var filterUseCases = window.filterUseCases;
 
             window.filterInsurance = function(val) {
                 if (!val) return;
@@ -6727,6 +6728,7 @@
                     }
                 });
             };
+            var filterInsurance = window.filterInsurance;
 
             window.filterMatrix = function(sector) {
                 if (!sector) return;
@@ -6745,8 +6747,9 @@
                     }
                 });
             };
+            var filterMatrix = window.filterMatrix;
 
-            filterMatrix('banking');
+            window.filterMatrix('banking');
 
             let currentPricingSector = 'command';
             let billingIsAnnual = true;
@@ -7280,6 +7283,18 @@
             };
             var requestNode = window.requestNode;
 
+            window.setPricingSector = function(sector) {
+                if (!sector) return;
+                currentPricingSector = sector;
+                document.querySelectorAll('.pricing-filter-btn').forEach(b => {
+                    b.classList.toggle('active', b.getAttribute('data-pricing-sector') === sector);
+                });
+                if (typeof window.__renderPricing === 'function') {
+                    window.__renderPricing();
+                }
+            };
+            var setPricingSector = window.setPricingSector;
+
             function initPricingTiers() {
                 const grid = document.getElementById('pricingGrid');
                 const toggle = document.getElementById('billingToggle');
@@ -7397,14 +7412,7 @@
                     });
                 }
 
-                window.setPricingSector = function(sector) {
-                    if (!sector) return;
-                    currentPricingSector = sector;
-                    document.querySelectorAll('.pricing-filter-btn').forEach(b => {
-                        b.classList.toggle('active', b.getAttribute('data-pricing-sector') === sector);
-                    });
-                    render();
-                };
+                window.__renderPricing = render;
 
                 filterBtns.forEach(btn => {
                     btn.addEventListener('click', () => {
