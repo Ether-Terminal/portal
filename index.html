@@ -1208,29 +1208,54 @@
             transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
         }
 
-        .modal-input-field:focus {
-            border-color: var(--ether-cyan) !important;
-            box-shadow: 0 0 14px rgba(76, 224, 255, 0.4) !important;
-            background-color: rgba(12, 18, 32, 0.98) !important;
+        .modal-form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            width: 100%;
         }
 
-        @media (max-width: 640px) {
+        .modal-form-grid .form-group.full-width {
+            grid-column: span 2;
+        }
+
+        .form-group {
+            width: 100%;
+            margin-bottom: 0;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            width: 100%;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+            cursor: pointer;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        @media (max-width: 768px) {
             .modal-overlay {
-                padding: 10px 6px 45px 6px;
+                padding: 10px 8px 60px 8px !important;
             }
             .modal-content {
-                padding: 18px 12px !important;
+                padding: 20px 14px !important;
+                max-width: 100% !important;
             }
             .modal-form-grid {
                 grid-template-columns: 1fr !important;
                 gap: 14px !important;
             }
-            .modal-form-grid .form-group {
+            .modal-form-grid .form-group,
+            .modal-form-grid .form-group.full-width {
                 grid-column: span 1 !important;
             }
             .modal-input-field {
                 min-height: 48px !important;
                 padding: 12px 14px !important;
+                width: 100% !important;
             }
         }
 
@@ -5559,30 +5584,30 @@
                     <div style="color: #4ce0ff; font-family: monospace; font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 10px; border-bottom: 1px solid rgba(76, 224, 255, 0.2); padding-bottom: 4px;">
                         1. Organization & Decision-Maker Profile
                     </div>
-                    <div class="modal-form-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
-                        <div class="form-group" style="margin-bottom: 0;">
-                            <label for="demo-company" style="font-size: 0.78rem; cursor: pointer; display: block; padding-bottom: 2px;">Company Legal Name *</label>
-                            <input type="text" name="company" id="demo-company" class="modal-input-field" placeholder="Lockheed Martin Corporation" required style="width: 100%; min-height: 46px; padding: 12px 14px; background: rgba(5, 7, 15, 0.95); border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 6px; color: #fff; font-size: 16px !important; outline: none;">
+                    <div class="modal-form-grid">
+                        <div class="form-group">
+                            <label for="demo-company">Company Legal Name *</label>
+                            <input type="text" name="company" id="demo-company" class="modal-input-field" placeholder="Lockheed Martin Corporation" required>
                         </div>
-                        <div class="form-group" style="margin-bottom: 0;">
-                            <label for="demo-website" style="font-size: 0.78rem; cursor: pointer; display: block; padding-bottom: 2px;">Company Website / Domain *</label>
-                            <input type="text" name="website" id="demo-website" class="modal-input-field" placeholder="lockheedmartin.com" required style="width: 100%; min-height: 46px; padding: 12px 14px; background: rgba(5, 7, 15, 0.95); border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 6px; color: #fff; font-size: 16px !important; outline: none;">
+                        <div class="form-group">
+                            <label for="demo-website">Company Website / Domain *</label>
+                            <input type="text" name="website" id="demo-website" class="modal-input-field" placeholder="lockheedmartin.com" required>
                         </div>
-                        <div class="form-group" style="margin-bottom: 0;">
-                            <label for="demo-name" style="font-size: 0.78rem; cursor: pointer; display: block; padding-bottom: 2px;">Buyer Full Name *</label>
-                            <input type="text" name="name" id="demo-name" class="modal-input-field" placeholder="Jonathan Vance" required style="width: 100%; min-height: 46px; padding: 12px 14px; background: rgba(5, 7, 15, 0.95); border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 6px; color: #fff; font-size: 16px !important; outline: none;">
+                        <div class="form-group">
+                            <label for="demo-name">Buyer Full Name *</label>
+                            <input type="text" name="name" id="demo-name" class="modal-input-field" placeholder="Jonathan Vance" required>
                         </div>
-                        <div class="form-group" style="margin-bottom: 0;">
-                            <label for="demo-title" style="font-size: 0.78rem; cursor: pointer; display: block; padding-bottom: 2px;">Job Title / Role *</label>
-                            <input type="text" name="title" id="demo-title" class="modal-input-field" placeholder="VP of Autonomous Systems" required style="width: 100%; min-height: 46px; padding: 12px 14px; background: rgba(5, 7, 15, 0.95); border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 6px; color: #fff; font-size: 16px !important; outline: none;">
+                        <div class="form-group">
+                            <label for="demo-title">Job Title / Role *</label>
+                            <input type="text" name="title" id="demo-title" class="modal-input-field" placeholder="VP of Autonomous Systems" required>
                         </div>
-                        <div class="form-group" style="margin-bottom: 0;">
-                            <label for="demo-email" style="font-size: 0.78rem; cursor: pointer; display: block; padding-bottom: 2px;">Corporate Work Email *</label>
-                            <input type="email" name="email" id="demo-email" class="modal-input-field" placeholder="j.vance@lockheedmartin.com" required style="width: 100%; min-height: 46px; padding: 12px 14px; background: rgba(5, 7, 15, 0.95); border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 6px; color: #fff; font-size: 16px !important; outline: none;">
+                        <div class="form-group">
+                            <label for="demo-email">Corporate Work Email *</label>
+                            <input type="email" name="email" id="demo-email" class="modal-input-field" placeholder="j.vance@lockheedmartin.com" required>
                         </div>
-                        <div class="form-group" style="margin-bottom: 0;">
-                            <label for="demo-phone" style="font-size: 0.78rem; cursor: pointer; display: block; padding-bottom: 2px;">Direct Business Phone *</label>
-                            <input type="tel" name="phone" id="demo-phone" class="modal-input-field" placeholder="+1 (703) 555-0199" required style="width: 100%; min-height: 46px; padding: 12px 14px; background: rgba(5, 7, 15, 0.95); border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 6px; color: #fff; font-size: 16px !important; outline: none;">
+                        <div class="form-group">
+                            <label for="demo-phone">Direct Business Phone *</label>
+                            <input type="tel" name="phone" id="demo-phone" class="modal-input-field" placeholder="+1 (703) 555-0199" required>
                         </div>
                     </div>
                 </div>
@@ -5592,10 +5617,10 @@
                     <div style="color: #4ce0ff; font-family: monospace; font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 10px; border-bottom: 1px solid rgba(76, 224, 255, 0.2); padding-bottom: 4px;">
                         2. Deployment Scope & Infrastructure
                     </div>
-                    <div class="modal-form-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
-                        <div class="form-group" style="margin-bottom: 0;">
-                            <label for="demo-sector" style="font-size: 0.78rem; cursor: pointer; display: block; padding-bottom: 2px;">Target Industry Sector *</label>
-                            <select name="sector" id="demo-sector" class="modal-input-field" style="width: 100%; min-height: 46px; padding: 12px 14px; background: rgba(5, 7, 15, 0.95); border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 6px; color: #fff; font-size: 16px !important; font-family: inherit; outline: none;">
+                    <div class="modal-form-grid">
+                        <div class="form-group">
+                            <label for="demo-sector">Target Industry Sector *</label>
+                            <select name="sector" id="demo-sector" class="modal-input-field">
                                 <option value="Command Nodes">⚙ Command Nodes (Tier 1 Architecture)</option>
                                 <option value="Aviation & Aerospace">✈ Aviation & Aerospace Fleet</option>
                                 <option value="Automotive Fleet">🚗 Autonomous Automotive & Telematics</option>
@@ -5604,18 +5629,18 @@
                                 <option value="Wholesale Sovereign Enterprise">🏛 Wholesale Sovereign Enterprise</option>
                             </select>
                         </div>
-                        <div class="form-group" style="margin-bottom: 0;">
-                            <label for="demo-scale" style="font-size: 0.78rem; cursor: pointer; display: block; padding-bottom: 2px;">Node Deployment Scale *</label>
-                            <select name="fleet_scale" id="demo-scale" class="modal-input-field" style="width: 100%; min-height: 46px; padding: 12px 14px; background: rgba(5, 7, 15, 0.95); border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 6px; color: #fff; font-size: 16px !important; font-family: inherit; outline: none;">
+                        <div class="form-group">
+                            <label for="demo-scale">Node Deployment Scale *</label>
+                            <select name="fleet_scale" id="demo-scale" class="modal-input-field">
                                 <option value="< 1,000 Units (Pilot Program)">&lt; 1,000 Units (Pilot Program)</option>
                                 <option value="1,000 – 10,000 Units (Regional Fleet)">1,000 – 10,000 Units (Regional Fleet)</option>
                                 <option value="10,000 – 100,000 Units (Enterprise Scale)">10,000 – 100,000 Units (Enterprise Scale)</option>
                                 <option value="100,000+ Units (Global Sovereign)">100,000+ Units (Global Sovereign)</option>
                             </select>
                         </div>
-                        <div class="form-group" style="grid-column: span 2; margin-bottom: 0;">
-                            <label for="demo-env" style="font-size: 0.78rem; cursor: pointer; display: block; padding-bottom: 2px;">Infrastructure & Hosting Environment *</label>
-                            <select name="environment" id="demo-env" class="modal-input-field" style="width: 100%; min-height: 46px; padding: 12px 14px; background: rgba(5, 7, 15, 0.95); border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 6px; color: #fff; font-size: 16px !important; font-family: inherit; outline: none;">
+                        <div class="form-group full-width">
+                            <label for="demo-env">Infrastructure & Hosting Environment *</label>
+                            <select name="environment" id="demo-env" class="modal-input-field">
                                 <option value="Air-Gapped Local Hardware HSM (Plug & Play)">Air-Gapped Local Hardware HSM (Plug & Play)</option>
                                 <option value="Dedicated AWS GovCloud / Azure Confidential">Dedicated AWS GovCloud / Azure Confidential Cloud</option>
                                 <option value="Hybrid Edge Gateway (CAN-Bus / On-Premise Diode)">Hybrid Edge Gateway (CAN-Bus / On-Premise Diode)</option>
@@ -5643,32 +5668,32 @@
                     <div style="color: #4ce0ff; font-family: monospace; font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 10px; border-bottom: 1px solid rgba(76, 224, 255, 0.2); padding-bottom: 4px;">
                         3. Settlement & Timeline
                     </div>
-                    <div class="modal-form-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
-                        <div class="form-group" style="margin-bottom: 0;">
-                            <label for="demo-payment" style="font-size: 0.78rem; cursor: pointer; display: block; padding-bottom: 2px;">Preferred Settlement Method *</label>
-                            <select name="payment_method" id="demo-payment" class="modal-input-field" style="width: 100%; min-height: 46px; padding: 12px 14px; background: rgba(5, 7, 15, 0.95); border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 6px; color: #fff; font-size: 16px !important; font-family: inherit; outline: none;">
+                    <div class="modal-form-grid">
+                        <div class="form-group">
+                            <label for="demo-payment">Preferred Settlement Method *</label>
+                            <select name="payment_method" id="demo-payment" class="modal-input-field">
                                 <option value="Direct Corporate Fedwire (Novo / Middlesex Federal)">Direct Corporate Fedwire (Novo / Middlesex)</option>
                                 <option value="Corporate ACH Settlement">Corporate ACH Settlement</option>
                                 <option value="Net 30 Institutional Purchase Order / Invoice">Net 30 Institutional PO / Invoice</option>
                                 <option value="Digital Asset Settlement (USDC / Smart Contract)">Digital Asset Settlement (USDC / Escrow)</option>
                             </select>
                         </div>
-                        <div class="form-group" style="margin-bottom: 0;">
-                            <label for="demo-timeline" style="font-size: 0.78rem; cursor: pointer; display: block; padding-bottom: 2px;">Target Deployment Timeline *</label>
-                            <select name="timeline" id="demo-timeline" class="modal-input-field" style="width: 100%; min-height: 46px; padding: 12px 14px; background: rgba(5, 7, 15, 0.95); border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 6px; color: #fff; font-size: 16px !important; font-family: inherit; outline: none;">
+                        <div class="form-group">
+                            <label for="demo-timeline">Target Deployment Timeline *</label>
+                            <select name="timeline" id="demo-timeline" class="modal-input-field">
                                 <option value="Immediate (< 48 Hours Priority Queue)">Immediate (&lt; 48 Hours Priority Queue)</option>
                                 <option value="1 – 2 Weeks">1 – 2 Weeks</option>
                                 <option value="Within 30 Days">Within 30 Days</option>
                                 <option value="Q3/Q4 Strategic Pilot">Q3/Q4 Strategic Pilot</option>
                             </select>
                         </div>
-                        <div class="form-group" style="grid-column: span 2; margin-bottom: 0;">
-                            <label for="demo-po" style="font-size: 0.78rem; cursor: pointer; display: block; padding-bottom: 2px;">Corporate Purchase Order (PO) / Billing Ref (Optional)</label>
-                            <input type="text" name="po_number" id="demo-po" class="modal-input-field" placeholder="e.g. PO-2026-LM-8924" style="width: 100%; min-height: 46px; padding: 12px 14px; background: rgba(5, 7, 15, 0.95); border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 6px; color: #fff; font-size: 16px !important; outline: none;">
+                        <div class="form-group full-width">
+                            <label for="demo-po">Corporate Purchase Order (PO) / Billing Ref (Optional)</label>
+                            <input type="text" name="po_number" id="demo-po" class="modal-input-field" placeholder="e.g. PO-2026-LM-8924">
                         </div>
-                        <div class="form-group" style="grid-column: span 2; margin-bottom: 0;">
-                            <label for="demo-notes" style="font-size: 0.78rem; cursor: pointer; display: block; padding-bottom: 2px;">Special Requirements / Architecture Notes</label>
-                            <textarea name="notes" id="demo-notes" class="modal-input-field" rows="2" placeholder="Specific enclave requirements, IP whitelist, or telemetry diode configs..." style="width: 100%; min-height: 54px; padding: 12px 14px; background: rgba(5, 7, 15, 0.95); border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 6px; color: #fff; font-size: 16px !important; font-family: inherit; resize: vertical; outline: none;"></textarea>
+                        <div class="form-group full-width">
+                            <label for="demo-notes">Special Requirements / Architecture Notes</label>
+                            <textarea name="notes" id="demo-notes" class="modal-input-field" rows="2" placeholder="Specific enclave requirements, IP whitelist, or telemetry diode configs..."></textarea>
                         </div>
                     </div>
                 </div>
@@ -7295,15 +7320,6 @@
                     if (e.target === modal) {
                         closeModal();
                     }
-                });
-
-                document.querySelectorAll('#demoForm .form-group').forEach(group => {
-                    group.addEventListener('click', (e) => {
-                        const input = group.querySelector('input, select, textarea');
-                        if (input && e.target !== input) {
-                            input.focus();
-                        }
-                    });
                 });
             }
             initModal();
