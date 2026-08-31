@@ -565,14 +565,22 @@
             letter-spacing: 0.5px;
         }
 
-        button:hover, .btn-link:hover {
-            opacity: 0.9;
-            box-shadow: 0 0 15px rgba(76, 224, 255, 0.4);
-            transform: translateY(-1px);
+        @media (hover: hover) and (pointer: fine) {
+            button:hover, .btn-link:hover {
+                opacity: 0.9;
+                box-shadow: 0 0 15px rgba(76, 224, 255, 0.4);
+                transform: translateY(-1px);
+            }
+            .btn-secondary:hover {
+                background: rgba(255, 255, 255, 0.1);
+                border-color: var(--ether-cyan);
+                box-shadow: 0 0 10px rgba(76, 224, 255, 0.1);
+                transform: translateY(-1px);
+            }
         }
 
         button:active, .btn-link:active {
-            transform: scale(0.99) translateY(0);
+            transform: scale(0.98);
         }
 
         button:disabled {
@@ -586,13 +594,6 @@
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
             color: var(--text-main);
-        }
-
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: var(--ether-cyan);
-            box-shadow: 0 0 10px rgba(76, 224, 255, 0.1);
-            transform: translateY(-1px);
         }
 
         .form-group {
@@ -2233,29 +2234,45 @@
         }
         .filter-btn {
             width: auto;
-            padding: 8px 20px;
-            font-size: 0.8rem;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            min-height: 42px;
+            padding: 10px 20px;
+            font-size: 0.84rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.12);
             color: var(--text-muted);
             border-radius: 20px;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
             text-transform: uppercase;
             letter-spacing: 0.5px;
             font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            position: relative;
+            z-index: 5;
         }
-        .filter-btn:hover {
-            color: var(--text-main);
-            background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(76, 224, 255, 0.3);
-            transform: translateY(-1px);
+        @media (hover: hover) and (pointer: fine) {
+            .filter-btn:hover {
+                color: var(--text-main);
+                background: rgba(255, 255, 255, 0.1);
+                border-color: rgba(76, 224, 255, 0.4);
+                transform: translateY(-1px);
+            }
+        }
+        .filter-btn:active {
+            transform: scale(0.96);
         }
         .filter-btn.active {
-            color: var(--ether-cyan);
-            background: rgba(76, 224, 255, 0.1);
-            border-color: var(--ether-cyan);
-            box-shadow: 0 0 10px rgba(76, 224, 255, 0.15);
+            color: var(--ether-cyan) !important;
+            background: rgba(76, 224, 255, 0.15) !important;
+            border-color: var(--ether-cyan) !important;
+            box-shadow: 0 0 14px rgba(76, 224, 255, 0.25) !important;
+            font-weight: 700;
         }
         .usecase-item, .matrix-item {
             transition: opacity 0.3s ease, transform 0.3s ease;
@@ -6647,7 +6664,13 @@
                 const usecaseItems = document.querySelectorAll('#mainUseCasesGrid .usecase-item');
 
                 filterBtns.forEach(btn => {
-                    btn.addEventListener('click', () => {
+                    let touched = false;
+                    const selectCase = (e) => {
+                        if (e && e.type === 'touchend') touched = true;
+                        if (e && e.type === 'click' && touched) {
+                            touched = false;
+                            return;
+                        }
                         filterBtns.forEach(b => b.classList.remove('active'));
                         btn.classList.add('active');
 
@@ -6668,7 +6691,9 @@
                                 item.classList.add('hidden-case');
                             }
                         });
-                    });
+                    };
+                    btn.addEventListener('click', selectCase);
+                    btn.addEventListener('touchend', selectCase, { passive: true });
                 });
             }
             initUseCasesFilters();
@@ -6680,7 +6705,13 @@
                 const items = document.querySelectorAll('#insGrid .usecase-item');
 
                 filterBtns.forEach(btn => {
-                    btn.addEventListener('click', () => {
+                    let touched = false;
+                    const selectIns = (e) => {
+                        if (e && e.type === 'touchend') touched = true;
+                        if (e && e.type === 'click' && touched) {
+                            touched = false;
+                            return;
+                        }
                         filterBtns.forEach(b => b.classList.remove('active'));
                         btn.classList.add('active');
                         const val = btn.getAttribute('data-ins-filter');
@@ -6700,7 +6731,9 @@
                                 item.classList.add('hidden-case');
                             }
                         });
-                    });
+                    };
+                    btn.addEventListener('click', selectIns);
+                    btn.addEventListener('touchend', selectIns, { passive: true });
                 });
             }
             initInsuranceFilters();
@@ -6728,12 +6761,20 @@
                 }
 
                 buttons.forEach(btn => {
-                    btn.addEventListener('click', () => {
+                    let touched = false;
+                    const selectMatrix = (e) => {
+                        if (e && e.type === 'touchend') touched = true;
+                        if (e && e.type === 'click' && touched) {
+                            touched = false;
+                            return;
+                        }
                         buttons.forEach(b => b.classList.remove('active'));
                         btn.classList.add('active');
                         const sector = btn.getAttribute('data-sector');
                         filterSector(sector);
-                    });
+                    };
+                    btn.addEventListener('click', selectMatrix);
+                    btn.addEventListener('touchend', selectMatrix, { passive: true });
                 });
 
                 filterSector('banking');
@@ -7276,12 +7317,20 @@
                 }
 
                 filterBtns.forEach(btn => {
-                    btn.addEventListener('click', () => {
+                    let touched = false;
+                    const selectSector = (e) => {
+                        if (e && e.type === 'touchend') touched = true;
+                        if (e && e.type === 'click' && touched) {
+                            touched = false;
+                            return;
+                        }
                         filterBtns.forEach(b => b.classList.remove('active'));
                         btn.classList.add('active');
                         currentPricingSector = btn.getAttribute('data-pricing-sector');
                         render();
-                    });
+                    };
+                    btn.addEventListener('click', selectSector);
+                    btn.addEventListener('touchend', selectSector, { passive: true });
                 });
 
                 render();
