@@ -5583,6 +5583,10 @@
                             </select>
                         </div>
                         <div class="form-group" style="grid-column: span 2; margin-bottom: 0;">
+                            <label for="demo-po" style="font-size: 0.78rem;">Corporate Purchase Order (PO) / Billing Ref (Optional)</label>
+                            <input type="text" name="po_number" id="demo-po" placeholder="e.g. PO-2026-LM-8924" style="width: 100%; padding: 10px; background: rgba(5, 7, 15, 0.85); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 6px; color: #fff; font-size: 0.85rem; font-family: inherit;">
+                        </div>
+                        <div class="form-group" style="grid-column: span 2; margin-bottom: 0;">
                             <label for="demo-notes" style="font-size: 0.78rem;">Special Requirements / Architecture Notes</label>
                             <textarea name="notes" id="demo-notes" rows="2" style="width: 100%; padding: 10px; background: rgba(5, 7, 15, 0.85); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 6px; color: #fff; font-size: 0.85rem; font-family: inherit; resize: vertical;"></textarea>
                         </div>
@@ -5611,7 +5615,10 @@
                     <div style="display: flex; justify-content: space-between; margin-bottom: 4px;"><span style="color: var(--text-muted);">Beneficiary:</span> <span style="color: #fff; font-weight: 700;">Ether Terminal LLC</span></div>
                     <div style="display: flex; justify-content: space-between; margin-bottom: 4px;"><span style="color: var(--text-muted);">Bank:</span> <span style="color: #fff;">Middlesex Federal Savings FA / Novo</span></div>
                     <div style="display: flex; justify-content: space-between; margin-bottom: 4px;"><span style="color: var(--text-muted);">Routing (ACH/Wire):</span> <span style="color: #00ff7f; font-weight: 800;">211370150</span></div>
-                    <div style="display: flex; justify-content: space-between;"><span style="color: var(--text-muted);">Account Number:</span> <span style="color: #00ff7f; font-weight: 800;">103650380</span></div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 4px;"><span style="color: var(--text-muted);">Account Number:</span> <span style="color: #00ff7f; font-weight: 800;">103650380</span></div>
+                    <div style="margin-top: 8px; padding-top: 6px; border-top: 1px dashed rgba(255,255,255,0.15); color: #e5c158; font-size: 0.74rem;">
+                        🏢 <b>Vendor Onboarding:</b> IRS Form W-9 and Novo Bank Verification Letter available for accounts payable desk at <code>contact@ether-terminal.com</code>.
+                    </div>
                 </div>
 
                 <!-- Mandatory Enterprise Legal & Non-Recourse Attestation -->
@@ -7298,6 +7305,7 @@
                         const environment = formData.get('environment') || 'Hardware HSM';
                         const paymentMethod = formData.get('payment_method') || 'Direct Fedwire';
                         const timeline = formData.get('timeline') || 'Immediate';
+                        const poNumber = formData.get('po_number') || '';
                         const notes = formData.get('notes') || '';
                         const tier = formData.get('tier') || (window.__currentModalTierName ? window.__currentModalTierName + ' (' + (window.__currentModalBilling || 'Annual') + ')' : 'Command Tier');
                         const hw = formData.get('include_hardware') ? true : false;
@@ -7321,6 +7329,7 @@
                         formData.set('environment', environment);
                         formData.set('payment_method', paymentMethod);
                         formData.set('timeline', timeline);
+                        formData.set('po_number', poNumber);
                         formData.set('tier_selected', tier);
                         formData.set('hardware_kit', hw ? 'Yes (4TB Samsung 990 PRO NVMe + 256GB Master Key - $2,000 USD)' : 'Software Only ($0 USD)');
                         formData.set('total_settlement_wire', '$' + Number(finalAmountUsd).toLocaleString('en-US') + '.00 USD');
@@ -7358,6 +7367,7 @@
                                             environment: environment,
                                             payment_method: paymentMethod,
                                             timeline: timeline,
+                                            po_number: poNumber,
                                             notes: notes,
                                             tier: tier,
                                             include_hardware: hw,
@@ -7384,6 +7394,7 @@
                                         environment: environment,
                                         paymentMethod: paymentMethod,
                                         timeline: timeline,
+                                        poNumber: poNumber,
                                         notes: notes,
                                         tier: tier,
                                         hw: hw,
@@ -7538,7 +7549,7 @@
 
         window.openExecutiveDirective = function(d) {
             if (!d) return;
-            var win = window.open('', '_blank', 'width=940,height=1100');
+            var win = window.open('', '_blank', 'width=960,height=1100');
             if (!win) {
                 alert('Please allow popups to view your Official Sovereign Directive.');
                 return;
@@ -7554,7 +7565,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Official Sovereign Directive — ` + (d.company || 'Enterprise') + `</title>
+    <title>Official Sovereign Directive &amp; Settlement Suite — ` + (d.company || 'Enterprise') + `</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;700&display=swap');
         
@@ -7572,7 +7583,7 @@
 
         .control-panel {
             width: 100%;
-            max-width: 840px;
+            max-width: 860px;
             background: #111827;
             border: 1px solid rgba(76, 224, 255, 0.35);
             border-radius: 8px;
@@ -7596,7 +7607,7 @@
         }
         .control-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
             gap: 10px;
             margin-bottom: 14px;
         }
@@ -7706,7 +7717,7 @@
         .memorandum-sheet {
             background: #ffffff;
             width: 100%;
-            max-width: 840px;
+            max-width: 860px;
             padding: 65px 75px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
             position: relative;
@@ -7718,6 +7729,29 @@
         }
         .memorandum-sheet.pulse-glow {
             box-shadow: 0 0 40px rgba(0, 255, 127, 0.5);
+        }
+
+        .paid-stamp {
+            display: none;
+            position: absolute;
+            top: 180px;
+            right: 55px;
+            border: 4px solid #10b981;
+            color: #10b981;
+            font-family: 'Cinzel', serif;
+            font-size: 1.3rem;
+            font-weight: 900;
+            letter-spacing: 3px;
+            padding: 8px 20px;
+            text-transform: uppercase;
+            transform: rotate(-10deg);
+            border-radius: 6px;
+            background: rgba(16, 185, 129, 0.08);
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.2);
+            z-index: 10;
+        }
+        .paid-stamp.active {
+            display: block;
         }
 
         .corner-filigree {
@@ -7793,7 +7827,7 @@
             margin-bottom: 6px;
         }
         .memo-label {
-            width: 160px;
+            width: 170px;
             font-weight: 900;
             color: #002244;
             letter-spacing: 1px;
@@ -7841,6 +7875,16 @@
             font-size: 0.95rem;
             color: #002244;
         }
+        .vendor-note-box {
+            background: #fdfaf0;
+            border-left: 3px solid #b8860b;
+            padding: 10px 14px;
+            margin: 12px 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 0.78rem;
+            color: #555;
+            line-height: 1.45;
+        }
         .signature-block {
             margin-top: 40px;
             display: flex;
@@ -7886,7 +7930,7 @@
     <!-- Interactive Live Generator Controls -->
     <div class="control-panel">
         <h2>
-            <span>ETHER TERMINAL DIRECTIVE GENERATOR</span>
+            <span>ETHER TERMINAL DIRECTIVE &amp; SETTLEMENT SUITE</span>
             <span id="mintIndicator" style="font-size: 0.75rem; color: #10b981; font-family: monospace;">STATUS: LIVE DATA BOUND</span>
         </h2>
 
@@ -7895,10 +7939,17 @@
             <div><span style="color:#9ca3af;">LICENSE:</span> <span id="topLicenseKey" style="color:#4ce0ff; font-weight:700;">` + d.licenseKey + `</span></div>
             <div><span style="color:#9ca3af;">OPERATOR:</span> <span id="topOpId" style="color:#00ff7f; font-weight:700;">` + d.opId + `</span></div>
             <div><span style="color:#9ca3af;">WIRE MEMO:</span> <span id="topMemoCode" style="color:#e5c158; font-weight:700;">` + d.memoCode + `</span></div>
-            <div><span style="color:#9ca3af;">TOTAL:</span> <span id="topTotal" style="color:#00ff7f; font-weight:700;">$` + Number(d.amountUsd).toLocaleString('en-US') + `.00 USD</span></div>
+            <div><span style="color:#9ca3af;">SETTLEMENT:</span> <span id="topTotal" style="color:#00ff7f; font-weight:700;">$` + Number(d.amountUsd).toLocaleString('en-US') + `.00 USD</span></div>
         </div>
 
         <div class="control-grid">
+            <div class="control-group">
+                <label>Document Settlement State</label>
+                <select id="inDocState" onchange="onFieldChange()">
+                    <option value="pending">PENDING WIRE SETTLEMENT (Official Directive &amp; Invoice)</option>
+                    <option value="paid">PAID IN FULL // SETTLED (Official Receipt &amp; Activation)</option>
+                </select>
+            </div>
             <div class="control-group">
                 <label>Company Legal Name</label>
                 <input type="text" id="inCompany" value="` + (d.company || '') + `" oninput="onFieldChange()">
@@ -7920,7 +7971,11 @@
                 <input type="text" id="inWebsite" value="` + (d.website || '') + `" oninput="onFieldChange()">
             </div>
             <div class="control-group">
-                <label>Deployment Tier & Sector</label>
+                <label>Purchase Order (PO) / Project Ref</label>
+                <input type="text" id="inPoNumber" value="` + (d.poNumber || '') + `" placeholder="PO-2026-XXXX (Optional)" oninput="onFieldChange()">
+            </div>
+            <div class="control-group">
+                <label>Deployment Tier &amp; Sector</label>
                 <input type="text" id="inTier" value="` + (d.tier || '') + `" oninput="onFieldChange()">
             </div>
             <div class="control-group">
@@ -7938,17 +7993,20 @@
 
         <div class="legal-check-box">
             <input type="checkbox" id="legalTermsAccepted" checked>
-            <label for="legalTermsAccepted"><b>Institutional Legal Covenant:</b> Master Enterprise Sovereign License (EULA), Zero-Warranty ("AS-IS") & Absolute $0.00 Limitation of Liability Ratified.</label>
+            <label for="legalTermsAccepted"><b>Institutional Legal Covenant:</b> Master Enterprise Sovereign License (EULA), Zero-Warranty ("AS-IS") &amp; Absolute $0.00 Limitation of Liability Ratified.</label>
         </div>
 
         <div class="btn-bar">
-            <button class="btn-action" onclick="mintNewCredentials()" id="btnRemint">⚡ RE-MINT CREDENTIALS & MEMO</button>
+            <button class="btn-action" onclick="mintNewCredentials()" id="btnRemint">⚡ RE-MINT CREDENTIALS &amp; MEMO</button>
             <button class="btn-print" onclick="window.print()">PRINT / SAVE AS OFFICIAL PDF</button>
         </div>
     </div>
 
     <!-- Official Sovereign Directive Paperwork -->
     <div class="memorandum-sheet" id="memoSheet">
+        <!-- Rubber Stamp for Paid in Full -->
+        <div class="paid-stamp" id="paidStamp">PAID IN FULL<br><span style="font-size:0.65rem; letter-spacing:1px; font-family:'JetBrains Mono',monospace;">FEDWIRE SETTLED &amp; CLEARED</span></div>
+
         <!-- Ornate Gold Floral Corner Filigrees -->
         <svg class="corner-filigree top-left" viewBox="0 0 100 100">
             <path d="M0,0 L90,0 C75,0 45,15 35,35 C15,45 0,75 0,90 Z" fill="rgba(184,134,11,0.06)" stroke="#b8860b" stroke-width="1.5"/>
@@ -7988,8 +8046,8 @@
             <div class="letterhead-subtitle">Office of Sovereign Protocol Operations</div>
         </div>
 
-        <div class="classification-bar">
-            RESTRICTED // COMMERCIAL DIRECTIVE // SPECIFICATION DOSSIER
+        <div class="classification-bar" id="docClassification">
+            RESTRICTED // COMMERCIAL DIRECTIVE &amp; SETTLEMENT DOSSIER
         </div>
 
         <div class="memo-headers">
@@ -7998,6 +8056,10 @@
                 <div class="memo-value" id="docMemoFor">
                     <b>` + (d.name || '') + `</b>, ` + (d.title || '') + `<br>` + (d.company || '') + ` (` + (d.website || 'Corporate Domain') + `)<br><span style="font-size:0.9rem; color:#444;">Contact: ` + (d.email || '') + ` | Tel: ` + (d.phone || 'Direct on Record') + `</span>
                 </div>
+            </div>
+            <div class="memo-row" id="poRow" style="display: ` + (d.poNumber ? 'flex' : 'none') + `;">
+                <div class="memo-label">PURCHASE ORDER:</div>
+                <div class="memo-value" id="docPoValue" style="font-family:'JetBrains Mono',monospace; font-weight:700; color:#002244;">` + (d.poNumber || '') + `</div>
             </div>
             <div class="memo-row">
                 <div class="memo-label">FROM:</div>
@@ -8009,11 +8071,11 @@
             </div>
             <div class="memo-row">
                 <div class="memo-label">SUBJECT:</div>
-                <div class="memo-value"><b>DIRECTIVE ON SOVEREIGN NODE PROVISIONING & WIRE SETTLEMENT</b></div>
+                <div class="memo-value" id="docSubject"><b>DIRECTIVE ON SOVEREIGN NODE PROVISIONING &amp; WIRE SETTLEMENT</b></div>
             </div>
         </div>
 
-        <h2 class="section-heading">I. PROVISIONING AUTHORIZATION & CREDENTIALS</h2>
+        <h2 class="section-heading">I. PROVISIONING AUTHORIZATION &amp; CREDENTIALS</h2>
         <p class="directive-text" id="docAuthText">
             Pursuant to the institutional procurement dossier received from <b>` + (d.company || 'the enterprise entity') + `</b>, the Office of Sovereign Protocol Operations has formally authenticated and minted the sovereign credentials for your node deployment.
         </p>
@@ -8028,13 +8090,14 @@
             ` + (d.notes ? `<div style="display:flex; justify-content:space-between; border-top:1px dashed #cbd5e1; margin-top:6px; padding-top:6px;"><span style="color:#666;">ARCHITECTURE NOTES:</span> <span style="font-weight:600; color:#222; max-width:60%; text-align:right;">` + d.notes + `</span></div>` : '') + `
         </div>
 
-        <h2 class="section-heading">II. TREASURY SPECIFICATIONS & SETTLEMENT WIRE</h2>
-        <p class="directive-text">
+        <h2 class="section-heading">II. TREASURY SPECIFICATIONS &amp; VENDOR COMPLIANCE</h2>
+        <p class="directive-text" id="docTreasuryText">
             Corporate treasury settlement is authorized via direct Federal Reserve Wire Network (Fedwire) or Corporate Automated Clearing House (ACH). Remit specified settlement funds in accordance with the mandatory coordinates below:
         </p>
 
         <div class="treasury-box">
             <div class="treasury-row"><span>BENEFICIARY:</span> <span>Ether Terminal LLC</span></div>
+            <div class="treasury-row"><span>VENDOR REGISTRATION &amp; TAX ID:</span> <span>On File (Form W-9 &amp; Verification Provided)</span></div>
             <div class="treasury-row"><span>RECEIVING BANK:</span> <span>Middlesex Federal Savings FA / Novo</span></div>
             <div class="treasury-row"><span>BANK ADDRESS:</span> <span>One Broadway, Somerville, MA 02145</span></div>
             <div class="treasury-row"><span>BANK ROUTING (FEDWIRE / ACH):</span> <span>211370150</span></div>
@@ -8044,12 +8107,16 @@
             <div class="treasury-row"><span>TOTAL SETTLEMENT AMOUNT:</span> <span id="docTotalAmount">$` + Number(d.amountUsd).toLocaleString('en-US') + `.00 USD</span></div>
         </div>
 
-        <h2 class="section-heading">III. DEPLOYMENT TIMELINE & CHAIN-OF-CUSTODY</h2>
+        <div class="vendor-note-box">
+            <b>Institutional Vendor Onboarding:</b> IRS Form W-9, Certificate of Good Standing, and Novo Banking Verification Letters are available for your accounts payable desk at <code>contact@ether-terminal.com</code>.
+        </div>
+
+        <h2 class="section-heading">III. DEPLOYMENT TIMELINE &amp; CHAIN-OF-CUSTODY</h2>
         <p class="directive-text" id="docTimelineText">
             Upon treasury confirmation of the wire settlement referencing memo <code id="docMemoCodeInline">` + d.memoCode + `</code>, the cryptographic deployment desk will dispatch your designated hardware units and initiate the live protocol handshake with your technical officers (<span id="docEmailInline">` + (d.email || '') + `</span>) within your requested schedule (<b>` + (d.timeline || 'Immediate') + `</b>).
         </p>
 
-        <h2 class="section-heading">IV. LEGAL ATTESTATION & ABSOLUTE NON-RECOURSE COVENANT</h2>
+        <h2 class="section-heading">IV. LEGAL ATTESTATION &amp; ABSOLUTE NON-RECOURSE COVENANT</h2>
         <p class="directive-text" id="docLegalText" style="font-size:0.85rem; color:#444; line-height:1.45;">
             By remitting settlement funds referencing wire memo <code id="docMemoCodeInlineLegal">` + d.memoCode + `</code>, the procurement entity (<b id="docCompanyLegal">` + (d.company || 'the enterprise entity') + `</b>) unconditionally ratifies the Master Enterprise Sovereign License (EULA), Zero-Warranty ("AS-IS" / "WITH ALL FAULTS") Disclaimer, and Absolute Limitation of Liability Covenant. Ether Terminal LLC, its officers, protocol architects, and affiliates bear ZERO TOTAL LIABILITY ($0.00) under all legal theories, operational variances, hardware events, or claims whatsoever.
         </p>
@@ -8104,11 +8171,15 @@
         }
 
         function renderDirective() {
+            var docState = document.getElementById("inDocState").value;
+            var isPaid = (docState === "paid");
+
             var company = document.getElementById("inCompany").value;
             var name = document.getElementById("inName").value;
             var title = document.getElementById("inTitle").value;
             var email = document.getElementById("inEmail").value;
             var website = document.getElementById("inWebsite").value;
+            var poNumber = document.getElementById("inPoNumber") ? document.getElementById("inPoNumber").value : "";
             var tier = document.getElementById("inTier").value;
             var isHw = document.getElementById("inHw").value === "yes";
             var basePrice = Number(document.getElementById("inBasePrice").value) || 0;
@@ -8122,9 +8193,36 @@
             var memoCode = "ET-" + cleanCo + "-WIRE";
 
             var currentDate = new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
-
             document.getElementById("docDate").textContent = currentDate;
             
+            var stamp = document.getElementById("paidStamp");
+            if (stamp) {
+                if (isPaid) stamp.classList.add("active");
+                else stamp.classList.remove("active");
+            }
+
+            if (isPaid) {
+                document.getElementById("docSubject").innerHTML = "<b>OFFICIAL SETTLEMENT RECEIPT &amp; NODE ACTIVATION ORDER</b>";
+                document.getElementById("docClassification").innerHTML = "OFFICIAL RECORD // SETTLED INVOICE &amp; ACTIVATION RECEIPT";
+                document.getElementById("docAuthText").innerHTML = "Pursuant to verified settlement funds from <b>" + (company || "the enterprise entity") + "</b> referencing wire memo <code>" + memoCode + "</code>, the Office of Sovereign Protocol Operations certifies that sovereign node activation is authorized and deployed.";
+                document.getElementById("docTimelineText").innerHTML = "Treasury settlement has been authenticated. Hardware packaging and cryptographic node enclave activation for technical officers (" + (email || "on record") + ") are active under priority chain-of-custody.";
+            } else {
+                document.getElementById("docSubject").innerHTML = "<b>DIRECTIVE ON SOVEREIGN NODE PROVISIONING &amp; WIRE SETTLEMENT</b>";
+                document.getElementById("docClassification").innerHTML = "RESTRICTED // COMMERCIAL DIRECTIVE &amp; SETTLEMENT DOSSIER";
+                document.getElementById("docAuthText").innerHTML = "Pursuant to the institutional procurement dossier received from <b>" + (company || "the enterprise entity") + "</b>, the Office of Sovereign Protocol Operations has formally authenticated and minted the sovereign credentials for your node deployment.";
+                document.getElementById("docTimelineText").innerHTML = "Upon treasury confirmation of the wire settlement referencing memo <code>" + memoCode + "</code>, the cryptographic deployment desk will dispatch your designated hardware units and initiate the live protocol handshake with your technical officers (" + (email || "on record") + ") within your requested schedule.";
+            }
+
+            var poRow = document.getElementById("poRow");
+            if (poRow) {
+                if (poNumber && poNumber.trim() !== "") {
+                    poRow.style.display = "flex";
+                    document.getElementById("docPoValue").textContent = poNumber;
+                } else {
+                    poRow.style.display = "none";
+                }
+            }
+
             var memoForHtml = "";
             if (name || title) {
                 memoForHtml += "<b>" + (name || "") + "</b>" + (title ? (name ? ", " : "") + title : "") + "<br>";
@@ -8135,8 +8233,6 @@
             memoForHtml += "<span style='font-size:0.9rem; color:#444;'>Contact: " + (email || "On Record") + " | Tel: Direct on Record</span>";
             document.getElementById("docMemoFor").innerHTML = memoForHtml;
 
-            document.getElementById("docAuthText").innerHTML = "Pursuant to the institutional procurement dossier received from <b>" + (company || "the enterprise entity") + "</b>, the Office of Sovereign Protocol Operations has formally authenticated and minted the sovereign credentials for your node deployment.";
-            
             document.getElementById("docOpId").textContent = opId;
             document.getElementById("docLicenseKey").textContent = licenseKey;
             document.getElementById("docTier").textContent = tier;
@@ -8145,13 +8241,13 @@
             document.getElementById("docMemoCodeInlineLegal").textContent = memoCode;
             document.getElementById("docCompanyLegal").textContent = company || "the enterprise entity";
             document.getElementById("docHwText").textContent = isHw ? "Turnkey Dual-Drive Hardware Kit (4TB Samsung 990 PRO NVMe in 40Gbps Thunderbolt 4 Enclosure + Master 256GB USB Recovery Key)" : "Software Licensing Only";
-            document.getElementById("docTotalAmount").textContent = "$" + total.toLocaleString("en-US") + ".00 USD";
+            document.getElementById("docTotalAmount").textContent = "$" + total.toLocaleString("en-US") + ".00 USD" + (isPaid ? " (PAID IN FULL)" : "");
             document.getElementById("docEmailInline").textContent = email || "designated officers";
 
             if (document.getElementById("topLicenseKey")) document.getElementById("topLicenseKey").textContent = licenseKey;
             if (document.getElementById("topOpId")) document.getElementById("topOpId").textContent = opId;
             if (document.getElementById("topMemoCode")) document.getElementById("topMemoCode").textContent = memoCode;
-            if (document.getElementById("topTotal")) document.getElementById("topTotal").textContent = "$" + total.toLocaleString("en-US") + ".00 USD";
+            if (document.getElementById("topTotal")) document.getElementById("topTotal").textContent = "$" + total.toLocaleString("en-US") + ".00 USD" + (isPaid ? " (SETTLED)" : "");
         }
     <` + `/script>
 </body>
