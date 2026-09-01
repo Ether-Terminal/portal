@@ -4311,6 +4311,7 @@
                         <button type="button" class="filter-btn pricing-filter-btn" data-pricing-sector="home" onclick="setPricingSector('home')">Home</button>
                         <button type="button" class="filter-btn pricing-filter-btn" data-pricing-sector="standard" onclick="setPricingSector('standard')">Standard Lines</button>
                         <button type="button" class="filter-btn pricing-filter-btn" data-pricing-sector="wholesale" onclick="setPricingSector('wholesale')">Wholesale Enterprise</button>
+                        <button type="button" class="filter-btn pricing-filter-btn" data-pricing-sector="fleet" onclick="switchTab('fleet')">Fleet &amp; Volume</button>
                     </div>
 
                     <div class="billing-toggle-wrap" id="billingToggleWrap">
@@ -8268,6 +8269,67 @@
                         ],
                         btnText: '⚡ Activate with EtherPay',
                         btnClass: 'premium-btn'
+                    }
+                ],
+                
+                fleet: [
+                    {
+                        name: "Commercial Fleet Enclave Pack",
+                        monthly: 1850,
+                        annual: 1850,
+                        capex: true,
+                        capexPrice: 1850,
+                        desc: "5–19 Enclave Deployment for Commercial Auto, POS & Telemetry Fleets. Includes 7.5% volume discount.",
+                        features: [
+                            "5–19 Hardware Enclave Units ($1,850/ea)",
+                            "CAN-Bus / OBD-II / J1939 Active Passthrough",
+                            "Sub-100ms Edge FNOL Collision Vectoring",
+                            "Dual-SIM 5G / LTE Global Failover Ready",
+                            "Pre-Flashed TPM 2.0 State Attestation",
+                            "30-Day Executive Price-Lock Guarantee"
+                        ],
+                        badge: "7.5% VOLUME SAVINGS",
+                        cta: "Configure Fleet Deployment",
+                        ctaOnClick: "switchTab('fleet')"
+                    },
+                    {
+                        name: "Enterprise Fleet Rollout (20–49 Units)",
+                        monthly: 1700,
+                        annual: 1700,
+                        capex: true,
+                        capexPrice: 1700,
+                        desc: "High-Density Fleet Infrastructure for Logistics, Municipal Transit & Utility Fleets. Includes 15% volume discount.",
+                        features: [
+                            "20–49 Hardware Enclave Units ($1,700/ea)",
+                            "Dedicated Mobile Technician Field Installation",
+                            "Estimated ~$46,512/yr Cloud Egress Savings",
+                            "Net-30 Corporate Invoicing / PO Terms",
+                            "Priority Chain-of-Custody Delivery",
+                            "24/7 Protocol Engineering Desk Access"
+                        ],
+                        badge: "15% VOLUME SAVINGS",
+                        highlight: true,
+                        cta: "Configure Fleet Deployment",
+                        ctaOnClick: "switchTab('fleet')"
+                    },
+                    {
+                        name: "Strategic Scale Fleet (50+ Units)",
+                        monthly: 1550,
+                        annual: 1550,
+                        capex: true,
+                        capexPrice: 1550,
+                        desc: "Custom Multi-Location & Nationwide Fleet Deployments. Up to 22.5% strategic discount & hardware refresh covenants.",
+                        features: [
+                            "50+ Hardware Enclave Units ($1,550/ea)",
+                            "Turnkey Nationwide Fleet Harnessing",
+                            "Custom Cryptographic Firmware Stamping",
+                            "24-Month OPEX Lease Financing Option",
+                            "Direct Executive SLA & Air-Gapped Key Custody",
+                            "Unlimited Node Attestation Telemetry"
+                        ],
+                        badge: "STRATEGIC SCALE",
+                        cta: "Configure Strategic Fleet",
+                        ctaOnClick: "switchTab('fleet')"
                     }
                 ],
                 wholesale: [
