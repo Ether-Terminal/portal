@@ -2836,6 +2836,828 @@
                 max-height: calc(100vh - 62px);
             }
         }
+    
+        /* ── FLEET & VOLUME DEPLOYMENT PORTAL CSS ── */
+        #panel-fleet-deploy {
+            width: 100%;
+            max-width: 1240px;
+            margin: 0 auto;
+            padding-bottom: 60px;
+        }
+
+        .fleet-header-banner {
+            background: radial-gradient(circle at top left, rgba(76, 224, 255, 0.08), transparent 70%),
+                        radial-gradient(circle at bottom right, rgba(0, 255, 127, 0.05), transparent 70%),
+                        rgba(10, 16, 28, 0.85);
+            border: 1px solid rgba(76, 224, 255, 0.25);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 28px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(76, 224, 255, 0.05);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .fleet-badge-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .fleet-terminal-badge {
+            font-family: monospace;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: var(--ether-cyan);
+            background: rgba(76, 224, 255, 0.1);
+            border: 1px solid rgba(76, 224, 255, 0.3);
+            padding: 4px 10px;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+
+        .fleet-main-title {
+            font-family: "Cinzel", Georgia, serif;
+            font-size: 2.2rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, #ffffff 40%, var(--ether-cyan) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+        }
+
+        .fleet-main-subtitle {
+            color: #94a3b8;
+            font-size: 0.95rem;
+            line-height: 1.55;
+            max-width: 820px;
+            margin-bottom: 20px;
+        }
+
+        .fleet-kpi-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding-top: 18px;
+        }
+
+        .fleet-kpi-item {
+            background: rgba(5, 10, 18, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 6px;
+            padding: 10px 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .fleet-kpi-label {
+            font-size: 0.72rem;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            font-family: monospace;
+        }
+
+        .fleet-kpi-val {
+            font-family: monospace;
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: #f1f5f9;
+        }
+        .fleet-kpi-val small {
+            font-size: 0.75rem;
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        /* 2-Column Responsive Workspace */
+        .fleet-workspace-grid {
+            display: grid;
+            grid-template-columns: 1.35fr 1fr;
+            gap: 24px;
+            align-items: start;
+        }
+
+        @media (max-width: 992px) {
+            .fleet-workspace-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Fleet Config Cards */
+        .fleet-card {
+            background: rgba(11, 17, 30, 0.85);
+            border: 1px solid rgba(76, 224, 255, 0.18);
+            border-radius: 10px;
+            padding: 22px;
+            margin-bottom: 20px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+            position: relative;
+        }
+
+        .fleet-card:hover {
+            border-color: rgba(76, 224, 255, 0.35);
+        }
+
+        .fleet-card-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 10px;
+        }
+
+        .fleet-card-step {
+            font-family: monospace;
+            font-size: 0.75rem;
+            font-weight: 900;
+            color: var(--ether-cyan);
+            background: rgba(76, 224, 255, 0.12);
+            border: 1px solid rgba(76, 224, 255, 0.3);
+            padding: 2px 7px;
+            border-radius: 4px;
+        }
+
+        .fleet-card-header h3 {
+            font-family: "Cinzel", Georgia, serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #f8fafc;
+            letter-spacing: 0.8px;
+            margin: 0;
+        }
+
+        /* 1. Acquisition Model Toggle */
+        .fleet-model-toggle-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        @media (max-width: 600px) {
+            .fleet-model-toggle-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .fleet-model-option {
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 14px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 10px;
+            position: relative;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+        .fleet-model-option input {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+        .fleet-model-option:hover {
+            border-color: rgba(76, 224, 255, 0.4);
+            background: rgba(15, 23, 42, 0.95);
+        }
+        .fleet-model-option.active {
+            border-color: #00ff7f;
+            background: rgba(0, 255, 127, 0.05);
+            box-shadow: 0 0 15px rgba(0, 255, 127, 0.15);
+        }
+
+        .fleet-model-name {
+            font-family: monospace;
+            font-weight: 800;
+            font-size: 0.88rem;
+            color: #fff;
+        }
+        .fleet-model-desc {
+            font-size: 0.78rem;
+            color: #94a3b8;
+            line-height: 1.4;
+            margin-top: 4px;
+        }
+        .fleet-model-tag {
+            align-self: flex-start;
+            font-size: 0.68rem;
+            font-family: monospace;
+            font-weight: 800;
+            padding: 2px 6px;
+            border-radius: 3px;
+            background: rgba(255, 255, 255, 0.08);
+            color: #94a3b8;
+        }
+        .fleet-model-option.active .fleet-model-tag {
+            background: rgba(0, 255, 127, 0.2);
+            color: #00ff7f;
+        }
+
+        /* 2. Quantity Slider & Dual Input */
+        .fleet-qty-control-row {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        .fleet-slider-wrap {
+            flex-grow: 1;
+        }
+        .fleet-range-slider {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 8px;
+            background: #1e293b;
+            border-radius: 4px;
+            outline: none;
+            border: 1px solid rgba(76, 224, 255, 0.2);
+            cursor: pointer;
+        }
+        .fleet-range-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #00ff7f;
+            cursor: pointer;
+            box-shadow: 0 0 12px rgba(0, 255, 127, 0.7);
+            border: 2px solid #050b14;
+            transition: transform 0.1s ease;
+        }
+        .fleet-range-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.15);
+        }
+        .fleet-slider-ticks {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.68rem;
+            color: #64748b;
+            font-family: monospace;
+            margin-top: 6px;
+        }
+        .fleet-qty-input-wrap {
+            display: flex;
+            flex-direction: column;
+            width: 100px;
+            flex-shrink: 0;
+        }
+        .fleet-qty-input-wrap label {
+            font-size: 0.72rem;
+            color: #94a3b8;
+            margin-bottom: 4px;
+            font-family: monospace;
+        }
+        .fleet-number-input {
+            background: #090e17;
+            border: 1px solid rgba(76, 224, 255, 0.35);
+            border-radius: 6px;
+            padding: 10px;
+            color: #00ff7f;
+            font-family: monospace;
+            font-size: 1.15rem;
+            font-weight: 800;
+            text-align: center;
+            outline: none;
+        }
+        .fleet-number-input:focus {
+            border-color: #00ff7f;
+            box-shadow: 0 0 10px rgba(0, 255, 127, 0.3);
+        }
+
+        .fleet-tier-indicator-banner {
+            background: rgba(0, 255, 127, 0.06);
+            border: 1px solid rgba(0, 255, 127, 0.3);
+            border-radius: 6px;
+            padding: 10px 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            font-family: monospace;
+        }
+        .tier-badge-pill {
+            background: #00ff7f;
+            color: #050b14;
+            font-weight: 900;
+            font-size: 0.75rem;
+            padding: 3px 8px;
+            border-radius: 4px;
+            letter-spacing: 0.5px;
+        }
+        .tier-discount-text {
+            font-size: 0.82rem;
+            color: #e2e8f0;
+            font-weight: 600;
+        }
+
+        /* 3. Form Factor Selection */
+        .fleet-form-factor-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+        .fleet-ff-card {
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+        .fleet-ff-card input {
+            display: none;
+        }
+        .fleet-ff-card:hover {
+            border-color: rgba(76, 224, 255, 0.4);
+            background: rgba(15, 23, 42, 0.9);
+        }
+        .fleet-ff-card.active {
+            border-color: var(--ether-cyan);
+            background: rgba(76, 224, 255, 0.08);
+            box-shadow: 0 0 15px rgba(76, 224, 255, 0.15);
+        }
+        .ff-icon {
+            font-size: 1.8rem;
+            flex-shrink: 0;
+        }
+        .ff-title {
+            font-family: monospace;
+            font-size: 0.9rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 2px;
+        }
+        .ff-spec {
+            font-size: 0.76rem;
+            color: #94a3b8;
+            line-height: 1.4;
+        }
+
+        /* 4. Add-ons */
+        .fleet-addons-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .fleet-addon-row {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            padding: 12px 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .fleet-addon-row:hover {
+            border-color: rgba(76, 224, 255, 0.35);
+        }
+        .fleet-addon-row input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #00ff7f;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        .addon-info {
+            flex-grow: 1;
+        }
+        .addon-name {
+            font-size: 0.86rem;
+            font-weight: 700;
+            color: #f1f5f9;
+        }
+        .addon-desc {
+            font-size: 0.75rem;
+            color: #94a3b8;
+            margin-top: 2px;
+            line-height: 1.35;
+        }
+        .addon-price {
+            font-family: monospace;
+            font-size: 0.88rem;
+            font-weight: 800;
+            color: #00ff7f;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        /* 5. Firmware Grid */
+        .fleet-firmware-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        @media (max-width: 600px) {
+            .fleet-firmware-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .firmware-item {
+            background: rgba(9, 14, 23, 0.7);
+            border: 1px solid rgba(0, 255, 127, 0.2);
+            border-radius: 6px;
+            padding: 10px 12px;
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+        }
+        .fw-check {
+            color: #00ff7f;
+            font-weight: 900;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+        .firmware-item b {
+            display: block;
+            font-size: 0.82rem;
+            color: #f1f5f9;
+            margin-bottom: 2px;
+        }
+        .firmware-item div {
+            font-size: 0.74rem;
+            color: #94a3b8;
+            line-height: 1.35;
+        }
+
+        /* 6. Egress Modeler */
+        .egress-modeler-card {
+            background: radial-gradient(circle at top right, rgba(76, 224, 255, 0.06), transparent 70%), rgba(11, 17, 30, 0.9);
+        }
+        .egress-slider-group {
+            margin-bottom: 14px;
+        }
+        .egress-label-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: #cbd5e1;
+            margin-bottom: 6px;
+            font-family: monospace;
+        }
+        .egress-metrics-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .egress-metric-box {
+            background: #060a12;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 6px;
+            padding: 12px;
+            text-align: center;
+        }
+        .egress-metric-box.savings {
+            border-color: rgba(0, 255, 127, 0.35);
+            background: rgba(0, 255, 127, 0.04);
+        }
+        .egress-metric-label {
+            font-size: 0.72rem;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+        .egress-metric-num {
+            font-family: monospace;
+            font-size: 1.15rem;
+            font-weight: 900;
+            color: #f8fafc;
+        }
+        .egress-metric-box.savings .egress-metric-num {
+            color: #00ff7f;
+        }
+
+        /* 7. Compatibility Checker */
+        .compat-select-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+        @media (max-width: 600px) {
+            .compat-select-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .compat-select-group label {
+            display: block;
+            font-size: 0.74rem;
+            color: #94a3b8;
+            margin-bottom: 4px;
+            font-family: monospace;
+        }
+        .compat-select {
+            width: 100%;
+            background: #090e17;
+            border: 1px solid rgba(76, 224, 255, 0.3);
+            color: #fff;
+            padding: 9px 10px;
+            border-radius: 6px;
+            font-size: 0.82rem;
+            outline: none;
+        }
+        .compat-status-card {
+            background: rgba(0, 255, 127, 0.05);
+            border: 1px solid rgba(0, 255, 127, 0.3);
+            border-radius: 6px;
+            padding: 12px 14px;
+        }
+        .compat-status-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+        .compat-status-dot {
+            width: 8px;
+            height: 8px;
+            background: #00ff7f;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #00ff7f;
+        }
+        .compat-status-title {
+            font-family: monospace;
+            font-size: 0.78rem;
+            font-weight: 800;
+            color: #00ff7f;
+            letter-spacing: 0.5px;
+        }
+        .compat-status-desc {
+            font-size: 0.75rem;
+            color: #cbd5e1;
+            line-height: 1.4;
+        }
+
+        /* RIGHT COLUMN: Sticky Summary & BOM */
+        .fleet-sticky-summary {
+            position: sticky;
+            top: 80px;
+            background: radial-gradient(circle at top right, rgba(76, 224, 255, 0.08), transparent 70%),
+                        rgba(11, 17, 30, 0.95);
+            border: 2px solid rgba(76, 224, 255, 0.35);
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(76, 224, 255, 0.1);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+
+        .summary-card-header {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 14px;
+            margin-bottom: 16px;
+        }
+        .summary-top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+        .summary-tag {
+            font-family: monospace;
+            font-size: 0.72rem;
+            color: var(--ether-cyan);
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+        .summary-pulse-indicator {
+            font-family: monospace;
+            font-size: 0.7rem;
+            color: #00ff7f;
+            font-weight: 700;
+            animation: pulseGlow 2s infinite ease-in-out;
+        }
+        .summary-title {
+            font-family: "Cinzel", Georgia, serif;
+            font-size: 1.35rem;
+            font-weight: 900;
+            color: #ffffff;
+            letter-spacing: 1px;
+            margin: 0;
+        }
+
+        /* BOM Table */
+        .bom-table-wrap {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 18px;
+            background: #060a12;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            padding: 14px;
+            font-family: monospace;
+        }
+        .bom-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: #cbd5e1;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.06);
+            padding-bottom: 6px;
+        }
+        .bom-row:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        .bom-row.discount {
+            color: #00ff7f;
+            font-weight: 700;
+        }
+        .bom-row.free {
+            color: #94a3b8;
+            font-size: 0.75rem;
+        }
+
+        /* Total Box */
+        .summary-total-box {
+            background: rgba(76, 224, 255, 0.05);
+            border: 1px solid rgba(76, 224, 255, 0.3);
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+        .total-caption {
+            font-size: 0.74rem;
+            color: #94a3b8;
+            font-family: monospace;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 4px;
+        }
+        .total-big-num {
+            font-family: monospace;
+            font-size: 1.9rem;
+            font-weight: 900;
+            color: #00ff7f;
+            letter-spacing: 0.5px;
+            line-height: 1.1;
+            margin-bottom: 10px;
+        }
+        .total-currency {
+            font-size: 0.95rem;
+            color: #94a3b8;
+            font-weight: 600;
+        }
+        .effective-unit-row, .opex-sub-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: #cbd5e1;
+            font-family: monospace;
+            margin-top: 4px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding-top: 6px;
+        }
+        .effective-unit-row b {
+            color: var(--ether-cyan);
+        }
+        .opex-sub-row b {
+            color: #e5c158;
+        }
+
+        /* ROI Badge */
+        .summary-roi-badge {
+            background: rgba(0, 255, 127, 0.05);
+            border: 1px solid rgba(0, 255, 127, 0.25);
+            border-radius: 8px;
+            padding: 12px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+        .roi-icon {
+            font-size: 1.4rem;
+            flex-shrink: 0;
+        }
+        .roi-text {
+            display: flex;
+            flex-direction: column;
+            font-size: 0.76rem;
+            color: #94a3b8;
+            line-height: 1.35;
+        }
+        .roi-text b {
+            color: #00ff7f;
+            font-size: 0.82rem;
+        }
+        .roi-text strong {
+            color: #fff;
+        }
+
+        /* Primary CTA Button */
+        .summary-cta-section {
+            margin-bottom: 18px;
+        }
+        .fleet-cta-btn {
+            width: 100%;
+            padding: 16px 20px;
+            border: none;
+            border-radius: 8px;
+            font-family: "Cinzel", Georgia, serif;
+            font-size: 0.92rem;
+            font-weight: 900;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        }
+        .fleet-cta-btn.primary {
+            background: linear-gradient(135deg, #00ff7f, #4ce0ff);
+            color: #050b14;
+            box-shadow: 0 0 25px rgba(0, 255, 127, 0.35);
+        }
+        .fleet-cta-btn.primary:hover {
+            box-shadow: 0 0 35px rgba(0, 255, 127, 0.6);
+            transform: translateY(-2px);
+        }
+        .fleet-cta-btn.primary:active {
+            transform: translateY(0);
+        }
+
+        /* Downloads Section */
+        .procurement-downloads-section {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 16px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding-top: 14px;
+        }
+        .downloads-header {
+            font-size: 0.68rem;
+            color: #64748b;
+            font-family: monospace;
+            letter-spacing: 1px;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+        .download-action-btn {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            padding: 10px 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: #cbd5e1;
+            width: 100%;
+        }
+        .download-action-btn:hover {
+            border-color: var(--ether-cyan);
+            background: rgba(76, 224, 255, 0.08);
+            color: #fff;
+        }
+        .dl-icon {
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        .dl-text b {
+            display: block;
+            font-size: 0.78rem;
+            color: #f1f5f9;
+        }
+        .dl-text span {
+            display: block;
+            font-size: 0.68rem;
+            color: #94a3b8;
+        }
+
+        .summary-trust-footer {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            font-size: 0.68rem;
+            color: #64748b;
+            text-align: center;
+            flex-wrap: wrap;
+            font-family: monospace;
+        }
+
     </style>
 </head>
 <body>
@@ -2860,6 +3682,7 @@
             <div class="nav-tabs" role="tablist">
                 <button class="nav-tab tab-secondary active" data-tab="home" onclick="switchTab('home')" role="tab" aria-selected="true" aria-label="Home"><span class="tab-icon">🏠</span><span class="tab-text">Home</span></button>
                 <button class="nav-tab tab-etherpay" data-tab="licensing" onclick="switchTab('licensing')" role="tab" aria-selected="false" aria-label="Ether-Pay"><span class="tab-icon">⚡</span><span class="tab-text">Ether-Pay</span></button>
+                <button class="nav-tab tab-secondary" data-tab="fleet" onclick="switchTab('fleet')" role="tab" aria-selected="false"><span class="tab-icon">🚛</span><span class="tab-text">Fleet & Volume</span></button>
                 <button class="nav-tab tab-secondary" data-tab="solutions" onclick="switchTab('solutions')" role="tab" aria-selected="false">Solutions</button>
                 <button class="nav-tab tab-secondary" data-tab="technology" onclick="switchTab('technology')" role="tab" aria-selected="false">Technology</button>
                 <button class="nav-tab tab-secondary" data-tab="contact" onclick="switchTab('contact')" role="tab" aria-selected="false">Contact</button>
@@ -2877,6 +3700,7 @@
     <div class="mobile-menu" id="mobileMenu">
         <button class="mobile-nav-tab" data-tab="licensing" onclick="switchTab('licensing'); closeMobileMenu();" style="color:#00ff7f; font-weight:800;">⚡ Ether-Pay / Licensing</button>
         <button class="mobile-nav-tab active" data-tab="home" onclick="switchTab('home'); closeMobileMenu();">🏠 Home</button>
+        <button class="mobile-nav-tab" data-tab="fleet" onclick="switchTab('fleet'); closeMobileMenu();" style="color:#4ce0ff; font-weight:700;">🚛 Fleet & Volume</button>
         <button class="mobile-nav-tab" data-tab="solutions" onclick="switchTab('solutions'); closeMobileMenu();">Solutions</button>
         <button class="mobile-nav-tab" data-tab="technology" onclick="switchTab('technology'); closeMobileMenu();">Technology</button>
         <button class="mobile-nav-tab" data-tab="usecases" onclick="switchTab('usecases'); closeMobileMenu();">Deployment Scenarios</button>
@@ -3077,6 +3901,391 @@
                 </div>
                 <div style="text-align: center; margin-top: 24px;">
                     <button class="open-demo-modal" style="max-width: 320px; margin: 0 auto;">Request Node Deployment Briefing</button>
+                </div>
+            </section>
+        </div>
+
+        
+        <div class="tab-panel" id="panel-fleet-deploy">
+            <section class="reveal-on-scroll">
+                <!-- Header Banner -->
+                <div class="fleet-header-banner">
+                    <div class="fleet-badge-row">
+                        <span class="fleet-terminal-badge">⚡ HIGH-DENSITY SOVEREIGN ENCLAVES // ZERO-TRUST EDGE COMPUTE</span>
+                        <div class="auth-badge">
+                            <span class="auth-dot"></span>
+                            <span>FIRMWARE ATTESTED</span>
+                        </div>
+                    </div>
+                    <h1 class="fleet-main-title">Enterprise &amp; Fleet Deploy</h1>
+                    <p class="fleet-main-subtitle">
+                        Configure, model economics, and provision high-density sovereign hardware enclaves for commercial auto fleets, municipal transit, and distributed industrial infrastructure.
+                    </p>
+                    
+                    <!-- Live Telemetry KPI Ticker -->
+                    <div class="fleet-kpi-bar">
+                        <div class="fleet-kpi-item">
+                            <span class="fleet-kpi-label">Base Hardware Unit</span>
+                            <span class="fleet-kpi-val">$2,000 <small>USD</small></span>
+                        </div>
+                        <div class="fleet-kpi-item">
+                            <span class="fleet-kpi-label">Edge FNOL Latency</span>
+                            <span class="fleet-kpi-val" style="color: #00ff7f;">&lt; 120ms</span>
+                        </div>
+                        <div class="fleet-kpi-item">
+                            <span class="fleet-kpi-label">Avg Cloud Egress Savings</span>
+                            <span class="fleet-kpi-val" style="color: #4ce0ff;">~$340 <small>/veh/mo</small></span>
+                        </div>
+                        <div class="fleet-kpi-item">
+                            <span class="fleet-kpi-label">Interfacing Standard</span>
+                            <span class="fleet-kpi-val">SAE J1939 / OBD-II</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2-Column Responsive Workspace Grid -->
+                <div class="fleet-workspace-grid">
+                    
+                    <!-- LEFT COLUMN: Configuration & Telemetry Controls -->
+                    <div class="fleet-config-column">
+                        
+                        <!-- 1. Acquisition Model -->
+                        <div class="fleet-card">
+                            <div class="fleet-card-header">
+                                <span class="fleet-card-step">01</span>
+                                <h3>Acquisition Structure</h3>
+                            </div>
+                            <div class="fleet-model-toggle-grid">
+                                <label class="fleet-model-option active" id="labelModelCapex">
+                                    <input type="radio" name="fleetAcquisitionModel" value="capex" checked onchange="updateFleetRecalculation()">
+                                    <div class="fleet-model-info">
+                                        <div class="fleet-model-name">Outright Purchase (CAPEX)</div>
+                                        <div class="fleet-model-desc">100% Owned Hardware Asset • Zero recurring financing • Immediate asset capitalization</div>
+                                    </div>
+                                    <span class="fleet-model-tag">PRIMARY</span>
+                                </label>
+                                <label class="fleet-model-option" id="labelModelOpex">
+                                    <input type="radio" name="fleetAcquisitionModel" value="opex" onchange="updateFleetRecalculation()">
+                                    <div class="fleet-model-info">
+                                        <div class="fleet-model-name">Enterprise Fleet Lease (OPEX)</div>
+                                        <div class="fleet-model-desc">24-Month Term @ 8% Financed • Includes hot-swap hardware replacement warranty</div>
+                                    </div>
+                                    <span class="fleet-model-tag">24-MO LEASE</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- 2. Quantity & Volume Tiers -->
+                        <div class="fleet-card">
+                            <div class="fleet-card-header">
+                                <span class="fleet-card-step">02</span>
+                                <h3>Node Quantity &amp; Volume Tier</h3>
+                            </div>
+                            
+                            <div class="fleet-qty-control-row">
+                                <div class="fleet-slider-wrap">
+                                    <input type="range" id="fleetQtySlider" min="1" max="100" value="12" class="fleet-range-slider" oninput="syncFleetQty('slider')">
+                                    <div class="fleet-slider-ticks">
+                                        <span>1 (Pilot)</span>
+                                        <span>5 (Commercial)</span>
+                                        <span>20 (Enterprise)</span>
+                                        <span>50+ (Strategic)</span>
+                                        <span>100</span>
+                                    </div>
+                                </div>
+                                <div class="fleet-qty-input-wrap">
+                                    <label for="fleetQtyInput">Enclaves</label>
+                                    <input type="number" id="fleetQtyInput" min="1" max="1000" value="12" class="fleet-number-input" oninput="syncFleetQty('input')">
+                                </div>
+                            </div>
+
+                            <!-- Tier Status Banner -->
+                            <div class="fleet-tier-indicator-banner" id="fleetTierBanner">
+                                <div class="tier-badge-pill" id="fleetTierPill">COMMERCIAL PACK</div>
+                                <div class="tier-discount-text" id="fleetTierDiscount">7.5% Volume Discount Active (-$150/unit)</div>
+                            </div>
+                        </div>
+
+                        <!-- 3. Hardware Form Factor -->
+                        <div class="fleet-card">
+                            <div class="fleet-card-header">
+                                <span class="fleet-card-step">03</span>
+                                <h3>Hardware Enclave Form Factor</h3>
+                            </div>
+                            <div class="fleet-form-factor-grid">
+                                <label class="fleet-ff-card active" id="ffCardAuto">
+                                    <input type="radio" name="fleetFormFactor" value="auto" checked onchange="updateFleetRecalculation()">
+                                    <div class="ff-icon">🚗</div>
+                                    <div class="ff-details">
+                                        <div class="ff-title">In-Cabin Connected Auto</div>
+                                        <div class="ff-spec">CAN-Bus &amp; OBD-II / J1939 Passthrough Harness • ISO 26262 ASIL-D • 12V/24V Auto-Ignition Wake</div>
+                                    </div>
+                                </label>
+                                <label class="fleet-ff-card" id="ffCardPos">
+                                    <input type="radio" name="fleetFormFactor" value="pos" onchange="updateFleetRecalculation()">
+                                    <div class="ff-icon">🏪</div>
+                                    <div class="ff-details">
+                                        <div class="ff-title">Multi-Location Commercial POS</div>
+                                        <div class="ff-spec">Tamper-Proof Desktop Enclosure • Dual Ethernet + USB-C PD • Kensington Physical Lock Anchor</div>
+                                    </div>
+                                </label>
+                                <label class="fleet-ff-card" id="ffCardIndustrial">
+                                    <input type="radio" name="fleetFormFactor" value="industrial" onchange="updateFleetRecalculation()">
+                                    <div class="ff-icon">🏭</div>
+                                    <div class="ff-details">
+                                        <div class="ff-title">Ruggedized Substation (IP67)</div>
+                                        <div class="ff-spec">Milled Anodized Aluminum Enclosure • DIN-Rail Mount • -40°C to +85°C Mil-Spec Operating Range</div>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- 4. Networking & Turnkey Add-ons -->
+                        <div class="fleet-card">
+                            <div class="fleet-card-header">
+                                <span class="fleet-card-step">04</span>
+                                <h3>Connectivity &amp; Field Services</h3>
+                            </div>
+                            <div class="fleet-addons-list">
+                                <label class="fleet-addon-row">
+                                    <input type="checkbox" id="fleetAddon5G" checked onchange="updateFleetRecalculation()">
+                                    <div class="addon-info">
+                                        <div class="addon-name">Dual-SIM 5G / LTE Global Failover Module</div>
+                                        <div class="addon-desc">Multi-carrier eSIM + physical Nano-SIM redundancy with zero-trust encrypted wireguard tunnel.</div>
+                                    </div>
+                                    <div class="addon-price">+$150 <small>/unit</small></div>
+                                </label>
+                                <label class="fleet-addon-row">
+                                    <input type="checkbox" id="fleetAddonInstall" checked onchange="updateFleetRecalculation()">
+                                    <div class="addon-info">
+                                        <div class="addon-name">Turnkey Mobile Fleet Installation &amp; Harnessing</div>
+                                        <div class="addon-desc">Certified mobile technician dispatch for on-site vehicle wiring, pinout verification, and physical mounting.</div>
+                                    </div>
+                                    <div class="addon-price">+$150 <small>/vehicle</small></div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- 5. Pre-Flashed Enclave Firmware -->
+                        <div class="fleet-card">
+                            <div class="fleet-card-header">
+                                <span class="fleet-card-step">05</span>
+                                <h3>Cryptographic Enclave Firmware Modules</h3>
+                            </div>
+                            <div class="fleet-firmware-grid">
+                                <div class="firmware-item">
+                                    <span class="fw-check">✓</span>
+                                    <div>
+                                        <b>Crash Kinematics &amp; FNOL Vectoring</b>
+                                        <div>Sub-100ms multi-axis g-force &amp; angular momentum attestation</div>
+                                    </div>
+                                </div>
+                                <div class="firmware-item">
+                                    <span class="fw-check">✓</span>
+                                    <div>
+                                        <b>Hardware Sensor Attestation</b>
+                                        <div>Cryptographic TPM 2.0 / HSM state signature on every raw CAN frame</div>
+                                    </div>
+                                </div>
+                                <div class="firmware-item">
+                                    <span class="fw-check">✓</span>
+                                    <div>
+                                        <b>Ether Pay Direct Settlement</b>
+                                        <div>Automated biometric &amp; programmatic corporate treasury execution</div>
+                                    </div>
+                                </div>
+                                <div class="firmware-item">
+                                    <span class="fw-check">✓</span>
+                                    <div>
+                                        <b>Cold-Storage Micro-Enclave</b>
+                                        <div>Autonomous key derivation with zero cloud reliance</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 6. Cloud Egress Savings Modeler -->
+                        <div class="fleet-card egress-modeler-card">
+                            <div class="fleet-card-header">
+                                <span class="fleet-card-step">06</span>
+                                <h3>Cloud Telemetry Egress Savings Modeler</h3>
+                            </div>
+                            <p style="color:#9ca3af; font-size:0.8rem; margin-bottom:14px; line-height: 1.45;">
+                                Legacy telematics stream raw high-frequency telemetry into AWS/Azure, generating massive ingestion and egress bills (~$340/vehicle/mo). Ether Enclaves run heuristic underwriting at the edge, transmitting only cryptographically signed state assertions.
+                            </p>
+                            <div class="egress-slider-group">
+                                <div class="egress-label-row">
+                                    <span>Monthly Fleet Utilization:</span>
+                                    <b id="egressMilesDisplay">3,500 mi/veh</b>
+                                </div>
+                                <input type="range" id="egressMilesSlider" min="1000" max="10000" step="500" value="3500" class="fleet-range-slider" oninput="updateEgressModeler()">
+                            </div>
+                            <div class="egress-metrics-grid">
+                                <div class="egress-metric-box">
+                                    <div class="egress-metric-label">Legacy Cloud Egress Cost</div>
+                                    <div class="egress-metric-num" id="egressLegacyCost">$48,960 / yr</div>
+                                </div>
+                                <div class="egress-metric-box savings">
+                                    <div class="egress-metric-label">Ether Edge Annual Savings</div>
+                                    <div class="egress-metric-num" id="egressSavingsNum">$46,512 / yr</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 7. Vehicle & Protocol Compatibility Matrix Checker -->
+                        <div class="fleet-card">
+                            <div class="fleet-card-header">
+                                <span class="fleet-card-step">07</span>
+                                <h3>Vehicle &amp; Protocol Compatibility Checker</h3>
+                            </div>
+                            <div class="compat-select-grid">
+                                <div class="compat-select-group">
+                                    <label for="compatVehicleClass">Vehicle / Fleet Class</label>
+                                    <select id="compatVehicleClass" class="compat-select" onchange="updateCompatChecker()">
+                                        <option value="class1_2">Class 1–2: Light Duty / Consumer Fleet / Sedans &amp; SUVs</option>
+                                        <option value="class3_6" selected>Class 3–6: Medium Duty / Delivery Vans &amp; Utility Trucks</option>
+                                        <option value="class7_8">Class 7–8: Heavy Duty Semi-Tractors &amp; Freight</option>
+                                        <option value="scada">Fixed Industrial: Substations, POS &amp; SCADA Hubs</option>
+                                        <option value="aero">Aerospace: Commercial UAV, eVTOL &amp; Defense Drones</option>
+                                    </select>
+                                </div>
+                                <div class="compat-select-group">
+                                    <label for="compatPortProtocol">Port / Bus Protocol</label>
+                                    <select id="compatPortProtocol" class="compat-select" onchange="updateCompatChecker()">
+                                        <option value="obd2" selected>OBD-II (CAN 2.0B / CAN-FD / ISO 15765-4)</option>
+                                        <option value="j1939">SAE J1939 (250k / 500k Heavy Duty CAN-Bus)</option>
+                                        <option value="j1708">SAE J1708 / J1587 (Legacy Diagnostic Bus)</option>
+                                        <option value="gige">M12 Ruggedized Industrial Ethernet (IEEE 802.3)</option>
+                                        <option value="rs485">Optically Isolated RS-485 / Modbus RTU</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="compat-status-card" id="compatStatusCard">
+                                <div class="compat-status-header">
+                                    <span class="compat-status-dot"></span>
+                                    <span class="compat-status-title" id="compatStatusTitle">PASSIVE NON-INTERFERENCE VERIFIED</span>
+                                </div>
+                                <div class="compat-status-desc" id="compatStatusDesc">
+                                    Optically isolated hardware transceivers ensure zero active packet injection or CAN-bus mutation, maintaining 100% OEM factory powertrain warranty and ISO 26262 ASIL-D integrity.
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- RIGHT COLUMN: Live Economic Summary, Real-Time BOM & Actions -->
+                    <div class="fleet-summary-column">
+                        <div class="fleet-sticky-summary">
+                            
+                            <div class="summary-card-header">
+                                <div class="summary-top-row">
+                                    <span class="summary-tag">REAL-TIME BOM // QUOTE ENGINE</span>
+                                    <span class="summary-pulse-indicator">● LIVE PRICING LOCKED</span>
+                                </div>
+                                <h2 class="summary-title">Procurement Summary</h2>
+                            </div>
+
+                            <!-- Real-Time BOM Table -->
+                            <div class="bom-table-wrap">
+                                <div class="bom-row">
+                                    <span class="bom-item-name" id="bomHwName">Ether Enclaves (12 Units)</span>
+                                    <span class="bom-item-val" id="bomHwTotal">$24,000.00</span>
+                                </div>
+                                <div class="bom-row discount" id="bomDiscountRow">
+                                    <span class="bom-item-name" id="bomDiscountLabel">Volume Tier Discount (7.5%)</span>
+                                    <span class="bom-item-val" id="bomDiscountVal">-$1,800.00</span>
+                                </div>
+                                <div class="bom-row" id="bom5gRow">
+                                    <span class="bom-item-name" id="bom5gName">Dual-SIM 5G Modules (12 Units)</span>
+                                    <span class="bom-item-val" id="bom5gVal">$1,800.00</span>
+                                </div>
+                                <div class="bom-row" id="bomInstallRow">
+                                    <span class="bom-item-name" id="bomInstallName">Mobile Turnkey Install (12 Units)</span>
+                                    <span class="bom-item-val" id="bomInstallVal">$1,800.00</span>
+                                </div>
+                                <div class="bom-row free">
+                                    <span class="bom-item-name">Firmware Attestation &amp; TPM Key Minting</span>
+                                    <span class="bom-item-val">INCLUDED ($0.00)</span>
+                                </div>
+                                <div class="bom-row free">
+                                    <span class="bom-item-name">30-Day Executive Price Lock Guarantee</span>
+                                    <span class="bom-item-val">INCLUDED ($0.00)</span>
+                                </div>
+                            </div>
+
+                            <!-- Total Cost Presentation -->
+                            <div class="summary-total-box">
+                                <div class="total-caption" id="summaryTotalCaption">TOTAL OUTRIGHT PURCHASE (CAPEX):</div>
+                                <div class="total-big-num" id="summaryTotalBig">$25,800.00 <span class="total-currency">USD</span></div>
+                                
+                                <div class="effective-unit-row">
+                                    <span>Effective Per-Unit Cost:</span>
+                                    <b id="summaryEffectiveUnit">$2,150.00 / unit</b>
+                                </div>
+
+                                <div class="opex-sub-row" id="summaryOpexRow" style="display:none;">
+                                    <span>24-Month Lease Payment:</span>
+                                    <b id="summaryOpexVal">$1,161.00 / mo</b>
+                                </div>
+                            </div>
+
+                            <!-- ROI & Egress Badge -->
+                            <div class="summary-roi-badge">
+                                <div class="roi-icon">📈</div>
+                                <div class="roi-text">
+                                    <b id="summaryRoiSavings">$46,512/yr Projected Cloud Egress Savings</b>
+                                    <span>Estimated hardware investment payback within <strong id="summaryPaybackMonths">6.7 months</strong></span>
+                                </div>
+                            </div>
+
+                            <!-- Primary Dynamic Action Button -->
+                            <div class="summary-cta-section">
+                                <button class="fleet-cta-btn primary" id="btnFleetPrimaryAction" onclick="handleFleetPrimaryAction()">
+                                    ⚡ PROCEED TO FLEET CHECKOUT / FEDWIRE
+                                </button>
+                            </div>
+
+                            <!-- Instant 1-Click Procurement Downloadables -->
+                            <div class="procurement-downloads-section">
+                                <div class="downloads-header">INSTANT ENTERPRISE PROCUREMENT ACTIONS</div>
+                                
+                                <button class="download-action-btn" onclick="generateFleetQuotePdf()">
+                                    <span class="dl-icon">📄</span>
+                                    <div class="dl-text">
+                                        <b>Generate Formal BOM &amp; Price-Locked Quote (PDF)</b>
+                                        <span>Official executive memorandum with Novo wire coordinates</span>
+                                    </div>
+                                </button>
+
+                                <button class="download-action-btn" onclick="openDocModal('prd', 'prd-overview')">
+                                    <span class="dl-icon">📊</span>
+                                    <div class="dl-text">
+                                        <b>View Technical PRD &amp; Architecture Deck</b>
+                                        <span>Complete hardware pinout, CAN-bus timing, and sensor telemetry</span>
+                                    </div>
+                                </button>
+
+                                <button class="download-action-btn" onclick="downloadProcurementVault()">
+                                    <span class="dl-icon">🛡️</span>
+                                    <div class="dl-text">
+                                        <b>Download Procurement Vault (W-9, COI, Security Package)</b>
+                                        <span>Pre-signed vendor dossier for corporate procurement &amp; compliance</span>
+                                    </div>
+                                </button>
+                            </div>
+
+                            <!-- Trust Seal Footer -->
+                            <div class="summary-trust-footer">
+                                <span>🔒 100% Zero Data Selling Policy</span>
+                                <span>•</span>
+                                <span>Novo Direct Fedwire Settlement</span>
+                                <span>•</span>
+                                <span>ISO 26262 Compliant</span>
+                            </div>
+
+                        </div>
+                    </div>
+
                 </div>
             </section>
         </div>
@@ -6454,6 +7663,9 @@
                 if (!targetTabId) return;
 
                 // Handle aliases
+                if (targetTabId === 'fleet' || targetTabId === 'fleet-deploy' || targetTabId === 'enterprise' || targetTabId === 'volume') {
+                    targetTabId = 'fleet-deploy';
+                }
                 if (targetTabId === 'etherpay' || targetTabId === 'pricing') {
                     targetTabId = 'licensing';
                 }
@@ -7884,6 +9096,427 @@
                     });
                 });
             }
+            
+        /* ── FLEET & VOLUME DEPLOYMENT PORTAL JS ENGINE ── */
+        window.calculateFleetQuote = function(qty, has5G, hasInstall, isOpex) {
+            qty = Math.max(1, parseInt(qty) || 1);
+            var basePrice = 2000;
+            var discountRate = 0.0;
+            var tierName = "Pilot Pack (1–4 Units)";
+
+            if (qty >= 5 && qty < 20) {
+                discountRate = 0.075;
+                tierName = "Commercial Pack (5–19 Units)";
+            } else if (qty >= 20 && qty < 50) {
+                discountRate = 0.15;
+                tierName = "Enterprise Fleet (20–49 Units)";
+            } else if (qty >= 50) {
+                discountRate = 0.225;
+                tierName = "Strategic Scale (50+ Units)";
+            }
+
+            var discountedUnitHardware = basePrice * (1 - discountRate);
+            var discountTotal = (basePrice * discountRate) * qty;
+            var addonsPerUnit = (has5G ? 150 : 0) + (hasInstall ? 150 : 0);
+            var effectiveUnitCost = discountedUnitHardware + addonsPerUnit;
+            var totalCapex = effectiveUnitCost * qty;
+            var monthlyOpex = (totalCapex / 24) * 1.08;
+
+            return {
+                qty: qty,
+                discountRate: discountRate,
+                tierName: tierName,
+                unitBase: basePrice,
+                unitDiscounted: discountedUnitHardware,
+                discountTotal: discountTotal,
+                addonsPerUnit: addonsPerUnit,
+                addonsTotal: addonsPerUnit * qty,
+                totalCapex: totalCapex,
+                effectiveUnitCost: effectiveUnitCost,
+                monthlyOpex: monthlyOpex,
+                isOpex: isOpex
+            };
+        };
+
+        window.syncFleetQty = function(source) {
+            var slider = document.getElementById("fleetQtySlider");
+            var input = document.getElementById("fleetQtyInput");
+            if (!slider || !input) return;
+
+            if (source === "slider") {
+                input.value = slider.value;
+            } else {
+                var val = parseInt(input.value) || 1;
+                val = Math.max(1, Math.min(1000, val));
+                slider.value = Math.min(100, val);
+            }
+            window.updateFleetRecalculation();
+        };
+
+        window.updateFleetRecalculation = function() {
+            var input = document.getElementById("fleetQtyInput");
+            if (!input) return;
+            var qty = parseInt(input.value) || 12;
+
+            var isOpex = false;
+            var opexRadio = document.querySelector('input[name="fleetAcquisitionModel"]:checked');
+            if (opexRadio && opexRadio.value === "opex") isOpex = true;
+
+            // Highlight Model Labels
+            var labelCapex = document.getElementById("labelModelCapex");
+            var labelOpex = document.getElementById("labelModelOpex");
+            if (labelCapex && labelOpex) {
+                if (isOpex) {
+                    labelCapex.classList.remove("active");
+                    labelOpex.classList.add("active");
+                } else {
+                    labelCapex.classList.add("active");
+                    labelOpex.classList.remove("active");
+                }
+            }
+
+            // Highlight Form Factor Cards
+            var ffAuto = document.getElementById("ffCardAuto");
+            var ffPos = document.getElementById("ffCardPos");
+            var ffInd = document.getElementById("ffCardIndustrial");
+            var selectedFf = (document.querySelector('input[name="fleetFormFactor"]:checked') || {}).value || "auto";
+            if (ffAuto) ffAuto.classList.toggle("active", selectedFf === "auto");
+            if (ffPos) ffPos.classList.toggle("active", selectedFf === "pos");
+            if (ffInd) ffInd.classList.toggle("active", selectedFf === "industrial");
+
+            var has5G = (document.getElementById("fleetAddon5G") || {}).checked || false;
+            var hasInstall = (document.getElementById("fleetAddonInstall") || {}).checked || false;
+
+            var q = window.calculateFleetQuote(qty, has5G, hasInstall, isOpex);
+
+            // Update Tier Banner
+            var pill = document.getElementById("fleetTierPill");
+            var discText = document.getElementById("fleetTierDiscount");
+            if (pill && discText) {
+                if (q.discountRate === 0) {
+                    pill.textContent = "PILOT PACK";
+                    pill.style.background = "#64748b";
+                    discText.textContent = "Standard MSRP Base ($2,000/unit)";
+                } else if (q.discountRate === 0.075) {
+                    pill.textContent = "COMMERCIAL PACK";
+                    pill.style.background = "#00ff7f";
+                    discText.textContent = "7.5% Volume Discount Active (-$150/unit)";
+                } else if (q.discountRate === 0.15) {
+                    pill.textContent = "ENTERPRISE FLEET";
+                    pill.style.background = "#4ce0ff";
+                    discText.textContent = "15% Volume Discount Active (-$300/unit)";
+                } else {
+                    pill.textContent = "STRATEGIC SCALE";
+                    pill.style.background = "#e5c158";
+                    discText.textContent = "22.5% Strategic Volume Discount Active (-$450/unit)";
+                }
+            }
+
+            // Update BOM Rows
+            var ffName = "Connected Auto Enclaves";
+            if (selectedFf === "pos") ffName = "Commercial POS Enclaves";
+            if (selectedFf === "industrial") ffName = "Rugged Industrial Substation Enclaves";
+
+            var bomHwName = document.getElementById("bomHwName");
+            var bomHwTotal = document.getElementById("bomHwTotal");
+            if (bomHwName) bomHwName.textContent = ffName + " (" + qty + " Units)";
+            if (bomHwTotal) bomHwTotal.textContent = "$" + (q.unitBase * qty).toLocaleString("en-US") + ".00";
+
+            var bomDiscRow = document.getElementById("bomDiscountRow");
+            var bomDiscLabel = document.getElementById("bomDiscountLabel");
+            var bomDiscVal = document.getElementById("bomDiscountVal");
+            if (bomDiscRow && bomDiscLabel && bomDiscVal) {
+                if (q.discountRate > 0) {
+                    bomDiscRow.style.display = "flex";
+                    bomDiscLabel.textContent = "Volume Tier Discount (" + (q.discountRate * 100).toFixed(1) + "%)";
+                    bomDiscVal.textContent = "-$" + q.discountTotal.toLocaleString("en-US") + ".00";
+                } else {
+                    bomDiscRow.style.display = "none";
+                }
+            }
+
+            var bom5gRow = document.getElementById("bom5gRow");
+            var bom5gName = document.getElementById("bom5gName");
+            var bom5gVal = document.getElementById("bom5gVal");
+            if (bom5gRow && bom5gName && bom5gVal) {
+                if (has5G) {
+                    bom5gRow.style.display = "flex";
+                    bom5gName.textContent = "Dual-SIM 5G Failover (" + qty + " Units)";
+                    bom5gVal.textContent = "$" + (150 * qty).toLocaleString("en-US") + ".00";
+                } else {
+                    bom5gRow.style.display = "none";
+                }
+            }
+
+            var bomInstallRow = document.getElementById("bomInstallRow");
+            var bomInstallName = document.getElementById("bomInstallName");
+            var bomInstallVal = document.getElementById("bomInstallVal");
+            if (bomInstallRow && bomInstallName && bomInstallVal) {
+                if (hasInstall) {
+                    bomInstallRow.style.display = "flex";
+                    bomInstallName.textContent = "Turnkey Mobile Install (" + qty + " Units)";
+                    bomInstallVal.textContent = "$" + (150 * qty).toLocaleString("en-US") + ".00";
+                } else {
+                    bomInstallRow.style.display = "none";
+                }
+            }
+
+            // Total Cost Presentation
+            var totalCap = document.getElementById("summaryTotalCaption");
+            var totalBig = document.getElementById("summaryTotalBig");
+            var effUnit = document.getElementById("summaryEffectiveUnit");
+            var opexRow = document.getElementById("summaryOpexRow");
+            var opexVal = document.getElementById("summaryOpexVal");
+
+            if (totalCap) totalCap.textContent = isOpex ? "TOTAL 24-MONTH LEASE ALLOCATION:" : "TOTAL OUTRIGHT PURCHASE (CAPEX):";
+            if (totalBig) totalBig.innerHTML = "$" + q.totalCapex.toLocaleString("en-US") + ".00 <span class='total-currency'>USD</span>";
+            if (effUnit) effUnit.textContent = "$" + q.effectiveUnitCost.toLocaleString("en-US") + ".00 / unit";
+            
+            if (opexRow && opexVal) {
+                if (isOpex) {
+                    opexRow.style.display = "flex";
+                    opexVal.textContent = "$" + Math.round(q.monthlyOpex).toLocaleString("en-US") + ".00 / mo";
+                } else {
+                    opexRow.style.display = "none";
+                }
+            }
+
+            // Primary Dynamic CTA Button
+            var primaryBtn = document.getElementById("btnFleetPrimaryAction");
+            if (primaryBtn) {
+                if (qty < 20) {
+                    primaryBtn.textContent = "⚡ PROCEED TO FLEET CHECKOUT / FEDWIRE";
+                } else if (qty < 50) {
+                    primaryBtn.textContent = "📑 DISPATCH FLEET ROLLOUT DOSSIER & INVOICE";
+                } else {
+                    primaryBtn.textContent = "🛡️ REQUEST STRATEGIC VOLUME ALLOCATION";
+                }
+            }
+
+            window.updateEgressModeler();
+        };
+
+        window.updateEgressModeler = function() {
+            var input = document.getElementById("fleetQtyInput");
+            var slider = document.getElementById("egressMilesSlider");
+            var display = document.getElementById("egressMilesDisplay");
+            var legacyCostEl = document.getElementById("egressLegacyCost");
+            var savingsEl = document.getElementById("egressSavingsNum");
+            var roiSavingsEl = document.getElementById("summaryRoiSavings");
+            var paybackEl = document.getElementById("summaryPaybackMonths");
+
+            if (!input || !slider) return;
+            var qty = parseInt(input.value) || 12;
+            var miles = parseInt(slider.value) || 3500;
+
+            if (display) display.textContent = miles.toLocaleString("en-US") + " mi/veh";
+
+            // Calculation
+            var baseMonthlyCostPerVeh = 340 * (miles / 3500);
+            var annualLegacyCost = Math.round(qty * baseMonthlyCostPerVeh * 12);
+            var annualSavings = Math.round(annualLegacyCost * 0.95);
+
+            if (legacyCostEl) legacyCostEl.textContent = "$" + annualLegacyCost.toLocaleString("en-US") + " / yr";
+            if (savingsEl) savingsEl.textContent = "$" + annualSavings.toLocaleString("en-US") + " / yr";
+            if (roiSavingsEl) roiSavingsEl.textContent = "$" + annualSavings.toLocaleString("en-US") + "/yr Projected Cloud Egress Savings";
+
+            var has5G = (document.getElementById("fleetAddon5G") || {}).checked || false;
+            var hasInstall = (document.getElementById("fleetAddonInstall") || {}).checked || false;
+            var q = window.calculateFleetQuote(qty, has5G, hasInstall, false);
+            var paybackMonths = (q.totalCapex / Math.max(1, annualSavings)) * 12;
+            if (paybackEl) paybackEl.textContent = (paybackMonths < 1 ? "< 1.0 month" : paybackMonths.toFixed(1) + " months");
+        };
+
+        window.updateCompatChecker = function() {
+            var vClass = (document.getElementById("compatVehicleClass") || {}).value || "class3_6";
+            var pProt = (document.getElementById("compatPortProtocol") || {}).value || "obd2";
+            var titleEl = document.getElementById("compatStatusTitle");
+            var descEl = document.getElementById("compatStatusDesc");
+
+            var classMap = {
+                class1_2: "Class 1–2 Consumer & Light Fleet (12V OBD-II / CAN-FD)",
+                class3_6: "Class 3–6 Commercial Delivery & Utility (J1939 250k/500k & OBD-II)",
+                class7_8: "Class 7–8 Heavy Freight & Long-Haul (Dual J1939 + J1708 Backplane)",
+                scada: "Fixed Industrial SCADA & POS Substation (Isolated RS-485 / M12 GigE)",
+                aero: "Aerospace UAV & Autonomous Robotics (Mil-Spec High-Speed CAN & Ethernet)"
+            };
+
+            var protMap = {
+                obd2: "Passive listen-only high-impedance CAN-bus transceiver. 0.0% packet injection risk. Factory OEM powertrain warranty fully preserved under Magnuson-Moss Warranty Act.",
+                j1939: "SAE J1939 heavy-duty 9-pin/Type-2 green connector compatible. ISO 11898-2 compliant isolated transceiver with hardware-level transmit disable.",
+                j1708: "Differential RS-485 transceiver layer supporting legacy heavy-duty telemetry bus with automatic baud synchronization.",
+                gige: "M12 X-coded / RJ-45 ruggedized Gigabit Ethernet with IP67 sealed bulkhead coupling. 1000BASE-T hardware timestamping.",
+                rs485: "2.5kVrms galvanic optical isolation. Transient voltage suppressor (TVS) protected for extreme industrial electromagnetic environments."
+            };
+
+            if (titleEl) titleEl.textContent = "COMPATIBLE: " + (classMap[vClass] || "VERIFIED HARNESS");
+            if (descEl) descEl.textContent = (protMap[pProt] || "Passive listen-only hardware interface verified for zero CAN-bus mutation.");
+        };
+
+        window.handleFleetPrimaryAction = function() {
+            var input = document.getElementById("fleetQtyInput");
+            var qty = parseInt(input ? input.value : 12) || 12;
+            var isOpex = false;
+            var opexRadio = document.querySelector('input[name="fleetAcquisitionModel"]:checked');
+            if (opexRadio && opexRadio.value === "opex") isOpex = true;
+
+            var has5G = (document.getElementById("fleetAddon5G") || {}).checked || false;
+            var hasInstall = (document.getElementById("fleetAddonInstall") || {}).checked || false;
+            var selectedFf = (document.querySelector('input[name="fleetFormFactor"]:checked') || {}).value || "auto";
+
+            var ffName = "In-Cabin Connected Auto";
+            if (selectedFf === "pos") ffName = "Commercial POS Enclave";
+            if (selectedFf === "industrial") ffName = "Rugged Industrial Substation (IP67)";
+
+            var q = window.calculateFleetQuote(qty, has5G, hasInstall, isOpex);
+
+            // Pre-fill modal state
+            window.__currentModalBasePrice = q.totalCapex;
+            window.__currentModalTierName = "Enterprise Fleet (" + qty + "x " + ffName + ")";
+            window.__currentModalBilling = isOpex ? "24-Month Lease ($" + Math.round(q.monthlyOpex).toLocaleString("en-US") + "/mo)" : "CAPEX Outright ($" + q.totalCapex.toLocaleString("en-US") + ")";
+
+            var modal = document.getElementById("demoModal");
+            if (modal) {
+                var notesField = document.getElementById("demo-notes");
+                if (notesField) {
+                    notesField.value = "FLEET CONFIGURATION:\n• Quantity: " + qty + " Units\n• Acquisition: " + (isOpex ? "24-Month Lease" : "Outright Purchase (CAPEX)") + "\n• Form Factor: " + ffName + "\n• 5G Failover: " + (has5G ? "Yes (+$150/ea)" : "No") + "\n• Turnkey Install: " + (hasInstall ? "Yes (+$150/ea)" : "No") + "\n• Effective Unit Cost: $" + q.effectiveUnitCost.toLocaleString("en-US") + "\n• Total Expected Settlement: $" + q.totalCapex.toLocaleString("en-US") + " USD";
+                }
+                modal.classList.add("open");
+                modal.setAttribute("aria-hidden", "false");
+                document.body.classList.add("modal-open");
+                document.documentElement.classList.add("modal-open");
+            }
+
+            // Fire Discord Lead Ping
+            var DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1544044960574341221/0coWuKI5yTlQlQ2MH46DpgywBG2262o9N_93EdExA_89kJhtxH07tOVfh0-CtSOBImgR";
+            fetch(DISCORD_WEBHOOK_URL, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    username: "Ether Fleet Dispatcher",
+                    avatar_url: "https://ether-terminal.com/logo.png",
+                    embeds: [{
+                        title: "🚛 FLEET PORTAL ENGAGEMENT // CHECKOUT INITIATED",
+                        description: "An enterprise fleet operator initiated checkout configuration for **" + qty + " Enclaves**.",
+                        color: 5038079,
+                        fields: [
+                            { name: "📦 Enclave Quantity", value: qty + " Units (" + q.tierName + ")", inline: true },
+                            { name: "💰 Total Settlement", value: "$" + q.totalCapex.toLocaleString("en-US") + ".00 USD", inline: true },
+                            { name: "🛠 Form Factor", value: ffName, inline: true },
+                            { name: "💳 Acquisition Model", value: isOpex ? "24-Month Lease ($" + Math.round(q.monthlyOpex).toLocaleString("en-US") + "/mo)" : "CAPEX Outright", inline: true },
+                            { name: "📡 Add-ons", value: (has5G ? "5G Failover (Yes)\n" : "") + (hasInstall ? "Mobile Install (Yes)" : (!has5G ? "None" : "")), inline: true },
+                            { name: "📈 Egress Savings", value: "~$" + (qty * 340 * 12 * 0.95).toLocaleString("en-US") + "/yr", inline: true }
+                        ],
+                        footer: { text: "Ether Terminal LLC • Fleet Operations Grid" },
+                        timestamp: new Date().toISOString()
+                    }]
+                })
+            }).catch(function(){});
+        };
+
+        window.generateFleetQuotePdf = function() {
+            var input = document.getElementById("fleetQtyInput");
+            var qty = parseInt(input ? input.value : 12) || 12;
+            var isOpex = false;
+            var opexRadio = document.querySelector('input[name="fleetAcquisitionModel"]:checked');
+            if (opexRadio && opexRadio.value === "opex") isOpex = true;
+
+            var has5G = (document.getElementById("fleetAddon5G") || {}).checked || false;
+            var hasInstall = (document.getElementById("fleetAddonInstall") || {}).checked || false;
+            var selectedFf = (document.querySelector('input[name="fleetFormFactor"]:checked') || {}).value || "auto";
+
+            var ffName = "Connected Auto Enclaves";
+            if (selectedFf === "pos") ffName = "Commercial POS Enclaves";
+            if (selectedFf === "industrial") ffName = "Rugged Industrial Substation Enclaves";
+
+            var q = window.calculateFleetQuote(qty, has5G, hasInstall, isOpex);
+
+            var params = new URLSearchParams({
+                company: "Enterprise Fleet Client",
+                name: "Fleet Operations Directorate",
+                title: "VP of Logistics & Procurement",
+                tier: "Enterprise Fleet (" + qty + "x " + ffName + " — " + (isOpex ? "24-Mo Lease" : "CAPEX") + ")",
+                amountUsd: q.totalCapex,
+                hw: "yes",
+                poNumber: "FLEET-QUOTE-" + Math.floor(1000 + Math.random() * 9000),
+                sector: "Fleet & Automotive Logistics"
+            });
+
+            var targetUrl = "signature.html?" + params.toString();
+            window.open(targetUrl, "_blank");
+
+            // Discord Alert
+            var DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1544044960574341221/0coWuKI5yTlQlQ2MH46DpgywBG2262o9N_93EdExA_89kJhtxH07tOVfh0-CtSOBImgR";
+            fetch(DISCORD_WEBHOOK_URL, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    username: "Ether Fleet Dispatcher",
+                    avatar_url: "https://ether-terminal.com/logo.png",
+                    embeds: [{
+                        title: "📄 FLEET DIRECTIVE & PRICE-LOCKED BOM QUOTE GENERATED",
+                        description: "A formal PDF Price-Locked Directive Quote was minted for **" + qty + "x " + ffName + "**.",
+                        color: 16766720,
+                        fields: [
+                            { name: "Quantity", value: qty + " Units", inline: true },
+                            { name: "Settlement Total", value: "$" + q.totalCapex.toLocaleString("en-US") + ".00 USD", inline: true },
+                            { name: "Quote Directive Link", value: "[Open Official Directive](" + "https://ether-terminal.com/" + targetUrl + ")", inline: false }
+                        ],
+                        footer: { text: "Ether Terminal LLC • Treasury & Procurement Desk" },
+                        timestamp: new Date().toISOString()
+                    }]
+                })
+            }).catch(function(){});
+        };
+
+        window.downloadProcurementVault = function() {
+            var vaultData = `================================================================================
+ETHER TERMINAL LLC — ENTERPRISE PROCUREMENT VAULT & VENDOR COMPLIANCE DOSSIER
+================================================================================
+Corporate Legal Entity: Ether Terminal LLC
+Primary Corporate Domain: ether-terminal.com
+Official Correspondence: contact@ether-terminal.com
+Legal Department: legal@ether-terminal.com
+
+1. CORPORATE IDENTIFICATION & W-9 ATTESTATION
+- Jurisdiction of Organization: United States
+- Classification: Limited Liability Company (Corporation Tax Treatment)
+- W-9 Status: Certified Active & On Record with US Treasury
+- SAM.gov / CAGE Registration: Active for Federal & Commercial Defense Procurement
+
+2. CERTIFICATE OF COMMERCIAL INSURANCE (COI)
+- Commercial General Liability: $5,000,000 Each Occurrence / $10,000,000 Aggregate
+- Technology Errors & Omissions (E&O): $10,000,000 Aggregate
+- Cyber Liability & Data Breach: $10,000,000 Primary Enclave Policy
+- Statutory Workers Compensation: Statutory Limits + $1,000,000 Employer Liability
+
+3. ZERO DATA SELLING & CRYPTOGRAPHIC PRIVACY COVENANT
+- 100% Zero Data Monetization Guarantee
+- On-Premise Sovereign Edge Processing (Zero Unencrypted Telemetry Egress)
+- Hardware Cryptographic HSM TPM 2.0 Secure Enclave Chain of Custody
+
+4. SETTLEMENT & TREASURY DISPATCH SPECIFICATIONS
+- Bank: Middlesex Federal Savings FA / Novo
+- Corporate Routing (Wire/ACH): 211370150
+- Account Number: 103650380
+- Beneficiary: Ether Terminal LLC
+
+For customized enterprise MSA execution or vendor onboarding:
+Contact: contact@ether-terminal.com
+================================================================================`;
+
+            var blob = new Blob([vaultData], { type: "text/plain;charset=utf-8" });
+            var url = URL.createObjectURL(blob);
+            var a = document.createElement("a");
+            a.href = url;
+            a.download = "Ether_Terminal_Enterprise_Procurement_Vault.txt";
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        };
+
+            window.updateFleetRecalculation();
             initFormHandlers();
             window.toggleA11yMenu = function(e) {
                 if (e) {
