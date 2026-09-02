@@ -8975,7 +8975,7 @@
                             if (response.ok || true) { // Graceful fallback
                                  if (form.id === 'demoForm') {
 
-                                    const DISCORD_WEBHOOK_URL = 'https://discord.com/api/webhooks/1544044960574341221/0coWuKI5yTlQlQ2MH46DpgywBG2262o9N_93EdExA_89kJhtxH07tOVfh0-CtSOBImgR';
+                                    // Discord webhook routed via secure serverless endpoint
                                     
                                     const directiveUrl = 'https://ether-terminal.com/signature.html?' + new URLSearchParams({
                                         company: company,
@@ -8996,7 +8996,7 @@
                                     }).toString();
 
                                     // Fire Discord Live Lead & Directive Alert
-                                    fetch(DISCORD_WEBHOOK_URL, {
+                                    fetch("/.netlify/functions/discord-notify", {
                                         method: 'POST',
                                         headers: { 'Content-Type': 'application/json' },
                                         body: JSON.stringify({
@@ -9127,7 +9127,7 @@
                                     `;
                                     modalContent.appendChild(credsDiv);
                                 } else {
-                                    const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1544044960574341221/0coWuKI5yTlQlQ2MH46DpgywBG2262o9N_93EdExA_89kJhtxH07tOVfh0-CtSOBImgR";
+                                    // Discord webhook routed via secure serverless endpoint
                                     const fieldsList = [];
                                     formData.forEach((val, key) => {
                                         if (!key.startsWith("_")) {
@@ -9139,7 +9139,7 @@
                                         }
                                     });
 
-                                    fetch(DISCORD_WEBHOOK_URL, {
+                                    fetch("/.netlify/functions/discord-notify", {
                                         method: "POST",
                                         headers: { "Content-Type": "application/json" },
                                         body: JSON.stringify({
@@ -9483,8 +9483,8 @@
             }
 
             // Fire Discord Lead Ping
-            var DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1544044960574341221/0coWuKI5yTlQlQ2MH46DpgywBG2262o9N_93EdExA_89kJhtxH07tOVfh0-CtSOBImgR";
-            fetch(DISCORD_WEBHOOK_URL, {
+            // Discord webhook routed via secure serverless endpoint
+            fetch("/.netlify/functions/discord-notify", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -9541,8 +9541,8 @@
             window.open(targetUrl, "_blank");
 
             // Discord Alert
-            var DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1544044960574341221/0coWuKI5yTlQlQ2MH46DpgywBG2262o9N_93EdExA_89kJhtxH07tOVfh0-CtSOBImgR";
-            fetch(DISCORD_WEBHOOK_URL, {
+            // Discord webhook routed via secure serverless endpoint
+            fetch("/.netlify/functions/discord-notify", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -9718,8 +9718,8 @@ Contact: contact@ether-terminal.com
             var company = (document.getElementById('attestCompany') || {}).value || 'Unknown';
             dismissAttestation();
 
-            const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1544044960574341221/0coWuKI5yTlQlQ2MH46DpgywBG2262o9N_93EdExA_89kJhtxH07tOVfh0-CtSOBImgR";
-            fetch(DISCORD_WEBHOOK_URL, {
+            // Discord webhook routed via secure serverless endpoint
+            fetch("/.netlify/functions/discord-notify", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
