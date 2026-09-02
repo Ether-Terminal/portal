@@ -3767,16 +3767,42 @@
                         Secure your slot for exclusive platform pilot deployment slots and private executive briefs.
                     </p>
                     <form id="contactForm" action="https://formspree.io/f/mykaadqv" method="POST">
-                        <div class="input-group">
-                            <label for="emailInput" class="sr-only" style="position:absolute; left:-10000px; top:auto; width:1px; height:1px; overflow:hidden;">Corporate email address</label>
-                            <input type="email" name="email" id="emailInput" placeholder="Enter corporate email address" required>
-                            <input type="text" name="_gotcha" style="display:none" tabindex="-1">
-                            <input type="hidden" name="_subject" value="New Request for Priority Node Access">
-                            <button type="submit" id="submitBtn">
-                                <span class="btn-text">Request Priority Node Access</span>
-                                <div class="spinner" id="btnSpinner" style="display: none;"></div>
-                            </button>
+                        <!-- Honeypot field: invisible to users, catches bots -->
+                        <input type="text" name="_gotcha" style="display:none">
+                        <input type="hidden" name="_subject" value="New Request for Sovereign Node Entry (pilot / general)">
+
+                        <!-- Required fields -->
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin-bottom: 14px; text-align: left;">
+                            <div class="form-group" style="margin-bottom: 0;">
+                                <label for="home-name">Name</label>
+                                <input type="text" name="name" id="home-name" placeholder="Name" required>
+                            </div>
+                            <div class="form-group" style="margin-bottom: 0;">
+                                <label for="home-company">Company</label>
+                                <input type="text" name="company" id="home-company" placeholder="Company" required>
+                            </div>
+                            <div class="form-group" style="margin-bottom: 0;">
+                                <label for="home-email">Email</label>
+                                <input type="email" name="email" id="home-email" placeholder="Email" required>
+                            </div>
+                            <div class="form-group" style="margin-bottom: 0;">
+                                <label for="home-project-type">Project Type</label>
+                                <select name="project_type" id="home-project-type">
+                                    <option value="pilot">pilot</option>
+                                    <option value="general">general</option>
+                                </select>
+                            </div>
                         </div>
+
+                        <div class="form-group" style="text-align: left; margin-bottom: 18px;">
+                            <label for="home-message">Message</label>
+                            <textarea name="message" id="home-message" rows="3" placeholder="Message"></textarea>
+                        </div>
+
+                        <button type="submit" id="submitBtn" style="width: 100%; max-width: 280px; margin: 0 auto; display: inline-flex; justify-content: center; align-items: center;">
+                            <span class="btn-text">Send</span>
+                            <div class="spinner" id="btnSpinner" style="display: none;"></div>
+                        </button>
                     </form>
                     <div id="formStatus" class="form-status"></div>
                 </section>
@@ -6420,34 +6446,41 @@
                         <h3>General Contact Request</h3>
                         <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 20px;">Guaranteed response in under 2 business hours.</p>
                         <form id="contactFormTab" action="https://formspree.io/f/mykaadqv" method="POST">
-                            <input type="hidden" name="_subject" value="New General Contact/Demo Inquiry">
+                            <!-- Honeypot field: invisible to users, catches bots -->
+                            <input type="text" name="_gotcha" style="display:none">
+                            <input type="hidden" name="_subject" value="New Project Inquiry (pilot / general)">
+
+                            <!-- Required fields -->
                             <div class="form-group">
-                                <label for="con-name">Full Name</label>
-                                <input type="text" name="name" id="con-name" required>
+                                <label for="con-name">Name</label>
+                                <input type="text" name="name" id="con-name" placeholder="Name" required>
                             </div>
+
                             <div class="form-group">
                                 <label for="con-company">Company</label>
-                                <input type="text" name="company" id="con-company" required>
+                                <input type="text" name="company" id="con-company" placeholder="Company" required>
                             </div>
+
                             <div class="form-group">
-                                <label for="con-email">Corporate Email</label>
-                                <input type="email" name="email" id="con-email" required>
+                                <label for="con-email">Email</label>
+                                <input type="email" name="email" id="con-email" placeholder="Email" required>
                             </div>
+
                             <div class="form-group">
-                                <label for="con-type">I am interested in</label>
+                                <label for="con-type">Project Type</label>
                                 <select name="project_type" id="con-type">
-                                    <option value="pilot">Private Node Pilot Program</option>
-                                    <option value="brief">Executive Briefing Session</option>
-                                    <option value="integration">Actuarial Integration SDK</option>
-                                    <option value="partnership">Partner Program Request</option>
+                                    <option value="pilot">pilot</option>
+                                    <option value="general">general</option>
                                 </select>
                             </div>
+
                             <div class="form-group">
                                 <label for="con-msg">Message</label>
-                                <textarea name="message" id="con-msg" rows="4" placeholder="Tell us briefly about your logistics infrastructure..." required></textarea>
+                                <textarea name="message" id="con-msg" rows="4" placeholder="Message"></textarea>
                             </div>
+
                             <button type="submit">
-                                <span class="btn-text">Send Transmission</span>
+                                <span class="btn-text">Send</span>
                                 <div class="spinner" style="display: none;"></div>
                             </button>
                         </form>
