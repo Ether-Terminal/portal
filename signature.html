@@ -238,6 +238,7 @@
             background: #ffffff;
             width: 100%;
             max-width: 860px;
+            margin: 0 auto;
             padding: 55px 55px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
             position: relative;
@@ -247,7 +248,7 @@
             outline-offset: -10px;
             transition: box-shadow 0.4s ease;
             box-sizing: border-box;
-            overflow-x: clip;
+            overflow: hidden;
         }
         .memorandum-sheet.pulse-glow {
             box-shadow: 0 0 40px rgba(0, 255, 127, 0.5);
@@ -410,27 +411,31 @@
         .countersignature-grid {
             margin-top: 30px;
             display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-            gap: 16px;
-            border-top: 1px solid rgba(184, 134, 11, 0.35);
-            padding-top: 20px;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 24px;
+            border-top: 1.5px solid rgba(184, 134, 11, 0.35);
+            padding-top: 24px;
             width: 100%;
+            max-width: 100%;
             box-sizing: border-box;
         }
         .countersig-card {
             background: #fafaf7;
-            border: 1px solid rgba(0, 34, 68, 0.15);
-            border-radius: 4px;
-            padding: 12px 14px;
+            border: 1px solid rgba(0, 34, 68, 0.18);
+            border-radius: 6px;
+            padding: 16px 18px;
             display: flex;
             flex-direction: column;
             position: relative;
-            flex: 1 1 320px;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
             min-width: 0;
-            max-width: 100%;
             box-sizing: border-box;
             overflow: hidden;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
         }
         .countersig-card.buyer-card {
             border-left: 4px solid #002244;
@@ -449,6 +454,10 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 6px;
+            width: 100%;
+            box-sizing: border-box;
         }
         .licensor-card .countersig-title {
             color: #b8860b;
@@ -592,10 +601,12 @@
         }
         .cursive-signature-text {
             font-family: 'Dancing Script', 'Alex Brush', cursive;
-            font-size: 2.2rem;
+            font-size: clamp(1.4rem, 5vw, 2.2rem);
             color: #001f3f;
             line-height: 1;
             transform: rotate(-1.5deg);
+            max-width: 100%;
+            text-align: center;
         }
         .sig-print-img {
             display: none;
@@ -610,7 +621,11 @@
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
+            flex-wrap: wrap;
+            gap: 4px;
             padding-bottom: 2px;
+            width: 100%;
+            box-sizing: border-box;
         }
         .licensor-card .sig-rule-line {
             border-bottom-color: #b8860b;
@@ -631,16 +646,19 @@
             color: #334155;
             line-height: 1.4;
             margin-top: 5px;
+            width: 100%;
+            box-sizing: border-box;
         }
         .sig-cred-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
             border-bottom: 1px dotted rgba(0,0,0,0.08);
             padding: 3px 0;
             width: 100%;
             box-sizing: border-box;
-            gap: 8px;
+            gap: 6px;
         }
         .sig-cred-label {
             color: #64748b;
@@ -652,10 +670,10 @@
             color: #0f172a;
             font-weight: 600;
             text-align: right;
-            max-width: 68%;
+            max-width: 100%;
             font-size: 0.72rem;
             line-height: 1.35;
-            word-break: break-all;
+            word-break: break-word;
             overflow-wrap: anywhere;
         }
         .sig-cred-val.mono {
@@ -667,6 +685,7 @@
             margin-top: 20px;
             display: flex;
             justify-content: center;
+            align-items: center;
             width: 100%;
             box-sizing: border-box;
         }
@@ -675,12 +694,12 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 14px;
+            gap: 12px;
             text-align: center;
             border: 2px double #b8860b;
-            padding: 9px 18px;
+            padding: 8px 14px;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.66rem;
+            font-size: 0.63rem;
             color: #b8860b;
             text-transform: uppercase;
             letter-spacing: 0.8px;
@@ -688,8 +707,11 @@
             line-height: 1.45;
             box-shadow: inset 0 0 10px rgba(184, 134, 11, 0.08);
             border-radius: 2px;
-            max-width: 100%;
+            max-width: 600px;
+            width: 100%;
+            margin: 0 auto;
             box-sizing: border-box;
+            flex-wrap: wrap;
         }
         .stamp-sigil {
             width: 36px;
@@ -793,6 +815,8 @@
             }
             .countersignature-grid {
                 flex-direction: column !important;
+                align-items: center !important;
+                justify-content: center !important;
                 gap: 16px !important;
                 margin-top: 20px !important;
                 padding-top: 16px !important;
@@ -800,8 +824,10 @@
             }
             .countersig-card {
                 width: 100% !important;
-                flex: 1 1 100% !important;
+                max-width: 100% !important;
+                margin: 0 auto !important;
                 box-sizing: border-box !important;
+                padding: 14px 12px !important;
             }
             .paid-stamp {
                 top: 140px;
@@ -810,6 +836,43 @@
                 letter-spacing: 1.5px;
                 padding: 4px 10px;
                 border-width: 2px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            body {
+                padding: 10px 4px !important;
+            }
+            .control-panel {
+                padding: 12px 10px !important;
+                margin-bottom: 12px !important;
+                border-radius: 6px !important;
+            }
+            .memorandum-sheet {
+                padding: 20px 8px !important;
+                outline-offset: -4px !important;
+                border-width: 2.5px !important;
+                margin: 0 auto !important;
+            }
+            .countersig-card {
+                padding: 10px 8px !important;
+            }
+            .sig-canvas-container {
+                height: 80px !important;
+            }
+            .letterhead-title {
+                font-size: 0.95rem !important;
+                letter-spacing: 1.5px !important;
+            }
+            .letterhead-subtitle {
+                font-size: 0.62rem !important;
+                letter-spacing: 1px !important;
+            }
+            .memo-label {
+                font-size: 0.75rem !important;
+            }
+            .memo-value {
+                font-size: 0.88rem !important;
             }
         }
 
@@ -1190,7 +1253,7 @@
                 </div>
 
                 <div class="cursive-sig-box" style="background:#ffffff; border:1px solid #cbd5e1; height:90px; display:flex; align-items:center; justify-content:center; padding:0 8px; overflow:hidden; box-sizing:border-box;">
-                    <span style="font-family:'Alex Brush', cursive; font-size:1.65rem; color:#002244; transform:rotate(-1.5deg); display:inline-block; max-width:100%; text-align:center; white-space:nowrap;">Executive Protocol Directorate</span>
+                    <span style="font-family:'Alex Brush', cursive; font-size:clamp(1.2rem, 4.5vw, 1.65rem); color:#002244; transform:rotate(-1.5deg); display:inline-block; max-width:100%; text-align:center;">Executive Protocol Directorate</span>
                 </div>
 
                 <div class="sig-rule-line">
