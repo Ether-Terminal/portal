@@ -377,6 +377,45 @@
             margin-bottom: 12px;
             color: #222;
         }
+        .spec-box {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.82rem;
+            background: #f8fafc;
+            padding: 14px 18px;
+            border-left: 3px solid #002244;
+            margin-bottom: 14px;
+            line-height: 1.65;
+            border-radius: 2px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .spec-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 6px;
+            padding: 3px 0;
+            border-bottom: 1px dotted rgba(0,0,0,0.06);
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .spec-row:last-child {
+            border-bottom: none;
+        }
+        .spec-label {
+            color: #64748b;
+            font-size: 0.72rem;
+            flex-shrink: 0;
+        }
+        .spec-val {
+            font-weight: 700;
+            color: #002244;
+            text-align: right;
+            word-break: break-word;
+            overflow-wrap: anywhere;
+            max-width: 100%;
+        }
         .treasury-box {
             border: 1.5px solid #002244;
             background: #f8fafc;
@@ -384,12 +423,21 @@
             margin: 16px 0;
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.82rem;
+            width: 100%;
+            box-sizing: border-box;
         }
         .treasury-row {
             display: flex;
             justify-content: space-between;
+            align-items: baseline;
             padding: 4px 0;
             border-bottom: 1px dotted #ccc;
+            flex-wrap: wrap;
+            gap: 6px;
+            word-break: break-word;
+            overflow-wrap: anywhere;
+            width: 100%;
+            box-sizing: border-box;
         }
         .treasury-row:last-child {
             border-bottom: none;
@@ -1144,14 +1192,14 @@
         <p class="directive-text" id="docAuthText">
             Pursuant to the institutional procurement dossier received from <b id="docAuthCompany">the enterprise entity</b>, the Office of Sovereign Protocol Operations has formally authenticated and minted the sovereign credentials for your node deployment.
         </p>
-        <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; background: #f8fafc; padding: 14px 18px; border-left: 3px solid #002244; margin-bottom: 14px; line-height: 1.65; border-radius: 2px;">
-            <div style="display:flex; justify-content:space-between;"><span style="color:#666;">OPERATOR ID:</span> <span style="font-weight:700; color:#002244;" id="docOpId">OP-ETH-4912</span></div>
-            <div style="display:flex; justify-content:space-between;"><span style="color:#666;">LICENSE KEY:</span> <span style="font-weight:700; color:#002244;" id="docLicenseKey">LIC-ET-LOCKHE-7F83B165-SEALED</span></div>
-            <div style="display:flex; justify-content:space-between;"><span style="color:#666;">DEPLOYMENT TIER:</span> <span style="font-weight:700; color:#002244;" id="docTier">Tier 2 Command Cluster — Annual ($185,000)</span></div>
-            <div style="display:flex; justify-content:space-between;"><span style="color:#666;">SECTOR / SCALE:</span> <span style="font-weight:700; color:#002244;">Command Nodes (Enterprise Scale)</span></div>
-            <div style="display:flex; justify-content:space-between;"><span style="color:#666;">ENVIRONMENT:</span> <span style="font-weight:700; color:#002244;">Air-Gapped Local Hardware HSM (Plug &amp; Play)</span></div>
-            <div style="display:flex; justify-content:space-between;"><span style="color:#666;">SETTLEMENT METHOD:</span> <span style="font-weight:700; color:#002244;">Direct Corporate Fedwire (Novo / Middlesex)</span></div>
-            <div style="display:flex; justify-content:space-between;"><span style="color:#666;">TARGET TIMELINE:</span> <span style="font-weight:700; color:#002244;">Immediate (&lt; 48 Hours Priority Queue)</span></div>
+        <div class="spec-box">
+            <div class="spec-row"><span class="spec-label">OPERATOR ID:</span> <span class="spec-val" id="docOpId">OP-ETH-4912</span></div>
+            <div class="spec-row"><span class="spec-label">LICENSE KEY:</span> <span class="spec-val" id="docLicenseKey">LIC-ET-LOCKHE-7F83B165-SEALED</span></div>
+            <div class="spec-row"><span class="spec-label">DEPLOYMENT TIER:</span> <span class="spec-val" id="docTier">Tier 2 Command Cluster — Annual ($185,000)</span></div>
+            <div class="spec-row"><span class="spec-label">SECTOR / SCALE:</span> <span class="spec-val">Command Nodes (Enterprise Scale)</span></div>
+            <div class="spec-row"><span class="spec-label">ENVIRONMENT:</span> <span class="spec-val">Air-Gapped Local Hardware HSM (Plug &amp; Play)</span></div>
+            <div class="spec-row"><span class="spec-label">SETTLEMENT METHOD:</span> <span class="spec-val">Direct Corporate Fedwire (Novo / Middlesex)</span></div>
+            <div class="spec-row"><span class="spec-label">TARGET TIMELINE:</span> <span class="spec-val">Immediate (&lt; 48 Hours Priority Queue)</span></div>
         </div>
 
         <h2 class="section-heading">II. TREASURY SPECIFICATIONS &amp; VENDOR COMPLIANCE</h2>
