@@ -4939,6 +4939,7 @@
                         <button type="button" class="filter-btn pricing-filter-btn" data-pricing-sector="standard" onclick="setPricingSector('standard')">Standard Lines</button>
                         <button type="button" class="filter-btn pricing-filter-btn" data-pricing-sector="wholesale" onclick="setPricingSector('wholesale')">Wholesale Enterprise</button>
                         <button type="button" class="filter-btn pricing-filter-btn" data-pricing-sector="fleet" onclick="switchTab('fleet')">Fleet &amp; Volume</button>
+                        <button type="button" class="filter-btn pricing-filter-btn" data-pricing-sector="pilot" onclick="setPricingSector('pilot')" style="color:#00f0ff; border-color:rgba(0,240,255,0.45); font-weight:800;">🛰️ Pilot Program ($1k–$2k)</button>
                     </div>
 
                     <div class="billing-toggle-wrap" id="billingToggleWrap">
@@ -7529,6 +7530,7 @@
                         <div class="form-group">
                             <label for="demo-sector">Target Industry Sector *</label>
                             <select name="sector" id="demo-sector" class="modal-input-field">
+                                <option value="Sovereign Cloud Pilot ($1k–$2k)">🛰️ Sovereign Cloud Pilot Evaluation ($1k–$2k)</option>
                                 <option value="Command Nodes">⚙ Command Nodes (Tier 1 Architecture)</option>
                                 <option value="Aviation & Aerospace">✈ Aviation & Aerospace Fleet</option>
                                 <option value="Automotive Fleet">🚗 Autonomous Automotive & Telematics</option>
@@ -7540,7 +7542,8 @@
                         <div class="form-group">
                             <label for="demo-scale">Node Deployment Scale *</label>
                             <select name="fleet_scale" id="demo-scale" class="modal-input-field">
-                                <option value="< 1,000 Units (Pilot Program)">&lt; 1,000 Units (Pilot Program)</option>
+                                <option value="30-Day Cloud Pilot ($1,000 – $2,000 Non-Refundable)">🛰️ 30-Day Cloud Pilot ($1,000 – $2,000 Non-Refundable)</option>
+                                <option value="< 1,000 Units (Production Rollout)">&lt; 1,000 Units (Production Rollout)</option>
                                 <option value="1,000 – 10,000 Units (Regional Fleet)">1,000 – 10,000 Units (Regional Fleet)</option>
                                 <option value="10,000 – 100,000 Units (Enterprise Scale)">10,000 – 100,000 Units (Enterprise Scale)</option>
                                 <option value="100,000+ Units (Global Sovereign)">100,000+ Units (Global Sovereign)</option>
@@ -8639,9 +8642,66 @@
 
             let currentPricingSector = 'command';
             let billingIsAnnual = true;
-            const CAPEX_SECTORS = ['command'];
+            const CAPEX_SECTORS = ['command', 'pilot'];
 
             const PRICING_DATA = {
+                pilot: [
+                    {
+                        class: "basic",
+                        title: "Node Observer",
+                        desc: "Interactive web telemetry sandbox, mock claims stream, read-only actuarial risk scoring, zero install.",
+                        capex: true,
+                        capexPrice: 0,
+                        slaPrice: 0,
+                        topTag: "FREE SANDBOX",
+                        features: [
+                            "Interactive web telemetry sandbox (14-day pass)",
+                            "Pre-loaded synthetic claims & telematics stream",
+                            "Read-only actuarial fraud risk scoring engine",
+                            "Zero software installation required"
+                        ],
+                        btnText: "Access Free Sandbox",
+                        btnClass: "basic-btn"
+                    },
+                    {
+                        class: "pro",
+                        title: "Node Operator (Core Pilot)",
+                        desc: "Full downloadable Ether OS evaluation image, local biometric authentication layer, FNOL claims engine, 30-day hardware-locked key.",
+                        capex: true,
+                        capexPrice: 1000,
+                        slaPrice: 0,
+                        recommended: true,
+                        topTag: "RECOMMENDED PILOT",
+                        features: [
+                            "Downloadable Ether OS evaluation image (.DMG / Container)",
+                            "Local biometric vascular authentication sandbox",
+                            "Sub-1s First Notice of Loss (FNOL) claims engine",
+                            "CAN bus & OBD-II telematics schema ingestion",
+                            "Non-refundable 30-day evaluation access"
+                        ],
+                        btnText: "Start Core Pilot ($1,000)",
+                        btnClass: "pro-btn"
+                    },
+                    {
+                        class: "premium",
+                        title: "Sovereign Enclave (Enterprise)",
+                        desc: "Dedicated white-glove engineering lead, custom claims rules integration, priority production hardware queue, multi-tenant license.",
+                        capex: true,
+                        capexPrice: 2000,
+                        slaPrice: 0,
+                        instapay: true,
+                        topTag: "ENTERPRISE PILOT",
+                        features: [
+                            "Dedicated white-glove integration engineer",
+                            "Custom claims heuristics & actuarial rules engine",
+                            "Multi-tenant virtual enclave licensing",
+                            "Priority queue for physical Ether Box rollout",
+                            "Non-refundable enterprise evaluation access"
+                        ],
+                        btnText: "Start Enterprise Pilot ($2,000)",
+                        btnClass: "premium-btn"
+                    }
+                ],
                 aviation: [
                     {
                         class: 'basic',
@@ -9036,21 +9096,22 @@
                 ],
                 command: [
                     {
-                        class: 'basic',
-                        title: 'Proof of Concept Node',
-                        desc: '90-day evaluation appliance. Fully refundable as credit toward Tier 1 purchase. No commitment required.',
+                        class: "basic",
+                        title: "30-Day Cloud Pilot Node",
+                        desc: "Cloud-delivered 30-day evaluation node. Non-refundable access deposit. Test sub-1s biometric authentication, claims replay, and local air-gapped logic with zero hardware wait.",
                         capex: true,
-                        capexPrice: 4500,
+                        capexPrice: 1000,
                         slaPrice: 0,
+                        topTag: "30-DAY PILOT EVALUATION",
                         features: [
-                            'Dedicated Ether Sovereign Appliance — pre-hardened, air-gap ready',
-                            'Ether OS provisioned in native Rust — runs on Windows, macOS, iOS & Android',
-                            '2 executive biometric profile enrollments',
-                            '1 treasury account Plaid integration',
-                            '100% refundable as Tier 1 purchase credit'
+                            "Full downloadable Ether OS evaluation image (.DMG / Container)",
+                            "Sub-1s biometric vascular authentication layer",
+                            "Real-time First Notice of Loss (FNOL) claims replay",
+                            "Local air-gapped execution (0.00 KB cloud telemetry egress)",
+                            "Signed 30-day cryptographic operator license key"
                         ],
-                        btnText: 'Start Evaluation',
-                        btnClass: 'basic-btn'
+                        btnText: "Start Pilot Evaluation ($1,000)",
+                        btnClass: "basic-btn"
                     },
                     {
                         class: 'pro',
@@ -9154,7 +9215,8 @@
                         'auto': 'Automotive Fleet',
                         'home': 'Smart Property & Casualty',
                         'standard': 'Standard Commercial Lines',
-                        'wholesale': 'Wholesale Sovereign Enterprise'
+                        'wholesale': 'Wholesale Sovereign Enterprise',
+                        'pilot': 'Sovereign Cloud Pilot ($1k–$2k)'
                     };
                     if (sectorMap[currentPricingSector]) {
                         sectorSelect.value = sectorMap[currentPricingSector];
