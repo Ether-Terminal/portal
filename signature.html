@@ -584,10 +584,10 @@
         .sig-canvas-container {
             position: relative;
             width: 100%;
-            height: 90px;
+            height: 270px;
             background: #ffffff;
-            border: 1px dashed #94a3b8;
-            border-radius: 3px;
+            border: 2px dashed #94a3b8;
+            border-radius: 4px;
             cursor: crosshair;
             overflow: hidden;
             touch-action: none;
@@ -628,7 +628,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 0.75rem;
+            font-size: 0.92rem;
             font-style: italic;
             color: #94a3b8;
             pointer-events: none;
@@ -638,20 +638,22 @@
         }
         .cursive-sig-box {
             width: 100%;
-            height: 90px;
+            height: 270px;
             background: #ffffff;
             border: 1px solid #cbd5e1;
-            border-radius: 3px;
+            border-radius: 4px;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 0 10px;
+            padding: 0 14px;
+            overflow: hidden;
+            box-sizing: border-box;
         }
         .cursive-signature-text {
             font-family: 'Dancing Script', 'Alex Brush', cursive;
-            font-size: clamp(1.4rem, 5vw, 2.2rem);
+            font-size: clamp(2.2rem, 7vw, 3.4rem);
             color: #001f3f;
-            line-height: 1;
+            line-height: 1.1;
             transform: rotate(-1.5deg);
             max-width: 100%;
             text-align: center;
@@ -659,7 +661,7 @@
         .sig-print-img {
             display: none;
             width: 100%;
-            height: 85px;
+            height: 250px;
             object-fit: contain;
         }
         .sig-rule-line {
@@ -906,7 +908,13 @@
                 padding: 10px 8px !important;
             }
             .sig-canvas-container {
-                height: 80px !important;
+                height: 250px !important;
+            }
+            .cursive-sig-box {
+                height: 250px !important;
+            }
+            .sig-print-img {
+                height: 230px !important;
             }
             .letterhead-title {
                 font-size: 0.95rem !important;
@@ -1251,9 +1259,9 @@
 
                 <!-- Drawing Canvas & Cursive Preview Container -->
                 <div id="canvasWrapper" class="sig-canvas-container">
-                    <canvas id="buyerSigCanvas" width="720" height="180"></canvas>
+                    <canvas id="buyerSigCanvas" width="900" height="540"></canvas>
                     <div id="canvasHint" class="canvas-hint">Sign with finger, stylus, or mouse here</div>
-                    <img id="buyerSigImg" class="sig-print-img" alt="Executive Signature" style="display:none; width:100%; height:85px; object-fit:contain; padding:4px;">
+                    <img id="buyerSigImg" class="sig-print-img" alt="Executive Signature" style="display:none; width:100%; height:250px; object-fit:contain; padding:4px;">
                 </div>
 
                 <div id="cursiveWrapper" class="cursive-sig-box" style="display: none;">
@@ -1300,8 +1308,8 @@
                     <span style="font-family:'JetBrains Mono',monospace; font-size:0.68rem; color:#b8860b; font-weight:600; padding:3px 0;">SOVEREIGN PROTOCOL ENCLAVE</span>
                 </div>
 
-                <div class="cursive-sig-box" style="background:#ffffff; border:1px solid #cbd5e1; height:90px; display:flex; align-items:center; justify-content:center; padding:0 8px; overflow:hidden; box-sizing:border-box;">
-                    <span style="font-family:'Alex Brush', cursive; font-size:clamp(1.2rem, 4.5vw, 1.65rem); color:#002244; transform:rotate(-1.5deg); display:inline-block; max-width:100%; text-align:center;">Executive Protocol Directorate</span>
+                <div class="cursive-sig-box" style="background:#ffffff; border:1px solid #cbd5e1; height:160px; display:flex; align-items:center; justify-content:center; padding:0 10px; overflow:hidden; box-sizing:border-box;">
+                    <span style="font-family:'Alex Brush', cursive; font-size:clamp(1.8rem, 6vw, 2.6rem); color:#002244; transform:rotate(-1.5deg); display:inline-block; max-width:100%; text-align:center;">Executive Protocol Directorate</span>
                 </div>
 
                 <div class="sig-rule-line">
@@ -1385,7 +1393,7 @@
             if (!sigCanvas) return;
             sigCtx = sigCanvas.getContext("2d");
 
-            sigCtx.lineWidth = 3.5;
+            sigCtx.lineWidth = 4.5;
             sigCtx.lineCap = "round";
             sigCtx.lineJoin = "round";
             sigCtx.strokeStyle = "#001a33";
