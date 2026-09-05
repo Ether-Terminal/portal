@@ -533,6 +533,25 @@
         }
 
         @media print {
+            body.dossier-incomplete .memorandum-sheet {
+                display: none !important;
+            }
+            body.dossier-incomplete::after {
+                content: "⚠️ RESTRICTED // PRINTING BLOCKED: Mandatory procurement dossier entries marked with a red star (*) are incomplete. This Presidential Memorandum cannot be printed, exported, or wire-cleared until all required corporate details are ratified.";
+                display: block !important;
+                padding: 40px !important;
+                font-family: 'JetBrains Mono', monospace !important;
+                font-size: 15pt !important;
+                font-weight: 700 !important;
+                color: #c53030 !important;
+                background: #fff5f5 !important;
+                border: 4px dashed #e53e3e !important;
+                border-radius: 8px !important;
+                text-align: center !important;
+                margin: 50px auto !important;
+                max-width: 650px !important;
+                line-height: 1.6 !important;
+            }
             body { background: #fff !important; padding: 0 !important; margin: 0 !important; }
             .control-panel { display: none !important; }
             .memorandum-sheet {
@@ -890,6 +909,27 @@
             window.print();
         }
 
+        // Intercept native browser shortcuts (Cmd+P / Ctrl+P)
+        window.addEventListener("keydown", function(e) {
+            if ((e.metaKey || e.ctrlKey) && (e.key === "p" || e.keyCode === 80)) {
+                var missing = validateAllStarred();
+                if (missing.length > 0) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    attemptPrint();
+                    return false;
+                }
+            }
+        });
+
+        // Intercept native print dialog if invoked via browser menu
+        window.addEventListener("beforeprint", function(e) {
+            var missing = validateAllStarred();
+            if (missing.length > 0) {
+                highlightMissing(missing);
+            }
+        });
+
         function attemptRemint() {
             var missing = validateAllStarred();
             if (missing.length > 0) {
@@ -1018,6 +1058,7 @@
             if (document.getElementById("docDate")) document.getElementById("docDate").textContent = currentDate;
 
             if (!isComplete) {
+                document.body.classList.add("dossier-incomplete");
                 if (warnBanner) {
                     warnBanner.classList.add("active");
                     warnBanner.innerHTML = "<span>⚠️</span> <span><b>MANDATORY DOSSIER INCOMPLETE (" + missing.length + " STARRED ENTRIES MISSING):</b> Complete all starred (*) fields and ratify covenant above to unlock official Fedwire credentials.</span>";
@@ -1049,6 +1090,7 @@
                 if (document.getElementById("docAccountNum")) document.getElementById("docAccountNum").innerHTML = "<span style='color:#ef4444; font-weight:700;'>••••••••• (LOCKED UNTIL STARRED ENTRIES RATIFIED)</span>";
                 if (document.getElementById("docRoutingNum")) document.getElementById("docRoutingNum").innerHTML = "<span style='color:#ef4444; font-weight:700;'>•••••••••</span>";
             } else {
+                document.body.classList.remove("dossier-incomplete");
                 if (warnBanner) warnBanner.classList.remove("active");
                 if (memoNotice) memoNotice.style.display = "none";
                 if (indicator) {
