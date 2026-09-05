@@ -4689,8 +4689,8 @@
                         <div class="pilot-kpi-pill">
                             <span class="pilot-kpi-icon">🛡️</span>
                             <div class="pilot-kpi-text">
-                                <span class="pilot-kpi-title">100% Creditable</span>
-                                <span class="pilot-kpi-sub">Applies to Ether Box Rollout</span>
+                                <span class="pilot-kpi-title">Non-Refundable</span>
+                                <span class="pilot-kpi-sub">Direct Evaluation Deposit</span>
                             </div>
                         </div>
                     </div>
@@ -4728,12 +4728,12 @@
                                     <div>
                                         <span class="pilot-tier-badge-pill" style="background:rgba(0,240,255,0.2); color:#00f0ff; border:1px solid #00f0ff;">RECOMMENDED</span>
                                         <div class="pilot-tier-name">Node Operator</div>
-                                        <div class="pilot-tier-fee">$500 <small>Deposit</small></div>
+                                        <div class="pilot-tier-fee">$1,000 <small>Deposit</small></div>
                                         <div class="pilot-tier-desc">
                                             Full downloadable Ether OS evaluation image, local biometric authentication layer, FNOL claims engine, 30-day hardware-locked key.
                                         </div>
                                     </div>
-                                    <span style="font-size:0.75rem; color:#00ff7f; font-family:monospace; font-weight:700;">• 100% Creditable Deposit</span>
+                                    <span style="font-size:0.75rem; color:#00ff7f; font-family:monospace; font-weight:700;">• Non-Refundable Access Deposit</span>
                                 </div>
 
                                 <!-- Tier 3: Sovereign Enclave -->
@@ -4746,7 +4746,7 @@
                                             Dedicated white-glove engineering lead, custom claims rules integration, priority production hardware queue, multi-tenant license.
                                         </div>
                                     </div>
-                                    <span style="font-size:0.75rem; color:#ffaa00; font-family:monospace; font-weight:700;">• Priority Hardware Queue</span>
+                                    <span style="font-size:0.75rem; color:#ffaa00; font-family:monospace; font-weight:700;">• Non-Refundable Enterprise Access</span>
                                 </div>
                             </div>
                         </div>
@@ -4801,7 +4801,7 @@
                                     <span class="pilot-phase-num">DAYS 26–30</span>
                                     <div class="pilot-phase-content">
                                         <h4>Phase 4: Executive Proof-of-Value & Production Transition</h4>
-                                        <p>Generate certified audit dossier for underwriting leadership and transition evaluation credit toward permanent physical Ether Box hardware.</p>
+                                        <p>Generate certified audit dossier for underwriting leadership and order permanent physical Turnkey Ether Box hardware for fleet rollout.</p>
                                     </div>
                                 </div>
                             </div>
@@ -4845,14 +4845,14 @@
 
                             <div class="pilot-total-deposit">
                                 <span>Evaluation Deposit:</span>
-                                <span id="dispPilotDeposit">$500.00 USD</span>
+                                <span id="dispPilotDeposit">$1,000.00 USD</span>
                             </div>
                             <div style="font-size:0.7rem; color:#64748b; margin-top:4px; text-align:right;" id="dispPilotDepositNote">
-                                100% creditable toward production hardware rollout
+                                Non-refundable evaluation access deposit
                             </div>
 
                             <div class="pilot-hardware-bridge">
-                                <b>📦 Production Hardware Upgrade Path:</b> Once evaluation passes, your deposit applies 1:1 toward Turnkey Dual-Drive Ether Boxes ($2,000/unit) with 4TB Samsung 990 PRO NVMe and Thunderbolt 4 heatsink enclosures.
+                                <b>📦 Production Hardware Rollout:</b> Once 30-day evaluation is completed, physical Turnkey Dual-Drive Ether Boxes ($2,000/unit) with 4TB Samsung 990 PRO NVMe and Thunderbolt 4 heatsink enclosures are provisioned directly on-demand.
                             </div>
                         </div>
 
@@ -4870,7 +4870,7 @@
                                 <input type="hidden" name="project_type" value="pilot">
                                 <input type="hidden" name="selected_tier" id="pilotFormTier" value="Node Operator (Core Pilot)">
                                 <input type="hidden" name="selected_sector" id="pilotFormSector" value="Auto Claims & Telematics">
-                                <input type="hidden" name="deposit_amount" id="pilotFormDeposit" value="$500.00 USD (100% Creditable)">
+                                <input type="hidden" name="deposit_amount" id="pilotFormDeposit" value="$1,000.00 USD (Non-Refundable)">
 
                                 <div class="form-group">
                                     <label for="pilot-name">Full Name</label>
@@ -10310,17 +10310,17 @@ Contact: contact@ether-terminal.com
                 if (nameEl) nameEl.textContent = "Sovereign Enclave (Enterprise)";
                 if (termEl) { termEl.textContent = "ENTERPRISE PASS"; termEl.style.color = "#ffaa00"; termEl.style.borderColor = "#ffaa00"; }
                 if (depEl) depEl.textContent = "$2,000.00 USD";
-                if (depNoteEl) depNoteEl.textContent = "100% creditable toward production hardware rollout";
+                if (depNoteEl) depNoteEl.textContent = "Non-refundable enterprise evaluation access deposit";
                 if (tierInput) tierInput.value = "Sovereign Enclave (Enterprise)";
-                if (depInput) depInput.value = "$2,000.00 USD (100% Creditable)";
+                if (depInput) depInput.value = "$2,000.00 USD (Non-Refundable)";
             } else {
                 if (cardOp) cardOp.classList.add("active");
                 if (nameEl) nameEl.textContent = "Node Operator (Core Pilot)";
                 if (termEl) { termEl.textContent = "30-DAY CLOUD PASS"; termEl.style.color = "#00ff7f"; termEl.style.borderColor = "#00ff7f"; }
-                if (depEl) depEl.textContent = "$500.00 USD";
-                if (depNoteEl) depNoteEl.textContent = "100% creditable toward production hardware rollout";
+                if (depEl) depEl.textContent = "$1,000.00 USD";
+                if (depNoteEl) depNoteEl.textContent = "Non-refundable evaluation access deposit";
                 if (tierInput) tierInput.value = "Node Operator (Core Pilot)";
-                if (depInput) depInput.value = "$500.00 USD (100% Creditable)";
+                if (depInput) depInput.value = "$1,000.00 USD (Non-Refundable)";
             }
         };
 
