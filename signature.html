@@ -1901,7 +1901,9 @@ window.location.href;
             if (!cleanCo) cleanCo = "PENDING";
 
             var opId = "OP-ETH-" + currentOpNum;
-            var licenseKey = "LIC-ET-" + cleanCo + "-" + currentHex + "-SEALED";
+            var isPilotTier = tier.toLowerCase().indexOf("pilot") !== -1 || tier.toLowerCase().indexOf("evaluation") !== -1;
+            var keyPrefix = isPilotTier ? "LIC-ET-PILOT-" : "LIC-ET-";
+            var licenseKey = keyPrefix + cleanCo + "-" + currentHex + "-SEALED";
             var memoCode = "ET-" + cleanCo + "-WIRE";
 
             var currentDate = new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });

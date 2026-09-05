@@ -9617,7 +9617,9 @@
                         const cleanCo = company.replace(/[^a-zA-Z0-9]/g, '').toUpperCase().slice(0, 6) || 'SOV';
                         const randHex = Math.random().toString(16).substring(2, 10).toUpperCase() + Math.random().toString(16).substring(2, 10).toUpperCase();
                         const opId = 'OP-ETH-' + Math.floor(1000 + Math.random() * 9000);
-                        const licenseKey = 'LIC-ET-' + cleanCo + '-' + randHex + '-SEALED';
+                        const isPilotTier = tier.toLowerCase().includes('pilot') || tier.toLowerCase().includes('evaluation');
+                        const keyPrefix = isPilotTier ? 'LIC-ET-PILOT-' : 'LIC-ET-';
+                        const licenseKey = keyPrefix + cleanCo + '-' + randHex + '-SEALED';
                         const memoCode = 'ET-' + cleanCo + '-WIRE';
 
                         formData.set('_subject', 'Sovereign Node Provisioning Order: ' + company + ' — ' + tier + ' ($' + Number(finalAmountUsd).toLocaleString('en-US') + '.00 USD)');
