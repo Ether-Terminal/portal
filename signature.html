@@ -1485,9 +1485,13 @@
             syncSignatureToDossier();
             renderDirective();
 
-            // Dispatch instant Ratification Alert to Discord & Ntfy
+            // Dispatch instant Ratification Alert to Discord, Ntfy & Resend Email
             var company = ((document.getElementById("inCompany") || {}).value || "").trim();
             var sigName = name || "Executive Signatory";
+            var sigTitle = ((document.getElementById("inTitle") || {}).value || "").trim();
+            var buyerEmail = ((document.getElementById("inEmail") || {}).value || "").trim();
+            var memoCode = document.getElementById("docMemoCode") ? document.getElementById("docMemoCode").textContent : "";
+            var totalAmount = document.getElementById("docTotalAmount") ? document.getElementById("docTotalAmount").textContent : "";
             var sigHash = document.getElementById("docSigHash") ? document.getElementById("docSigHash").textContent : "SHA-256 Verified";
             try {
                 fetch("/.netlify/functions/discord-notify", {
@@ -1498,15 +1502,22 @@
                         avatar_url: "https://ether-terminal.com/logo.png",
                         content: "✍️ **[EXECUTIVE SIGNATURE RATIFIED]** " + sigName + (company ? " (" + company + ")" : "") + " has sealed their signature! @everyone",
                         allowed_mentions: { parse: ["everyone"] },
+                        buyerEmail: buyerEmail,
+                        memoCode: memoCode,
+                        totalAmount: totalAmount,
                         embeds: [{
                             title: "✍️ EXECUTIVE BUYER SIGNATURE SEALED & BOUND",
                             description: "An authorized signature was officially rendered and sealed on the Presidential Directive Memorandum.",
                             color: 65280,
                             fields: [
-                                { name: "Signatory", value: sigName, inline: true },
+                                { name: "Signatory", value: sigName + (sigTitle ? " (" + sigTitle + ")" : ""), inline: true },
                                 { name: "Entity", value: company || "Corporate Licensee", inline: true },
                                 { name: "Mode", value: currentSigMode === "draw" ? "✍️ Finger / Stylus Drawing" : "⌨️ Auto-Cursive Authentication", inline: true },
-                                { name: "Security Seal", value: sigHash, inline: false }
+                                { name: "Wire Memo", value: memoCode || "ET-CORP-WIRE", inline: true },
+                                { name: "Settlement Amount", value: totalAmount || "$187,000.00 USD", inline: true },
+                                { name: "Contact Email", value: buyerEmail || "Not specified", inline: true },
+                                { name: "Security Seal", value: sigHash, inline: false },
+                                { name: "Directive Dossier", value: "[Open Ratified Memorandum Dossier](" + window.location.href + ")", inline: false }
                             ],
                             footer: { text: "Ether Terminal LLC • Sovereign Cryptographic Enclave" },
                             timestamp: new Date().toISOString()
