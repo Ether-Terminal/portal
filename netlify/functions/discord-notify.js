@@ -55,7 +55,7 @@ function postNtfy(topic, title, message, actionUrl) {
 
             const headers = {
                 "Title": safeTitle || "Ether Terminal Alert",
-                "Priority": "high",
+                "Priority": "urgent",
                 "Tags": "zap,briefcase,dollar",
                 "Content-Length": data.length,
                 "User-Agent": "Ether-Terminal-Relay/1.0"
