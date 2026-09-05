@@ -480,6 +480,26 @@
             border-color: #ef4444;
             color: #ef4444;
         }
+        .sig-done-btn {
+            background: #002244;
+            color: #d4af37;
+            border: 1.5px solid #b8860b;
+            font-weight: 700;
+            padding: 3px 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .sig-done-btn:hover {
+            background: #003366;
+            color: #ffffff;
+            border-color: #d4af37;
+        }
+        .sig-done-btn.done-locked {
+            background: #059669 !important;
+            border-color: #047857 !important;
+            color: #ffffff !important;
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
+        }
         .sig-canvas-container {
             position: relative;
             width: 100%;
@@ -491,9 +511,27 @@
             overflow: hidden;
             touch-action: none;
         }
+        .sig-canvas-container:hover {
+            border-color: #002244;
+            background: #f8fafc;
+        }
         .sig-canvas-container.field-invalid {
             border-color: #ef4444 !important;
             box-shadow: 0 0 10px rgba(239, 68, 68, 0.4) !important;
+        }
+        .canvas-empty-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2px;
+            color: #64748b;
+            text-align: center;
+            user-select: none;
+            padding: 6px;
+        }
+        .sig-canvas-container:hover .canvas-empty-placeholder {
+            color: #002244;
         }
         #buyerSigCanvas {
             position: absolute;
@@ -538,7 +576,7 @@
         .sig-print-img {
             display: none;
             width: 100%;
-            height: 90px;
+            height: 85px;
             object-fit: contain;
         }
         .sig-rule-line {
@@ -585,20 +623,30 @@
             color: #0f172a;
             font-weight: 600;
             text-align: right;
-            max-width: 65%;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
+            max-width: 68%;
+            font-size: 0.72rem;
+            line-height: 1.35;
+        }
+        .sig-cred-val.mono {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.68rem;
+        }
+
+        .countersignature-seal-wrapper {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            width: 100%;
         }
 
         .cryptographic-seal-stamp {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 14px;
+            gap: 16px;
             text-align: center;
             border: 2px double #b8860b;
-            padding: 8px 16px;
+            padding: 10px 24px;
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.68rem;
             color: #b8860b;
@@ -607,6 +655,7 @@
             background: #fafaf5;
             line-height: 1.5;
             box-shadow: inset 0 0 10px rgba(184, 134, 11, 0.08);
+            border-radius: 2px;
         }
         .stamp-sigil {
             width: 36px;
@@ -707,6 +756,16 @@
             .stamp-sigil {
                 width: 28px;
                 height: 28px;
+            }
+            .countersignature-grid {
+                grid-template-columns: 1fr !important;
+                gap: 16px !important;
+                margin-top: 25px !important;
+                padding-top: 16px !important;
+            }
+            .countersig-card {
+                width: 100% !important;
+                box-sizing: border-box !important;
             }
             .paid-stamp {
                 top: 140px;
@@ -1039,14 +1098,15 @@
                 <div class="sig-mode-bar no-print">
                     <button type="button" class="sig-mode-btn active" id="btnModeDraw" onclick="setSigMode('draw')">✍️ Finger / Stylus</button>
                     <button type="button" class="sig-mode-btn" id="btnModeType" onclick="setSigMode('type')">⌨️ Auto-Cursive</button>
-                    <button type="button" class="sig-clear-btn" onclick="clearSigCanvas()">↺ Clear</button>
+                    <button type="button" class="sig-mode-btn sig-done-btn" id="btnSigDone" onclick="onDoneClicked()">✓ Done</button>
+                    <button type="button" class="sig-clear-btn" id="btnSigClear" onclick="clearSigCanvas()">↺ Clear</button>
                 </div>
 
                 <!-- Drawing Canvas & Cursive Preview Container -->
                 <div id="canvasWrapper" class="sig-canvas-container">
                     <canvas id="buyerSigCanvas" width="720" height="180"></canvas>
                     <div id="canvasHint" class="canvas-hint">Sign with finger, stylus, or mouse here</div>
-                    <img id="buyerSigImg" class="sig-print-img" alt="Executive Signature">
+                    <img id="buyerSigImg" class="sig-print-img" alt="Executive Signature" style="display:none; width:100%; height:85px; object-fit:contain; padding:4px;">
                 </div>
 
                 <div id="cursiveWrapper" class="cursive-sig-box" style="display: none;">
@@ -1084,10 +1144,17 @@
 
             <!-- Right Side: Licensor / Ether Terminal LLC Protocol Operations -->
             <div class="countersig-card licensor-card">
-                <div class="countersig-title">ISSUED &amp; COUNTERSIGNED BY LICENSOR</div>
+                <div class="countersig-title">
+                    <span>ISSUED &amp; COUNTERSIGNED BY LICENSOR</span>
+                    <span style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; color:#10b981; font-weight:700;">● OFFICIAL</span>
+                </div>
 
-                <div class="cursive-sig-box" style="background:transparent; border:none; height:90px; justify-content:flex-start;">
-                    <span style="font-family:'Alex Brush', cursive; font-size:2.4rem; color:#002244; transform:rotate(-2deg); display:inline-block;">Executive Protocol Directorate</span>
+                <div class="sig-mode-bar no-print" style="justify-content:flex-end;">
+                    <span style="font-family:'JetBrains Mono',monospace; font-size:0.68rem; color:#b8860b; font-weight:600; padding:3px 0;">SOVEREIGN PROTOCOL ENCLAVE</span>
+                </div>
+
+                <div class="cursive-sig-box" style="background:#ffffff; border:1px solid #cbd5e1; height:90px; display:flex; align-items:center; justify-content:center; padding:0 8px;">
+                    <span style="font-family:'Alex Brush', cursive; font-size:1.95rem; color:#002244; transform:rotate(-1.5deg); display:inline-block; white-space:nowrap;">Executive Protocol Directorate</span>
                 </div>
 
                 <div class="sig-rule-line">
@@ -1102,27 +1169,33 @@
                     </div>
                     <div class="sig-cred-row">
                         <span class="sig-cred-label">TREASURY DESK:</span>
-                        <span class="sig-cred-val">Novo / Middlesex Federal Savings FA</span>
+                        <span class="sig-cred-val">Middlesex Federal Savings FA / Novo</span>
                     </div>
                     <div class="sig-cred-row">
-                        <span class="sig-cred-label">FEDWIRE ROUTING:</span>
-                        <span class="sig-cred-val">211370150 (Clearing Member)</span>
+                        <span class="sig-cred-label">FEDWIRE ROUTING (ABA):</span>
+                        <span class="sig-cred-val mono" style="font-weight:700; color:#002244;">211370150</span>
                     </div>
                     <div class="sig-cred-row">
+                        <span class="sig-cred-label">BENEFICIARY ACCOUNT:</span>
+                        <span class="sig-cred-val mono" style="font-weight:700; color:#002244;">103650380</span>
+                    </div>
+                    <div class="sig-cred-row" style="border-bottom:none;">
                         <span class="sig-cred-label">PROTOCOL ENCLAVE:</span>
                         <span class="sig-cred-val" style="color:#b8860b;">Sovereign Air-Gap HSM</span>
                     </div>
                 </div>
+            </div>
+        </div>
 
-                <div class="cryptographic-seal-stamp" style="margin-top:10px; width:100%;">
-                    <img src="ether_sigil.png" class="stamp-sigil left" alt="Ether Sovereign Sigil">
-                    <div class="stamp-text">
-                        OFFICIAL SOVEREIGN SEAL<br>
-                        CRYPTOGRAPHICALLY VERIFIED<br>
-                        SHA-256 AUTHENTICATED
-                    </div>
-                    <img src="ether_sigil.png" class="stamp-sigil right" alt="Ether Sovereign Sigil">
+        <!-- Centered Bilateral Sovereign Seal -->
+        <div class="countersignature-seal-wrapper">
+            <div class="cryptographic-seal-stamp">
+                <img src="ether_sigil.png" class="stamp-sigil left" alt="Ether Sovereign Sigil">
+                <div class="stamp-text">
+                    OFFICIAL SOVEREIGN SEAL &bull; BILATERALLY RATIFIED<br>
+                    CRYPTOGRAPHICALLY VERIFIED &bull; SHA-256 AUTHENTICATED
                 </div>
+                <img src="ether_sigil.png" class="stamp-sigil right" alt="Ether Sovereign Sigil">
             </div>
         </div>
     </div>
@@ -1165,7 +1238,6 @@
             if (!sigCanvas) return;
             sigCtx = sigCanvas.getContext("2d");
 
-            // Setup smooth drawing parameters for executive blue ink
             sigCtx.lineWidth = 3.5;
             sigCtx.lineCap = "round";
             sigCtx.lineJoin = "round";
@@ -1190,6 +1262,7 @@
             function onPointerDown(e) {
                 e.preventDefault();
                 isDrawing = true;
+                hasDrawnSignature = true;
                 var p = getPos(e);
                 sigCtx.beginPath();
                 sigCtx.moveTo(p.x, p.y);
@@ -1203,9 +1276,6 @@
                 var p = getPos(e);
                 sigCtx.lineTo(p.x, p.y);
                 sigCtx.stroke();
-                hasDrawnSignature = true;
-                syncSignatureToDossier();
-                renderDirective();
             }
 
             function onPointerUp(e) {
@@ -1213,7 +1283,6 @@
                     isDrawing = false;
                     sigCtx.closePath();
                     syncSignatureToDossier();
-                    renderDirective();
                 }
             }
 
@@ -1227,23 +1296,86 @@
             window.addEventListener("touchcancel", onPointerUp, { passive: false });
         }
 
+        function onDoneClicked() {
+            var btnDone = document.getElementById("btnSigDone");
+            var canvas = document.getElementById("buyerSigCanvas");
+            var img = document.getElementById("buyerSigImg");
+            var hint = document.getElementById("canvasHint");
+            var name = ((document.getElementById("inName") || {}).value || "").trim();
+
+            if (currentSigMode === "draw") {
+                if (!hasDrawnSignature) {
+                    alert("⚠️ Please sign your name on the line with your finger or stylus before clicking Done.");
+                    return;
+                }
+                if (canvas && img) {
+                    var dataUrl = canvas.toDataURL("image/png");
+                    img.src = dataUrl;
+                    img.style.display = "block";
+                    canvas.style.display = "none";
+                    if (hint) hint.style.display = "none";
+                }
+            } else {
+                if (name.length < 2) {
+                    alert("⚠️ Please enter your Executive Name before clicking Done.");
+                    return;
+                }
+            }
+
+            if (btnDone) {
+                btnDone.classList.add("done-locked");
+                btnDone.textContent = "✓ Done (Signed)";
+            }
+
+            syncSignatureToDossier();
+            renderDirective();
+
+            // Smooth snap back into view so it's perfectly framed
+            var card = document.getElementById("buyerSigCard");
+            if (card) {
+                card.scrollIntoView({ behavior: "smooth", block: "nearest" });
+            }
+        }
+
         function setSigMode(mode) {
             currentSigMode = mode;
             var drawWrap = document.getElementById("canvasWrapper");
             var typeWrap = document.getElementById("cursiveWrapper");
             var btnDraw = document.getElementById("btnModeDraw");
             var btnType = document.getElementById("btnModeType");
+            var btnDone = document.getElementById("btnSigDone");
+            var canvas = document.getElementById("buyerSigCanvas");
+            var img = document.getElementById("buyerSigImg");
+            var hint = document.getElementById("canvasHint");
 
             if (mode === "draw") {
                 if (drawWrap) drawWrap.style.display = "block";
                 if (typeWrap) typeWrap.style.display = "none";
                 if (btnDraw) btnDraw.classList.add("active");
                 if (btnType) btnType.classList.remove("active");
+
+                if (canvas) canvas.style.display = hasDrawnSignature ? "none" : "block";
+                if (img) img.style.display = hasDrawnSignature ? "block" : "none";
+                if (hint) hint.style.display = hasDrawnSignature ? "none" : "block";
+
+                if (btnDone) {
+                    if (hasDrawnSignature) {
+                        btnDone.classList.add("done-locked");
+                        btnDone.textContent = "✓ Done (Signed)";
+                    } else {
+                        btnDone.classList.remove("done-locked");
+                        btnDone.textContent = "✓ Done";
+                    }
+                }
             } else {
                 if (drawWrap) drawWrap.style.display = "none";
                 if (typeWrap) typeWrap.style.display = "flex";
                 if (btnType) btnType.classList.add("active");
                 if (btnDraw) btnDraw.classList.remove("active");
+                if (btnDone) {
+                    btnDone.classList.remove("done-locked");
+                    btnDone.textContent = "✓ Done";
+                }
             }
             syncSignatureToDossier();
             renderDirective();
@@ -1255,9 +1387,22 @@
             }
             hasDrawnSignature = false;
             var hint = document.getElementById("canvasHint");
-            if (hint) hint.style.opacity = "1";
+            if (hint) {
+                hint.style.display = "block";
+                hint.style.opacity = "1";
+            }
+            var canvas = document.getElementById("buyerSigCanvas");
+            if (canvas) canvas.style.display = "block";
             var img = document.getElementById("buyerSigImg");
-            if (img) img.src = "";
+            if (img) {
+                img.src = "";
+                img.style.display = "none";
+            }
+            var btnDone = document.getElementById("btnSigDone");
+            if (btnDone) {
+                btnDone.classList.remove("done-locked");
+                btnDone.textContent = "✓ Done";
+            }
             syncSignatureToDossier();
             renderDirective();
         }
