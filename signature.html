@@ -84,6 +84,51 @@
             box-shadow: 0 0 10px rgba(76, 224, 255, 0.3);
         }
 
+        .req-star {
+            color: #ef4444;
+            font-weight: 900;
+            font-size: 0.85rem;
+            margin-left: 2px;
+        }
+        .control-group input.field-invalid, .control-group select.field-invalid {
+            border-color: #ef4444 !important;
+            background: rgba(239, 68, 68, 0.12) !important;
+            box-shadow: 0 0 10px rgba(239, 68, 68, 0.4) !important;
+        }
+        .control-group input.field-valid, .control-group select.field-valid {
+            border-color: #10b981 !important;
+            background: rgba(16, 185, 129, 0.05) !important;
+        }
+        .legal-check-box.field-invalid {
+            border-color: #ef4444 !important;
+            background: rgba(239, 68, 68, 0.18) !important;
+            box-shadow: 0 0 10px rgba(239, 68, 68, 0.4) !important;
+        }
+        .shake-field {
+            animation: shakeInput 0.4s ease-in-out;
+        }
+        @keyframes shakeInput {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-6px); }
+            40%, 80% { transform: translateX(6px); }
+        }
+        .dossier-warning-banner {
+            display: none;
+            background: rgba(239, 68, 68, 0.12);
+            border: 1px solid #ef4444;
+            border-radius: 6px;
+            padding: 10px 14px;
+            margin-bottom: 14px;
+            color: #fca5a5;
+            font-size: 0.78rem;
+            font-family: 'JetBrains Mono', monospace;
+            align-items: center;
+            gap: 10px;
+        }
+        .dossier-warning-banner.active {
+            display: flex;
+        }
+
         .live-status-bar {
             background: #090e17;
             border: 1px solid rgba(0, 255, 127, 0.35);
@@ -533,82 +578,87 @@
     <div class="control-panel">
         <h2>
             <span>ETHER TERMINAL DIRECTIVE & SETTLEMENT SUITE</span>
-            <span id="mintIndicator" style="font-size: 0.75rem; color: #10b981; font-family: monospace;">STATUS: LIVE DATA BOUND</span>
+            <span id="mintIndicator" style="font-size: 0.75rem; color: #ef4444; font-family: monospace;">⚠️ PENDING MANDATORY STARRED (*) ENTRIES</span>
         </h2>
 
         <!-- Prominent Live Mints Bar -->
         <div class="live-status-bar" id="liveStatusBar">
-            <div><span style="color:#9ca3af;">LICENSE:</span> <span id="topLicenseKey" style="color:#4ce0ff; font-weight:700;">LIC-ET-LOCKHE-7F83B165-SEALED</span></div>
-            <div><span style="color:#9ca3af;">OPERATOR:</span> <span id="topOpId" style="color:#00ff7f; font-weight:700;">OP-ETH-4912</span></div>
-            <div><span style="color:#9ca3af;">WIRE MEMO:</span> <span id="topMemoCode" style="color:#e5c158; font-weight:700;">ET-LOCKHE-WIRE</span></div>
-            <div><span style="color:#9ca3af;">SETTLEMENT:</span> <span id="topTotal" style="color:#00ff7f; font-weight:700;">$187,000.00 USD</span></div>
+            <div><span style="color:#9ca3af;">LICENSE:</span> <span id="topLicenseKey" style="color:#ef4444; font-weight:700;">[LOCKED — RATIFY DOSSIER]</span></div>
+            <div><span style="color:#9ca3af;">OPERATOR:</span> <span id="topOpId" style="color:#ef4444; font-weight:700;">[LOCKED]</span></div>
+            <div><span style="color:#9ca3af;">WIRE MEMO:</span> <span id="topMemoCode" style="color:#ef4444; font-weight:700;">[LOCKED]</span></div>
+            <div><span style="color:#9ca3af;">SETTLEMENT:</span> <span id="topTotal" style="color:#00ff7f; font-weight:700;">$5,000.00 USD</span></div>
+        </div>
+
+        <div class="dossier-warning-banner" id="dossierWarningBanner">
+            <span>⚠️</span>
+            <span id="dossierWarningText">MANDATORY DOSSIER INCOMPLETE: Complete all starred (*) fields to authenticate your official Wire Memo & Fedwire Settlement Credentials.</span>
         </div>
 
         <div class="control-grid">
             <div class="control-group">
-                <label>Document Settlement State</label>
+                <label>Document Settlement State <span class="req-star">*</span></label>
                 <select id="inDocState" onchange="onFieldChange()">
                     <option value="pending">PENDING WIRE SETTLEMENT (Official Directive & Invoice)</option>
                     <option value="paid">PAID IN FULL // SETTLED (Official Receipt & Activation)</option>
                 </select>
             </div>
             <div class="control-group">
-                <label>Company Legal Name</label>
-                <input type="text" id="inCompany" value="Lockheed Martin Corporation" oninput="onFieldChange()">
+                <label>Company Legal Name <span class="req-star">*</span></label>
+                <input type="text" id="inCompany" placeholder="e.g. State Farm Mutual Insurance" oninput="onFieldChange()" onblur="onFieldBlur(this)">
             </div>
             <div class="control-group">
-                <label>Executive Buyer Name</label>
-                <input type="text" id="inName" value="Jonathan Vance" oninput="onFieldChange()">
+                <label>Executive Buyer Name <span class="req-star">*</span></label>
+                <input type="text" id="inName" placeholder="e.g. Jonathan Vance" oninput="onFieldChange()" onblur="onFieldBlur(this)">
             </div>
             <div class="control-group">
-                <label>Executive Job Title</label>
-                <input type="text" id="inTitle" value="VP of Autonomous Systems" oninput="onFieldChange()">
+                <label>Executive Job Title <span class="req-star">*</span></label>
+                <input type="text" id="inTitle" placeholder="e.g. VP of Enterprise Claims & Actuarial" oninput="onFieldChange()" onblur="onFieldBlur(this)">
             </div>
             <div class="control-group">
-                <label>Work Email</label>
-                <input type="email" id="inEmail" value="j.vance@lockheedmartin.com" oninput="onFieldChange()">
+                <label>Work Email <span class="req-star">*</span></label>
+                <input type="email" id="inEmail" placeholder="e.g. j.vance@carrier.com" oninput="onFieldChange()" onblur="onFieldBlur(this)">
             </div>
             <div class="control-group">
-                <label>Corporate Domain</label>
-                <input type="text" id="inWebsite" value="lockheedmartin.com" oninput="onFieldChange()">
+                <label>Corporate Domain <span class="req-star">*</span></label>
+                <input type="text" id="inWebsite" placeholder="e.g. carrier.com" oninput="onFieldChange()" onblur="onFieldBlur(this)">
             </div>
             <div class="control-group">
-                <label>Company Address</label>
-                <input type="text" id="inAddress" value="6801 Rockledge Dr, Bethesda, MD 20817" oninput="onFieldChange()">
+                <label>Company Address <span class="req-star">*</span></label>
+                <input type="text" id="inAddress" placeholder="e.g. One State Farm Plaza, Bloomington, IL" oninput="onFieldChange()" onblur="onFieldBlur(this)">
             </div>
             <div class="control-group">
-                <label>Direct Phone</label>
-                <input type="text" id="inPhone" value="+1 (301) 897-6000" oninput="onFieldChange()">
+                <label>Direct Phone <span class="req-star">*</span></label>
+                <input type="text" id="inPhone" placeholder="e.g. +1 (309) 766-2211" oninput="onFieldChange()" onblur="onFieldBlur(this)">
             </div>
             <div class="control-group">
-                <label>Purchase Order (PO) / Project Ref</label>
-                <input type="text" id="inPoNumber" value="PO-2026-LM-8924" oninput="onFieldChange()">
+                <label>Purchase Order (PO) / Project Ref <span class="req-star">*</span></label>
+                <input type="text" id="inPoNumber" placeholder="e.g. PO-2026-SF-4491" oninput="onFieldChange()" onblur="onFieldBlur(this)">
             </div>
             <div class="control-group">
-                <label>Deployment Tier & Sector</label>
-                <input type="text" id="inTier" value="Tier 2 Command Cluster — Annual ($185,000)" oninput="onFieldChange()">
+                <label>Deployment Tier & Sector <span class="req-star">*</span></label>
+                <input type="text" id="inTier" placeholder="e.g. Node Operator (Core Pilot)" oninput="onFieldChange()" onblur="onFieldBlur(this)">
             </div>
             <div class="control-group">
-                <label>Hardware Package</label>
+                <label>Hardware Package <span class="req-star">*</span></label>
                 <select id="inHw" onchange="onFieldChange()">
                     <option value="yes">Turnkey Dual-Drive Hardware Kit (4TB NVMe + 256GB Key) +$2,000</option>
-                    <option value="no">Software Licensing Only ($0)</option>
+                    <option value="no" selected>Software Licensing Only ($0)</option>
                 </select>
             </div>
             <div class="control-group">
-                <label>Base Price ($ USD)</label>
-                <input type="number" id="inBasePrice" value="185000" oninput="onFieldChange()">
+                <label>Base Price ($ USD) <span class="req-star">*</span></label>
+                <input type="number" id="inBasePrice" placeholder="5000" oninput="onFieldChange()" onblur="onFieldBlur(this)">
             </div>
         </div>
 
-        <div class="legal-check-box">
-            <input type="checkbox" id="legalTermsAccepted" checked>
-            <label for="legalTermsAccepted"><b>Institutional Legal Covenant:</b> Master Enterprise Sovereign License (EULA), Zero-Warranty ("AS-IS") & Absolute $0.00 Limitation of Liability Ratified.</label>
+        <div class="legal-check-box" id="legalBox">
+            <input type="checkbox" id="legalTermsAccepted" onchange="onFieldChange()">
+            <label for="legalTermsAccepted"><b>Institutional Legal Covenant:</b> Master Enterprise Sovereign License (EULA), Zero-Warranty ("AS-IS") & Absolute $0.00 Limitation of Liability Ratified. <span class="req-star">*</span></label>
         </div>
 
         <div class="btn-bar">
-            <button class="btn-action" onclick="mintNewCredentials()" id="btnRemint">⚡ RE-MINT CREDENTIALS & MEMO</button>
-            <button class="btn-print" onclick="window.print()">PRINT / SAVE AS OFFICIAL PDF</button>
+            <button class="btn-action" onclick="attemptRemint()" id="btnRemint">⚡ RE-MINT CREDENTIALS & MEMO</button>
+            <button class="btn-print" onclick="attemptPrint()" id="btnPrint">PRINT / SAVE AS OFFICIAL PDF</button>
         </div>
     </div>
 
@@ -687,9 +737,15 @@
             </div>
         </div>
 
+        <!-- Incomplete Notice Banner inside Memorandum Sheet -->
+        <div id="memoIncompleteNotice" style="display:none; background: #fff5f5; border: 1px solid #feb2b2; border-left: 4px solid #e53e3e; padding: 12px 16px; margin: 16px 0; border-radius: 4px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 0.85rem; color: #9b2c2c; line-height: 1.5;">
+            <b style="color:#c53030;">🔒 RESTRICTED // DOSSIER PENDING MANDATORY RATIFICATION:</b><br>
+            All starred entries (<span style="color:#e53e3e; font-weight:bold;">*</span>) in the Procurement Suite above must be completed before official wire routing coordinates, cryptographic Operator ID, and Fedwire clearance credentials can be unlocked.
+        </div>
+
         <h2 class="section-heading">I. PROVISIONING AUTHORIZATION &amp; CREDENTIALS</h2>
         <p class="directive-text" id="docAuthText">
-            Pursuant to the institutional procurement dossier received from <b>Lockheed Martin Corporation</b>, the Office of Sovereign Protocol Operations has formally authenticated and minted the sovereign credentials for your node deployment.
+            Pursuant to the institutional procurement dossier received from <b id="docAuthCompany">the enterprise entity</b>, the Office of Sovereign Protocol Operations has formally authenticated and minted the sovereign credentials for your node deployment.
         </p>
         <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; background: #f8fafc; padding: 14px 18px; border-left: 3px solid #002244; margin-bottom: 14px; line-height: 1.65; border-radius: 2px;">
             <div style="display:flex; justify-content:space-between;"><span style="color:#666;">OPERATOR ID:</span> <span style="font-weight:700; color:#002244;" id="docOpId">OP-ETH-4912</span></div>
@@ -711,8 +767,8 @@
             <div class="treasury-row"><span>VENDOR REGISTRATION &amp; TAX ID:</span> <span>On File (Form W-9 &amp; Verification Provided)</span></div>
             <div class="treasury-row"><span>RECEIVING BANK:</span> <span>Middlesex Federal Savings FA / Novo</span></div>
             <div class="treasury-row"><span>BANK ADDRESS:</span> <span>One Broadway, Somerville, MA 02145</span></div>
-            <div class="treasury-row"><span>BANK ROUTING (FEDWIRE / ACH):</span> <span>211370150</span></div>
-            <div class="treasury-row"><span>ACCOUNT NUMBER:</span> <span>103650380</span></div>
+            <div class="treasury-row"><span>BANK ROUTING (FEDWIRE / ACH):</span> <span id="docRoutingNum">211370150</span></div>
+            <div class="treasury-row"><span>ACCOUNT NUMBER:</span> <span id="docAccountNum">103650380</span></div>
             <div class="treasury-row"><span>REQUIRED WIRE MEMO:</span> <span style="color:#b8860b; font-weight:700;" id="docMemoCode">ET-LOCKHE-WIRE</span></div>
             <div class="treasury-row"><span>HARDWARE PACKAGE:</span> <span id="docHwText">Turnkey Dual-Drive Hardware Kit (4TB Samsung 990 PRO NVMe + Master 256GB USB Recovery Key)</span></div>
             <div class="treasury-row"><span>TOTAL SETTLEMENT AMOUNT:</span> <span id="docTotalAmount">$187,000.00 USD</span></div>
@@ -752,53 +808,140 @@
     <script>
         var currentHex = Math.random().toString(16).substring(2, 10).toUpperCase() + Math.random().toString(16).substring(2, 10).toUpperCase();
         var currentOpNum = Math.floor(1000 + Math.random() * 9000);
+        var hasNotifiedLead = false;
+
+        function checkFieldValidity(input) {
+            if (!input) return false;
+            var val = (input.value || "").trim();
+            if (input.type === "email") {
+                return val.length >= 5 && val.indexOf("@") !== -1 && val.indexOf(".") !== -1;
+            } else if (input.type === "number") {
+                return Number(val) > 0;
+            } else {
+                return val.length >= 2;
+            }
+        }
+
+        function onFieldBlur(input) {
+            if (!checkFieldValidity(input)) {
+                input.classList.add("field-invalid");
+                input.classList.remove("field-valid");
+            } else {
+                input.classList.remove("field-invalid");
+                input.classList.add("field-valid");
+            }
+        }
+
+        function validateAllStarred() {
+            var fields = [
+                { id: "inCompany", name: "Company Legal Name" },
+                { id: "inName", name: "Executive Buyer Name" },
+                { id: "inTitle", name: "Executive Job Title" },
+                { id: "inEmail", name: "Corporate / Work Email" },
+                { id: "inWebsite", name: "Corporate Domain" },
+                { id: "inAddress", name: "Company Address" },
+                { id: "inPhone", name: "Direct Phone" },
+                { id: "inPoNumber", name: "Purchase Order (PO) / Ref" },
+                { id: "inTier", name: "Deployment Tier & Sector" },
+                { id: "inBasePrice", name: "Base Price ($ USD)" }
+            ];
+
+            var missing = [];
+            fields.forEach(function(f) {
+                var el = document.getElementById(f.id);
+                if (!checkFieldValidity(el)) {
+                    missing.push(f);
+                }
+            });
+
+            var legalChecked = document.getElementById("legalTermsAccepted") && document.getElementById("legalTermsAccepted").checked;
+            if (!legalChecked) {
+                missing.push({ id: "legalBox", name: "Institutional Legal Covenant Ratification" });
+            }
+
+            return missing;
+        }
+
+        function highlightMissing(missing) {
+            missing.forEach(function(m) {
+                var el = document.getElementById(m.id);
+                if (el) {
+                    el.classList.add("field-invalid");
+                    el.classList.add("shake-field");
+                    setTimeout(function() { el.classList.remove("shake-field"); }, 500);
+                }
+            });
+            if (missing.length > 0) {
+                var first = document.getElementById(missing[0].id);
+                if (first) {
+                    first.scrollIntoView({ behavior: "smooth", block: "center" });
+                    if (first.focus) first.focus();
+                }
+            }
+        }
+
+        function attemptPrint() {
+            var missing = validateAllStarred();
+            if (missing.length > 0) {
+                highlightMissing(missing);
+                alert("⚠️ MANDATORY DOSSIER INCOMPLETE:\n\nAll entries marked with a red star (*) are strictly required by protocol. You cannot bypass completing this dossier.\n\nMissing:\n• " + missing.map(function(m){ return m.name; }).join("\n• "));
+                return false;
+            }
+            window.print();
+        }
+
+        function attemptRemint() {
+            var missing = validateAllStarred();
+            if (missing.length > 0) {
+                highlightMissing(missing);
+                alert("⚠️ MANDATORY DOSSIER INCOMPLETE:\n\nPlease complete all entries marked with a red star (*) before minting credentials.");
+                return false;
+            }
+            mintNewCredentials();
+        }
 
         function initDossierFromStorageOrUrl() {
             var params = new URLSearchParams(window.location.search);
+            if (window.injectedDossierParams) {
+                for (var k in window.injectedDossierParams) {
+                    if (!params.has(k)) params.set(k, window.injectedDossierParams[k]);
+                }
+            }
+
             var saved = null;
             try {
-                saved = JSON.parse(localStorage.getItem('ether_directive_data') || 'null');
+                saved = JSON.parse(localStorage.getItem("ether_directive_data") || "null");
             } catch(e) {}
 
-            var company = params.get('company') || (saved && saved.company);
-            var name = params.get('name') || (saved && saved.name);
-            var title = params.get('title') || (saved && saved.title);
-            var email = params.get('email') || (saved && saved.email);
-            var website = params.get('website') || (saved && saved.website);
-            var address = params.get('address') || (saved && saved.address);
-            var phone = params.get('phone') || (saved && saved.phone);
-            var poNumber = params.get('poNumber') || (saved && saved.poNumber);
-            var tier = params.get('tier') || (saved && saved.tier);
-            var hw = params.get('hw') || (saved && (saved.hw ? 'yes' : 'no'));
-            var amountUsd = params.get('amountUsd') || (saved && saved.amountUsd);
-            var state = params.get('state') || (saved && saved.state);
-            var licenseKey = params.get('licenseKey') || (saved && saved.licenseKey);
-            var opId = params.get('opId') || (saved && saved.opId);
+            var company = params.get("company") || (saved && saved.company);
+            var name = params.get("name") || (saved && saved.name);
+            var title = params.get("title") || (saved && saved.title);
+            var email = params.get("email") || (saved && saved.email);
+            var website = params.get("website") || (saved && saved.website);
+            var address = params.get("address") || (saved && saved.address);
+            var phone = params.get("phone") || (saved && saved.phone);
+            var poNumber = params.get("poNumber") || (saved && saved.poNumber) || ("PO-2026-ET-" + Math.floor(1000 + Math.random() * 9000));
+            var tier = params.get("tier") || (saved && saved.tier) || "Node Operator (Core Pilot) — 30-Day Evaluation";
+            var hw = params.get("hw") || (saved && (saved.hw ? "yes" : "no")) || "no";
+            var amountUsd = params.get("amountUsd") || (saved && saved.amountUsd) || "5000";
+            var state = params.get("state") || (saved && saved.state) || "pending";
 
-            if (company && document.getElementById('inCompany')) document.getElementById('inCompany').value = company;
-            if (name && document.getElementById('inName')) document.getElementById('inName').value = name;
-            if (title && document.getElementById('inTitle')) document.getElementById('inTitle').value = title;
-            if (email && document.getElementById('inEmail')) document.getElementById('inEmail').value = email;
-            if (website && document.getElementById('inWebsite')) document.getElementById('inWebsite').value = website;
-            if (address && document.getElementById('inAddress')) document.getElementById('inAddress').value = address;
-            if (phone && document.getElementById('inPhone')) document.getElementById('inPhone').value = phone;
-            if (poNumber && document.getElementById('inPoNumber')) document.getElementById('inPoNumber').value = poNumber;
-            if (tier && document.getElementById('inTier')) document.getElementById('inTier').value = tier;
-            if (hw && document.getElementById('inHw')) document.getElementById('inHw').value = hw;
-            if (state && document.getElementById('inDocState')) document.getElementById('inDocState').value = state;
+            if (company && document.getElementById("inCompany")) document.getElementById("inCompany").value = company;
+            if (name && document.getElementById("inName")) document.getElementById("inName").value = name;
+            if (title && document.getElementById("inTitle")) document.getElementById("inTitle").value = title;
+            if (email && document.getElementById("inEmail")) document.getElementById("inEmail").value = email;
+            if (website && document.getElementById("inWebsite")) document.getElementById("inWebsite").value = website;
+            if (address && document.getElementById("inAddress")) document.getElementById("inAddress").value = address;
+            if (phone && document.getElementById("inPhone")) document.getElementById("inPhone").value = phone;
+            if (poNumber && document.getElementById("inPoNumber")) document.getElementById("inPoNumber").value = poNumber;
+            if (tier && document.getElementById("inTier")) document.getElementById("inTier").value = tier;
+            if (hw && document.getElementById("inHw")) document.getElementById("inHw").value = hw;
+            if (state && document.getElementById("inDocState")) document.getElementById("inDocState").value = state;
 
-            if (amountUsd && document.getElementById('inBasePrice')) {
-                var baseVal = Number(amountUsd) || 185000;
-                if (hw === 'yes' && baseVal > 2000) baseVal -= 2000;
-                document.getElementById('inBasePrice').value = baseVal;
-            }
-
-            if (licenseKey && licenseKey.indexOf('-') !== -1) {
-                var parts = licenseKey.split('-');
-                if (parts.length >= 4) currentHex = parts[3];
-            }
-            if (opId) {
-                currentOpNum = opId.replace('OP-ETH-', '');
+            if (amountUsd && document.getElementById("inBasePrice")) {
+                var baseVal = Number(amountUsd) || 5000;
+                if (hw === "yes" && baseVal > 2000) baseVal -= 2000;
+                document.getElementById("inBasePrice").value = baseVal;
             }
         }
 
@@ -820,8 +963,7 @@
                 indicator.textContent = "⚡ NEW CREDENTIALS MINTED & STAMPED!";
                 indicator.style.color = "#00ff7f";
                 setTimeout(function() { 
-                    indicator.textContent = "STATUS: LIVE DATA BOUND";
-                    indicator.style.color = "#10b981";
+                    renderDirective();
                 }, 2000);
             }
             if (memo) {
@@ -838,21 +980,35 @@
             var docState = (document.getElementById("inDocState") || {}).value || "pending";
             var isPaid = (docState === "paid");
 
-            var company = (document.getElementById("inCompany") || {}).value || "";
-            var name = (document.getElementById("inName") || {}).value || "";
-            var title = (document.getElementById("inTitle") || {}).value || "";
-            var email = (document.getElementById("inEmail") || {}).value || "";
-            var website = (document.getElementById("inWebsite") || {}).value || "";
-            var address = (document.getElementById("inAddress") || {}).value || "";
-            var phone = (document.getElementById("inPhone") || {}).value || "";
-            var poNumber = (document.getElementById("inPoNumber") || {}).value || "";
-            var tier = (document.getElementById("inTier") || {}).value || "";
+            var company = ((document.getElementById("inCompany") || {}).value || "").trim();
+            var name = ((document.getElementById("inName") || {}).value || "").trim();
+            var title = ((document.getElementById("inTitle") || {}).value || "").trim();
+            var email = ((document.getElementById("inEmail") || {}).value || "").trim();
+            var website = ((document.getElementById("inWebsite") || {}).value || "").trim();
+            var address = ((document.getElementById("inAddress") || {}).value || "").trim();
+            var phone = ((document.getElementById("inPhone") || {}).value || "").trim();
+            var poNumber = ((document.getElementById("inPoNumber") || {}).value || "").trim();
+            var tier = ((document.getElementById("inTier") || {}).value || "").trim();
             var isHw = (document.getElementById("inHw") || {}).value === "yes";
             var basePrice = Number((document.getElementById("inBasePrice") || {}).value) || 0;
             var total = basePrice + (isHw ? 2000 : 0);
 
+            var missing = validateAllStarred();
+            var isComplete = (missing.length === 0);
+
+            var warnBanner = document.getElementById("dossierWarningBanner");
+            var memoNotice = document.getElementById("memoIncompleteNotice");
+            var indicator = document.getElementById("mintIndicator");
+            var legalBox = document.getElementById("legalBox");
+
+            if (legalBox) {
+                var legalChecked = document.getElementById("legalTermsAccepted") && document.getElementById("legalTermsAccepted").checked;
+                if (!legalChecked) legalBox.classList.add("field-invalid");
+                else legalBox.classList.remove("field-invalid");
+            }
+
             var cleanCo = company.replace(/[^a-zA-Z0-9]/g, "").toUpperCase().slice(0, 6);
-            if (!cleanCo) cleanCo = "SOV";
+            if (!cleanCo) cleanCo = "PENDING";
 
             var opId = "OP-ETH-" + currentOpNum;
             var licenseKey = "LIC-ET-" + cleanCo + "-" + currentHex + "-SEALED";
@@ -860,7 +1016,97 @@
 
             var currentDate = new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
             if (document.getElementById("docDate")) document.getElementById("docDate").textContent = currentDate;
-            
+
+            if (!isComplete) {
+                if (warnBanner) {
+                    warnBanner.classList.add("active");
+                    warnBanner.innerHTML = "<span>⚠️</span> <span><b>MANDATORY DOSSIER INCOMPLETE (" + missing.length + " STARRED ENTRIES MISSING):</b> Complete all starred (*) fields and ratify covenant above to unlock official Fedwire credentials.</span>";
+                }
+                if (memoNotice) memoNotice.style.display = "block";
+                if (indicator) {
+                    indicator.textContent = "⚠️ " + missing.length + " STARRED (*) ENTRIES REQUIRED";
+                    indicator.style.color = "#ef4444";
+                }
+
+                if (document.getElementById("topLicenseKey")) {
+                    document.getElementById("topLicenseKey").textContent = "[LOCKED — RATIFY DOSSIER]";
+                    document.getElementById("topLicenseKey").style.color = "#ef4444";
+                }
+                if (document.getElementById("topOpId")) {
+                    document.getElementById("topOpId").textContent = "[LOCKED]";
+                    document.getElementById("topOpId").style.color = "#ef4444";
+                }
+                if (document.getElementById("topMemoCode")) {
+                    document.getElementById("topMemoCode").textContent = "[LOCKED]";
+                    document.getElementById("topMemoCode").style.color = "#ef4444";
+                }
+
+                if (document.getElementById("docOpId")) document.getElementById("docOpId").textContent = "[LOCKED — COMPLETE MANDATORY DOSSIER]";
+                if (document.getElementById("docLicenseKey")) document.getElementById("docLicenseKey").textContent = "[LOCKED — COMPLETE MANDATORY DOSSIER]";
+                if (document.getElementById("docMemoCode")) document.getElementById("docMemoCode").innerHTML = "<span style='color:#ef4444;'>[LOCKED — COMPLETE STARRED ENTRIES]</span>";
+                if (document.getElementById("docMemoCodeInline")) document.getElementById("docMemoCodeInline").textContent = "[LOCKED — PENDING RATIFICATION]";
+                if (document.getElementById("docMemoCodeInlineLegal")) document.getElementById("docMemoCodeInlineLegal").textContent = "[LOCKED — PENDING RATIFICATION]";
+                if (document.getElementById("docAccountNum")) document.getElementById("docAccountNum").innerHTML = "<span style='color:#ef4444; font-weight:700;'>••••••••• (LOCKED UNTIL STARRED ENTRIES RATIFIED)</span>";
+                if (document.getElementById("docRoutingNum")) document.getElementById("docRoutingNum").innerHTML = "<span style='color:#ef4444; font-weight:700;'>•••••••••</span>";
+            } else {
+                if (warnBanner) warnBanner.classList.remove("active");
+                if (memoNotice) memoNotice.style.display = "none";
+                if (indicator) {
+                    indicator.textContent = "STATUS: LIVE DATA BOUND // DOSSIER CERTIFIED";
+                    indicator.style.color = "#10b981";
+                }
+
+                if (document.getElementById("topLicenseKey")) {
+                    document.getElementById("topLicenseKey").textContent = licenseKey;
+                    document.getElementById("topLicenseKey").style.color = "#4ce0ff";
+                }
+                if (document.getElementById("topOpId")) {
+                    document.getElementById("topOpId").textContent = opId;
+                    document.getElementById("topOpId").style.color = "#00ff7f";
+                }
+                if (document.getElementById("topMemoCode")) {
+                    document.getElementById("topMemoCode").textContent = memoCode;
+                    document.getElementById("topMemoCode").style.color = "#e5c158";
+                }
+
+                if (document.getElementById("docOpId")) document.getElementById("docOpId").textContent = opId;
+                if (document.getElementById("docLicenseKey")) document.getElementById("docLicenseKey").textContent = licenseKey;
+                if (document.getElementById("docMemoCode")) document.getElementById("docMemoCode").textContent = memoCode;
+                if (document.getElementById("docMemoCodeInline")) document.getElementById("docMemoCodeInline").textContent = memoCode;
+                if (document.getElementById("docMemoCodeInlineLegal")) document.getElementById("docMemoCodeInlineLegal").textContent = memoCode;
+                if (document.getElementById("docAccountNum")) document.getElementById("docAccountNum").textContent = "103650380";
+                if (document.getElementById("docRoutingNum")) document.getElementById("docRoutingNum").textContent = "211370150";
+
+                // Send Discord Alert Once complete
+                if (!hasNotifiedLead && company && email) {
+                    hasNotifiedLead = true;
+                    try {
+                        fetch("/.netlify/functions/discord-notify", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({
+                                username: "Ether Directive Dispatcher",
+                                avatar_url: "https://ether-terminal.com/logo.png",
+                                embeds: [{
+                                    title: "📄 OFFICIAL DIRECTIVE & WIRE SETTLEMENT SPEC GENERATED",
+                                    description: "An official Presidential Directive & Settlement Dossier was ratified by **" + company + "**.",
+                                    color: 1752220,
+                                    fields: [
+                                        { name: "Company", value: company, inline: true },
+                                        { name: "Executive Buyer", value: name + " (" + title + ")", inline: true },
+                                        { name: "Contact", value: email + " | " + phone, inline: true },
+                                        { name: "Deployment Tier", value: tier, inline: true },
+                                        { name: "Wire Memo", value: "`" + memoCode + "`", inline: true },
+                                        { name: "Total Settlement", value: "$" + total.toLocaleString("en-US") + ".00 USD", inline: true }
+                                    ],
+                                    footer: { text: "Ether Terminal LLC • Sovereign Treasury Desk" }
+                                }]
+                            })
+                        }).catch(function(e) {});
+                    } catch(e) {}
+                }
+            }
+
             // Paid stamp toggle
             var stamp = document.getElementById("paidStamp");
             if (stamp) {
@@ -878,7 +1124,7 @@
                 if (document.getElementById("docSubject")) document.getElementById("docSubject").innerHTML = "<b>DIRECTIVE ON SOVEREIGN NODE PROVISIONING &amp; WIRE SETTLEMENT</b>";
                 if (document.getElementById("docClassification")) document.getElementById("docClassification").innerHTML = "RESTRICTED // COMMERCIAL DIRECTIVE &amp; SETTLEMENT DOSSIER";
                 if (document.getElementById("docAuthText")) document.getElementById("docAuthText").innerHTML = "Pursuant to the institutional procurement dossier received from <b>" + (company || "the enterprise entity") + "</b>, the Office of Sovereign Protocol Operations has formally authenticated and minted the sovereign credentials for your node deployment.";
-                if (document.getElementById("docTimelineText")) document.getElementById("docTimelineText").innerHTML = "Upon treasury confirmation of the wire settlement referencing memo <code>" + memoCode + "</code>, the cryptographic deployment desk will dispatch your designated hardware units and initiate the live protocol handshake with your technical officers (" + (email || "on record") + ") within your requested schedule.";
+                if (document.getElementById("docTimelineText")) document.getElementById("docTimelineText").innerHTML = "Upon treasury confirmation of the wire settlement referencing memo <code>" + (isComplete ? memoCode : "[LOCKED]") + "</code>, the cryptographic deployment desk will dispatch your designated hardware units and initiate the live protocol handshake with your technical officers (" + (email || "on record") + ") within your requested schedule.";
             }
 
             // PO Row
@@ -894,32 +1140,24 @@
 
             var memoForHtml = "";
             if (name || title) {
-                memoForHtml += "<b>" + (name || "") + "</b>" + (title ? (name ? ", " : "") + title : "") + "<br>";
+                memoForHtml += "<b>" + (name || "Executive Officer") + "</b>" + (title ? (name ? ", " : "") + title : "") + "<br>";
             }
             if (company || website) {
-                memoForHtml += (company || "") + (website ? " (" + website + ")" : "") + "<br>";
+                memoForHtml += (company || "Enterprise Entity") + (website ? " (" + website + ")" : "") + "<br>";
             }
             if (address) {
                 memoForHtml += "<span style='color:#555;'>" + address + "</span><br>";
             }
-            memoForHtml += "<span style='font-size:0.9rem; color:#444;'>Contact: " + (email || "On Record") + (phone ? " | Tel: " + phone : " | Tel: Direct on Record") + "</span>";
+            memoForHtml += "<span style='font-size:0.9rem; color:#444;'>Contact: " + (email || "On Record") + (phone ? " | Tel: " + phone : "") + "</span>";
             if (document.getElementById("docMemoFor")) document.getElementById("docMemoFor").innerHTML = memoForHtml;
 
-            if (document.getElementById("docOpId")) document.getElementById("docOpId").textContent = opId;
-            if (document.getElementById("docLicenseKey")) document.getElementById("docLicenseKey").textContent = licenseKey;
+            if (document.getElementById("docAuthCompany")) document.getElementById("docAuthCompany").textContent = company || "the enterprise entity";
             if (document.getElementById("docTier")) document.getElementById("docTier").textContent = tier;
-            if (document.getElementById("docMemoCode")) document.getElementById("docMemoCode").textContent = memoCode;
-            if (document.getElementById("docMemoCodeInline")) document.getElementById("docMemoCodeInline").textContent = memoCode;
-            if (document.getElementById("docMemoCodeInlineLegal")) document.getElementById("docMemoCodeInlineLegal").textContent = memoCode;
             if (document.getElementById("docCompanyLegal")) document.getElementById("docCompanyLegal").textContent = company || "the enterprise entity";
             if (document.getElementById("docHwText")) document.getElementById("docHwText").textContent = isHw ? "Turnkey Dual-Drive Hardware Kit (4TB Samsung 990 PRO NVMe in 40Gbps Thunderbolt 4 Enclosure + Master 256GB USB Recovery Key)" : "Software Licensing Only";
             if (document.getElementById("docTotalAmount")) document.getElementById("docTotalAmount").textContent = "$" + total.toLocaleString("en-US") + ".00 USD" + (isPaid ? " (PAID IN FULL)" : "");
             if (document.getElementById("docEmailInline")) document.getElementById("docEmailInline").textContent = email || "designated officers";
 
-            // Update top dashboard bar
-            if (document.getElementById("topLicenseKey")) document.getElementById("topLicenseKey").textContent = licenseKey;
-            if (document.getElementById("topOpId")) document.getElementById("topOpId").textContent = opId;
-            if (document.getElementById("topMemoCode")) document.getElementById("topMemoCode").textContent = memoCode;
             if (document.getElementById("topTotal")) document.getElementById("topTotal").textContent = "$" + total.toLocaleString("en-US") + ".00 USD" + (isPaid ? " (SETTLED)" : "");
 
             // Save state to localStorage
@@ -941,7 +1179,7 @@
                     opId: opId,
                     memoCode: memoCode
                 };
-                localStorage.setItem('ether_directive_data', JSON.stringify(currentDossier));
+                localStorage.setItem("ether_directive_data", JSON.stringify(currentDossier));
             } catch(e) {}
         }
 
