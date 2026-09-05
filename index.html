@@ -3658,6 +3658,333 @@
             font-family: monospace;
         }
 
+
+        /* ── Pilot Program Portal Styling ── */
+        .nav-tab.tab-pilot {
+            background: rgba(0, 240, 255, 0.12);
+            border: 1px solid rgba(0, 240, 255, 0.45);
+            color: #00f0ff;
+            font-weight: 800;
+            padding: 8px 18px;
+            box-shadow: 0 0 12px rgba(0, 240, 255, 0.2);
+            position: relative;
+        }
+        .nav-tab.tab-pilot:hover {
+            background: rgba(0, 240, 255, 0.22);
+            border-color: rgba(0, 240, 255, 0.8);
+            box-shadow: 0 0 16px rgba(0, 240, 255, 0.45);
+            color: #ffffff;
+            transform: translateY(-1px);
+        }
+        .nav-tab.tab-pilot.active {
+            background: rgba(0, 240, 255, 0.28);
+            border-color: #00f0ff;
+            color: #ffffff;
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.6);
+        }
+
+        .pilot-hero-banner {
+            background: radial-gradient(ellipse at top, rgba(0, 240, 255, 0.12) 0%, rgba(6, 11, 22, 0.95) 75%);
+            border: 1px solid rgba(0, 240, 255, 0.3);
+            border-radius: 12px;
+            padding: 32px 28px;
+            margin-bottom: 24px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+        }
+        .pilot-hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 5px 14px;
+            background: rgba(0, 255, 127, 0.12);
+            border: 1px solid #00ff7f;
+            border-radius: 20px;
+            color: #00ff7f;
+            font-family: monospace;
+            font-size: 0.78rem;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            margin-bottom: 14px;
+        }
+        .pilot-hero-title {
+            font-family: "Cinzel", Georgia, serif;
+            font-size: 2rem;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: 1px;
+            margin: 0 0 8px 0;
+        }
+        .pilot-hero-subtitle {
+            color: #94a3b8;
+            font-size: 0.96rem;
+            max-width: 820px;
+            line-height: 1.5;
+            margin: 0 0 20px 0;
+        }
+        .pilot-kpi-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin-top: 16px;
+        }
+        .pilot-kpi-pill {
+            background: rgba(15, 23, 42, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 12px 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .pilot-kpi-icon {
+            font-size: 1.4rem;
+        }
+        .pilot-kpi-text {
+            display: flex;
+            flex-direction: column;
+        }
+        .pilot-kpi-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #f8fafc;
+        }
+        .pilot-kpi-sub {
+            font-size: 0.72rem;
+            color: #64748b;
+        }
+
+        .pilot-workspace-grid {
+            display: grid;
+            grid-template-columns: 1.3fr 1fr;
+            gap: 24px;
+            align-items: start;
+        }
+        @media (max-width: 992px) {
+            .pilot-workspace-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .pilot-card {
+            background: rgba(11, 17, 30, 0.85);
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            border-radius: 10px;
+            padding: 22px;
+            margin-bottom: 20px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+        .pilot-card-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 10px;
+        }
+        .pilot-card-step {
+            font-family: monospace;
+            font-size: 0.75rem;
+            font-weight: 900;
+            color: #00f0ff;
+            background: rgba(0, 240, 255, 0.12);
+            border: 1px solid rgba(0, 240, 255, 0.35);
+            padding: 2px 7px;
+            border-radius: 4px;
+        }
+        .pilot-card-header h3 {
+            font-family: "Cinzel", Georgia, serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #f8fafc;
+            letter-spacing: 0.8px;
+            margin: 0;
+        }
+
+        .pilot-tier-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+        @media (max-width: 768px) {
+            .pilot-tier-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .pilot-tier-option {
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 8px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .pilot-tier-option:hover {
+            border-color: rgba(0, 240, 255, 0.5);
+            background: rgba(0, 240, 255, 0.04);
+            transform: translateY(-2px);
+        }
+        .pilot-tier-option.active {
+            border-color: #00f0ff;
+            background: rgba(0, 240, 255, 0.08);
+            box-shadow: 0 0 16px rgba(0, 240, 255, 0.25);
+        }
+        .pilot-tier-badge-pill {
+            display: inline-block;
+            font-size: 0.68rem;
+            font-weight: 800;
+            font-family: monospace;
+            padding: 2px 8px;
+            border-radius: 10px;
+            margin-bottom: 8px;
+        }
+        .pilot-tier-name {
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 4px;
+        }
+        .pilot-tier-fee {
+            font-family: monospace;
+            font-size: 1.15rem;
+            font-weight: 900;
+            color: #00ff7f;
+            margin-bottom: 8px;
+        }
+        .pilot-tier-fee small {
+            font-size: 0.7rem;
+            color: #94a3b8;
+            font-weight: 500;
+        }
+        .pilot-tier-desc {
+            font-size: 0.75rem;
+            color: #94a3b8;
+            line-height: 1.4;
+            margin-bottom: 12px;
+        }
+
+        .pilot-sector-pill-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .pilot-sector-pill {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #cbd5e1;
+            padding: 7px 13px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-family: monospace;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .pilot-sector-pill:hover {
+            border-color: #00f0ff;
+            color: #00f0ff;
+        }
+        .pilot-sector-pill.active {
+            background: rgba(0, 240, 255, 0.15);
+            border-color: #00f0ff;
+            color: #00f0ff;
+            font-weight: bold;
+        }
+
+        .pilot-roadmap-row {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .pilot-phase-card {
+            background: rgba(15, 23, 42, 0.65);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            padding: 14px;
+            display: flex;
+            gap: 14px;
+        }
+        .pilot-phase-num {
+            font-family: monospace;
+            font-size: 0.78rem;
+            font-weight: 900;
+            color: #00f0ff;
+            background: rgba(0, 240, 255, 0.1);
+            border: 1px solid rgba(0, 240, 255, 0.25);
+            padding: 4px 8px;
+            border-radius: 4px;
+            height: fit-content;
+            white-space: nowrap;
+        }
+        .pilot-phase-content h4 {
+            margin: 0 0 4px 0;
+            font-size: 0.88rem;
+            color: #f1f5f9;
+        }
+        .pilot-phase-content p {
+            margin: 0;
+            font-size: 0.78rem;
+            color: #94a3b8;
+            line-height: 1.4;
+        }
+
+        .pilot-summary-box {
+            background: rgba(6, 11, 22, 0.95);
+            border: 1px solid rgba(0, 240, 255, 0.35);
+            border-radius: 10px;
+            padding: 22px;
+            margin-bottom: 20px;
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.1);
+        }
+        .pilot-summary-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 12px;
+            margin-bottom: 14px;
+        }
+        .pilot-summary-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.82rem;
+            margin-bottom: 8px;
+            color: #94a3b8;
+        }
+        .pilot-summary-row span:last-child {
+            color: #ffffff;
+            font-weight: 700;
+            font-family: monospace;
+        }
+        .pilot-total-deposit {
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            padding-top: 10px;
+            margin-top: 12px;
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: #00ff7f;
+        }
+
+        .pilot-hardware-bridge {
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px dashed rgba(255, 170, 0, 0.4);
+            border-radius: 8px;
+            padding: 14px;
+            margin-top: 16px;
+            font-size: 0.78rem;
+            color: #e2e8f0;
+            line-height: 1.45;
+        }
+        .pilot-hardware-bridge b {
+            color: #ffaa00;
+        }
+
     </style>
 </head>
 <body>
@@ -3682,6 +4009,7 @@
             <div class="nav-tabs" role="tablist">
                 <button class="nav-tab tab-secondary active" data-tab="home" onclick="switchTab('home')" role="tab" aria-selected="true" aria-label="Home"><span class="tab-icon">🏠</span><span class="tab-text">Home</span></button>
                 <button class="nav-tab tab-etherpay" data-tab="licensing" onclick="switchTab('licensing')" role="tab" aria-selected="false" aria-label="Ether-Pay"><span class="tab-icon">⚡</span><span class="tab-text">Ether-Pay</span></button>
+                <button class="nav-tab tab-pilot" data-tab="pilot" onclick="switchTab('pilot')" role="tab" aria-selected="false"><span class="tab-icon">🛰️</span><span class="tab-text">Pilot Program</span></button>
                 <button class="nav-tab tab-secondary" data-tab="fleet" onclick="switchTab('fleet')" role="tab" aria-selected="false"><span class="tab-icon">🚛</span><span class="tab-text">Fleet & Volume</span></button>
                 <button class="nav-tab tab-secondary" data-tab="solutions" onclick="switchTab('solutions')" role="tab" aria-selected="false">Solutions</button>
                 <button class="nav-tab tab-secondary" data-tab="technology" onclick="switchTab('technology')" role="tab" aria-selected="false">Technology</button>
@@ -3700,6 +4028,7 @@
     <div class="mobile-menu" id="mobileMenu">
         <button class="mobile-nav-tab" data-tab="licensing" onclick="switchTab('licensing'); closeMobileMenu();" style="color:#00ff7f; font-weight:800;">⚡ Ether-Pay / Licensing</button>
         <button class="mobile-nav-tab active" data-tab="home" onclick="switchTab('home'); closeMobileMenu();">🏠 Home</button>
+        <button class="mobile-nav-tab" data-tab="pilot" onclick="switchTab('pilot'); closeMobileMenu();" style="color:#00f0ff; font-weight:800;">🛰️ Pilot Program</button>
         <button class="mobile-nav-tab" data-tab="fleet" onclick="switchTab('fleet'); closeMobileMenu();" style="color:#4ce0ff; font-weight:700;">🚛 Fleet & Volume</button>
         <button class="mobile-nav-tab" data-tab="solutions" onclick="switchTab('solutions'); closeMobileMenu();">Solutions</button>
         <button class="mobile-nav-tab" data-tab="technology" onclick="switchTab('technology'); closeMobileMenu();">Technology</button>
@@ -3726,6 +4055,10 @@
                     <p class="description">
                         Unlocking the next paradigm of enterprise underwriting, automated claims logistics, and sub-1-second biological identity attestation. We treat human physiology as the ultimate cryptographic perimeter, isolating risk across critical aerospace and automotive infrastructures.
                     </p>
+                    <div style="margin-top: 22px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
+                        <button onclick="switchTab('pilot')" class="cta-button" style="background: linear-gradient(135deg, #00f0ff, #0080ff); color: #020617; font-weight: 800; border: none; padding: 12px 24px; border-radius: 6px; cursor: pointer; box-shadow: 0 0 20px rgba(0, 240, 255, 0.4); font-size: 0.9rem;">🛰️ 30-Day Cloud Pilot Program</button>
+                        <button onclick="switchTab('licensing')" class="cta-button" style="background: rgba(0, 255, 127, 0.12); color: #00ff7f; border: 1px solid #00ff7f; font-weight: 800; padding: 12px 24px; border-radius: 6px; cursor: pointer; font-size: 0.9rem;">⚡ Ether-Pay Licensing</button>
+                    </div>
                 </header>
 
                 <section class="stats-ticker-grid reveal-on-scroll">
@@ -4313,6 +4646,274 @@
                     </div>
 
                 </div>
+            </section>
+        </div>
+
+
+        <!-- ── TAB PANEL: PILOT PROGRAM (CLOUD EVALUATION PORTAL) ── -->
+        <div class="tab-panel" id="panel-pilot">
+            <section class="reveal-on-scroll">
+                
+                <!-- Hero & Cohort Status Banner -->
+                <div class="pilot-hero-banner">
+                    <div class="pilot-hero-badge">
+                        <span>🟢</span> ACTIVE EVALUATION COHORT • 5 SLOTS REMAINING (ITC VEGAS PRIORITY ACCESS)
+                    </div>
+                    <h2 class="pilot-hero-title">ETHER SOVEREIGN PILOT PROGRAM</h2>
+                    <p class="pilot-hero-subtitle">
+                        Expedited 30-day cloud-delivered evaluation node. Test sub-1-second biometric authentication, air-gapped local logic, and real-time claims fraud elimination on your own workstations or virtual enclaves with zero hardware shipping delays.
+                    </p>
+
+                    <div class="pilot-kpi-bar">
+                        <div class="pilot-kpi-pill">
+                            <span class="pilot-kpi-icon">⚡</span>
+                            <div class="pilot-kpi-text">
+                                <span class="pilot-kpi-title">Instant Cloud Image</span>
+                                <span class="pilot-kpi-sub">Download .DMG / Docker Sandbox</span>
+                            </div>
+                        </div>
+                        <div class="pilot-kpi-pill">
+                            <span class="pilot-kpi-icon">🔒</span>
+                            <div class="pilot-kpi-text">
+                                <span class="pilot-kpi-title">Zero Cloud Egress</span>
+                                <span class="pilot-kpi-sub">Local Enclave Cryptography</span>
+                            </div>
+                        </div>
+                        <div class="pilot-kpi-pill">
+                            <span class="pilot-kpi-icon">⏱️</span>
+                            <div class="pilot-kpi-text">
+                                <span class="pilot-kpi-title">Sub-1s Biometric FNOL</span>
+                                <span class="pilot-kpi-sub">Vascular & Acoustic Proof</span>
+                            </div>
+                        </div>
+                        <div class="pilot-kpi-pill">
+                            <span class="pilot-kpi-icon">🛡️</span>
+                            <div class="pilot-kpi-text">
+                                <span class="pilot-kpi-title">100% Creditable</span>
+                                <span class="pilot-kpi-sub">Applies to Ether Box Rollout</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2-Column Responsive Workspace Grid -->
+                <div class="pilot-workspace-grid">
+                    
+                    <!-- LEFT COLUMN: Configuration & Evaluation Roadmap -->
+                    <div class="pilot-config-column">
+                        
+                        <!-- 1. Select Evaluation Tier -->
+                        <div class="pilot-card">
+                            <div class="pilot-card-header">
+                                <span class="pilot-card-step">01</span>
+                                <h3>Select Evaluation Tier</h3>
+                            </div>
+                            
+                            <div class="pilot-tier-grid">
+                                <!-- Tier 1: Observer -->
+                                <div class="pilot-tier-option" id="tierCardObserver" onclick="selectPilotTier('observer')">
+                                    <div>
+                                        <span class="pilot-tier-badge-pill" style="background:rgba(148,163,184,0.15); color:#94a3b8; border:1px solid #94a3b8;">OBSERVER</span>
+                                        <div class="pilot-tier-name">Node Observer</div>
+                                        <div class="pilot-tier-fee">FREE <small>/ 14 Days</small></div>
+                                        <div class="pilot-tier-desc">
+                                            Interactive web telemetry sandbox, mock claims stream, read-only actuarial risk scoring, zero install.
+                                        </div>
+                                    </div>
+                                    <span style="font-size:0.75rem; color:#64748b; font-family:monospace;">• Web Sandbox Only</span>
+                                </div>
+
+                                <!-- Tier 2: Operator (Recommended) -->
+                                <div class="pilot-tier-option active" id="tierCardOperator" onclick="selectPilotTier('operator')">
+                                    <div>
+                                        <span class="pilot-tier-badge-pill" style="background:rgba(0,240,255,0.2); color:#00f0ff; border:1px solid #00f0ff;">RECOMMENDED</span>
+                                        <div class="pilot-tier-name">Node Operator</div>
+                                        <div class="pilot-tier-fee">$500 <small>Deposit</small></div>
+                                        <div class="pilot-tier-desc">
+                                            Full downloadable Ether OS evaluation image, local biometric authentication layer, FNOL claims engine, 30-day hardware-locked key.
+                                        </div>
+                                    </div>
+                                    <span style="font-size:0.75rem; color:#00ff7f; font-family:monospace; font-weight:700;">• 100% Creditable Deposit</span>
+                                </div>
+
+                                <!-- Tier 3: Sovereign Enclave -->
+                                <div class="pilot-tier-option" id="tierCardEnclave" onclick="selectPilotTier('enclave')">
+                                    <div>
+                                        <span class="pilot-tier-badge-pill" style="background:rgba(255,170,0,0.2); color:#ffaa00; border:1px solid #ffaa00;">ENTERPRISE</span>
+                                        <div class="pilot-tier-name">Sovereign Enclave</div>
+                                        <div class="pilot-tier-fee">$2,000 <small>Deposit</small></div>
+                                        <div class="pilot-tier-desc">
+                                            Dedicated white-glove engineering lead, custom claims rules integration, priority production hardware queue, multi-tenant license.
+                                        </div>
+                                    </div>
+                                    <span style="font-size:0.75rem; color:#ffaa00; font-family:monospace; font-weight:700;">• Priority Hardware Queue</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 2. Select Sector Track -->
+                        <div class="pilot-card">
+                            <div class="pilot-card-header">
+                                <span class="pilot-card-step">02</span>
+                                <h3>Target Deployment Sector</h3>
+                            </div>
+                            <p style="color:#94a3b8; font-size:0.82rem; margin:0 0 12px 0;">
+                                Select your operational industry to receive pre-configured claims telemetry, biometric rules, and compliance templates:
+                            </p>
+                            <div class="pilot-sector-pill-row">
+                                <div class="pilot-sector-pill active" onclick="selectPilotSector('auto', this)">🚗 Auto Claims & Telematics</div>
+                                <div class="pilot-sector-pill" onclick="selectPilotSector('fleet', this)">🚛 Commercial Fleet & Cargo</div>
+                                <div class="pilot-sector-pill" onclick="selectPilotSector('aviation', this)">✈️ Aviation ADS-B & Pilot Vascular</div>
+                                <div class="pilot-sector-pill" onclick="selectPilotSector('health', this)">🏥 Healthcare & HIPAA Enclave</div>
+                                <div class="pilot-sector-pill" onclick="selectPilotSector('defense', this)">🛡️ Defense & Critical Infrastructure</div>
+                            </div>
+                        </div>
+
+                        <!-- 3. 30-Day Evaluation Milestone Roadmap -->
+                        <div class="pilot-card">
+                            <div class="pilot-card-header">
+                                <span class="pilot-card-step">03</span>
+                                <h3>30-Day Evaluation Milestone Roadmap</h3>
+                            </div>
+                            <div class="pilot-roadmap-row">
+                                <div class="pilot-phase-card">
+                                    <span class="pilot-phase-num">DAYS 01–03</span>
+                                    <div class="pilot-phase-content">
+                                        <h4>Phase 1: Cloud Image Download & Activation</h4>
+                                        <p>Download signed Ether OS virtual image (.dmg / container), activate 30-day cryptographic license token, and verify zero-trust local boot.</p>
+                                    </div>
+                                </div>
+                                <div class="pilot-phase-card">
+                                    <span class="pilot-phase-num">DAYS 04–14</span>
+                                    <div class="pilot-phase-content">
+                                        <h4>Phase 2: Biometric & FNOL Telemetry Ingestion</h4>
+                                        <p>Configure local biometric vascular gates, connect CAN bus / OBD-II or mock data stream, and execute sub-1s First Notice of Loss claims triage.</p>
+                                    </div>
+                                </div>
+                                <div class="pilot-phase-card">
+                                    <span class="pilot-phase-num">DAYS 15–25</span>
+                                    <div class="pilot-phase-content">
+                                        <h4>Phase 3: Actuarial Stress-Testing & Offline Recovery</h4>
+                                        <p>Run acoustic forensics simulation, test air-gapped disaster recovery drills, and audit cryptographic zero-cloud-leakage logs.</p>
+                                    </div>
+                                </div>
+                                <div class="pilot-phase-card">
+                                    <span class="pilot-phase-num">DAYS 26–30</span>
+                                    <div class="pilot-phase-content">
+                                        <h4>Phase 4: Executive Proof-of-Value & Production Transition</h4>
+                                        <p>Generate certified audit dossier for underwriting leadership and transition evaluation credit toward permanent physical Ether Box hardware.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- RIGHT COLUMN: Dynamic Summary & Application Form -->
+                    <div class="pilot-action-column">
+                        
+                        <!-- Dynamic Evaluation Summary -->
+                        <div class="pilot-summary-box">
+                            <div class="pilot-summary-header">
+                                <div>
+                                    <span style="color:#00f0ff; font-weight:800; font-family:monospace; font-size:0.9rem;">EVALUATION SPECIFICATION</span>
+                                    <div style="color:#94a3b8; font-size:0.75rem; margin-top:2px;" id="dispPilotTierName">Node Operator (Core Pilot)</div>
+                                </div>
+                                <span style="background:rgba(0,255,127,0.15); color:#00ff7f; border:1px solid #00ff7f; font-size:0.7rem; font-weight:800; padding:3px 8px; border-radius:12px;" id="dispPilotTerm">30-DAY CLOUD PASS</span>
+                            </div>
+
+                            <div class="pilot-summary-row">
+                                <span>Delivery Mechanism:</span>
+                                <span style="color:#00f0ff;">Cloud Download (.DMG / VM)</span>
+                            </div>
+                            <div class="pilot-summary-row">
+                                <span>Hardware Requirement:</span>
+                                <span>Zero (Runs in Virtual Enclave)</span>
+                            </div>
+                            <div class="pilot-summary-row">
+                                <span>Target Sector:</span>
+                                <span id="dispPilotSector">Auto Claims & Telematics</span>
+                            </div>
+                            <div class="pilot-summary-row">
+                                <span>Biometric Auth Engine:</span>
+                                <span>Included (Local Enclave)</span>
+                            </div>
+                            <div class="pilot-summary-row">
+                                <span>Cloud Egress:</span>
+                                <span style="color:#00ff7f;">0.00 KB (Air-Gapped)</span>
+                            </div>
+
+                            <div class="pilot-total-deposit">
+                                <span>Evaluation Deposit:</span>
+                                <span id="dispPilotDeposit">$500.00 USD</span>
+                            </div>
+                            <div style="font-size:0.7rem; color:#64748b; margin-top:4px; text-align:right;" id="dispPilotDepositNote">
+                                100% creditable toward production hardware rollout
+                            </div>
+
+                            <div class="pilot-hardware-bridge">
+                                <b>📦 Production Hardware Upgrade Path:</b> Once evaluation passes, your deposit applies 1:1 toward Turnkey Dual-Drive Ether Boxes ($2,000/unit) with 4TB Samsung 990 PRO NVMe and Thunderbolt 4 heatsink enclosures.
+                            </div>
+                        </div>
+
+                        <!-- Pilot Admission Form -->
+                        <div class="glass-card" style="padding:22px;">
+                            <h3 style="font-family:'Cinzel', serif; font-size:1.1rem; margin-bottom:6px; color:#ffffff;">Request Pilot Node Admission</h3>
+                            <p style="color:var(--text-muted); font-size:0.82rem; margin-bottom:18px;">
+                                Cohort approval within 2 business hours. Instant charter generation.
+                            </p>
+
+                            <form id="pilotForm" action="https://formspree.io/f/mykaadqv" method="POST">
+                                <!-- Honeypot field: invisible to users, catches bots -->
+                                <input type="text" name="_gotcha" style="display:none">
+                                <input type="hidden" name="_subject" value="New Pilot Program Application (Cloud Evaluation)">
+                                <input type="hidden" name="project_type" value="pilot">
+                                <input type="hidden" name="selected_tier" id="pilotFormTier" value="Node Operator (Core Pilot)">
+                                <input type="hidden" name="selected_sector" id="pilotFormSector" value="Auto Claims & Telematics">
+                                <input type="hidden" name="deposit_amount" id="pilotFormDeposit" value="$500.00 USD (100% Creditable)">
+
+                                <div class="form-group">
+                                    <label for="pilot-name">Full Name</label>
+                                    <input type="text" name="name" id="pilot-name" placeholder="Name" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="pilot-company">Company / Organization</label>
+                                    <input type="text" name="company" id="pilot-company" placeholder="Company" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="pilot-email">Corporate / Agency Email</label>
+                                    <input type="email" name="email" id="pilot-email" placeholder="Email" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="pilot-fleet-size">Node / Vehicle / Workstation Footprint</label>
+                                    <select name="fleet_size" id="pilot-fleet-size">
+                                        <option value="1-5 Nodes (Exploratory PoC)">1–5 Nodes (Exploratory PoC)</option>
+                                        <option value="6-25 Nodes (Squad / Depot Trial)">6–25 Nodes (Squad / Depot Trial)</option>
+                                        <option value="26-100 Nodes (Commercial Division)">26–100 Nodes (Commercial Division)</option>
+                                        <option value="100+ Nodes (Enterprise Fleet)">100+ Nodes (Enterprise Fleet)</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="pilot-msg">Evaluation Objectives & Technical Environment</label>
+                                    <textarea name="message" id="pilot-msg" rows="3" placeholder="Tell us about your claims / biometric verification use cases, telematics inputs (OBD-II, CAN bus, ADS-B, or API)..."></textarea>
+                                </div>
+
+                                <button type="submit" style="width: 100%; justify-content: center; background: linear-gradient(135deg, #00f0ff, #0080ff); color: #020617; font-weight: 800; font-size: 0.9rem; padding: 14px; border: none; border-radius: 6px; cursor: pointer; box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);">
+                                    <span class="btn-text">⚡ TRANSMIT PILOT APPLICATION // MINT CHARTER</span>
+                                    <div class="spinner" style="display: none;"></div>
+                                </button>
+                            </form>
+                            <div class="form-status" style="margin-top:12px;"></div>
+                        </div>
+
+                    </div>
+
+                </div>
+
             </section>
         </div>
 
@@ -7697,6 +8298,9 @@
                 if (!targetTabId) return;
 
                 // Handle aliases
+                if (targetTabId === 'pilot' || targetTabId === 'pilot-program' || targetTabId === 'evaluation' || targetTabId === 'poc') {
+                    targetTabId = 'pilot';
+                }
                 if (targetTabId === 'fleet' || targetTabId === 'fleet-deploy' || targetTabId === 'enterprise' || targetTabId === 'volume') {
                     targetTabId = 'fleet-deploy';
                 }
@@ -9673,6 +10277,71 @@ Contact: contact@ether-terminal.com
                 }
             });
         });
+
+
+        /* ── Pilot Program Interactive Controller ── */
+        window.selectPilotTier = function(tierKey) {
+            var cardObs = document.getElementById("tierCardObserver");
+            var cardOp = document.getElementById("tierCardOperator");
+            var cardEnc = document.getElementById("tierCardEnclave");
+
+            if (cardObs) cardObs.classList.remove("active");
+            if (cardOp) cardOp.classList.remove("active");
+            if (cardEnc) cardEnc.classList.remove("active");
+
+            var nameEl = document.getElementById("dispPilotTierName");
+            var termEl = document.getElementById("dispPilotTerm");
+            var depEl = document.getElementById("dispPilotDeposit");
+            var depNoteEl = document.getElementById("dispPilotDepositNote");
+
+            var tierInput = document.getElementById("pilotFormTier");
+            var depInput = document.getElementById("pilotFormDeposit");
+
+            if (tierKey === "observer") {
+                if (cardObs) cardObs.classList.add("active");
+                if (nameEl) nameEl.textContent = "Node Observer (Free Sandbox)";
+                if (termEl) { termEl.textContent = "14-DAY PASS"; termEl.style.color = "#94a3b8"; termEl.style.borderColor = "#94a3b8"; }
+                if (depEl) depEl.textContent = "$0.00 USD";
+                if (depNoteEl) depNoteEl.textContent = "Free evaluation access • Zero payment required";
+                if (tierInput) tierInput.value = "Node Observer (Free Sandbox)";
+                if (depInput) depInput.value = "$0.00 USD";
+            } else if (tierKey === "enclave") {
+                if (cardEnc) cardEnc.classList.add("active");
+                if (nameEl) nameEl.textContent = "Sovereign Enclave (Enterprise)";
+                if (termEl) { termEl.textContent = "ENTERPRISE PASS"; termEl.style.color = "#ffaa00"; termEl.style.borderColor = "#ffaa00"; }
+                if (depEl) depEl.textContent = "$2,000.00 USD";
+                if (depNoteEl) depNoteEl.textContent = "100% creditable toward production hardware rollout";
+                if (tierInput) tierInput.value = "Sovereign Enclave (Enterprise)";
+                if (depInput) depInput.value = "$2,000.00 USD (100% Creditable)";
+            } else {
+                if (cardOp) cardOp.classList.add("active");
+                if (nameEl) nameEl.textContent = "Node Operator (Core Pilot)";
+                if (termEl) { termEl.textContent = "30-DAY CLOUD PASS"; termEl.style.color = "#00ff7f"; termEl.style.borderColor = "#00ff7f"; }
+                if (depEl) depEl.textContent = "$500.00 USD";
+                if (depNoteEl) depNoteEl.textContent = "100% creditable toward production hardware rollout";
+                if (tierInput) tierInput.value = "Node Operator (Core Pilot)";
+                if (depInput) depInput.value = "$500.00 USD (100% Creditable)";
+            }
+        };
+
+        window.selectPilotSector = function(sectorKey, el) {
+            document.querySelectorAll(".pilot-sector-pill").forEach(function(pill) {
+                pill.classList.remove("active");
+            });
+            if (el) el.classList.add("active");
+
+            var label = "Auto Claims & Telematics";
+            if (sectorKey === "fleet") label = "Commercial Fleet & Cargo";
+            if (sectorKey === "aviation") label = "Aviation ADS-B & Pilot Vascular";
+            if (sectorKey === "health") label = "Healthcare & HIPAA Enclave";
+            if (sectorKey === "defense") label = "Defense & Critical Infrastructure";
+
+            var disp = document.getElementById("dispPilotSector");
+            if (disp) disp.textContent = label;
+
+            var input = document.getElementById("pilotFormSector");
+            if (input) input.value = label;
+        };
 
         window.__currentModalBasePrice = 85000;
 
