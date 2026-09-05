@@ -3804,8 +3804,8 @@
 
         .pilot-tier-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
         }
         @media (max-width: 768px) {
             .pilot-tier-grid {
@@ -4710,20 +4710,7 @@
                             </div>
                             
                             <div class="pilot-tier-grid">
-                                <!-- Tier 1: Observer -->
-                                <div class="pilot-tier-option" id="tierCardObserver" onclick="selectPilotTier('observer')">
-                                    <div>
-                                        <span class="pilot-tier-badge-pill" style="background:rgba(148,163,184,0.15); color:#94a3b8; border:1px solid #94a3b8;">OBSERVER</span>
-                                        <div class="pilot-tier-name">Node Observer</div>
-                                        <div class="pilot-tier-fee">FREE <small>/ 14 Days</small></div>
-                                        <div class="pilot-tier-desc">
-                                            Interactive web telemetry sandbox, mock claims stream, read-only actuarial risk scoring, zero install.
-                                        </div>
-                                    </div>
-                                    <span style="font-size:0.75rem; color:#64748b; font-family:monospace;">• Web Sandbox Only</span>
-                                </div>
-
-                                <!-- Tier 2: Operator (Recommended) -->
+                                <!-- Tier 1: Operator (Recommended) -->
                                 <div class="pilot-tier-option active" id="tierCardOperator" onclick="selectPilotTier('operator')">
                                     <div>
                                         <span class="pilot-tier-badge-pill" style="background:rgba(0,240,255,0.2); color:#00f0ff; border:1px solid #00f0ff;">RECOMMENDED</span>
@@ -4736,7 +4723,7 @@
                                     <span style="font-size:0.75rem; color:#00ff7f; font-family:monospace; font-weight:700;">• Non-Refundable Access Deposit</span>
                                 </div>
 
-                                <!-- Tier 3: Sovereign Enclave -->
+                                <!-- Tier 2: Sovereign Enclave -->
                                 <div class="pilot-tier-option" id="tierCardEnclave" onclick="selectPilotTier('enclave')">
                                     <div>
                                         <span class="pilot-tier-badge-pill" style="background:rgba(255,170,0,0.2); color:#ffaa00; border:1px solid #ffaa00;">ENTERPRISE</span>
@@ -8677,23 +8664,6 @@
             const PRICING_DATA = {
                 pilot: [
                     {
-                        class: "basic",
-                        title: "Node Observer",
-                        desc: "Interactive web telemetry sandbox, mock claims stream, read-only actuarial risk scoring, zero install.",
-                        capex: true,
-                        capexPrice: 0,
-                        slaPrice: 0,
-                        topTag: "FREE SANDBOX",
-                        features: [
-                            "Interactive web telemetry sandbox (14-day pass)",
-                            "Pre-loaded synthetic claims & telematics stream",
-                            "Read-only actuarial fraud risk scoring engine",
-                            "Zero software installation required"
-                        ],
-                        btnText: "Access Free Sandbox",
-                        btnClass: "basic-btn"
-                    },
-                    {
                         class: "pro",
                         title: "Node Operator (Core Pilot)",
                         desc: "Full downloadable Ether OS evaluation image, local biometric authentication layer, FNOL claims engine, 30-day hardware-locked key.",
@@ -10422,7 +10392,7 @@ Contact: contact@ether-terminal.com
             }
             if (hwFormInput) hwFormInput.value = qty;
             if (depInput) {
-                var baseStr = (base > 0 ? '$' + base.toLocaleString('en-US') + '.00 USD (Non-Refundable Deposit)' : '$0.00 (Free Sandbox)');
+                var baseStr = '$' + base.toLocaleString('en-US') + '.00 USD (Non-Refundable Deposit)';
                 if (qty > 0) {
                     depInput.value = '$' + total.toLocaleString('en-US') + '.00 USD (Base: ' + baseStr + ' + ' + qty + ' Hardware Kits: $' + hwPrice.toLocaleString('en-US') + ')';
                 } else {
@@ -10432,11 +10402,9 @@ Contact: contact@ether-terminal.com
         };
 
         window.selectPilotTier = function(tierKey) {
-            var cardObs = document.getElementById("tierCardObserver");
             var cardOp = document.getElementById("tierCardOperator");
             var cardEnc = document.getElementById("tierCardEnclave");
 
-            if (cardObs) cardObs.classList.remove("active");
             if (cardOp) cardOp.classList.remove("active");
             if (cardEnc) cardEnc.classList.remove("active");
 
@@ -10445,18 +10413,11 @@ Contact: contact@ether-terminal.com
             var depNoteEl = document.getElementById("dispPilotDepositNote");
             var tierInput = document.getElementById("pilotFormTier");
 
-            if (tierKey === "observer") {
-                window.__pilotBaseDeposit = 0;
-                if (cardObs) cardObs.classList.add("active");
-                if (nameEl) nameEl.textContent = "Node Observer (Free Sandbox)";
-                if (termEl) { termEl.textContent = "14-DAY PASS"; termEl.style.color = "#94a3b8"; termEl.style.borderColor = "#94a3b8"; }
-                if (depNoteEl) depNoteEl.textContent = "Free evaluation access • Zero payment required";
-                if (tierInput) tierInput.value = "Node Observer (Free Sandbox)";
-            } else if (tierKey === "enclave") {
+            if (tierKey === "enclave") {
                 window.__pilotBaseDeposit = 10000;
                 if (cardEnc) cardEnc.classList.add("active");
                 if (nameEl) nameEl.textContent = "Sovereign Enclave (Enterprise)";
-                if (termEl) { termEl.textContent = "ENTERPRISE PASS"; termEl.style.color = "#ffaa00"; termEl.style.borderColor = "#ffaa00"; }
+                if (termEl) { termEl.textContent = "30-DAY ENTERPRISE PASS"; termEl.style.color = "#ffaa00"; termEl.style.borderColor = "#ffaa00"; }
                 if (depNoteEl) depNoteEl.textContent = "Non-refundable enterprise evaluation access deposit";
                 if (tierInput) tierInput.value = "Sovereign Enclave (Enterprise)";
             } else {
