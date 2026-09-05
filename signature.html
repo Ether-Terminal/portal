@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Official Sovereign Directive & Settlement Invoice — Ether Terminal LLC</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel:wght@600;700;900&family=Dancing+Script:wght@600;700&family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;700&display=swap');
         
         * {
             box-sizing: border-box;
@@ -207,6 +207,27 @@
             cursor: pointer;
             letter-spacing: 0.5px;
         }
+        .btn-email {
+            background: linear-gradient(135deg, #0284c7, #0369a1);
+            color: #fff;
+            border: 1px solid #38bdf8;
+            font-weight: 700;
+            padding: 10px 18px;
+            border-radius: 4px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 0.82rem;
+            cursor: pointer;
+            letter-spacing: 0.5px;
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.3);
+            transition: transform 0.1s ease, box-shadow 0.2s ease;
+        }
+        .btn-email:hover {
+            background: linear-gradient(135deg, #0369a1, #075985);
+            box-shadow: 0 0 25px rgba(56, 189, 248, 0.6);
+        }
+        .btn-email:active {
+            transform: scale(0.97);
+        }
 
         /* Presidential Memorandum Document Styling */
         .memorandum-sheet {
@@ -380,26 +401,196 @@
             color: #555;
             line-height: 1.45;
         }
-        .signature-block {
-            margin-top: 40px;
+        .countersignature-grid {
+            margin-top: 35px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            border-top: 1px solid rgba(184, 134, 11, 0.35);
+            padding-top: 24px;
+        }
+        .countersig-card {
+            background: #fafaf7;
+            border: 1px solid rgba(0, 34, 68, 0.15);
+            border-radius: 4px;
+            padding: 14px 16px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        .countersig-card.buyer-card {
+            border-left: 4px solid #002244;
+        }
+        .countersig-card.licensor-card {
+            border-left: 4px solid #b8860b;
+            background: #fbfbf8;
+        }
+        .countersig-title {
+            font-family: 'Cinzel', serif;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.8px;
+            color: #002244;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .licensor-card .countersig-title {
+            color: #b8860b;
+        }
+        .sig-mode-bar {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 8px;
+        }
+        .sig-mode-btn {
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            color: #334155;
+            padding: 3px 8px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 0.72rem;
+            font-weight: 600;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .sig-mode-btn:hover {
+            border-color: #002244;
+            color: #002244;
+        }
+        .sig-mode-btn.active {
+            background: #002244;
+            color: #ffffff;
+            border-color: #002244;
+        }
+        .sig-clear-btn {
+            margin-left: auto;
+            background: transparent;
+            border: 1px dashed #94a3b8;
+            color: #64748b;
+            padding: 3px 7px;
+            font-size: 0.68rem;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .sig-clear-btn:hover {
+            border-color: #ef4444;
+            color: #ef4444;
+        }
+        .sig-canvas-container {
+            position: relative;
+            width: 100%;
+            height: 90px;
+            background: #ffffff;
+            border: 1px dashed #94a3b8;
+            border-radius: 3px;
+            cursor: crosshair;
+            overflow: hidden;
+            touch-action: none;
+        }
+        .sig-canvas-container.field-invalid {
+            border-color: #ef4444 !important;
+            box-shadow: 0 0 10px rgba(239, 68, 68, 0.4) !important;
+        }
+        #buyerSigCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            touch-action: none;
+        }
+        .canvas-hint {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 0.75rem;
+            font-style: italic;
+            color: #94a3b8;
+            pointer-events: none;
+            z-index: 1;
+            user-select: none;
+            white-space: nowrap;
+        }
+        .cursive-sig-box {
+            width: 100%;
+            height: 90px;
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 10px;
+        }
+        .cursive-signature-text {
+            font-family: 'Dancing Script', 'Alex Brush', cursive;
+            font-size: 2.2rem;
+            color: #001f3f;
+            line-height: 1;
+            transform: rotate(-1.5deg);
+        }
+        .sig-print-img {
+            display: none;
+            width: 100%;
+            height: 90px;
+            object-fit: contain;
+        }
+        .sig-rule-line {
+            margin-top: 6px;
+            margin-bottom: 4px;
+            border-bottom: 1.5px solid #002244;
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
+            padding-bottom: 2px;
         }
-        .signature-name {
-            font-size: 1.25rem;
+        .licensor-card .sig-rule-line {
+            border-bottom-color: #b8860b;
+        }
+        .sig-rule-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.62rem;
             font-weight: 700;
             color: #002244;
-            border-top: 1px solid #333;
-            padding-top: 6px;
-            display: inline-block;
-            min-width: 240px;
+            letter-spacing: 0.5px;
         }
-        .signature-title {
-            font-size: 0.9rem;
-            color: #555;
-            font-style: italic;
+        .licensor-card .sig-rule-label {
+            color: #b8860b;
         }
+        .sig-cred-block {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 0.75rem;
+            color: #334155;
+            line-height: 1.4;
+            margin-top: 5px;
+        }
+        .sig-cred-row {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px dotted rgba(0,0,0,0.08);
+            padding: 2px 0;
+        }
+        .sig-cred-label {
+            color: #64748b;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        .sig-cred-val {
+            color: #0f172a;
+            font-weight: 600;
+            text-align: right;
+            max-width: 65%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
         .cryptographic-seal-stamp {
             display: inline-flex;
             align-items: center;
@@ -570,9 +761,37 @@
             .memo-label {
                 width: 170px !important;
             }
-            .signature-block {
+            .no-print, .sig-mode-bar, .canvas-hint, .sig-clear-btn {
+                display: none !important;
+            }
+            .sig-canvas-container {
+                border: none !important;
+                background: transparent !important;
+            }
+            .countersignature-grid {
+                display: flex !important;
                 flex-direction: row !important;
-                align-items: flex-end !important;
+                justify-content: space-between !important;
+                gap: 16px !important;
+                page-break-inside: avoid !important;
+            }
+            .countersig-card {
+                width: 49% !important;
+                background: transparent !important;
+                border: 1px solid #b8860b !important;
+                box-shadow: none !important;
+                padding: 10px 12px !important;
+                page-break-inside: avoid !important;
+            }
+            #buyerSigCanvas {
+                display: block !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            .sig-print-img {
+                display: block !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
             }
             .cryptographic-seal-stamp {
                 width: auto !important;
@@ -677,6 +896,7 @@
 
         <div class="btn-bar">
             <button class="btn-action" onclick="attemptRemint()" id="btnRemint">⚡ RE-MINT CREDENTIALS & MEMO</button>
+            <button class="btn-email" onclick="attemptEmailAccounting()" id="btnEmail">✉️ EMAIL TO ACCOUNTING / AP</button>
             <button class="btn-print" onclick="attemptPrint()" id="btnPrint">PRINT / SAVE AS OFFICIAL PDF</button>
         </div>
     </div>
@@ -807,19 +1027,102 @@
             By remitting settlement funds referencing wire memo <code id="docMemoCodeInlineLegal">ET-LOCKHE-WIRE</code>, the procurement entity (<b id="docCompanyLegal">Lockheed Martin Corporation</b>) unconditionally ratifies the Master Enterprise Sovereign License (EULA), Zero-Warranty ("AS-IS" / "WITH ALL FAULTS") Disclaimer, and Absolute Limitation of Liability Covenant. Ether Terminal LLC, its officers, protocol architects, and affiliates bear ZERO TOTAL LIABILITY ($0.00) under all legal theories, operational variances, hardware events, or claims whatsoever.
         </p>
 
-        <div class="signature-block">
-            <div class="signature-details">
-                <div class="signature-name">Executive Protocol Directorate</div>
-                <div class="signature-title">Office of Sovereign Operations<br>Ether Terminal LLC</div>
-            </div>
-            <div class="cryptographic-seal-stamp">
-                <img src="ether_sigil.png" class="stamp-sigil left" alt="Ether Sovereign Sigil">
-                <div class="stamp-text">
-                    OFFICIAL SOVEREIGN SEAL<br>
-                    CRYPTOGRAPHICALLY VERIFIED<br>
-                    SHA-256 AUTHENTICATED
+        <!-- Dual Countersignature Block (Executive Buyer & Protocol Directorate) -->
+        <div class="countersignature-grid">
+            <!-- Left Side: Buyer / Enterprise Licensee -->
+            <div class="countersig-card buyer-card" id="buyerSigCard">
+                <div class="countersig-title">
+                    <span>ACCEPTED &amp; RATIFIED BY LICENSEE</span>
+                    <span class="req-star">*</span>
                 </div>
-                <img src="ether_sigil.png" class="stamp-sigil right" alt="Ether Sovereign Sigil">
+
+                <div class="sig-mode-bar no-print">
+                    <button type="button" class="sig-mode-btn active" id="btnModeDraw" onclick="setSigMode('draw')">✍️ Finger / Stylus</button>
+                    <button type="button" class="sig-mode-btn" id="btnModeType" onclick="setSigMode('type')">⌨️ Auto-Cursive</button>
+                    <button type="button" class="sig-clear-btn" onclick="clearSigCanvas()">↺ Clear</button>
+                </div>
+
+                <!-- Drawing Canvas & Cursive Preview Container -->
+                <div id="canvasWrapper" class="sig-canvas-container">
+                    <canvas id="buyerSigCanvas" width="720" height="180"></canvas>
+                    <div id="canvasHint" class="canvas-hint">Sign with finger, stylus, or mouse here</div>
+                    <img id="buyerSigImg" class="sig-print-img" alt="Executive Signature">
+                </div>
+
+                <div id="cursiveWrapper" class="cursive-sig-box" style="display: none;">
+                    <span id="buyerSigCursive" class="cursive-signature-text">Executive Signatory</span>
+                </div>
+
+                <div class="sig-rule-line">
+                    <span class="sig-rule-label">BY: AUTHORIZED EXECUTIVE SIGNATURE</span>
+                    <span id="sigStateBadge" style="font-family:'JetBrains Mono',monospace; font-size:0.62rem; color:#ef4444; font-weight:700;">[PENDING SIGNATURE]</span>
+                </div>
+
+                <div class="sig-cred-block">
+                    <div class="sig-cred-row">
+                        <span class="sig-cred-label">PRINTED NAME:</span>
+                        <span class="sig-cred-val" id="docSigName">[Pending Executive Name]</span>
+                    </div>
+                    <div class="sig-cred-row">
+                        <span class="sig-cred-label">OFFICIAL TITLE:</span>
+                        <span class="sig-cred-val" id="docSigTitle">[Pending Executive Title]</span>
+                    </div>
+                    <div class="sig-cred-row">
+                        <span class="sig-cred-label">ENTERPRISE ENTITY:</span>
+                        <span class="sig-cred-val" id="docSigCompany">[Pending Corporate Entity]</span>
+                    </div>
+                    <div class="sig-cred-row">
+                        <span class="sig-cred-label">RATIFICATION DATE:</span>
+                        <span class="sig-cred-val" id="docSigDate">September 5, 2026</span>
+                    </div>
+                    <div class="sig-cred-row" style="border-bottom:none;">
+                        <span class="sig-cred-label">SECURITY ATTESTATION:</span>
+                        <span class="sig-cred-val" id="docSigHash" style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; color:#64748b;">[PENDING RATIFICATION]</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side: Licensor / Ether Terminal LLC Protocol Operations -->
+            <div class="countersig-card licensor-card">
+                <div class="countersig-title">ISSUED &amp; COUNTERSIGNED BY LICENSOR</div>
+
+                <div class="cursive-sig-box" style="background:transparent; border:none; height:90px; justify-content:flex-start;">
+                    <span style="font-family:'Alex Brush', cursive; font-size:2.4rem; color:#002244; transform:rotate(-2deg); display:inline-block;">Executive Protocol Directorate</span>
+                </div>
+
+                <div class="sig-rule-line">
+                    <span class="sig-rule-label">OFFICE OF SOVEREIGN PROTOCOL OPERATIONS</span>
+                    <span style="font-family:'JetBrains Mono',monospace; font-size:0.62rem; color:#00ff7f; font-weight:700;">[SEALED &amp; AUTHENTICATED]</span>
+                </div>
+
+                <div class="sig-cred-block">
+                    <div class="sig-cred-row">
+                        <span class="sig-cred-label">ISSUING AUTHORITY:</span>
+                        <span class="sig-cred-val">Ether Terminal LLC</span>
+                    </div>
+                    <div class="sig-cred-row">
+                        <span class="sig-cred-label">TREASURY DESK:</span>
+                        <span class="sig-cred-val">Novo / Middlesex Federal Savings FA</span>
+                    </div>
+                    <div class="sig-cred-row">
+                        <span class="sig-cred-label">FEDWIRE ROUTING:</span>
+                        <span class="sig-cred-val">211370150 (Clearing Member)</span>
+                    </div>
+                    <div class="sig-cred-row">
+                        <span class="sig-cred-label">PROTOCOL ENCLAVE:</span>
+                        <span class="sig-cred-val" style="color:#b8860b;">Sovereign Air-Gap HSM</span>
+                    </div>
+                </div>
+
+                <div class="cryptographic-seal-stamp" style="margin-top:10px; width:100%;">
+                    <img src="ether_sigil.png" class="stamp-sigil left" alt="Ether Sovereign Sigil">
+                    <div class="stamp-text">
+                        OFFICIAL SOVEREIGN SEAL<br>
+                        CRYPTOGRAPHICALLY VERIFIED<br>
+                        SHA-256 AUTHENTICATED
+                    </div>
+                    <img src="ether_sigil.png" class="stamp-sigil right" alt="Ether Sovereign Sigil">
+                </div>
             </div>
         </div>
     </div>
@@ -851,6 +1154,160 @@
             }
         }
 
+        var sigCanvas = null;
+        var sigCtx = null;
+        var isDrawing = false;
+        var hasDrawnSignature = false;
+        var currentSigMode = "draw"; // "draw" or "type"
+
+        function initSignaturePad() {
+            sigCanvas = document.getElementById("buyerSigCanvas");
+            if (!sigCanvas) return;
+            sigCtx = sigCanvas.getContext("2d");
+
+            // Setup smooth drawing parameters for executive blue ink
+            sigCtx.lineWidth = 3.5;
+            sigCtx.lineCap = "round";
+            sigCtx.lineJoin = "round";
+            sigCtx.strokeStyle = "#001a33";
+
+            function getPos(e) {
+                var r = sigCanvas.getBoundingClientRect();
+                var clientX, clientY;
+                if (e.touches && e.touches.length > 0) {
+                    clientX = e.touches[0].clientX;
+                    clientY = e.touches[0].clientY;
+                } else {
+                    clientX = e.clientX;
+                    clientY = e.clientY;
+                }
+                return {
+                    x: (clientX - r.left) * (sigCanvas.width / r.width),
+                    y: (clientY - r.top) * (sigCanvas.height / r.height)
+                };
+            }
+
+            function onPointerDown(e) {
+                e.preventDefault();
+                isDrawing = true;
+                var p = getPos(e);
+                sigCtx.beginPath();
+                sigCtx.moveTo(p.x, p.y);
+                var hint = document.getElementById("canvasHint");
+                if (hint) hint.style.opacity = "0";
+            }
+
+            function onPointerMove(e) {
+                if (!isDrawing) return;
+                e.preventDefault();
+                var p = getPos(e);
+                sigCtx.lineTo(p.x, p.y);
+                sigCtx.stroke();
+                hasDrawnSignature = true;
+                syncSignatureToDossier();
+                renderDirective();
+            }
+
+            function onPointerUp(e) {
+                if (isDrawing) {
+                    isDrawing = false;
+                    sigCtx.closePath();
+                    syncSignatureToDossier();
+                    renderDirective();
+                }
+            }
+
+            sigCanvas.addEventListener("mousedown", onPointerDown);
+            sigCanvas.addEventListener("mousemove", onPointerMove);
+            window.addEventListener("mouseup", onPointerUp);
+
+            sigCanvas.addEventListener("touchstart", onPointerDown, { passive: false });
+            sigCanvas.addEventListener("touchmove", onPointerMove, { passive: false });
+            window.addEventListener("touchend", onPointerUp, { passive: false });
+            window.addEventListener("touchcancel", onPointerUp, { passive: false });
+        }
+
+        function setSigMode(mode) {
+            currentSigMode = mode;
+            var drawWrap = document.getElementById("canvasWrapper");
+            var typeWrap = document.getElementById("cursiveWrapper");
+            var btnDraw = document.getElementById("btnModeDraw");
+            var btnType = document.getElementById("btnModeType");
+
+            if (mode === "draw") {
+                if (drawWrap) drawWrap.style.display = "block";
+                if (typeWrap) typeWrap.style.display = "none";
+                if (btnDraw) btnDraw.classList.add("active");
+                if (btnType) btnType.classList.remove("active");
+            } else {
+                if (drawWrap) drawWrap.style.display = "none";
+                if (typeWrap) typeWrap.style.display = "flex";
+                if (btnType) btnType.classList.add("active");
+                if (btnDraw) btnDraw.classList.remove("active");
+            }
+            syncSignatureToDossier();
+            renderDirective();
+        }
+
+        function clearSigCanvas() {
+            if (sigCanvas && sigCtx) {
+                sigCtx.clearRect(0, 0, sigCanvas.width, sigCanvas.height);
+            }
+            hasDrawnSignature = false;
+            var hint = document.getElementById("canvasHint");
+            if (hint) hint.style.opacity = "1";
+            var img = document.getElementById("buyerSigImg");
+            if (img) img.src = "";
+            syncSignatureToDossier();
+            renderDirective();
+        }
+
+        function syncSignatureToDossier() {
+            var name = ((document.getElementById("inName") || {}).value || "").trim();
+            var title = ((document.getElementById("inTitle") || {}).value || "").trim();
+            var company = ((document.getElementById("inCompany") || {}).value || "").trim();
+            var currentDate = new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+
+            if (document.getElementById("buyerSigCursive")) {
+                document.getElementById("buyerSigCursive").textContent = name || "Executive Signatory";
+            }
+            if (document.getElementById("docSigName")) {
+                document.getElementById("docSigName").textContent = name || "[Pending Executive Input]";
+            }
+            if (document.getElementById("docSigTitle")) {
+                document.getElementById("docSigTitle").textContent = title || "[Authorized Officer]";
+            }
+            if (document.getElementById("docSigCompany")) {
+                document.getElementById("docSigCompany").textContent = company || "[Corporate Licensee]";
+            }
+            if (document.getElementById("docSigDate")) {
+                document.getElementById("docSigDate").textContent = currentDate;
+            }
+
+            var isSigValid = (currentSigMode === "draw") ? hasDrawnSignature : (name.length >= 2);
+            var badge = document.getElementById("sigStateBadge");
+            var hashEl = document.getElementById("docSigHash");
+
+            if (badge) {
+                if (isSigValid) {
+                    badge.textContent = "[RATIFIED & BOUND]";
+                    badge.style.color = "#00ff7f";
+                } else {
+                    badge.textContent = "[PENDING SIGNATURE]";
+                    badge.style.color = "#ef4444";
+                }
+            }
+            if (hashEl) {
+                if (isSigValid) {
+                    hashEl.textContent = "SHA-256: " + currentHex.substring(0, 8) + "-" + Date.now().toString(36).toUpperCase() + "-ENCLAVE-SEALED";
+                    hashEl.style.color = "#002244";
+                } else {
+                    hashEl.textContent = "[PENDING RATIFICATION]";
+                    hashEl.style.color = "#64748b";
+                }
+            }
+        }
+
         function validateAllStarred() {
             var fields = [
                 { id: "inCompany", name: "Company Legal Name" },
@@ -878,6 +1335,14 @@
                 missing.push({ id: "legalBox", name: "Institutional Legal Covenant Ratification" });
             }
 
+            var isSigValid = (currentSigMode === "draw") ? hasDrawnSignature : (((document.getElementById("inName") || {}).value || "").trim().length >= 2);
+            if (!isSigValid) {
+                missing.push({ 
+                    id: currentSigMode === "draw" ? "canvasWrapper" : "inName", 
+                    name: "Executive Signature Ratification (" + (currentSigMode === "draw" ? "Sign with finger on line" : "Enter Executive Name for Auto-Cursive") + ")" 
+                });
+            }
+
             return missing;
         }
 
@@ -899,13 +1364,31 @@
             }
         }
 
+        function preparePrintSignature() {
+            if (currentSigMode === "draw" && sigCanvas && hasDrawnSignature) {
+                var img = document.getElementById("buyerSigImg");
+                if (img) {
+                    img.src = sigCanvas.toDataURL("image/png");
+                    img.style.display = "block";
+                }
+                if (sigCanvas) sigCanvas.style.display = "none";
+            }
+        }
+
+        window.addEventListener("afterprint", function() {
+            var img = document.getElementById("buyerSigImg");
+            if (img) img.style.display = "none";
+            if (sigCanvas && currentSigMode === "draw") sigCanvas.style.display = "block";
+        });
+
         function attemptPrint() {
             var missing = validateAllStarred();
             if (missing.length > 0) {
                 highlightMissing(missing);
-                alert("⚠️ MANDATORY DOSSIER INCOMPLETE:\n\nAll entries marked with a red star (*) are strictly required by protocol. You cannot bypass completing this dossier.\n\nMissing:\n• " + missing.map(function(m){ return m.name; }).join("\n• "));
+                alert("⚠️ MANDATORY DOSSIER INCOMPLETE:\n\nAll entries marked with a red star (*) and the executive countersignature are strictly required. You cannot bypass completing this dossier.\n\nMissing:\n• " + missing.map(function(m){ return m.name; }).join("\n• "));
                 return false;
             }
+            preparePrintSignature();
             window.print();
         }
 
@@ -927,14 +1410,64 @@
             var missing = validateAllStarred();
             if (missing.length > 0) {
                 highlightMissing(missing);
+            } else {
+                preparePrintSignature();
             }
         });
+
+        function attemptEmailAccounting() {
+            var missing = validateAllStarred();
+            if (missing.length > 0) {
+                highlightMissing(missing);
+                alert("⚠️ MANDATORY DOSSIER INCOMPLETE:\n\nPlease complete all starred (*) entries and sign the directive before dispatching to Accounts Payable.\n\nMissing:\n• " + missing.map(function(m){ return m.name; }).join("\n• "));
+                return false;
+            }
+
+            var company = ((document.getElementById("inCompany") || {}).value || "").trim();
+            var name = ((document.getElementById("inName") || {}).value || "").trim();
+            var title = ((document.getElementById("inTitle") || {}).value || "").trim();
+            var email = ((document.getElementById("inEmail") || {}).value || "").trim();
+            var po = ((document.getElementById("inPoNumber") || {}).value || "").trim();
+            var tier = ((document.getElementById("inTier") || {}).value || "").trim();
+            var isHw = (document.getElementById("inHw") || {}).value === "yes";
+            var basePrice = Number((document.getElementById("inBasePrice") || {}).value) || 5000;
+            var total = basePrice + (isHw ? 2000 : 0);
+            var cleanCo = company.replace(/[^a-zA-Z0-9]/g, "").toUpperCase().slice(0, 6) || "CORP";
+            var memoCode = "ET-" + cleanCo + "-WIRE";
+
+            var subject = encodeURIComponent("OFFICIAL DIRECTIVE & FEDWIRE SETTLEMENT SPEC — " + company + " (" + memoCode + ")");
+            var bodyText = 
+"To Corporate Accounts Payable / Treasury Operations:\n\n" +
+"An official Ether Sovereign Protocol Provisioning Directive has been approved and ratified for " + company + ".\n\n" +
+"SETTLEMENT SUMMARY:\n" +
+"• Deployment Tier: " + tier + "\n" +
+"• Purchase Order / Ref: " + (po || "Direct Order") + "\n" +
+"• Total Fedwire Settlement: $" + total.toLocaleString("en-US") + ".00 USD\n\n" +
+"FEDWIRE & CORPORATE ACH WIRE INSTRUCTIONS:\n" +
+"• Beneficiary Name: Ether Terminal LLC\n" +
+"• Receiving Bank: Middlesex Federal Savings FA / Novo\n" +
+"• Bank Address: One Broadway, Somerville, MA 02145\n" +
+"• Bank Fedwire / ACH Routing (ABA): 211370150\n" +
+"• Account Number: 103650380\n" +
+"• MANDATORY WIRE MEMO: " + memoCode + "\n\n" +
+"(IMPORTANT: The Wire Memo '" + memoCode + "' must be included in Fedwire field 103/4200 to trigger automatic enclave clearance).\n\n" +
+"COMPLIANCE & VENDOR ONBOARDING:\n" +
+"IRS Form W-9 and Novo Banking Verification letter are available at contact@ether-terminal.com.\n\n" +
+"Ratified by:\n" +
+name + " (" + title + ")\n" +
+company + "\n" +
+"Direct Contact: " + email + "\n\n" +
+"Full Presidential Directive Dossier Link:\n" +
+window.location.href;
+
+            window.location.href = "mailto:?subject=" + subject + "&body=" + encodeURIComponent(bodyText);
+        }
 
         function attemptRemint() {
             var missing = validateAllStarred();
             if (missing.length > 0) {
                 highlightMissing(missing);
-                alert("⚠️ MANDATORY DOSSIER INCOMPLETE:\n\nPlease complete all entries marked with a red star (*) before minting credentials.");
+                alert("⚠️ MANDATORY DOSSIER INCOMPLETE:\n\nPlease complete all entries marked with a red star (*) and countersign before minting credentials.");
                 return false;
             }
             mintNewCredentials();
@@ -1033,6 +1566,7 @@
             var basePrice = Number((document.getElementById("inBasePrice") || {}).value) || 0;
             var total = basePrice + (isHw ? 2000 : 0);
 
+            syncSignatureToDossier();
             var missing = validateAllStarred();
             var isComplete = (missing.length === 0);
 
@@ -1226,8 +1760,16 @@
         }
 
         // Initialize and render on page load
-        initDossierFromStorageOrUrl();
-        renderDirective();
+        function bootDirectiveSuite() {
+            initDossierFromStorageOrUrl();
+            initSignaturePad();
+            syncSignatureToDossier();
+            renderDirective();
+        }
+
+        window.addEventListener("DOMContentLoaded", bootDirectiveSuite);
+        window.addEventListener("load", bootDirectiveSuite);
+        bootDirectiveSuite();
     </script>
 </body>
 </html>
