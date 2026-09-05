@@ -4689,8 +4689,8 @@
                         <div class="pilot-kpi-pill">
                             <span class="pilot-kpi-icon">🛡️</span>
                             <div class="pilot-kpi-text">
-                                <span class="pilot-kpi-title">Non-Refundable</span>
-                                <span class="pilot-kpi-sub">Direct Evaluation Deposit</span>
+                                <span class="pilot-kpi-title">Final Settlement</span>
+                                <span class="pilot-kpi-sub">Direct Evaluation Access</span>
                             </div>
                         </div>
                     </div>
@@ -4720,7 +4720,7 @@
                                             Full downloadable Ether OS evaluation image, local biometric authentication layer, FNOL claims engine, 30-day hardware-locked key.
                                         </div>
                                     </div>
-                                    <span style="font-size:0.75rem; color:#00ff7f; font-family:monospace; font-weight:700;">• Non-Refundable Access Deposit</span>
+                                    <span style="font-size:0.75rem; color:#00ff7f; font-family:monospace; font-weight:700;">• Direct Evaluation Access</span>
                                 </div>
 
                                 <!-- Tier 2: Sovereign Enclave -->
@@ -4733,7 +4733,7 @@
                                             Dedicated white-glove engineering lead, custom claims rules integration, priority production hardware queue, multi-tenant license.
                                         </div>
                                     </div>
-                                    <span style="font-size:0.75rem; color:#ffaa00; font-family:monospace; font-weight:700;">• Non-Refundable Enterprise Access</span>
+                                    <span style="font-size:0.75rem; color:#ffaa00; font-family:monospace; font-weight:700;">• Enterprise Evaluation Access</span>
                                 </div>
                             </div>
                         </div>
@@ -4855,7 +4855,7 @@
                                 <span id="dispPilotDeposit">$5,000.00 USD</span>
                             </div>
                             <div style="font-size:0.7rem; color:#64748b; margin-top:4px; text-align:right;" id="dispPilotDepositNote">
-                                Non-refundable evaluation access deposit
+                                Direct evaluation access commitment
                             </div>
 
                             <div class="pilot-hardware-bridge">
@@ -4877,7 +4877,7 @@
                                 <input type="hidden" name="project_type" value="pilot">
                                 <input type="hidden" name="selected_tier" id="pilotFormTier" value="Node Operator (Core Pilot)">
                                 <input type="hidden" name="selected_sector" id="pilotFormSector" value="Auto Claims & Telematics">
-                                <input type="hidden" name="deposit_amount" id="pilotFormDeposit" value="$5,000.00 USD (Non-Refundable)">
+                                <input type="hidden" name="deposit_amount" id="pilotFormDeposit" value="$5,000.00 USD (Evaluation Deposit)">
                                 <input type="hidden" name="hardware_drive_qty" id="pilotFormHwQty" value="0">
 
                                 <div class="form-group">
@@ -7550,7 +7550,7 @@
                         <div class="form-group">
                             <label for="demo-scale">Node Deployment Scale *</label>
                             <select name="fleet_scale" id="demo-scale" class="modal-input-field">
-                                <option value="30-Day Cloud Pilot ($5,000 Non-Refundable)">🛰️ 30-Day Cloud Pilot ($5,000 Non-Refundable)</option>
+                                <option value="30-Day Cloud Pilot ($5,000 Evaluation)">🛰️ 30-Day Cloud Pilot ($5,000 Evaluation)</option>
                                 <option value="< 1,000 Units (Production Rollout)">&lt; 1,000 Units (Production Rollout)</option>
                                 <option value="1,000 – 10,000 Units (Regional Fleet)">1,000 – 10,000 Units (Regional Fleet)</option>
                                 <option value="10,000 – 100,000 Units (Enterprise Scale)">10,000 – 100,000 Units (Enterprise Scale)</option>
@@ -8677,7 +8677,7 @@
                             "Local biometric vascular authentication sandbox",
                             "Sub-1s First Notice of Loss (FNOL) claims engine",
                             "CAN bus & OBD-II telematics schema ingestion",
-                            "Non-refundable 30-day evaluation access"
+                            "30-day sovereign evaluation access"
                         ],
                         btnText: "Start Core Pilot ($5,000)",
                         btnClass: "pro-btn"
@@ -8696,7 +8696,7 @@
                             "Custom claims heuristics & actuarial rules engine",
                             "Multi-tenant virtual enclave licensing",
                             "Priority queue for physical Ether Box rollout",
-                            "Non-refundable enterprise evaluation access"
+                            "30-day enterprise evaluation access"
                         ],
                         btnText: "Start Enterprise Pilot ($10,000)",
                         btnClass: "premium-btn"
@@ -9098,7 +9098,7 @@
                     {
                         class: "basic",
                         title: "30-Day Cloud Pilot Node",
-                        desc: "Cloud-delivered 30-day evaluation node. Non-refundable access deposit. Test sub-1s biometric authentication, claims replay, and local air-gapped logic with zero hardware wait.",
+                        desc: "Cloud-delivered 30-day evaluation node. Direct access deposit. Test sub-1s biometric authentication, claims replay, and local air-gapped logic with zero hardware wait.",
                         capex: true,
                         capexPrice: 5000,
                         slaPrice: 0,
@@ -9354,7 +9354,7 @@
                                 priceBlockHtml = `
                                     <div class="card-price-block">
                                         <div class="card-price">${capexStr}<span style="font-size:0.6em;"> One-Time</span></div>
-                                        <div class="card-price-sub" style="color:var(--ether-cyan);font-size:0.8rem;margin-top:4px;">Fully refundable as Tier 1 credit</div>
+                                        <div class="card-price-sub" style="color:var(--ether-cyan);font-size:0.8rem;margin-top:4px;">30-Day Evaluation License • Final Settlement</div>
                                     </div>`;
                             }
                         } else {
@@ -10392,7 +10392,7 @@ Contact: contact@ether-terminal.com
             }
             if (hwFormInput) hwFormInput.value = qty;
             if (depInput) {
-                var baseStr = '$' + base.toLocaleString('en-US') + '.00 USD (Non-Refundable Deposit)';
+                var baseStr = '$' + base.toLocaleString('en-US') + '.00 USD (Evaluation Deposit)';
                 if (qty > 0) {
                     depInput.value = '$' + total.toLocaleString('en-US') + '.00 USD (Base: ' + baseStr + ' + ' + qty + ' Hardware Kits: $' + hwPrice.toLocaleString('en-US') + ')';
                 } else {
@@ -10418,14 +10418,14 @@ Contact: contact@ether-terminal.com
                 if (cardEnc) cardEnc.classList.add("active");
                 if (nameEl) nameEl.textContent = "Sovereign Enclave (Enterprise)";
                 if (termEl) { termEl.textContent = "30-DAY ENTERPRISE PASS"; termEl.style.color = "#ffaa00"; termEl.style.borderColor = "#ffaa00"; }
-                if (depNoteEl) depNoteEl.textContent = "Non-refundable enterprise evaluation access deposit";
+                if (depNoteEl) depNoteEl.textContent = "Enterprise evaluation access deposit";
                 if (tierInput) tierInput.value = "Sovereign Enclave (Enterprise)";
             } else {
                 window.__pilotBaseDeposit = 5000;
                 if (cardOp) cardOp.classList.add("active");
                 if (nameEl) nameEl.textContent = "Node Operator (Core Pilot)";
                 if (termEl) { termEl.textContent = "30-DAY CLOUD PASS"; termEl.style.color = "#00ff7f"; termEl.style.borderColor = "#00ff7f"; }
-                if (depNoteEl) depNoteEl.textContent = "Non-refundable evaluation access deposit";
+                if (depNoteEl) depNoteEl.textContent = "Direct evaluation access deposit";
                 if (tierInput) tierInput.value = "Node Operator (Core Pilot)";
             }
             window.updatePilotPricingTotal();
