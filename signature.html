@@ -1365,6 +1365,36 @@
 
             syncSignatureToDossier();
             renderDirective();
+
+            // Dispatch instant Ratification Alert to Discord & Ntfy
+            var company = ((document.getElementById("inCompany") || {}).value || "").trim();
+            var sigName = name || "Executive Signatory";
+            var sigHash = document.getElementById("docSigHash") ? document.getElementById("docSigHash").textContent : "SHA-256 Verified";
+            try {
+                fetch("/.netlify/functions/discord-notify", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        username: "Ether Directive Dispatcher",
+                        avatar_url: "https://ether-terminal.com/logo.png",
+                        content: "✍️ **[EXECUTIVE SIGNATURE RATIFIED]** " + sigName + (company ? " (" + company + ")" : "") + " has sealed their signature! @everyone",
+                        allowed_mentions: { parse: ["everyone"] },
+                        embeds: [{
+                            title: "✍️ EXECUTIVE BUYER SIGNATURE SEALED & BOUND",
+                            description: "An authorized signature was officially rendered and sealed on the Presidential Directive Memorandum.",
+                            color: 65280,
+                            fields: [
+                                { name: "Signatory", value: sigName, inline: true },
+                                { name: "Entity", value: company || "Corporate Licensee", inline: true },
+                                { name: "Mode", value: currentSigMode === "draw" ? "✍️ Finger / Stylus Drawing" : "⌨️ Auto-Cursive Authentication", inline: true },
+                                { name: "Security Seal", value: sigHash, inline: false }
+                            ],
+                            footer: { text: "Ether Terminal LLC • Sovereign Cryptographic Enclave" },
+                            timestamp: new Date().toISOString()
+                        }]
+                    })
+                }).catch(function(e) {});
+            } catch(e) {}
         }
 
         function setSigMode(mode) {

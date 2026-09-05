@@ -168,6 +168,15 @@ exports.handler = async function(event, context) {
     // 3. Dispatch to Discord if configured
     if (discordUrl) {
         try {
+            // Ensure payload includes mention and allowed_mentions so Discord sends push notifications to mobile
+            if (!payload.content) {
+                payload.content = "⚡ **[OPERATIONS DISPATCH]** " + title + " @everyone";
+            } else if (!payload.content.includes("@everyone") && !payload.content.includes("@here")) {
+                payload.content = payload.content + " @everyone";
+            }
+            if (!payload.allowed_mentions) {
+                payload.allowed_mentions = { parse: ["everyone"] };
+            }
             const discordRes = await postWebhook(discordUrl, payload);
             results.discord = discordRes.statusCode >= 200 && discordRes.statusCode < 300;
         } catch (err) {
