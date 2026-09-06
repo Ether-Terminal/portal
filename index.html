@@ -4830,36 +4830,12 @@
                                 <span style="color:#00ff7f;">0.00 KB (Air-Gapped)</span>
                             </div>
 
-                            <!-- Modular Hardware Kit Quantity Selector in Pilot Portal -->
-                            <div style="background: rgba(76, 224, 255, 0.06); border: 1px solid rgba(76, 224, 255, 0.35); border-radius: 8px; padding: 12px; margin: 12px 0;">
-                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; flex-wrap: wrap; gap: 6px;">
-                                    <span style="color: var(--ether-cyan); font-weight: 800; font-size: 0.84rem;">💾 Optional Physical Dual-Drive Kits ($2,000/kit):</span>
-                                    <span id="pilotHwPriceDisplay" style="color: #00ff7f; font-weight: 800; font-family: monospace; font-size: 0.84rem;">+$0.00 USD</span>
-                                </div>
-                                <p style="color: #cbd5e1; font-size: 0.72rem; margin-bottom: 10px; line-height: 1.4;">
-                                    Physical 4TB Samsung 990 PRO NVMe (Thunderbolt 4 enclosure) + 256GB Golden Master USB Key.
-                                </p>
-                                <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
-                                    <span style="font-size: 0.78rem; color: #94a3b8; font-weight: 600;">Quantity:</span>
-                                    <div style="display: inline-flex; align-items: center; gap: 4px;">
-                                        <button type="button" onclick="adjustPilotHardwareDrives(-1)" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); color: #fff; width: 28px; height: 28px; border-radius: 4px; font-weight: 800; cursor: pointer;">-</button>
-                                        <input type="number" name="pilot_hardware_qty" id="pilot-hardware-qty" value="0" min="0" max="100" style="width: 50px; height: 28px; text-align: center; background: #000; color: #00f0ff; border: 1px solid var(--ether-cyan); border-radius: 4px; font-weight: 900; font-family: monospace; font-size: 0.88rem;" onchange="updatePilotPricingTotal()" oninput="updatePilotPricingTotal()">
-                                        <button type="button" onclick="adjustPilotHardwareDrives(1)" style="background: rgba(76,224,255,0.18); border: 1px solid var(--ether-cyan); color: var(--ether-cyan); width: 28px; height: 28px; border-radius: 4px; font-weight: 800; cursor: pointer;">+</button>
-                                    </div>
-                                    <span style="font-size: 0.75rem; color: #64748b;" id="pilot-hardware-kit-desc">0 Kits (Virtual Enclave Only)</span>
-                                </div>
-                            </div>
-
-                            <div class="pilot-total-deposit">
+                            <div class="pilot-total-deposit" style="margin-top:16px;">
                                 <span>Total Commitment:</span>
                                 <span id="dispPilotDeposit">$5,000.00 USD</span>
                             </div>
                             <div style="font-size:0.7rem; color:#64748b; margin-top:4px; text-align:right;" id="dispPilotDepositNote">
                                 Direct evaluation access commitment
-                            </div>
-
-                            <div class="pilot-hardware-bridge">
-                                <b>📦 Production Hardware Rollout:</b> Physical Turnkey Dual-Drive Ether Boxes ($2,000/unit) with 4TB Samsung 990 PRO NVMe and Thunderbolt 4 heatsink enclosures can be ordered above or on-demand post-evaluation.
                             </div>
                         </div>
 
@@ -10360,46 +10336,16 @@ Contact: contact@ether-terminal.com
         /* ── Pilot Program Interactive Controller ── */
         window.__pilotBaseDeposit = 5000;
 
-        window.adjustPilotHardwareDrives = function(delta) {
-            var input = document.getElementById('pilot-hardware-qty');
-            if (!input) return;
-            var val = Math.max(0, (parseInt(input.value) || 0) + delta);
-            input.value = val;
-            window.updatePilotPricingTotal();
-        };
-
         window.updatePilotPricingTotal = function() {
             var base = (window.__pilotBaseDeposit !== undefined) ? window.__pilotBaseDeposit : 5000;
-            var input = document.getElementById('pilot-hardware-qty');
-            var qty = input ? Math.max(0, parseInt(input.value) || 0) : 0;
-            var hwPrice = qty * 2000;
-            var total = base + hwPrice;
-
-            var hwDisp = document.getElementById('pilotHwPriceDisplay');
-            var hwDesc = document.getElementById('pilot-hardware-kit-desc');
             var depEl = document.getElementById('dispPilotDeposit');
-            var hwFormInput = document.getElementById('pilotFormHwQty');
             var depInput = document.getElementById('pilotFormDeposit');
 
-            if (hwDisp) {
-                hwDisp.textContent = qty > 0 ? '+$' + hwPrice.toLocaleString('en-US') + '.00 USD' : '+$0.00 USD';
-                hwDisp.style.color = qty > 0 ? '#00ff7f' : 'var(--text-muted)';
-            }
-            if (hwDesc) {
-                hwDesc.textContent = qty > 0 ? qty + ' Dual-Drive Kits (+$' + hwPrice.toLocaleString('en-US') + ')' : '0 Kits (Virtual Enclave Only)';
-                hwDesc.style.color = qty > 0 ? '#00f0ff' : '#64748b';
-            }
             if (depEl) {
-                depEl.textContent = '$' + total.toLocaleString('en-US') + '.00 USD';
+                depEl.textContent = '$' + base.toLocaleString('en-US') + '.00 USD';
             }
-            if (hwFormInput) hwFormInput.value = qty;
             if (depInput) {
-                var baseStr = '$' + base.toLocaleString('en-US') + '.00 USD (Evaluation Deposit)';
-                if (qty > 0) {
-                    depInput.value = '$' + total.toLocaleString('en-US') + '.00 USD (Base: ' + baseStr + ' + ' + qty + ' Hardware Kits: $' + hwPrice.toLocaleString('en-US') + ')';
-                } else {
-                    depInput.value = baseStr;
-                }
+                depInput.value = '$' + base.toLocaleString('en-US') + '.00 USD (Evaluation Deposit)';
             }
         };
 
