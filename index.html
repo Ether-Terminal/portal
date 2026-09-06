@@ -2629,7 +2629,73 @@
             color: #00e676;
         }
 
+        /* ── Hardware Ingestion Checklist Accordion ── */
+        .hw-checklist {
+            margin-top: 12px;
+            border: 1px solid rgba(0, 240, 255, 0.22);
+            border-radius: 6px;
+            background: rgba(0, 240, 255, 0.04);
+            overflow: hidden;
+        }
+        .hw-checklist summary {
+            cursor: pointer;
+            list-style: none;
+            padding: 8px 12px;
+            font-family: monospace;
+            font-size: 0.72rem;
+            font-weight: 800;
+            color: #00f0ff;
+            letter-spacing: 0.04em;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            user-select: none;
+        }
+        .hw-checklist summary::-webkit-details-marker { display: none; }
+        .hw-checklist summary::before {
+            content: "▶";
+            font-size: 0.6rem;
+            transition: transform 0.2s ease;
+            display: inline-block;
+        }
+        .hw-checklist[open] summary::before { transform: rotate(90deg); }
+        .hw-checklist-body {
+            padding: 8px 12px 10px 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .hw-cat-title {
+            font-family: monospace;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: #00f0ff;
+            margin-bottom: 3px;
+        }
+        .hw-cat-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        .hw-cat-list li {
+            font-family: monospace;
+            font-size: 0.68rem;
+            color: rgba(255,255,255,0.72);
+            padding-left: 10px;
+            position: relative;
+        }
+        .hw-cat-list li::before {
+            content: "·";
+            position: absolute;
+            left: 0;
+            color: #666;
+        }
+
         .pricing-btn {
+
             width: 100%;
             min-height: 52px;
             padding: 14px 20px;
@@ -3983,6 +4049,49 @@
         }
         .pilot-hardware-bridge b {
             color: #ffaa00;
+        }
+
+    
+        .card-hw-block {
+            background: rgba(0, 212, 255, 0.05);
+            border: 1px solid rgba(0, 212, 255, 0.28);
+            border-radius: 6px;
+            padding: 10px 12px;
+            margin-top: 14px;
+            margin-bottom: 12px;
+            text-align: left;
+        }
+        .card-hw-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem;
+            font-weight: 800;
+            color: var(--ether-cyan);
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .card-hw-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .card-hw-list li {
+            font-size: 0.73rem;
+            color: #cbd5e1;
+            line-height: 1.4;
+            position: relative;
+            padding-left: 14px;
+            margin-bottom: 3px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .card-hw-list li::before {
+            content: "•";
+            color: var(--ether-cyan);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
         }
 
     </style>
@@ -8637,12 +8746,157 @@
             let billingIsAnnual = true;
             const CAPEX_SECTORS = ['command', 'pilot'];
 
+            // ── Per-Sector Hardware Ingestion Checklists ──────────────────────────
+            // Explains what physical hardware a corporate IT team on Windows/Linux
+            // needs to purchase so Ether OS can sync with their existing utilities.
+            const HW_CHECKLISTS = {
+                pilot: [
+                    { title: '🔌 Vehicle / Sensor Data Taps', items: [
+                        'OBD-II USB datalink adapter (SAE J1962)',
+                        'USB CAN-bus sniffer (optional for fleet preview)'
+                    ]},
+                    { title: '💾 Media & Evidence Ingestion', items: [
+                        'USB SD card reader (standard)',
+                        'USB thumb drive for offline audit export'
+                    ]},
+                    { title: '🖥️ Staff Workstations', items: [
+                        'Any Windows 10/11 or Linux workstation on LAN',
+                        'Minimum 8 GB RAM, 4-core CPU — no Mac required'
+                    ]},
+                    { title: '🔐 Network & Identity', items: [
+                        'Isolated Cat6 LAN drop to Ether evaluation node',
+                        'FIPS 140-2 USB security token (1 admin)'
+                    ]}
+                ],
+                aviation: [
+                    { title: '🔌 Aircraft Data Taps', items: [
+                        'ARINC 429 USB tap adapter (listen-only, optically isolated)',
+                        'ADS-B USB/Ethernet receiver',
+                        'MIL-STD-1553 USB interface (defense/space variants)'
+                    ]},
+                    { title: '💾 Evidence Ingestion', items: [
+                        'Optical write-blocker for flight data recorder media',
+                        'Forensic USB duplicator for FDR/CVR ingestion'
+                    ]},
+                    { title: '🖥️ Staff Workstations', items: [
+                        'Any Windows 10/11 or Linux PC on isolated LAN',
+                        '32 GB RAM recommended for multi-stream avionics telemetry',
+                        'No Mac hardware required from customer'
+                    ]},
+                    { title: '🔐 Network & Identity', items: [
+                        'Physically isolated Cat6 LAN drop to Ether Node',
+                        'Dual-custody hardware keycards (two-person rule)',
+                        'FIPS 140-2 USB security tokens with PIN'
+                    ]}
+                ],
+                auto: [
+                    { title: '🔌 Vehicle Data Taps', items: [
+                        'OBD-II USB datalink adapter (SAE J1962)',
+                        'J1939 CAN-bus heavy fleet adapter',
+                        'GPS antenna with USB/RS-232 output'
+                    ]},
+                    { title: '💾 Media & Evidence Ingestion', items: [
+                        'USB SD card dock (write-blocker rated)',
+                        'Borescope/USB inspection camera for mechanical evidence'
+                    ]},
+                    { title: '🖥️ Staff Workstations', items: [
+                        'Any Windows 10/11 or Linux PC per dispatch station',
+                        '16 GB RAM recommended for multi-stream ingestion',
+                        'No Mac hardware required from customer'
+                    ]},
+                    { title: '🔐 Network & Identity', items: [
+                        'Isolated Cat6 LAN per Ether node',
+                        'LDAP/Active Directory read-only bind (optional)',
+                        'FIPS 140-2 USB tokens for supervisors'
+                    ]}
+                ],
+                home: [
+                    { title: '🔌 Sensor & IoT Data Taps', items: [
+                        'USB Zigbee/Z-Wave coordinator dongle',
+                        'USB PoE switch for IP camera ingestion'
+                    ]},
+                    { title: '💾 Media Ingestion', items: [
+                        'USB SD card reader for local DVR/NVR media export',
+                        'USB thumb drive for offline evidence export'
+                    ]},
+                    { title: '🖥️ Staff Workstations', items: [
+                        'Any Windows 10/11 or Linux PC on local LAN',
+                        'No Mac hardware required from customer'
+                    ]},
+                    { title: '🔐 Network & Identity', items: [
+                        'Cat6 LAN drop to Ether home node',
+                        'FIPS 140-2 USB token for admin account'
+                    ]}
+                ],
+                standard: [
+                    { title: '🔌 Sensor Data Taps', items: [
+                        'OBD-II USB datalink adapter (SAE J1962)',
+                        'USB IoT gateway dongle (Zigbee/BLE/RS-232)'
+                    ]},
+                    { title: '💾 Evidence Ingestion', items: [
+                        'USB SD card dock (standard)',
+                        'USB thumb drive for audit log export'
+                    ]},
+                    { title: '🖥️ Staff Workstations', items: [
+                        'Any Windows 10/11 or Linux PC on LAN',
+                        'No Mac hardware required from customer'
+                    ]},
+                    { title: '🔐 Network & Identity', items: [
+                        'Isolated Cat6 LAN drop to Ether node',
+                        'FIPS 140-2 USB security token (admin)'
+                    ]}
+                ],
+                wholesale: [
+                    { title: '🔌 Multi-Vertical Sensor Taps', items: [
+                        'All applicable sensor taps from active verticals',
+                        'Ether hardware appliance included with license'
+                    ]},
+                    { title: '💾 Enterprise Evidence Ingestion', items: [
+                        'Encrypted SSD backup drive (AES-256 at rest)',
+                        'Multi-port write-blocker hub for simultaneous streams'
+                    ]},
+                    { title: '🖥️ Staff Workstations', items: [
+                        'Existing Windows or Linux enterprise PCs on isolated LAN',
+                        'No new workstation hardware purchases required',
+                        'Ether white-glove engineer coordinates rack installation'
+                    ]},
+                    { title: '🔐 Network & Identity', items: [
+                        'Rack Cat6 drop per Ether node',
+                        'LDAP/Active Directory read-only bind (optional)',
+                        'Encrypted SSD off-site backup',
+                        'FIPS 140-2 USB tokens for all administrators'
+                    ]}
+                ],
+                command: [
+                    { title: '🔌 Vehicle / Sensor Data Taps', items: [
+                        'OBD-II USB datalink adapter (SAE J1962)',
+                        'J1939 CAN-bus adapter (heavy fleet command nodes)',
+                        'GPS antenna with USB/RS-232 output'
+                    ]},
+                    { title: '💾 Media & Evidence Ingestion', items: [
+                        'USB SD card dock (write-blocker rated)',
+                        'USB borescope/inspection camera for mechanical evidence'
+                    ]},
+                    { title: '🖥️ Staff Workstations', items: [
+                        'Any Windows 10/11 or Linux PC per operator station',
+                        '16 GB RAM recommended for multi-stream telemetry',
+                        'No Mac hardware required from customer'
+                    ]},
+                    { title: '🔐 Network & Identity', items: [
+                        'Isolated Cat6 LAN drop to Ether command node',
+                        'LDAP/Active Directory read-only bind (optional)',
+                        'FIPS 140-2 USB tokens for command operators'
+                    ]}
+                ]
+            };
+
             const PRICING_DATA = {
                 pilot: [
                     {
                         class: "pro",
                         title: "Node Operator (Core Pilot)",
                         desc: "Full downloadable Ether OS evaluation image, local biometric authentication layer, FNOL claims engine, 30-day hardware-locked key.",
+                        hardwareReqs: ["Standard Workstation: macOS, Linux, or Windows (Min 8GB RAM, 4-core CPU)", "Biometric Input: Apple Touch ID, Windows Hello, or FIDO2 USB Key", "Telematics Tap: USB-to-CAN / OBD-II adapter (Optional for live replay)"],
                         capex: true,
                         capexPrice: 5000,
                         slaPrice: 0,
@@ -8662,6 +8916,7 @@
                         class: "premium",
                         title: "Sovereign Enclave (Enterprise)",
                         desc: "Dedicated white-glove engineering lead, custom claims rules integration, priority production hardware queue, multi-tenant license.",
+                        hardwareReqs: ["Enterprise Node: Dedicated server VM or bare-metal appliance (16GB+ RAM)", "Hardware Key: TPM 2.0 or FIPS 140-2 USB cryptographic token", "Network Interface: Isolated physical Cat6 LAN drop (Zero cloud egress)"],
                         capex: true,
                         capexPrice: 10000,
                         slaPrice: 0,
@@ -8683,6 +8938,7 @@
                         class: 'basic',
                         title: 'Aviation Basic',
                         desc: 'Commercial hull & regional logistics tracking module.',
+                        hardwareReqs: ["Workstation: Standard PC / Linux workstation on local network", "Avionics Tap: USB-to-ARINC 429 adapter (optically isolated) or ADS-B SDR", "Storage: Standard USB SD/media dock for FDR maintenance logs"],
                         annualPriceValue: 85000,
                         monthlyPrice: 8854,
                         features: [
@@ -8698,6 +8954,7 @@
                         class: 'pro',
                         title: 'Aviation Professional',
                         desc: 'Fleet operations with edge-computed risk models.',
+                        hardwareReqs: ["Compute Station: 16GB+ RAM multi-stream workstation / 1U server", "Avionics Tap: Dual-channel ARINC 429 & ADS-B receiver interface", "Security: Hardware FIDO2 security keys for airframe compliance sign-offs"],
                         annualPriceValue: 195000,
                         monthlyPrice: 20312,
                         features: [
@@ -8714,6 +8971,7 @@
                         class: 'premium',
                         title: 'Aviation Premium',
                         desc: 'Aerospace & high-reliability mission risk command.',
+                        hardwareReqs: ["Air-Gapped Node: Dedicated physical compute appliance with Secure Enclave", "Avionics Tap: Multi-channel ARINC 429 & MIL-STD-1553 passive tap", "Multi-Sig Auth: Dual biometric keycards for executive payout authorization"],
                         annualPriceValue: 450000,
                         monthlyPrice: 46875,
                         instapay: true,
@@ -8731,6 +8989,7 @@
                         class: 'jet',
                         title: 'Jet',
                         desc: 'Private & charter jet telematics with real-time hull valuation and risk scoring.',
+                        hardwareReqs: ["Edge Appliance: Ruggedized laptop or mini-PC with USB-C / PD", "Avionics Tap: USB ADS-B telemetry receiver & GPS antenna", "Key Storage: Client-held TPM 2.0 / USB private key enclave"],
                         annualPriceValue: 280000,
                         monthlyPrice: 29166,
                         instapay: true,
@@ -8750,6 +9009,7 @@
                         class: 'basic',
                         title: 'Standard Basic',
                         desc: 'Entry-level biometric access control for single offices.',
+                        hardwareReqs: ["Terminals: Up to 5 USB/Bluetooth FIDO2 or Touch ID biometric reader terminals", "Workstation: Standard Windows 10/11 or Linux PC on local LAN", "Storage: External USB drive for encrypted daily local backups"],
                         annualPriceValue: 12000,
                         monthlyPrice: 1250,
                         features: [
@@ -8765,6 +9025,7 @@
                         class: 'pro',
                         title: 'Standard Professional',
                         desc: 'Multi-site secure portal networking for growing enterprises.',
+                        hardwareReqs: ["Terminals: Up to 25 biometric terminal endpoints / card readers", "Central Server: Dedicated terminal enclave management node", "Backup: Encrypted NVMe SSD local backup array"],
                         annualPriceValue: 35000,
                         monthlyPrice: 3645,
                         features: [
@@ -8780,6 +9041,7 @@
                         class: 'premium',
                         title: 'Standard Premium',
                         desc: 'Global sovereign identity network for enterprise operations.',
+                        hardwareReqs: ["Terminals: Enterprise biometric terminal network (FIDO2 / WebAuthn)", "High Availability: Dual-node server cluster on isolated LAN", "HSM Integration: Hardware HSM for multi-sig operational disbursements"],
                         annualPriceValue: 95000,
                         monthlyPrice: 9895,
                         instapay: true,
@@ -8796,6 +9058,7 @@
                         class: 'jet',
                         title: 'Enterprise Custom',
                         desc: 'Sovereign tailored network for custom enterprise integrations.',
+                        hardwareReqs: ["Infrastructure: Client-designated server rack / bare-metal hardware", "HSM Hardware: Dedicated client-held HSM (YubiHSM 2 / PKCS#11)", "Terminals: Air-gapped biometric verification stations"],
                         annualPriceValue: 180000,
                         monthlyPrice: 18750,
                         instapay: true,
@@ -8815,6 +9078,7 @@
                         class: 'basic',
                         title: 'Auto Essentials',
                         desc: 'Driver scoring and telematics attestation for regional carriers.',
+                        hardwareReqs: ["Workstation: Standard PC / Laptop on fleet dispatch LAN", "Vehicle Tap: OBD-II USB datalink adapter (SAE J1962)", "Driver Auth: Touch ID / FIDO2 biometric key for driver sign-off"],
                         annualPriceValue: 18000,
                         monthlyPrice: 1875,
                         features: [
@@ -8830,6 +9094,7 @@
                         class: 'pro',
                         title: 'Auto Professional',
                         desc: 'Fleet-grade accident reconstruction and fraud detection nodes.',
+                        hardwareReqs: ["Telematics Tap: Dual-channel USB-to-CAN transceiver (Kvaser / PEAK / SocketCAN)", "Fleet Harness: Passive SAE J1939 heavy-duty Y-harness & OBD-II cable", "Forensic Ingestion: USB write-blocker dock for crash evidence SD cards"],
                         annualPriceValue: 65000,
                         monthlyPrice: 6770,
                         features: [
@@ -8846,6 +9111,7 @@
                         class: 'premium',
                         title: 'Auto Premium',
                         desc: 'Carrier-level sovereign underwriting with automated claims triage.',
+                        hardwareReqs: ["Sovereign Appliance: Dedicated 1U server or ruggedized edge PC", "CAN Interface: Optically isolated listen-only transceivers (ISO 26262 compliant)", "Treasury Auth: Biometric HSM key for claims disbursement authorization"],
                         annualPriceValue: 185000,
                         monthlyPrice: 19270,
                         instapay: true,
@@ -8863,6 +9129,7 @@
                         class: 'jet',
                         title: 'Auto Sovereign',
                         desc: 'Full telematics auto underwriting pipeline for enterprise carriers.',
+                        hardwareReqs: ["Cluster Node: 3-node physical server cluster with automated failover", "Cryptographic Core: Hardware TPM 2.0 / YubiHSM 2 accelerator", "Vehicle Bus: Multi-vehicle CAN-FD & Ethernet AVB interface array"],
                         annualPriceValue: 420000,
                         monthlyPrice: 43750,
                         instapay: true,
@@ -8882,6 +9149,7 @@
                         class: 'basic',
                         title: 'Home Essentials',
                         desc: 'Drone inspection attestation and property risk verification for regional writers.',
+                        hardwareReqs: ["Workstation: Standard PC or Mac on local LAN (No specialized server needed)", "Media Ingestion: High-speed USB SD card reader for drone EXIF inspection", "Inspector Sign-Off: FIDO2 / Touch ID hardware sign-off key"],
                         annualPriceValue: 22000,
                         monthlyPrice: 2291,
                         features: [
@@ -8897,6 +9165,7 @@
                         class: 'pro',
                         title: 'Home Professional',
                         desc: 'Portfolio-scale IoT sensor monitoring and claims triage nodes.',
+                        hardwareReqs: ["Gateway Node: Local edge gateway PC or rack node", "IoT Interface: USB Zigbee / Z-Wave / MQTT IoT coordinator receiver", "Evidence Storage: USB write-blocker for contractor estimates & media"],
                         annualPriceValue: 72000,
                         monthlyPrice: 7500,
                         features: [
@@ -8913,6 +9182,7 @@
                         class: 'premium',
                         title: 'Home Premium',
                         desc: 'Carrier-level catastrophe response with automated claim triage.',
+                        hardwareReqs: ["Command Node: Dedicated Sovereign CAT event command node (1U / Mini PC)", "Sensor Aggregator: Multi-sensor IoT receiver + failover communications link", "Treasury Auth: Dual-custody biometric keys for emergency CAT disbursement"],
                         annualPriceValue: 195000,
                         monthlyPrice: 20312,
                         instapay: true,
@@ -8930,6 +9200,7 @@
                         class: 'jet',
                         title: 'Home Sovereign',
                         desc: 'Enterprise sovereign home underwriting and catastrophe command.',
+                        hardwareReqs: ["Sovereign Cluster: Multi-state sovereign node cluster on private LAN", "Sensor Mesh: Climate risk telemetry gateway & high-speed storage array", "Executive Auth: Secure Enclave privacy workstations for underwriters"],
                         annualPriceValue: 480000,
                         monthlyPrice: 50000,
                         instapay: true,
@@ -9010,6 +9281,7 @@
                         class: 'basic',
                         title: 'Enterprise Core',
                         desc: 'High-value transaction processing and treasury workflow node.',
+                        hardwareReqs: ["Appliance: 1U Server or Mac Studio / Mini PC appliance", "Interface Kit: USB-to-CAN & IoT multi-protocol adapter kit", "Authentication: FIPS 140-2 USB cryptographic tokens"],
                         annualPriceValue: 250000,
                         monthlyPrice: 26040,
                         features: [
@@ -9025,6 +9297,7 @@
                         class: 'pro',
                         title: 'Enterprise Sovereign',
                         desc: 'Advanced multi-signature network for large treasury operations.',
+                        hardwareReqs: ["HSM Unit: Dedicated hardware HSM module (YubiHSM 2 / PKCS#11)", "Network: Dual-port 10GbE network interface cards (isolated LAN)", "Storage: Multi-drive NVMe write-only storage diode array"],
                         annualPriceValue: 600000,
                         monthlyPrice: 62500,
                         features: [
@@ -9040,6 +9313,7 @@
                         class: 'premium',
                         title: 'Global Command',
                         desc: 'High-assurance compliance & sovereign infrastructure command.',
+                        hardwareReqs: ["Compute Cluster: Multi-node sovereign server cluster + standby failover unit", "Sensor Array: Hardware acoustic sensor / vibration accelerometer array", "Executive Terminals: Dual-executive biometric authorization terminals"],
                         annualPriceValue: 1500000,
                         monthlyPrice: 156250,
                         instapay: true,
@@ -9056,6 +9330,7 @@
                         class: 'jet',
                         title: 'InstaPay Sovereign',
                         desc: 'Consensus liquidity networks with automated disbursement pipelines.',
+                        hardwareReqs: ["Client Terminals: 2+ physically separated biometric client terminals", "Cryptographic Store: Hardware-rooted Secure Enclave / TPM 2.0 key store", "Network Diode: Isolated Cat6 LAN drop with zero cloud egress"],
                         annualPriceValue: 950000,
                         monthlyPrice: 98950,
                         instapay: true,
@@ -9075,6 +9350,7 @@
                         class: "basic",
                         title: "30-Day Cloud Pilot Node",
                         desc: "Downloadable 30-day evaluation node. Direct institutional access. Test hardware-rooted biometric authentication, claims replay, and local zero-egress logic with zero cloud egress.",
+                        hardwareReqs: ["Workstation: Standard PC / Mac (8GB+ RAM, 4-core CPU)", "Biometric Gate: Touch ID / WebAuthn biometric sensor", "Telemetry Tap: Optional USB-CAN / OBD-II tap for live data replay"],
                         capex: true,
                         capexPrice: 5000,
                         slaPrice: 0,
@@ -9093,6 +9369,7 @@
                         class: 'pro',
                         title: 'Tier 1 Command Node',
                         desc: 'Single-site zero-trust treasury gateway. One CapEx purchase. No monthly SaaS. Runs on enterprise server hardware.',
+                        hardwareReqs: ["Dedicated Appliance: 1x Pre-imaged Ether Sovereign Appliance (Included)", "Security Module: Built-in TPM 2.0 / Secure Enclave cryptographic module", "Network Diode: Outbound-only TLS 1.3 physical network interface"],
                         capex: true,
                         capexPrice: 38500,
                         slaPrice: 5500,
@@ -9112,6 +9389,7 @@
                         class: 'premium',
                         title: 'Tier 2 Command Cluster',
                         desc: '3-node physical consensus ring. 2-of-3 authorization required to move funds. Zero-egress cross-platform runtime.',
+                        hardwareReqs: ["Consensus Hardware: 3x Physical server nodes + 1x on-site hot-spare (4 units total)", "Inter-Node Link: Isolated gigabit switch for Ed25519 consensus protocol", "Multi-Sig Keys: Dual biometric keycards for 2-of-3 threshold payout execution"],
                         capex: true,
                         capexPrice: 141500,
                         slaPrice: 20900,
@@ -9133,6 +9411,7 @@
                         class: 'jet',
                         title: 'Tier 3 Sovereign Network',
                         desc: 'Enterprise sovereign network for multinational institutions. Partner bank SWIFT & Core Treasury API ready. Hardware-isolated enclaves.',
+                        hardwareReqs: ["Rack Infrastructure: 8x Rack-mounted sovereign server nodes + dual HSM modules", "Deployment Kit: Dedicated white-glove rack integration hardware", "Executive Keys: 50x Enterprise biometric keycards for global executive access"],
                         capex: true,
                         capexPrice: 510000,
                         slaPrice: 77000,
@@ -9359,6 +9638,19 @@
                             featuresHtml += `<li>${f}</li>`;
                         });
 
+                        // ── Build Prominent Hardware Requirements Block ────────
+                        let hwListHtml = '';
+                        if (card.hardwareReqs && card.hardwareReqs.length > 0) {
+                            hwListHtml = card.hardwareReqs.map(h => `<li>${h}</li>`).join('');
+                        } else {
+                            hwListHtml = `<li>Standard x86_64 / ARM64 Server or Workstation (8GB+ RAM)</li><li>Touch ID / WebAuthn / FIDO2 Hardware Key</li>`;
+                        }
+                        let hwBlockHtml = `
+                            <div class="card-hw-block">
+                                <div class="card-hw-title">🔌 HARDWARE &amp; INTERFACE REQUIREMENTS:</div>
+                                <ul class="card-hw-list">${hwListHtml}</ul>
+                            </div>`;
+
                         html += `
                             <div class="pricing-card ${card.class}" onclick="requestNode('${card.title}', '${card.class}', window.__billingIsAnnual ? 'Annual' : 'Monthly')" style="cursor: pointer;">
                                 ${recommendedHtml}
@@ -9373,11 +9665,13 @@
                                     <ul class="card-features-list">
                                         ${featuresHtml}
                                     </ul>
+                                    ${hwBlockHtml}
                                 </div>
                                 <button class="pricing-btn ${card.btnClass}" type="button" onclick="event.stopPropagation(); requestNode('${card.title}', '${card.class}', window.__billingIsAnnual ? 'Annual' : 'Monthly')">${card.btnText}</button>
                             </div>
                         `;
                     });
+
 
                     grid.innerHTML = html;
                     window.__billingIsAnnual = billingIsAnnual;
