@@ -3061,6 +3061,35 @@
             margin: 0;
         }
 
+        /* 8. Hardware & Interface Requirements */
+        .fleet-hw-tier-block {
+            border-bottom: 1px solid rgba(76, 224, 255, 0.12);
+            margin-bottom: 14px;
+            padding-bottom: 12px;
+        }
+        .fleet-hw-tier-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem;
+            font-weight: 800;
+            color: var(--ether-cyan);
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .fleet-hw-tier-badge {
+            font-size: 0.64rem;
+            font-weight: 700;
+            background: rgba(76, 224, 255, 0.12);
+            color: var(--ether-cyan);
+            border: 1px solid rgba(76, 224, 255, 0.3);
+            border-radius: 4px;
+            padding: 1px 6px;
+            letter-spacing: 0.3px;
+        }
+
         /* 1. Acquisition Model Toggle */
         .fleet-model-toggle-grid {
             display: grid;
@@ -4639,6 +4668,65 @@
                             </div>
                         </div>
 
+                        <!-- 8. Hardware & Interface Requirements -->
+                        <div class="fleet-card" id="fleetHwReqCard">
+                            <div class="fleet-card-header">
+                                <span class="fleet-card-step">08</span>
+                                <h3>🔌 Hardware &amp; Interface Requirements</h3>
+                            </div>
+                            <p style="color:#9ca3af; font-size:0.78rem; margin-bottom:14px; line-height:1.5;">
+                                All Ether Sovereign enclaves require the following certified hardware interfaces. Requirements scale with your selected volume tier.
+                            </p>
+
+                            <!-- Tier: Field Unit / Pilot -->
+                            <div class="fleet-hw-tier-block">
+                                <div class="fleet-hw-tier-label">⚙️ FIELD UNIT / PILOT TIER <span class="fleet-hw-tier-badge">1–4 UNITS</span></div>
+                                <ul class="card-hw-list">
+                                    <li><b>OBD-II / CAN-Bus Interface:</b> Passive listen-only OBD-II cable (ISO 15765-4 compliant)</li>
+                                    <li><b>Host Appliance:</b> Apple M-series or x86_64 node — 16 GB+ RAM, 256 GB+ NVMe SSD</li>
+                                    <li><b>Authentication:</b> Touch ID biometric or USB FIDO2 hardware security key (YubiKey 5 Series)</li>
+                                    <li><b>Connectivity:</b> Gigabit Ethernet (wired) or 5 GHz Wi-Fi 6 — minimum 25 Mbps sustained</li>
+                                </ul>
+                            </div>
+
+                            <!-- Tier: Commercial Fleet -->
+                            <div class="fleet-hw-tier-block">
+                                <div class="fleet-hw-tier-label">🚛 COMMERCIAL FLEET TIER <span class="fleet-hw-tier-badge">5–19 UNITS</span></div>
+                                <ul class="card-hw-list">
+                                    <li><b>CAN Interface:</b> Dual-channel USB-to-CAN adapter (Kvaser Leaf Light v2 or PEAK PCAN-USB)</li>
+                                    <li><b>Harnessing:</b> Dual OBD-II + SAE J1939 splitter harness — ISO 26262 functional safety rated</li>
+                                    <li><b>Edge Gateway:</b> Dedicated macOS or Linux node with Secure Boot enabled and TPM 2.0 chip</li>
+                                    <li><b>Power:</b> 12V / 24V auto-ignition wake relay with 10A inline fuse protection</li>
+                                    <li><b>Network:</b> Dual-SIM 5G / LTE global failover module (eSIM + physical Nano-SIM)</li>
+                                </ul>
+                            </div>
+
+                            <!-- Tier: Enterprise Fleet Grid -->
+                            <div class="fleet-hw-tier-block">
+                                <div class="fleet-hw-tier-label">🏭 ENTERPRISE FLEET GRID <span class="fleet-hw-tier-badge">20–49 UNITS</span></div>
+                                <ul class="card-hw-list">
+                                    <li><b>Multi-Bus Gateway:</b> CAN-FD &amp; ARINC 429 dual-bus gateway unit with optical isolation</li>
+                                    <li><b>Server Appliance:</b> 19" 1U rackmount edge server — quad-core, 32 GB RAM, RAID-1 NVMe</li>
+                                    <li><b>HSM:</b> Hardware Security Module for local cryptographic frame signing (YubiHSM 2 / PKCS#11)</li>
+                                    <li><b>Ruggedization:</b> IP54-rated DIN-rail mounting enclosures — -20°C to +70°C operating range</li>
+                                    <li><b>Network:</b> Dual-port 10GbE NICs on isolated LAN segment — zero cloud egress by default</li>
+                                </ul>
+                            </div>
+
+                            <!-- Tier: Strategic Fleet -->
+                            <div class="fleet-hw-tier-block" style="border-bottom: none; margin-bottom:0; padding-bottom:0;">
+                                <div class="fleet-hw-tier-label" style="color:#ffd700; border-color:#ffd70033;">⚡ STRATEGIC FLEET TIER <span class="fleet-hw-tier-badge" style="background:rgba(255,215,0,0.15); color:#ffd700; border-color:#ffd70055;">50+ UNITS</span></div>
+                                <ul class="card-hw-list">
+                                    <li><b>Server Cluster:</b> Primary isolated air-gapped sovereign server + hot-standby failover unit</li>
+                                    <li><b>Edge Switching:</b> 10GbE isolated network switches for real-time telemetry ingestion at scale</li>
+                                    <li><b>Ruggedized Substations:</b> IP67 milled anodized aluminum enclosures — Mil-Spec -40°C to +85°C</li>
+                                    <li><b>Consensus Terminals:</b> Dual physically-separated biometric authorization terminals</li>
+                                    <li><b>Cryptographic Store:</b> Hardware-rooted Secure Enclave / TPM 2.0 key store per node</li>
+                                    <li><b>Network Diode:</b> Isolated Cat6A LAN drop per node cluster — zero internet egress enforced</li>
+                                </ul>
+                            </div>
+                        </div>
+
                     </div>
 
                     <!-- RIGHT COLUMN: Live Economic Summary, Real-Time BOM & Actions -->
@@ -4740,6 +4828,19 @@
                                         <span>Pre-signed vendor dossier for corporate procurement &amp; compliance</span>
                                     </div>
                                 </button>
+                            </div>
+
+                             <!-- Hardware Requirements Quick-Ref -->
+                            <div class="card-hw-block" style="margin-top:18px; margin-bottom:0;">
+                                <div class="card-hw-title">🔌 HARDWARE & INTERFACE REQUIREMENTS</div>
+                                <ul class="card-hw-list">
+                                    <li id="hwSummaryLine1"><b>CAN / OBD-II Interface:</b> Passive ISO 15765-4 listen-only cable or dual-channel USB-to-CAN adapter</li>
+                                    <li id="hwSummaryLine2"><b>Host / Edge Node:</b> Apple M-series or rackmount x86_64 server (16–32 GB RAM, NVMe SSD)</li>
+                                    <li id="hwSummaryLine3"><b>Authentication:</b> Touch ID biometric or FIDO2 USB hardware security key (YubiKey 5)</li>
+                                    <li id="hwSummaryLine4"><b>Network:</b> Gigabit Ethernet + optional 5G/LTE failover module</li>
+                                    <li id="hwSummaryLine5"><b>Security:</b> TPM 2.0 / HSM for cryptographic frame attestation</li>
+                                </ul>
+                                <div style="font-size:0.65rem; color:#4ce0ff99; margin-top:6px; font-family: monospace;">↑ See Step 08 for full tier-specific specs</div>
                             </div>
 
                             <!-- Trust Seal Footer -->
