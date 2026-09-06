@@ -89,16 +89,20 @@ function postNtfy(topic, title, message, actionUrl) {
     });
 }
 
-function postResendEmail(apiKey, fromEmail, toEmails, subject, htmlContent, textContent) {
+function postResendEmail(apiKey, fromEmail, toEmails, subject, htmlContent, textContent, bccEmails) {
     return new Promise((resolve, reject) => {
         try {
-            const data = JSON.stringify({
-                from: fromEmail || "Ether Terminal Operations <onboarding@resend.dev>",
+            const emailPayload = {
+                from: fromEmail || "Ether Terminal Operations <directives@ether-terminal.com>",
                 to: Array.isArray(toEmails) ? toEmails : [toEmails],
                 subject: subject || "⚡ [ETHER DIRECTIVE] Official Notice",
                 html: htmlContent,
                 text: textContent
-            });
+            };
+            if (bccEmails && bccEmails.length > 0) {
+                emailPayload.bcc = Array.isArray(bccEmails) ? bccEmails : [bccEmails];
+            }
+            const data = JSON.stringify(emailPayload);
 
             const options = {
                 hostname: "api.resend.com",
@@ -231,8 +235,8 @@ exports.handler = async function(event, context) {
     const resendApiKey = process.env.RESEND_API_KEY;
     if (resendApiKey) {
         try {
-            const fromEmail = process.env.RESEND_FROM_EMAIL || "Ether Terminal Operations <onboarding@resend.dev>";
-            const defaultRecipient = process.env.NOTIFY_EMAIL || "vomnivix@gmail.com";
+            const fromEmail = process.env.RESEND_FROM_EMAIL || "Ether Terminal Directives <directives@ether-terminal.com>";
+            const recipientConfig = process.env.NOTIFY_EMAIL || "etherterminal@proton.me";
 
             let fieldRowsHtml = "";
             if (payload.embeds && payload.embeds[0] && payload.embeds[0].fields) {
@@ -274,9 +278,9 @@ exports.handler = async function(event, context) {
                                 FEDWIRE &amp; ACH TREASURY CLEARANCE COORDINATES:
                             </div>
                             <div>• Beneficiary: <b>Ether Terminal LLC</b></div>
-                            <div>• Receiving Bank: <b>Middlesex Federal Savings FA / Novo</b></div>
+                            <div>• Receiving Bank: <b>Client Designated Commercial Bank</b></div>
                             <div>• Fedwire / ACH Routing (ABA): <b style="color:#002244;">211370150</b></div>
-                            <div>• Account Number: <b style="color:#002244;">103650380</b></div>
+                            <div>• Account Number: <b style="color:#002244;">•••••••• [RELEASED TO AP DESK]</b></div>
                             <div>• Protocol Treasury Desk: <b>contact@ether-terminal.com</b></div>
                         </div>
 
@@ -294,8 +298,9 @@ exports.handler = async function(event, context) {
                 </div>
             `;
 
-            const recipients = [defaultRecipient];
-            const emailRes = await postResendEmail(resendApiKey, fromEmail, recipients, emailSubject, htmlBody, ntfyMessage);
+            const recipients = recipientConfig.split(",").map(e => e.trim()).filter(Boolean);
+            const bccEmail = process.env.BACKUP_NOTIFY_EMAIL ? [process.env.BACKUP_NOTIFY_EMAIL.trim()] : null;
+            const emailRes = await postResendEmail(resendApiKey, fromEmail, recipients, emailSubject, htmlBody, ntfyMessage, bccEmail);
             results.email = emailRes.statusCode >= 200 && emailRes.statusCode < 300;
         } catch (err) {
             console.error("Resend dispatch error:", err.message);

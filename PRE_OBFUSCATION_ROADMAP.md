@@ -18,7 +18,7 @@ When the platform is obfuscated and shipped, it strictly preserves the **Dual-Zo
 │ • EtherCore Enclave Engine        │ • /Enterprise Directory & Modules  │
 │ • FIPS-140-3 Hardware Lease Clock │ • EnterprisePatch.swift            │
 │ • Ultrasonic Air-Gap Diode        │ • Custom Modules Builder (+Tabs)   │
-│ • Novo Statutory Licensing Vault  │ • Enterprise LLM Hub (Claude/vLLM) │
+│ • Enterprise Statutory Vault      │ • Enterprise LLM Hub (Claude/vLLM) │
 │ • Proprietary Actuarial Logic     │ • Dynamic JSON Schema Registry     │
 │ 🔒 [L5 HOMOMORPHICALLY SEALED]    │ 🛠️ [MUTABLE BY BUYER IT OFFICERS]  │
 └───────────────────────────────────┴────────────────────────────────────┘
@@ -54,9 +54,9 @@ Obfuscation is an irreversible, one-way compile step. The following steps must b
   - [x] Zero viewport displacement when switching signature modes or tapping `✓ Done`.
   - [x] Instant notification to Discord (`#ether-ntfy-ops`) and Ntfy upon signature lock.
   - [ ] **Print-to-PDF Formatting**: Open print dialog on Chrome and Safari; confirm page breaks cleanly on Letter Portrait with zero cutoffs or UI artifacting.
-  - [ ] **Treasury Wire Verification**: Re-verify Middlesex Federal Savings FA / Novo Fedwire details:
+  - [ ] **Treasury Wire Verification**: Re-verify Client Designated Commercial Bank Fedwire details:
     - Routing (ABA): `211370150`
-    - Account: `103650380`
+    - Account: `•••••••• [MASKED / RESTRICTED TO AP PACKET]`
 - [ ] **Portal Landing Page (`index.html`)**:
   - [ ] Test all lead modals (Waitlist, Directive Reservation, Custom Tier, Contact Form).
   - [ ] Confirm all forms route silently through `/.netlify/functions/discord-notify` with `@everyone` push notification enabled.

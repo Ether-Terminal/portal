@@ -1206,7 +1206,7 @@
             <div class="spec-row"><span class="spec-label">DEPLOYMENT TIER:</span> <span class="spec-val" id="docTier">Tier 2 Command Cluster — Annual ($185,000)</span></div>
             <div class="spec-row"><span class="spec-label">SECTOR / SCALE:</span> <span class="spec-val">Command Nodes (Enterprise Scale)</span></div>
             <div class="spec-row"><span class="spec-label">ENVIRONMENT:</span> <span class="spec-val">Air-Gapped Local Hardware HSM (Plug &amp; Play)</span></div>
-            <div class="spec-row"><span class="spec-label">SETTLEMENT METHOD:</span> <span class="spec-val">Direct Corporate Fedwire (Novo / Middlesex)</span></div>
+            <div class="spec-row"><span class="spec-label">SETTLEMENT METHOD:</span> <span class="spec-val">Direct Corporate Fedwire (Client Designated Commercial Bank)</span></div>
             <div class="spec-row"><span class="spec-label">TARGET TIMELINE:</span> <span class="spec-val">Immediate (&lt; 48 Hours Priority Queue)</span></div>
         </div>
 
@@ -1218,17 +1218,17 @@
         <div class="treasury-box">
             <div class="treasury-row"><span>BENEFICIARY:</span> <span>Ether Terminal LLC</span></div>
             <div class="treasury-row"><span>VENDOR REGISTRATION &amp; TAX ID:</span> <span>On File (Form W-9 &amp; Verification Provided)</span></div>
-            <div class="treasury-row"><span>RECEIVING BANK:</span> <span>Middlesex Federal Savings FA / Novo</span></div>
+            <div class="treasury-row"><span>RECEIVING BANK:</span> <span>Client Designated Commercial Bank</span></div>
             <div class="treasury-row"><span>BANK ADDRESS:</span> <span>One Broadway, Somerville, MA 02145</span></div>
             <div class="treasury-row"><span>BANK ROUTING (FEDWIRE / ACH):</span> <span id="docRoutingNum">211370150</span></div>
-            <div class="treasury-row"><span>ACCOUNT NUMBER:</span> <span id="docAccountNum">103650380</span></div>
+            <div class="treasury-row"><span>ACCOUNT NUMBER:</span> <span id="docAccountNum">•••••••• [RELEASED TO AP DESK]</span></div>
             <div class="treasury-row"><span>REQUIRED WIRE MEMO:</span> <span style="color:#b8860b; font-weight:700;" id="docMemoCode">ET-LOCKHE-WIRE</span></div>
             <div class="treasury-row"><span>HARDWARE PACKAGE:</span> <span id="docHwText">Turnkey Dual-Drive Hardware Kit (4TB Samsung 990 PRO NVMe + Master 256GB USB Recovery Key)</span></div>
             <div class="treasury-row"><span>TOTAL SETTLEMENT AMOUNT:</span> <span id="docTotalAmount">$187,000.00 USD</span></div>
         </div>
 
         <div class="vendor-note-box">
-            <b>Institutional Vendor Onboarding:</b> IRS Form W-9, Certificate of Good Standing, and Novo Banking Verification Letters are available for your accounts payable desk at <code>contact@ether-terminal.com</code>.
+            <b>Institutional Vendor Onboarding:</b> IRS Form W-9, Certificate of Good Standing, and Commercial Bank Verification Letters are available for your accounts payable desk at <code>contact@ether-terminal.com</code>.
         </div>
 
         <h2 class="section-heading">III. DEPLOYMENT TIMELINE &amp; CHAIN-OF-CUSTODY</h2>
@@ -1324,7 +1324,7 @@
                     </div>
                     <div class="sig-cred-row">
                         <span class="sig-cred-label">TREASURY DESK:</span>
-                        <span class="sig-cred-val">Middlesex Federal Savings FA / Novo</span>
+                        <span class="sig-cred-val">Client Designated Commercial Bank</span>
                     </div>
                     <div class="sig-cred-row">
                         <span class="sig-cred-label">FEDWIRE ROUTING (ABA):</span>
@@ -1332,7 +1332,7 @@
                     </div>
                     <div class="sig-cred-row">
                         <span class="sig-cred-label">BENEFICIARY ACCOUNT:</span>
-                        <span class="sig-cred-val mono" style="font-weight:700; color:#002244;">103650380</span>
+                        <span class="sig-cred-val mono" style="font-weight:700; color:#002244;">•••••••• [ON FILE / AP DESK]</span>
                     </div>
                     <div class="sig-cred-row" style="border-bottom:none;">
                         <span class="sig-cred-label">PROTOCOL ENCLAVE:</span>
@@ -1780,14 +1780,14 @@
 "• Total Fedwire Settlement: $" + total.toLocaleString("en-US") + ".00 USD\n\n" +
 "FEDWIRE & CORPORATE ACH WIRE INSTRUCTIONS:\n" +
 "• Beneficiary Name: Ether Terminal LLC\n" +
-"• Receiving Bank: Middlesex Federal Savings FA / Novo\n" +
+"• Receiving Bank: Client Designated Commercial Bank\n" +
 "• Bank Address: One Broadway, Somerville, MA 02145\n" +
 "• Bank Fedwire / ACH Routing (ABA): 211370150\n" +
-"• Account Number: 103650380\n" +
+"• Account Number: •••••••• (Dispatched via Official W-9 & Bank Letter to AP)\n" +
 "• MANDATORY WIRE MEMO: " + memoCode + "\n\n" +
 "(IMPORTANT: The Wire Memo '" + memoCode + "' must be included in Fedwire field 103/4200 to trigger automatic enclave clearance).\n\n" +
 "COMPLIANCE & VENDOR ONBOARDING:\n" +
-"IRS Form W-9 and Novo Banking Verification letter are available at contact@ether-terminal.com.\n\n" +
+"IRS Form W-9 and Commercial Bank Verification letter are available at contact@ether-terminal.com.\n\n" +
 "Ratified by:\n" +
 name + " (" + title + ")\n" +
 company + "\n" +
@@ -1987,7 +1987,7 @@ window.location.href;
                 if (document.getElementById("docMemoCode")) document.getElementById("docMemoCode").textContent = memoCode;
                 if (document.getElementById("docMemoCodeInline")) document.getElementById("docMemoCodeInline").textContent = memoCode;
                 if (document.getElementById("docMemoCodeInlineLegal")) document.getElementById("docMemoCodeInlineLegal").textContent = memoCode;
-                if (document.getElementById("docAccountNum")) document.getElementById("docAccountNum").textContent = "103650380";
+                if (document.getElementById("docAccountNum")) document.getElementById("docAccountNum").textContent = "•••••••• [RELEASED TO AP DESK]";
                 if (document.getElementById("docRoutingNum")) document.getElementById("docRoutingNum").textContent = "211370150";
 
                 // Send Discord Alert Once complete
