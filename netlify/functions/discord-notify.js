@@ -275,11 +275,11 @@ exports.handler = async function(event, context) {
 
                         <div style="background: #f8fafc; border: 1.5px solid #002244; padding: 16px; margin-bottom: 24px; font-family: monospace; font-size: 12px; line-height: 1.6;">
                             <div style="color: #002244; font-weight: bold; border-bottom: 1px dotted #cbd5e1; padding-bottom: 6px; margin-bottom: 8px;">
-                                FEDWIRE &amp; ACH TREASURY CLEARANCE COORDINATES:
+                                CORPORATE WIRE &amp; ACH TREASURY CLEARANCE COORDINATES:
                             </div>
                             <div>• Beneficiary: <b>Ether Terminal LLC</b></div>
                             <div>• Receiving Bank: <b>Client Designated Commercial Bank</b></div>
-                            <div>• Fedwire / ACH Routing (ABA): <b style="color:#002244;">211370150</b></div>
+                            <div>• Bank Routing (ABA / Wire / ACH): <b style="color:#002244;">••••••••• [RELEASED VIA W-9 TO AP]</b></div>
                             <div>• Account Number: <b style="color:#002244;">•••••••• [RELEASED TO AP DESK]</b></div>
                             <div>• Protocol Treasury Desk: <b>contact@ether-terminal.com</b></div>
                         </div>

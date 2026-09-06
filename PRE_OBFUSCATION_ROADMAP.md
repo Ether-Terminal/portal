@@ -54,8 +54,8 @@ Obfuscation is an irreversible, one-way compile step. The following steps must b
   - [x] Zero viewport displacement when switching signature modes or tapping `✓ Done`.
   - [x] Instant notification to Discord (`#ether-ntfy-ops`) and Ntfy upon signature lock.
   - [ ] **Print-to-PDF Formatting**: Open print dialog on Chrome and Safari; confirm page breaks cleanly on Letter Portrait with zero cutoffs or UI artifacting.
-  - [ ] **Treasury Wire Verification**: Re-verify Client Designated Commercial Bank Fedwire details:
-    - Routing (ABA): `211370150`
+  - [ ] **Treasury Wire Verification**: Re-verify Client Designated Commercial Bank Corporate Wire / ACH details:
+    - Routing (ABA): `••••••••• [RELEASED VIA W-9 TO AP]`
     - Account: `•••••••• [MASKED / RESTRICTED TO AP PACKET]`
 - [ ] **Portal Landing Page (`index.html`)**:
   - [ ] Test all lead modals (Waitlist, Directive Reservation, Custom Tier, Contact Form).

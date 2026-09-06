@@ -110,8 +110,8 @@ exports.handler = async function(event, context) {
                   <td align="right" style="padding:6px 0; color:#ffffff; font-size:13px;">Client Designated Commercial Bank</td>
                 </tr>
                 <tr>
-                  <td style="padding:6px 0; color:#94a3b8; font-size:13px;">Routing Number (Fedwire / ACH):</td>
-                  <td align="right" style="padding:6px 0; color:#00FF7F; font-size:14px; font-weight:bold; font-family:monospace;">211370150</td>
+                  <td style="padding:6px 0; color:#94a3b8; font-size:13px;">Routing Number (Wire / ACH):</td>
+                  <td align="right" style="padding:6px 0; color:#00FF7F; font-size:14px; font-weight:bold; font-family:monospace;">••••••••• [RELEASED VIA W-9 TO AP]</td>
                 </tr>
                 <tr>
                   <td style="padding:6px 0; color:#94a3b8; font-size:13px;">Account Number:</td>

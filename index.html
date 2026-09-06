@@ -7244,7 +7244,7 @@
                             <li><strong>Aviation &amp; Aerospace:</strong> Ether OS nodes, ADS-B sentinels, and flight telemetry gateways are advisory software systems only. They do NOT replace certified avionics, FAA/EASA flight control systems, or pilot-in-command judgment. Ether Terminal LLC bears zero liability for flight delays, route deviations, airspace violations, or incidents.</li>
                             <li><strong>Autonomous &amp; Commercial Automotive:</strong> CAN-Bus edge diodes and fleet nodes provide passive telemetry ingestion and cryptographic logging. Customer is solely responsible for vehicle safety, driver oversight, brake-by-wire integrity, and compliance with FMVSS/DOT standards.</li>
                             <li><strong>Smart Property &amp; Catastrophe Underwriting:</strong> IoT sensor sentinels and drone verification attestations are analytical estimates. Ether Terminal LLC is not an insurer, underwriter, or guarantor of property damage, storm claims, or facility losses.</li>
-                            <li><strong>Treasury &amp; Financial Settlement:</strong> Fedwire, ACH, and USDC integrations operate via third-party banking rails (Client Designated Commercial Bank / Circle). Ether Terminal LLC is not a custodian, bank, or money transmitter, and is never liable for wire routing delays, intermediary bank holds, or blockchain network congestion.</li>
+                            <li><strong>Treasury &amp; Financial Settlement:</strong> Corporate Wire, ACH, and USDC integrations operate via third-party banking rails (Client Designated Commercial Bank / Circle). Ether Terminal LLC is not a custodian, bank, or money transmitter, and is never liable for wire routing delays, intermediary bank holds, or blockchain network congestion.</li>
                         </ul>
                     </section>
                     <section>
@@ -7623,7 +7623,7 @@
                     <div style="color: #00ff7f; font-weight: 800; margin-bottom: 8px;">🏛️ DIRECT CORPORATE WIRE SPEC (CLIENT DESIGNATED COMMERCIAL BANK)</div>
                     <div style="display: flex; justify-content: space-between; margin-bottom: 4px;"><span style="color: var(--text-muted);">Beneficiary:</span> <span style="color: #fff; font-weight: 700;">Ether Terminal LLC</span></div>
                     <div style="display: flex; justify-content: space-between; margin-bottom: 4px;"><span style="color: var(--text-muted);">Bank:</span> <span style="color: #fff;">Client Designated Commercial Bank</span></div>
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 4px;"><span style="color: var(--text-muted);">Routing (ACH/Wire):</span> <span style="color: #00ff7f; font-weight: 800;">211370150</span></div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 4px;"><span style="color: var(--text-muted);">Routing (ACH/Wire):</span> <span style="color: #00ff7f; font-weight: 800;">••••••••• [RELEASED VIA W-9 TO AP]</span></div>
                     <div style="display: flex; justify-content: space-between; margin-bottom: 4px;"><span style="color: var(--text-muted);">Account Number:</span> <span style="color: #00ff7f; font-weight: 800;">•••••••• [RELEASED VIA W-9 TO AP]</span></div>
                     <div style="margin-top: 8px; padding-top: 6px; border-top: 1px dashed rgba(255,255,255,0.15); color: #e5c158; font-size: 0.74rem;">
                         🏢 <b>Vendor Onboarding:</b> IRS Form W-9 and Commercial Bank Verification Letter available for accounts payable desk at <code>contact@ether-terminal.com</code>.
@@ -9132,7 +9132,7 @@
                     {
                         class: 'jet',
                         title: 'Tier 3 Sovereign Network',
-                        desc: 'Enterprise sovereign network for multinational institutions. Partner bank SWIFT & Fedwire API ready. Hardware-isolated enclaves.',
+                        desc: 'Enterprise sovereign network for multinational institutions. Partner bank SWIFT & Core Treasury API ready. Hardware-isolated enclaves.',
                         capex: true,
                         capexPrice: 510000,
                         slaPrice: 77000,
@@ -9142,7 +9142,7 @@
                             'Ether OS Global Perpetual License (unlimited node capacity)',
                             'Hardware-Enforced Cryptographic Core — zero cloud leakage on macOS, Linux & Windows',
                             'Custom cryptographic proof engineering (30-day white-glove deployment)',
-                            'Partner bank SWIFT / Fedwire / ISO 20022 core banking API integration',
+                            'Partner bank SWIFT / Corporate Wire / ISO 20022 core banking API integration',
                             'Biometric enrollment for up to 50 global executives',
                             '24-hr on-site engineer response SLA — worldwide',
                             '24/7/365 dedicated engineering team on retainer'
@@ -9582,7 +9582,7 @@
                         const sector = formData.get('sector') || 'Command Nodes';
                         const fleetScale = formData.get('fleet_scale') || 'Pilot';
                         const environment = formData.get('environment') || 'Hardware HSM';
-                        const paymentMethod = formData.get('payment_method') || 'Direct Fedwire';
+                        const paymentMethod = formData.get('payment_method') || 'Direct Corporate Wire';
                         const timeline = formData.get('timeline') || 'Immediate';
                         const poNumber = formData.get('po_number') || '';
                         const notes = formData.get('notes') || '';
@@ -9673,7 +9673,7 @@
                                                     { name: "📦 Selected Tier", value: `${tier}\nSector: ${sector}`, inline: true },
                                                     { name: "📍 Business Address", value: address || 'N/A', inline: false },
                                                     { name: "🛠 Hardware Kit", value: hw ? 'Yes (4TB NVMe + 256GB Key) +$2,000' : 'Software Only ($0)', inline: true },
-                                                    { name: "📑 PO Reference", value: poNumber || 'None (Direct Fedwire)', inline: true },
+                                                    { name: "📑 PO Reference", value: poNumber || 'None (Direct Corporate Wire)', inline: true },
                                                     { name: "⏱ Target Timeline", value: timeline, inline: true },
                                                     { name: "⚡ Minted License Key", value: `\`${licenseKey}\``, inline: false },
                                                     { name: "🏷 Operator ID", value: `\`${opId}\``, inline: true },
@@ -9771,7 +9771,7 @@
                                             <div style="color:#00ff7f; font-weight:800; margin-bottom:6px;">DIRECT CORPORATE WIRE COORDINATES:</div>
                                             <div style="display:flex; justify-content:space-between; margin-bottom:3px;"><span style="color:#8e8e93;">Beneficiary:</span> <span style="color:#fff; font-weight:700;">Ether Terminal LLC</span></div>
                                             <div style="display:flex; justify-content:space-between; margin-bottom:3px;"><span style="color:#8e8e93;">Bank:</span> <span style="color:#fff;">Client Designated Commercial Bank</span></div>
-                                            <div style="display:flex; justify-content:space-between; margin-bottom:3px;"><span style="color:#8e8e93;">Routing (Wire/ACH):</span> <span style="color:#00ff7f; font-weight:800;">211370150</span></div>
+                                            <div style="display:flex; justify-content:space-between; margin-bottom:3px;"><span style="color:#8e8e93;">Routing (Wire/ACH):</span> <span style="color:#00ff7f; font-weight:800;">••••••••• [RELEASED VIA W-9 TO AP]</span></div>
                                             <div style="display:flex; justify-content:space-between; margin-bottom:3px;"><span style="color:#8e8e93;">Account Number:</span> <span style="color:#00ff7f; font-weight:800;">•••••••• [RELEASED VIA W-9 TO AP]</span></div>
                                             <div style="display:flex; justify-content:space-between; margin-bottom:5px;"><span style="color:#8e8e93;">Required Wire Memo:</span> <span style="color:#4ce0ff; font-weight:800;">${memoCode}</span></div>
                                             <div style="display:flex; justify-content:space-between; margin-top:5px; border-top:1px dashed rgba(255,255,255,0.12); padding-top:5px;"><span style="color:#8e8e93;">Hardware Package:</span> <span style="color:#fff;">${hw ? 'Dual-Drive Kit (4TB NVMe + 256GB USB Key)' : 'Software Only'}</span></div>
@@ -9779,7 +9779,7 @@
                                         </div>
 
                                         <div style="display:flex; gap:10px; flex-wrap:wrap;">
-                                            <button type="button" onclick="navigator.clipboard.writeText('LICENSE KEY: ${licenseKey}\\nOPERATOR ID: ${opId}\\nBENEFICIARY: Ether Terminal LLC\\nBANK: Client Designated Commercial Bank\\nROUTING: 211370150\\nACCOUNT: Released via Official Bank Letter & W-9 to AP\\nMEMO: ${memoCode}\\nTOTAL: $' + Number(${finalAmountUsd}).toLocaleString('en-US') + '.00 USD'); alert('Credentials and wire specifications copied to clipboard.');" style="flex:1; min-width:180px; background:#fff; color:#000; font-weight:800; border:none; padding:12px; border-radius:6px; font-family:monospace; cursor:pointer; font-size:0.8rem; letter-spacing:0.5px;">COPY CREDENTIALS & WIRE SPECS</button>
+                                            <button type="button" onclick="navigator.clipboard.writeText('LICENSE KEY: ${licenseKey}\\nOPERATOR ID: ${opId}\\nBENEFICIARY: Ether Terminal LLC\\nBANK: Client Designated Commercial Bank\\nROUTING: ••••••••• [RELEASED VIA W-9 TO AP]\\nACCOUNT: Released via Official Bank Letter & W-9 to AP\\nMEMO: ${memoCode}\\nTOTAL: $' + Number(${finalAmountUsd}).toLocaleString('en-US') + '.00 USD'); alert('Credentials and wire specifications copied to clipboard.');" style="flex:1; min-width:180px; background:#fff; color:#000; font-weight:800; border:none; padding:12px; border-radius:6px; font-family:monospace; cursor:pointer; font-size:0.8rem; letter-spacing:0.5px;">COPY CREDENTIALS & WIRE SPECS</button>
                                             <button type="button" onclick="window.openExecutiveDirective(window.__lastDossierData);" style="flex:1; min-width:180px; background:linear-gradient(135deg, #b8860b, #e5c158); border:none; color:#050b14; font-weight:900; padding:12px; border-radius:6px; font-family:monospace; cursor:pointer; font-size:0.82rem; letter-spacing:0.5px; box-shadow: 0 0 15px rgba(229,193,88,0.4);">VIEW OFFICIAL DIRECTIVE (GOLD SEAL)</button>
                                         </div>
                                     `;
@@ -10250,7 +10250,7 @@ Legal Department: legal@ether-terminal.com
 
 4. SETTLEMENT & TREASURY DISPATCH SPECIFICATIONS
 - Bank: Client Designated Commercial Bank
-- Corporate Routing (Wire/ACH): 211370150
+- Corporate Routing (Wire/ACH): ••••••••• [RELEASED VIA W-9 TO AP]
 - Account Number: Dispatched via Official Bank Verification Letter & Form W-9 to Enterprise AP
 - Beneficiary: Ether Terminal LLC
 
