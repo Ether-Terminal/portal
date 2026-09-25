@@ -31,3 +31,8 @@ yarn-error.log*
 *.swp
 *.swo
 
+
+# Large Binary Installers & Local Archives (>100MB GitHub limit)
+*.dmg
+*.zip
+Master_Sales_Architecture_Study_Guide.*
