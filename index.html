@@ -1824,9 +1824,9 @@
 
         .a11y-widget {
             position: fixed;
-            bottom: 24px;
-            right: 24px;
-            z-index: 99999;
+            bottom: max(24px, env(safe-area-inset-bottom, 24px));
+            right: max(20px, env(safe-area-inset-right, 20px));
+            z-index: 100005;
             display: flex;
             flex-direction: column;
             align-items: flex-end;
@@ -1933,11 +1933,15 @@
         }
 
         .a11y-menu {
+            position: absolute;
+            bottom: 68px;
+            right: 0;
             background: rgba(18, 18, 26, 0.98);
             border: 1px solid rgba(76, 224, 255, 0.35);
             border-radius: 16px;
             padding: 20px;
             width: 300px;
+            max-width: calc(100vw - 32px);
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9), 0 0 30px rgba(76, 224, 255, 0.15);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
@@ -2066,6 +2070,123 @@
         .a11y-switch:focus {
             outline: 1.5px solid var(--ether-cyan);
             outline-offset: 2px;
+        }
+
+        /* ── Translation Chip & Floating Info Tab ── */
+        .trans-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            font-family: var(--font-mono, monospace);
+            letter-spacing: 0.05em;
+            background: rgba(0, 240, 255, 0.12);
+            color: #00f0ff;
+            border: 1px solid rgba(0, 240, 255, 0.35);
+            border-radius: 4px;
+            padding: 2px 6px;
+            margin-left: 6px;
+            vertical-align: middle;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            position: relative;
+            box-shadow: 0 0 8px rgba(0, 240, 255, 0.1);
+        }
+        .trans-chip:hover, .trans-chip.active {
+            background: rgba(0, 240, 255, 0.25);
+            border-color: #00f0ff;
+            color: #ffffff;
+            box-shadow: 0 0 16px rgba(0, 240, 255, 0.5);
+            transform: translateY(-1px);
+        }
+        .trans-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 14px;
+            height: 14px;
+            border-radius: 2px;
+            background: rgba(0, 240, 255, 0.22);
+            border: 1px solid rgba(0, 240, 255, 0.5);
+            font-size: 0.62rem;
+            font-weight: 900;
+            line-height: 1;
+            color: #00f0ff;
+        }
+        .trans-chip:hover .trans-icon, .trans-chip.active .trans-icon {
+            background: #00f0ff;
+            color: #080812;
+        }
+        .translation-hover-tab {
+            position: fixed;
+            z-index: 100010;
+            max-width: 340px;
+            width: calc(100vw - 32px);
+            background: rgba(10, 14, 26, 0.98);
+            border: 1px solid rgba(0, 240, 255, 0.5);
+            border-radius: 12px;
+            padding: 14px 16px;
+            box-shadow: 0 16px 45px rgba(0, 0, 0, 0.9), 0 0 25px rgba(0, 240, 255, 0.25);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(6px);
+            transition: opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1), transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            font-family: var(--font-main, system-ui, -apple-system, sans-serif);
+        }
+        .translation-hover-tab.show {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+        .trans-tab-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid rgba(0, 240, 255, 0.25);
+            font-family: var(--font-mono, monospace);
+        }
+        .trans-tab-tag {
+            font-size: 0.68rem;
+            font-weight: 800;
+            color: #00f0ff;
+            letter-spacing: 0.05em;
+        }
+        .trans-tab-sub {
+            font-size: 0.6rem;
+            color: #94a3b8;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .trans-tab-body {
+            font-size: 0.8rem;
+            line-height: 1.5;
+            color: #e2e8f0;
+        }
+        .trans-tab-arrow {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: rgba(10, 14, 26, 0.98);
+            border: 1px solid rgba(0, 240, 255, 0.5);
+            transform: rotate(45deg);
+        }
+        .trans-tab-arrow.arrow-down {
+            bottom: -7px;
+            border-top: none;
+            border-left: none;
+        }
+        .trans-tab-arrow.arrow-up {
+            top: -7px;
+            border-bottom: none;
+            border-right: none;
         }
 
         body.high-contrast {
@@ -4186,12 +4307,12 @@
                 <header class="reveal-on-scroll revealed">
                     <img src="logo.png" class="hero-logo">
                     <h1 id="home-heading">ETHER TERMINAL</h1>
-                    <p class="tagline">The Sovereign Identity Network</p>
-                    <div style="margin: 16px 0; display: inline-block; padding: 6px 14px; background: rgba(0, 255, 204, 0.05); border: 1px solid rgba(0, 255, 204, 0.3); border-radius: 20px; color: #00ffcc; font-size: 0.85rem; letter-spacing: 0.5px; font-weight: 500;">
-                        🔒 100% Zero Data Selling Policy
+                    <p class="tagline">The Sovereign Identity Network // Zero Cloud Egress</p>
+                    <div style="margin: 16px 0; display: inline-block; padding: 6px 16px; background: rgba(0, 240, 255, 0.08); border: 1px solid rgba(0, 240, 255, 0.4); border-radius: 20px; color: #00f0ff; font-size: 0.85rem; letter-spacing: 0.5px; font-weight: 600; box-shadow: 0 0 15px rgba(0, 240, 255, 0.15);">
+                        🔒 100% Zero Cloud Egress Policy • Sovereign Cryptographic Isolation
                     </div>
                     <p class="description">
-                        Unlocking the next paradigm of enterprise underwriting, automated claims logistics, and sub-1-second biological identity attestation. We treat human physiology as the ultimate cryptographic perimeter, isolating risk across critical aerospace and automotive infrastructures.
+                        Unlocking the next paradigm of enterprise underwriting, automated claims logistics, and sub-1-second biological identity attestation. We treat human physiology as the ultimate cryptographic perimeter, isolating risk across critical aerospace and automotive infrastructures with zero cloud egress.
                     </p>
                     <div style="margin-top: 22px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
                         <button onclick="switchTab('pilot')" class="cta-button" style="background: linear-gradient(135deg, #00f0ff, #0080ff); color: #020617; font-weight: 800; border: none; padding: 12px 24px; border-radius: 6px; cursor: pointer; box-shadow: 0 0 20px rgba(0, 240, 255, 0.4); font-size: 0.9rem;">🛰️ 30-Day Cloud Pilot Program</button>
@@ -4837,7 +4958,7 @@
                                     <li id="hwSummaryLine1"><b>CAN / OBD-II Interface:</b> Passive ISO 15765-4 listen-only cable or dual-channel USB-to-CAN adapter</li>
                                     <li id="hwSummaryLine2"><b>Host / Edge Node:</b> Apple M-series or rackmount x86_64 server (16–32 GB RAM, NVMe SSD)</li>
                                     <li id="hwSummaryLine3"><b>Authentication:</b> Touch ID biometric or FIDO2 USB hardware security key (YubiKey 5)</li>
-                                    <li id="hwSummaryLine4"><b>Network:</b> Gigabit Ethernet + optional 5G/LTE failover module</li>
+                                    <li id="hwSummaryLine4"><b>Network &amp; Telematics:</b> Gigabit Ethernet + TORQ Sovereign Mobile Engine (iOS &amp; Android)</li>
                                     <li id="hwSummaryLine5"><b>Security:</b> TPM 2.0 / HSM for cryptographic frame attestation</li>
                                 </ul>
                                 <div style="font-size:0.65rem; color:#4ce0ff99; margin-top:6px; font-family: monospace;">↑ See Step 08 for full tier-specific specs</div>
@@ -7938,7 +8059,187 @@
         </button>
     </div>
 
+    <!-- Global Architecture Translation Hovering Info Tab -->
+    <div id="translationHoverTab" class="translation-hover-tab" role="tooltip" aria-hidden="true">
+        <div class="trans-tab-header">
+            <span class="trans-tab-tag">⚡ ARCHITECTURE TRANSLATION</span>
+            <span class="trans-tab-sub">PLAIN ENGLISH SPEC</span>
+        </div>
+        <div class="trans-tab-body" id="translationHoverText"></div>
+        <div class="trans-tab-arrow" id="translationHoverArrow"></div>
+    </div>
+
     <script>
+        /* ── Immediate Global Accessibility & Translation Controllers ── */
+        window.toggleA11yMenu = function(e) {
+            if (e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+            var toggle = document.getElementById('a11yToggle');
+            var menu = document.getElementById('a11yMenu');
+            if (!toggle || !menu) return;
+            var isExpanded = toggle.getAttribute('aria-expanded') === 'true';
+            toggle.setAttribute('aria-expanded', String(!isExpanded));
+            if (!isExpanded) {
+                menu.classList.add('show');
+            } else {
+                menu.classList.remove('show');
+            }
+        };
+
+        window.toggleA11yOption = function(optionKey, e) {
+            if (e) e.stopPropagation();
+            var btn = null;
+            var className = '';
+            if (optionKey === 'high-contrast') {
+                btn = document.getElementById('btnHighContrast');
+                className = 'high-contrast';
+            } else if (optionKey === 'large-text') {
+                btn = document.getElementById('btnLargeText');
+                className = 'large-text';
+            } else if (optionKey === 'stop-animations') {
+                btn = document.getElementById('btnStopAnimations');
+                className = 'stop-animations';
+            }
+            if (!btn) return;
+            document.body.classList.toggle(className);
+            var isActive = document.body.classList.contains(className);
+            btn.setAttribute('aria-pressed', String(isActive));
+            try {
+                localStorage.setItem('a11y_' + className, String(isActive));
+            } catch(err) {}
+        };
+
+        // Restore saved a11y preferences immediately
+        (function restoreA11y() {
+            ['high-contrast', 'large-text', 'stop-animations'].forEach(function(opt) {
+                try {
+                    if (localStorage.getItem('a11y_' + opt) === 'true') {
+                        document.body.classList.add(opt);
+                        var btn = document.getElementById(opt === 'high-contrast' ? 'btnHighContrast' : (opt === 'large-text' ? 'btnLargeText' : 'btnStopAnimations'));
+                        if (btn) btn.setAttribute('aria-pressed', 'true');
+                    }
+                } catch(err) {}
+            });
+        })();
+
+        // Global dismiss listeners for accessibility and translation popovers
+        document.addEventListener('click', function(e) {
+            var toggle = document.getElementById('a11yToggle');
+            var menu = document.getElementById('a11yMenu');
+            if (menu && toggle && !menu.contains(e.target) && !toggle.contains(e.target)) {
+                toggle.setAttribute('aria-expanded', 'false');
+                menu.classList.remove('show');
+            }
+            var transTab = document.getElementById('translationHoverTab');
+            if (transTab && !transTab.contains(e.target) && !e.target.closest('.trans-chip')) {
+                window.hideTranslationTooltip();
+            }
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                var toggle = document.getElementById('a11yToggle');
+                var menu = document.getElementById('a11yMenu');
+                if (toggle && menu) {
+                    toggle.setAttribute('aria-expanded', 'false');
+                    menu.classList.remove('show');
+                }
+                window.hideTranslationTooltip();
+            }
+        });
+
+        /* ── Translation Hovering Info Tab Controller ── */
+        var __transHideTimer = null;
+        var __activeTransChip = null;
+
+        window.showTranslationTooltip = function(chipEl, event) {
+            if (__transHideTimer) {
+                clearTimeout(__transHideTimer);
+                __transHideTimer = null;
+            }
+            var tab = document.getElementById('translationHoverTab');
+            var textEl = document.getElementById('translationHoverText');
+            var arrowEl = document.getElementById('translationHoverArrow');
+            if (!tab || !textEl || !chipEl) return;
+
+            var translation = chipEl.getAttribute('data-translation') || chipEl.getAttribute('data-trans') || '';
+            if (!translation) return;
+
+            textEl.textContent = translation;
+            if (__activeTransChip && __activeTransChip !== chipEl) {
+                __activeTransChip.classList.remove('active');
+            }
+            __activeTransChip = chipEl;
+            chipEl.classList.add('active');
+
+            tab.style.display = 'block';
+            tab.classList.add('show');
+            tab.setAttribute('aria-hidden', 'false');
+
+            var rect = chipEl.getBoundingClientRect();
+            var tabWidth = tab.offsetWidth || 300;
+            var tabHeight = tab.offsetHeight || 90;
+            var vpWidth = window.innerWidth;
+
+            var left = rect.left + (rect.width / 2) - (tabWidth / 2);
+            if (left < 16) left = 16;
+            if (left + tabWidth > vpWidth - 16) left = vpWidth - tabWidth - 16;
+
+            var top = rect.top - tabHeight - 12;
+            var showBelow = false;
+            if (top < 12) {
+                top = rect.bottom + 12;
+                showBelow = true;
+            }
+
+            tab.style.left = Math.round(left) + 'px';
+            tab.style.top = Math.round(top) + 'px';
+
+            if (arrowEl) {
+                var arrowLeft = rect.left + (rect.width / 2) - left - 6;
+                arrowLeft = Math.max(14, Math.min(tabWidth - 26, arrowLeft));
+                arrowEl.style.left = Math.round(arrowLeft) + 'px';
+                if (showBelow) {
+                    arrowEl.className = 'trans-tab-arrow arrow-up';
+                } else {
+                    arrowEl.className = 'trans-tab-arrow arrow-down';
+                }
+            }
+        };
+
+        window.hideTranslationTooltip = function(chipEl, event) {
+            __transHideTimer = setTimeout(function() {
+                var tab = document.getElementById('translationHoverTab');
+                if (tab) {
+                    tab.classList.remove('show');
+                    tab.setAttribute('aria-hidden', 'true');
+                }
+                if (__activeTransChip) {
+                    __activeTransChip.classList.remove('active');
+                    __activeTransChip = null;
+                }
+            }, 120);
+        };
+
+        window.toggleTranslationTooltip = function(chipEl, event) {
+            if (event) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            var tab = document.getElementById('translationHoverTab');
+            if (tab && tab.classList.contains('show') && __activeTransChip === chipEl) {
+                window.hideTranslationTooltip(chipEl, event);
+            } else {
+                window.showTranslationTooltip(chipEl, event);
+            }
+        };
+
+        function makeTrans(specTitle, translation) {
+            var escaped = translation.replace(/"/g, '&quot;');
+            return specTitle + ' <span class="trans-chip" role="button" tabindex="0" aria-label="Architecture Translation" data-trans="' + escaped + '" onclick="event.stopPropagation(); window.toggleTranslationTooltip(this, event);" onmouseenter="window.showTranslationTooltip(this, event)" onmouseleave="window.hideTranslationTooltip(this, event)"><span class="trans-icon">T</span>TRANSLATION</span>';
+        }
 
         (function initSpace() {
             const canvas = document.getElementById('space-canvas');
@@ -9008,13 +9309,13 @@
                         recommended: true,
                         topTag: "RECOMMENDED PILOT",
                         features: [
-                            '1x Pre-Configured Turnkey Hardware Node Shipped (Plug-and-Play) <span style="font-size:0.65rem; background:rgba(0,240,255,0.15); color:#00f0ff; border:1px solid rgba(0,240,255,0.3); border-radius:3px; padding:1px 5px; margin-left:6px; font-weight:700;">TRANSLATION</span>',
-                            '4TB Samsung 990 PRO NVMe (4GB DRAM) in 40Gbps Thunderbolt 4 Enclosure <span style="font-size:0.65rem; background:rgba(0,240,255,0.15); color:#00f0ff; border:1px solid rgba(0,240,255,0.3); border-radius:3px; padding:1px 5px; margin-left:6px; font-weight:700;">TRANSLATION</span>',
-                            '1 Virtual Carrier SIP Trunk with E.164 ANI caller ID binding <span style="font-size:0.65rem; background:rgba(0,240,255,0.15); color:#00f0ff; border:1px solid rgba(0,240,255,0.3); border-radius:3px; padding:1px 5px; margin-left:6px; font-weight:700;">TRANSLATION</span>',
-                            'Ethan AI Voice Intake with real-time speech token extraction feed <span style="font-size:0.65rem; background:rgba(0,240,255,0.15); color:#00f0ff; border:1px solid rgba(0,240,255,0.3); border-radius:3px; padding:1px 5px; margin-left:6px; font-weight:700;">TRANSLATION</span>',
-                            'Ethan AI Master Call Records Vault (100 test calls, Ethan AI Voice VBR) <span style="font-size:0.65rem; background:rgba(0,240,255,0.15); color:#00f0ff; border:1px solid rgba(0,240,255,0.3); border-radius:3px; padding:1px 5px; margin-left:6px; font-weight:700;">TRANSLATION</span>',
-                            'Baseline acoustic spectral viewer & deepfake scan preview <span style="font-size:0.65rem; background:rgba(0,240,255,0.15); color:#00f0ff; border:1px solid rgba(0,240,255,0.3); border-radius:3px; padding:1px 5px; margin-left:6px; font-weight:700;">TRANSLATION</span>',
-                            '30-day sovereign evaluation access (100% rollover credit — $9,500 applied to Year 1) <span style="font-size:0.65rem; background:rgba(0,240,255,0.15); color:#00f0ff; border:1px solid rgba(0,240,255,0.3); border-radius:3px; padding:1px 5px; margin-left:6px; font-weight:700;">TRANSLATION</span>'
+                            makeTrans('1x Pre-Configured Turnkey Hardware Node Shipped (Plug-and-Play)', 'Pre-imaged sovereign hardware appliance delivered ready to plug in. Eliminates manual Linux server installation and custom cryptographic enclave compilation.'),
+                            makeTrans('4TB Samsung 990 PRO NVMe (4GB DRAM) in 40Gbps Thunderbolt 4 Enclosure', 'High-throughput solid-state NVMe storage providing microsecond-level telemetry write speeds with 100% zero dependence on external cloud bandwidth.'),
+                            makeTrans('1 Virtual Carrier SIP Trunk with E.164 ANI caller ID binding', 'Dedicated telecom gateway connecting direct to carrier networks to cryptographically verify caller numbers and eradicate telephony spoofing.'),
+                            makeTrans('Ethan AI Voice Intake with real-time speech token extraction feed', 'Local real-time speech processing operating entirely on node hardware to analyze voice characteristics live without sending sensitive customer audio to third-party clouds.'),
+                            makeTrans('Ethan AI Master Call Records Vault (100 test calls, Ethan AI Voice VBR)', 'Tamper-proof local encrypted storage containing forensic-grade audio proofs and variable-bitrate voice records for fraud verification audits.'),
+                            makeTrans('Baseline acoustic spectral viewer & deepfake scan preview', 'Real-time acoustic frequency spectrum analyzer detecting synthetic voice artifacts, cloned audio models, and background room signature anomalies.'),
+                            makeTrans('30-day sovereign evaluation access (100% rollover credit — $9,500 applied to Year 1)', 'Full 30-day production evaluation. 100% of your $9,500 pilot investment is credited directly toward your permanent Year 1 commercial license.')
                         ],
                         btnText: "Start Turnkey Pilot ($9,500)",
                         btnClass: "pro-btn"
@@ -9034,14 +9335,14 @@
                         instapay: true,
                         topTag: "ENTERPRISE CLUSTER PILOT",
                         features: [
-                            '2x Pre-Configured Turnkey Hardware Nodes (High-Availability Cluster) <span style="font-size:0.65rem; background:rgba(0,240,255,0.15); color:#00f0ff; border:1px solid rgba(0,240,255,0.3); border-radius:3px; padding:1px 5px; margin-left:6px; font-weight:700;">TRANSLATION</span>',
-                            'TORQ Sovereign Telematics Mobile Engine (On-Device 60 FPS Silicon Telemetry) <span style="font-size:0.65rem; background:rgba(0,240,255,0.15); color:#00f0ff; border:1px solid rgba(0,240,255,0.3); border-radius:3px; padding:1px 5px; margin-left:6px; font-weight:700;">TRANSLATION</span>',
-                            'Dedicated white-glove integration engineer & multi-tenant enclave <span style="font-size:0.65rem; background:rgba(0,240,255,0.15); color:#00f0ff; border:1px solid rgba(0,240,255,0.3); border-radius:3px; padding:1px 5px; margin-left:6px; font-weight:700;">TRANSLATION</span>',
-                            'Multi-provider carrier PBX gateway (Twilio, Genesys, Cisco CUBE) <span style="font-size:0.65rem; background:rgba(0,240,255,0.15); color:#00f0ff; border:1px solid rgba(0,240,255,0.3); border-radius:3px; padding:1px 5px; margin-left:6px; font-weight:700;">TRANSLATION</span>',
-                            'Ethan AI Real-Time Agent Co-Pilot HUD with dynamic policy prompts <span style="font-size:0.65rem; background:rgba(0,240,255,0.15); color:#00f0ff; border:1px solid rgba(0,240,255,0.3); border-radius:3px; padding:1px 5px; margin-left:6px; font-weight:700;">TRANSLATION</span>',
-                            'Ethan AI Call Records Vault (500 test calls, speaker diarization, $32k/yr ROI analysis) <span style="font-size:0.65rem; background:rgba(0,240,255,0.15); color:#00f0ff; border:1px solid rgba(0,240,255,0.3); border-radius:3px; padding:1px 5px; margin-left:6px; font-weight:700;">TRANSLATION</span>',
-                            'Ethan AI 21-Vector Forensic Audit Engine & STIR/SHAKEN Level A attestation <span style="font-size:0.65rem; background:rgba(0,240,255,0.15); color:#00f0ff; border:1px solid rgba(0,240,255,0.3); border-radius:3px; padding:1px 5px; margin-left:6px; font-weight:700;">TRANSLATION</span>',
-                            '30-day enterprise evaluation access (100% rollover credit — $22,500 applied to Year 1) <span style="font-size:0.65rem; background:rgba(0,240,255,0.15); color:#00f0ff; border:1px solid rgba(0,240,255,0.3); border-radius:3px; padding:1px 5px; margin-left:6px; font-weight:700;">TRANSLATION</span>'
+                            makeTrans('2x Pre-Configured Turnkey Hardware Nodes (High-Availability Cluster)', 'Dual physical server appliances operating in synchronized consensus, guaranteeing high availability and zero downtime even during node failover.'),
+                            makeTrans('TORQ Sovereign Telematics Mobile Engine (On-Device 60 FPS Silicon Telemetry)', 'Transforms iOS & Android smartphone silicon into an air-gapped, 60 FPS vehicle dynamics computer—calculating Newtonian kinematics with zero hardware dongle capex.'),
+                            makeTrans('Dedicated white-glove integration engineer & multi-tenant enclave', 'A dedicated Ether systems engineer assigned to configure on-premise networking, departmental firewall enclaves, and customized actuarial rule sets.'),
+                            makeTrans('Multi-provider carrier PBX gateway (Twilio, Genesys, Cisco CUBE)', 'Turnkey enterprise PBX compatibility allowing Ether to interface directly with your existing enterprise telephony and session border controllers.'),
+                            makeTrans('Ethan AI Real-Time Agent Co-Pilot HUD with dynamic policy prompts', 'Real-time intake assistant giving call center agents live risk scores, dynamic policy defense suggestions, and anti-fraud prompts during active calls.'),
+                            makeTrans('Ethan AI Call Records Vault (500 test calls, speaker diarization, $32k/yr ROI analysis)', 'Expanded high-capacity encrypted audit vault separating caller and agent speech channels with live actuarial calculation of fraud savings.'),
+                            makeTrans('Ethan AI 21-Vector Forensic Audit Engine & STIR/SHAKEN Level A attestation', 'Comprehensive forensic verification analyzing 21 acoustic, biometric, and carrier telematics vectors with highest-tier STIR/SHAKEN regulatory attestation.'),
+                            makeTrans('30-day enterprise evaluation access (100% rollover credit — $22,500 applied to Year 1)', 'Full enterprise-scale cluster evaluation. 100% of your $22,500 evaluation settlement is deducted from your Year 1 enterprise contract.')
                         ],
                         btnText: "Start Enterprise Pilot ($22,500)",
                         btnClass: "premium-btn"
@@ -9342,7 +9643,7 @@
                             "5–19 Hardware Enclave License Units ($1,850/ea)",
                             "CAN-Bus / OBD-II / J1939 Active Passthrough Parser",
                             "Sub-100ms Edge FNOL Collision Vectoring",
-                            "Dual-SIM 5G / LTE Telemetry Integration Ready",
+                            "TORQ Mobile Telematics Engine (60 FPS Vehicle Dynamics)",
                             "Pre-Flashed TPM 2.0 State Attestation Support",
                             "30-Day Executive Price-Lock Guarantee"
                         ],
@@ -10679,65 +10980,6 @@ Contact: contact@ether-terminal.com
 
             window.updateFleetRecalculation();
             initFormHandlers();
-            window.toggleA11yMenu = function(e) {
-                if (e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                }
-                const toggle = document.getElementById('a11yToggle');
-                const menu = document.getElementById('a11yMenu');
-                if (!toggle || !menu) return;
-                const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
-                toggle.setAttribute('aria-expanded', String(!isExpanded));
-                if (!isExpanded) {
-                    menu.classList.add('show');
-                } else {
-                    menu.classList.remove('show');
-                }
-            };
-
-            window.toggleA11yOption = function(optionKey, e) {
-                if (e) e.stopPropagation();
-                let btn = null;
-                let className = '';
-                if (optionKey === 'high-contrast') {
-                    btn = document.getElementById('btnHighContrast');
-                    className = 'high-contrast';
-                } else if (optionKey === 'large-text') {
-                    btn = document.getElementById('btnLargeText');
-                    className = 'large-text';
-                } else if (optionKey === 'stop-animations') {
-                    btn = document.getElementById('btnStopAnimations');
-                    className = 'stop-animations';
-                }
-                if (!btn) return;
-                document.body.classList.toggle(className);
-                const isActive = document.body.classList.contains(className);
-                btn.setAttribute('aria-pressed', String(isActive));
-                try {
-                    localStorage.setItem('a11y_' + className, String(isActive));
-                } catch(err) {}
-            };
-
-            // Restore saved a11y preferences
-            ['high-contrast', 'large-text', 'stop-animations'].forEach(opt => {
-                try {
-                    if (localStorage.getItem('a11y_' + opt) === 'true') {
-                        document.body.classList.add(opt);
-                        const btn = document.getElementById(opt === 'high-contrast' ? 'btnHighContrast' : (opt === 'large-text' ? 'btnLargeText' : 'btnStopAnimations'));
-                        if (btn) btn.setAttribute('aria-pressed', 'true');
-                    }
-                } catch(err) {}
-            });
-
-            document.addEventListener('click', (e) => {
-                const toggle = document.getElementById('a11yToggle');
-                const menu = document.getElementById('a11yMenu');
-                if (menu && toggle && !menu.contains(e.target) && !toggle.contains(e.target)) {
-                    toggle.setAttribute('aria-expanded', 'false');
-                    menu.classList.remove('show');
-                }
-            });
         });
 
 
