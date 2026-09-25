@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>ETHER TERMINAL // TORQ — Sovereign Edge Telematics</title>
     <style>
         :root {
             --bg-space: #09090e;
@@ -476,182 +475,6 @@
             line-height: 1.6;
             color: var(--text-muted);
             margin-bottom: 40px;
-        }
-
-        /* ── TORQ Mobile Telematics Hero Section ── */
-        .hero-container {
-            max-width: 860px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .hero-eyebrow {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 6px 16px;
-            background: rgba(76, 224, 255, 0.08);
-            border: 1px solid rgba(76, 224, 255, 0.3);
-            border-radius: 20px;
-            color: var(--ether-cyan);
-            font-family: monospace, -apple-system, sans-serif;
-            font-size: 0.84rem;
-            letter-spacing: 1.5px;
-            font-weight: 700;
-            text-transform: uppercase;
-            margin-bottom: 22px;
-            box-shadow: 0 0 15px rgba(76, 224, 255, 0.15);
-        }
-
-        .hero-headline {
-            font-size: clamp(2.1rem, 4.8vw, 3.3rem);
-            font-weight: 800;
-            line-height: 1.15;
-            letter-spacing: -0.03em;
-            margin-bottom: 18px;
-            background: linear-gradient(135deg, #ffffff 25%, #a366ff 65%, #4ce0ff 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero-subheadline {
-            font-size: clamp(1rem, 2vw, 1.12rem);
-            line-height: 1.65;
-            color: #b8c2cc;
-            max-width: 780px;
-            margin: 0 auto 30px auto;
-        }
-
-        .hero-cta-group {
-            display: flex;
-            gap: 16px;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-            margin-bottom: 38px;
-        }
-
-        .btn-torq-primary {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            background: linear-gradient(135deg, #00f0ff, #0080ff);
-            color: #020617;
-            font-weight: 800;
-            border: none;
-            padding: 14px 28px;
-            border-radius: 8px;
-            cursor: pointer;
-            box-shadow: 0 0 25px rgba(0, 240, 255, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.4);
-            font-size: 0.95rem;
-            letter-spacing: 0.5px;
-            transition: all 0.25s ease;
-        }
-
-        .btn-torq-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0 35px rgba(0, 240, 255, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.6);
-            background: linear-gradient(135deg, #33f3ff, #1a8cff);
-        }
-
-        .btn-torq-secondary {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            background: rgba(163, 102, 255, 0.12);
-            color: #c084fc;
-            border: 1px solid rgba(163, 102, 255, 0.4);
-            font-weight: 700;
-            padding: 14px 26px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 0.95rem;
-            letter-spacing: 0.5px;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            transition: all 0.25s ease;
-        }
-
-        .btn-torq-secondary:hover {
-            transform: translateY(-2px);
-            background: rgba(163, 102, 255, 0.22);
-            border-color: #a366ff;
-            color: #ffffff;
-            box-shadow: 0 0 25px rgba(163, 102, 255, 0.35);
-        }
-
-        .hero-badges-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 14px;
-            max-width: 820px;
-            margin: 0 auto;
-            text-align: left;
-        }
-
-        @media (max-width: 700px) {
-            .hero-badges-grid {
-                grid-template-columns: 1fr;
-            }
-            .hero-cta-group {
-                flex-direction: column;
-                width: 100%;
-            }
-            .btn-torq-primary, .btn-torq-secondary {
-                width: 100%;
-                max-width: 340px;
-            }
-        }
-
-        .hero-tech-card {
-            background: rgba(18, 18, 26, 0.7);
-            border: 1px solid rgba(76, 224, 255, 0.2);
-            border-radius: 10px;
-            padding: 15px 18px;
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            transition: all 0.25s ease;
-        }
-
-        .hero-tech-card:hover {
-            border-color: rgba(76, 224, 255, 0.55);
-            background: rgba(24, 24, 38, 0.85);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 16px rgba(76, 224, 255, 0.15);
-        }
-
-        .hero-tech-card-icon {
-            font-size: 1.3rem;
-            line-height: 1.2;
-            flex-shrink: 0;
-            margin-top: 1px;
-        }
-
-        .hero-tech-card-content {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-        }
-
-        .hero-tech-card-title {
-            font-size: 0.92rem;
-            font-weight: 700;
-            color: #ffffff;
-            letter-spacing: -0.01em;
-            line-height: 1.3;
-        }
-
-        .hero-tech-card-sub {
-            font-size: 0.78rem;
-            color: var(--ether-cyan);
-            font-family: monospace, sans-serif;
-            letter-spacing: 0.5px;
-            line-height: 1.3;
         }
 
         .tab-panel {
@@ -4359,54 +4182,20 @@
     <main id="main-content" class="container">
 
         <div class="tab-panel active" id="panel-home">
-            <div class="hero-container">
+            <div class="narrow-container">
                 <header class="reveal-on-scroll revealed">
-                    <img src="logo.png" class="hero-logo" alt="Ether Terminal Logo">
-                    <div class="hero-eyebrow">
-                        <span style="color:#00ffcc;">⚡</span> SOVEREIGN EDGE TELEMATICS // POWERED BY ETSTHER ENGINE
+                    <img src="logo.png" class="hero-logo">
+                    <h1 id="home-heading">ETHER TERMINAL</h1>
+                    <p class="tagline">The Sovereign Identity Network</p>
+                    <div style="margin: 16px 0; display: inline-block; padding: 6px 14px; background: rgba(0, 255, 204, 0.05); border: 1px solid rgba(0, 255, 204, 0.3); border-radius: 20px; color: #00ffcc; font-size: 0.85rem; letter-spacing: 0.5px; font-weight: 500;">
+                        🔒 100% Zero Data Selling Policy
                     </div>
-                    <h1 id="home-heading" class="hero-headline">Raw Rotational Truth. Zero Hardware. Total Privacy.</h1>
-                    <p class="description hero-subheadline">
-                        TORQ transforms standard smartphone silicon into an air-gapped, 60 FPS vehicle telemetry computer. Calculate high-frequency Newtonian dynamics, track G-force composure, and access verified carrier rate discounts—with zero GPS tracking, zero cloud data storage, and $0 dongle overhead.
+                    <p class="description">
+                        Unlocking the next paradigm of enterprise underwriting, automated claims logistics, and sub-1-second biological identity attestation. We treat human physiology as the ultimate cryptographic perimeter, isolating risk across critical aerospace and automotive infrastructures.
                     </p>
-                    <div class="hero-cta-group">
-                        <button class="btn-torq-primary" id="btnTorqBeta" onclick="handleTorqBetaDownload()">
-                            <span>📱</span> Download TORQ Beta
-                        </button>
-                        <button class="btn-torq-secondary" id="btnCarrierSpec" onclick="handleCarrierSpecRequest()">
-                            <span>📄</span> Request Carrier Integration Spec
-                        </button>
-                    </div>
-
-                    <div class="hero-badges-grid" role="list" aria-label="TORQ Technical Specifications">
-                        <div class="hero-tech-card" role="listitem">
-                            <span class="hero-tech-card-icon">⚡</span>
-                            <div class="hero-tech-card-content">
-                                <div class="hero-tech-card-title">50 Hz On-Device Sensor Sampling</div>
-                                <div class="hero-tech-card-sub">(Rust EKF)</div>
-                            </div>
-                        </div>
-                        <div class="hero-tech-card" role="listitem">
-                            <span class="hero-tech-card-icon">🛡️</span>
-                            <div class="hero-tech-card-content">
-                                <div class="hero-tech-card-title">0.00% Location Exposure</div>
-                                <div class="hero-tech-card-sub">(No CoreLocation / Zero GPS Permissions)</div>
-                            </div>
-                        </div>
-                        <div class="hero-tech-card" role="listitem">
-                            <span class="hero-tech-card-icon">🔒</span>
-                            <div class="hero-tech-card-content">
-                                <div class="hero-tech-card-title">100% Ephemeral RAM Storage</div>
-                                <div class="hero-tech-card-sub">(Cryptoshredding on Trip Close)</div>
-                            </div>
-                        </div>
-                        <div class="hero-tech-card" role="listitem">
-                            <span class="hero-tech-card-icon">📱</span>
-                            <div class="hero-tech-card-content">
-                                <div class="hero-tech-card-title">$0 Hardware Logistics</div>
-                                <div class="hero-tech-card-sub">(Pure Mobile BYOD Architecture)</div>
-                            </div>
-                        </div>
+                    <div style="margin-top: 22px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
+                        <button onclick="switchTab('pilot')" class="cta-button" style="background: linear-gradient(135deg, #00f0ff, #0080ff); color: #020617; font-weight: 800; border: none; padding: 12px 24px; border-radius: 6px; cursor: pointer; box-shadow: 0 0 20px rgba(0, 240, 255, 0.4); font-size: 0.9rem;">🛰️ 30-Day Cloud Pilot Program</button>
+                        <button onclick="switchTab('licensing')" class="cta-button" style="background: rgba(0, 255, 127, 0.12); color: #00ff7f; border: 1px solid #00ff7f; font-weight: 800; padding: 12px 24px; border-radius: 6px; cursor: pointer; font-size: 0.9rem;">⚡ Ether-Pay Licensing</button>
                     </div>
                 </header>
 
@@ -4755,13 +4544,13 @@
                                 <h3>Connectivity &amp; Field Services</h3>
                             </div>
                             <div class="fleet-addons-list">
-                                <label class="fleet-addon-row" style="cursor: default;">
-                                    <input type="checkbox" id="fleetAddonBYOD" checked disabled>
+                                <label class="fleet-addon-row">
+                                    <input type="checkbox" id="fleetAddon5G" checked onchange="updateFleetRecalculation()">
                                     <div class="addon-info">
-                                        <div class="addon-name">Mobile BYOD Telematics (TORQ Engine Powered)</div>
-                                        <div class="addon-desc">Pure smartphone silicon compute with zero 5G cellular dongles, zero hardware cards, and zero recurring SIM fees.</div>
+                                        <div class="addon-name">Dual-SIM 5G / LTE Global Failover Module</div>
+                                        <div class="addon-desc">Multi-carrier eSIM + physical Nano-SIM redundancy with zero-trust encrypted wireguard tunnel.</div>
                                     </div>
-                                    <div class="addon-price" style="color: #00ff7f;">$0 <small>BYOD</small></div>
+                                    <div class="addon-price">+$150 <small>/unit</small></div>
                                 </label>
                                 <label class="fleet-addon-row">
                                     <input type="checkbox" id="fleetAddonInstall" checked onchange="updateFleetRecalculation()">
@@ -4908,7 +4697,7 @@
                                     <li><b>Harnessing:</b> Dual OBD-II + SAE J1939 splitter harness — ISO 26262 functional safety rated</li>
                                     <li><b>Edge Gateway:</b> Dedicated macOS or Linux node with Secure Boot enabled and TPM 2.0 chip</li>
                                     <li><b>Power:</b> 12V / 24V auto-ignition wake relay with 10A inline fuse protection</li>
-                                    <li><b>Network:</b> Air-gapped local wireless / isolated LAN gateway (zero cellular SIM fees)</li>
+                                    <li><b>Network:</b> Dual-SIM 5G / LTE global failover module (eSIM + physical Nano-SIM)</li>
                                 </ul>
                             </div>
 
@@ -4962,9 +4751,9 @@
                                     <span class="bom-item-name" id="bomDiscountLabel">Volume Tier Discount (7.5%)</span>
                                     <span class="bom-item-val" id="bomDiscountVal">-$1,800.00</span>
                                 </div>
-                                <div class="bom-row free" id="bomByodRow">
-                                    <span class="bom-item-name" id="bomByodName">Mobile BYOD Architecture (Zero Dongles / $0 SIM Fees)</span>
-                                    <span class="bom-item-val" id="bomByodVal">INCLUDED ($0.00)</span>
+                                <div class="bom-row" id="bom5gRow">
+                                    <span class="bom-item-name" id="bom5gName">Dual-SIM 5G Modules (12 Units)</span>
+                                    <span class="bom-item-val" id="bom5gVal">$1,800.00</span>
                                 </div>
                                 <div class="bom-row" id="bomInstallRow">
                                     <span class="bom-item-name" id="bomInstallName">Mobile Turnkey Install (12 Units)</span>
@@ -5048,7 +4837,7 @@
                                     <li id="hwSummaryLine1"><b>CAN / OBD-II Interface:</b> Passive ISO 15765-4 listen-only cable or dual-channel USB-to-CAN adapter</li>
                                     <li id="hwSummaryLine2"><b>Host / Edge Node:</b> Apple M-series or rackmount x86_64 server (16–32 GB RAM, NVMe SSD)</li>
                                     <li id="hwSummaryLine3"><b>Authentication:</b> Touch ID biometric or FIDO2 USB hardware security key (YubiKey 5)</li>
-                                    <li id="hwSummaryLine4"><b>Network:</b> Gigabit Ethernet + air-gapped cryptographic bus ($0 dongle overhead)</li>
+                                    <li id="hwSummaryLine4"><b>Network:</b> Gigabit Ethernet + optional 5G/LTE failover module</li>
                                     <li id="hwSummaryLine5"><b>Security:</b> TPM 2.0 / HSM for cryptographic frame attestation</li>
                                 </ul>
                                 <div style="font-size:0.65rem; color:#4ce0ff99; margin-top:6px; font-family: monospace;">↑ See Step 08 for full tier-specific specs</div>
@@ -5110,8 +4899,8 @@
                         <div class="pilot-kpi-pill">
                             <span class="pilot-kpi-icon">🛡️</span>
                             <div class="pilot-kpi-text">
-                                <span class="pilot-kpi-title">Performance Guarantee</span>
-                                <span class="pilot-kpi-sub">100% Rollover + SLA Refund</span>
+                                <span class="pilot-kpi-title">Final Settlement</span>
+                                <span class="pilot-kpi-sub">Direct Evaluation Access</span>
                             </div>
                         </div>
                     </div>
@@ -5141,7 +4930,7 @@
                                             Full downloadable Ether OS evaluation image, local biometric authentication layer, FNOL claims engine, 30-day hardware-locked key.
                                         </div>
                                     </div>
-                                    <span style="font-size:0.75rem; color:#00ff7f; font-family:monospace; font-weight:700;">• 100% Rollover Credit + SLA Guarantee</span>
+                                    <span style="font-size:0.75rem; color:#00ff7f; font-family:monospace; font-weight:700;">• Direct Evaluation Access</span>
                                 </div>
 
                                 <!-- Tier 2: Sovereign Enclave -->
@@ -5154,7 +4943,7 @@
                                             Dedicated white-glove engineering lead, custom claims rules integration, priority production hardware queue, multi-tenant license.
                                         </div>
                                     </div>
-                                    <span style="font-size:0.75rem; color:#ffaa00; font-family:monospace; font-weight:700;">• 100% Rollover Credit + SLA Guarantee</span>
+                                    <span style="font-size:0.75rem; color:#ffaa00; font-family:monospace; font-weight:700;">• Enterprise Evaluation Access</span>
                                 </div>
                             </div>
                         </div>
@@ -5255,11 +5044,8 @@
                                 <span>Total Commitment:</span>
                                 <span id="dispPilotDeposit">$5,000.00 USD</span>
                             </div>
-                            <div style="font-size:0.76rem; color:#00ff7f; font-weight:700; margin-top:6px; text-align:right;" id="dispPilotDepositNote">
-                                🛡️ 100% Rollover Credit toward Year 1 Annual License
-                            </div>
-                            <div style="font-size:0.7rem; color:#94a3b8; margin-top:3px; text-align:right;" id="dispPilotSlaNote">
-                                Performance Guarantee: Full refund if agreed technical SLA benchmarks are not met
+                            <div style="font-size:0.7rem; color:#64748b; margin-top:4px; text-align:right;" id="dispPilotDepositNote">
+                                Direct evaluation access commitment
                             </div>
                         </div>
 
@@ -5346,7 +5132,7 @@
                         <button type="button" class="filter-btn pricing-filter-btn" data-pricing-sector="home" onclick="setPricingSector('home')">Home</button>
                         <button type="button" class="filter-btn pricing-filter-btn" data-pricing-sector="standard" onclick="setPricingSector('standard')">Standard Lines</button>
                         <button type="button" class="filter-btn pricing-filter-btn" data-pricing-sector="wholesale" onclick="setPricingSector('wholesale')">Wholesale Enterprise</button>
-                        <button type="button" class="filter-btn pricing-filter-btn" data-pricing-sector="fleet" onclick="setPricingSector('fleet')">Fleet &amp; Volume</button>
+                        <button type="button" class="filter-btn pricing-filter-btn" data-pricing-sector="fleet" onclick="switchTab('fleet')">Fleet &amp; Volume</button>
                         <button type="button" class="filter-btn pricing-filter-btn" data-pricing-sector="pilot" onclick="setPricingSector('pilot')" style="color:#00f0ff; border-color:rgba(0,240,255,0.45); font-weight:800;">🛰️ Pilot Program ($5,000)</button>
                     </div>
 
@@ -8713,44 +8499,6 @@
 
         document.addEventListener('DOMContentLoaded', () => {
 
-            window.handleTorqBetaDownload = function() {
-                var form = document.getElementById('contactForm');
-                var projectType = document.getElementById('home-project-type');
-                var messageField = document.getElementById('home-message');
-                var formHeading = document.getElementById('home-form-heading');
-                if (projectType) projectType.value = 'pilot';
-                if (messageField) {
-                    messageField.value = 'Requesting immediate beta download access for TORQ (iOS TestFlight & Android APK BYOD enrollment - ETSTHER engine).';
-                }
-                if (formHeading) {
-                    formHeading.textContent = 'Request TORQ Beta Access';
-                }
-                if (form) {
-                    form.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    var nameInput = document.getElementById('home-name');
-                    if (nameInput) nameInput.focus();
-                }
-            };
-
-            window.handleCarrierSpecRequest = function() {
-                var form = document.getElementById('contactForm');
-                var projectType = document.getElementById('home-project-type');
-                var messageField = document.getElementById('home-message');
-                var formHeading = document.getElementById('home-form-heading');
-                if (projectType) projectType.value = 'general';
-                if (messageField) {
-                    messageField.value = 'Requesting Carrier Integration Spec: Sovereign Edge Telematics, Newtonian Dynamics & Actuarial Rating Models (powered by ETSTHER engine).';
-                }
-                if (formHeading) {
-                    formHeading.textContent = 'Request Carrier Integration Spec';
-                }
-                if (form) {
-                    form.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    var emailInput = document.getElementById('home-email');
-                    if (emailInput) emailInput.focus();
-                }
-            };
-
             window.switchTab = function switchTab(targetTabId, updateHistory) {
                 if (updateHistory === undefined) updateHistory = true;
                 if (!targetTabId) return;
@@ -9097,7 +8845,7 @@
 
             let currentPricingSector = 'command';
             let billingIsAnnual = true;
-            const CAPEX_SECTORS = ['command', 'pilot', 'fleet'];
+            const CAPEX_SECTORS = ['command', 'pilot'];
 
             // ── Per-Sector Hardware Ingestion Checklists ──────────────────────────
             // Explains what physical hardware a corporate IT team on Windows/Linux
@@ -9165,7 +8913,7 @@
                 ],
                 home: [
                     { title: '🔌 Sensor & IoT Data Taps', items: [
-                        'Local RF / Zigbee / Z-Wave coordinator gateway',
+                        'USB Zigbee/Z-Wave coordinator dongle',
                         'USB PoE switch for IP camera ingestion'
                     ]},
                     { title: '💾 Media Ingestion', items: [
@@ -9184,7 +8932,7 @@
                 standard: [
                     { title: '🔌 Sensor Data Taps', items: [
                         'OBD-II USB datalink adapter (SAE J1962)',
-                        'Local IoT gateway adapter (Zigbee/BLE/RS-232)'
+                        'USB IoT gateway dongle (Zigbee/BLE/RS-232)'
                     ]},
                     { title: '💾 Evidence Ingestion', items: [
                         'USB SD card dock (standard)',
@@ -9202,19 +8950,19 @@
                 wholesale: [
                     { title: '🔌 Multi-Vertical Sensor Taps', items: [
                         'All applicable sensor taps from active verticals',
-                        'Ether OS Pre-Loaded Software Environment or Direct Cloud Download'
+                        'Ether hardware appliance included with license'
                     ]},
                     { title: '💾 Enterprise Evidence Ingestion', items: [
                         'Encrypted SSD backup drive (AES-256 at rest)',
                         'Multi-port write-blocker hub for simultaneous streams'
                     ]},
                     { title: '🖥️ Staff Workstations', items: [
-                        'Existing Windows, Mac, or Linux enterprise PCs on isolated LAN',
+                        'Existing Windows or Linux enterprise PCs on isolated LAN',
                         'No new workstation hardware purchases required',
-                        'Ether white-glove engineer coordinates software runtime setup on client infrastructure'
+                        'Ether white-glove engineer coordinates rack installation'
                     ]},
                     { title: '🔐 Network & Identity', items: [
-                        'Cat6 drop or isolated LAN port per client host node',
+                        'Rack Cat6 drop per Ether node',
                         'LDAP/Active Directory read-only bind (optional)',
                         'Encrypted SSD off-site backup',
                         'FIPS 140-2 USB tokens for all administrators'
@@ -9248,13 +8996,8 @@
                     {
                         class: "pro",
                         title: "Node Operator (Core Pilot)",
-                        desc: "Downloadable Ether OS evaluation image, local biometric authentication layer, Ethan AI voice intake, and simulated carrier SIP trunk.",
-                        hardwareReqs: [
-                            "Standard Workstation: macOS, Linux, or Windows (Min 8GB RAM, 4-core CPU)",
-                            "Biometric Input: Apple Touch ID, Windows Hello, or FIDO2 USB Key",
-                            "Audio & Telephony: USB noise-isolation headset / ADC tap (44.1kHz), Virtual SIP trunk",
-                            "Telematics Tap: USB-to-CAN / OBD-II adapter (Optional for live replay)"
-                        ],
+                        desc: "Full downloadable Ether OS evaluation image, local biometric authentication layer, FNOL claims engine, 30-day hardware-locked key.",
+                        hardwareReqs: ["Standard Workstation: macOS, Linux, or Windows (Min 8GB RAM, 4-core CPU)", "Biometric Input: Apple Touch ID, Windows Hello, or FIDO2 USB Key", "Telematics Tap: USB-to-CAN / OBD-II adapter (Optional for live replay)"],
                         capex: true,
                         capexPrice: 5000,
                         slaPrice: 0,
@@ -9262,11 +9005,10 @@
                         topTag: "RECOMMENDED PILOT",
                         features: [
                             "Downloadable Ether OS evaluation image (.DMG / Container)",
-                            "1 Virtual Carrier SIP Trunk with E.164 ANI caller ID binding",
-                            "Ethan AI Voice Intake with real-time speech token extraction feed",
-                            "Ethan AI Master Call Records Vault (100 test calls, Ethan AI Voice VBR)",
-                            "Baseline acoustic spectral viewer & deepfake scan preview",
-                            "30-day sovereign evaluation access (100% rollover credit)"
+                            "Local hardware biometric authentication sandbox (Touch ID / WebAuthn)",
+                            "Rapid First Notice of Loss (FNOL) telematics claims engine",
+                            "CAN bus & OBD-II telematics schema ingestion",
+                            "30-day sovereign evaluation access"
                         ],
                         btnText: "Start Core Pilot ($5,000)",
                         btnClass: "pro-btn"
@@ -9274,25 +9016,19 @@
                     {
                         class: "premium",
                         title: "Sovereign Enclave (Enterprise)",
-                        desc: "Dedicated white-glove engineering lead, custom carrier rules, multi-tenant virtual enclave, and full Ethan AI 21-vector forensics.",
-                        hardwareReqs: [
-                            "Enterprise Node: Dedicated server VM or bare-metal appliance (16GB+ RAM)",
-                            "Hardware Key: TPM 2.0 or FIPS 140-2 USB cryptographic token",
-                            "Carrier Gateway: Grandstream HT801 / Cisco SPA112 VoIP ATA (SIP RFC 3261)",
-                            "Network Interface: Voice VLAN 20 switchport drop with zero cloud egress"
-                        ],
+                        desc: "Dedicated white-glove engineering lead, custom claims rules integration, priority production hardware queue, multi-tenant license.",
+                        hardwareReqs: ["Enterprise Node: Dedicated server VM or bare-metal appliance (16GB+ RAM)", "Hardware Key: TPM 2.0 or FIPS 140-2 USB cryptographic token", "Network Interface: Isolated physical Cat6 LAN drop (Zero cloud egress)"],
                         capex: true,
                         capexPrice: 10000,
                         slaPrice: 0,
                         instapay: true,
                         topTag: "ENTERPRISE PILOT",
                         features: [
-                            "Dedicated white-glove integration engineer & multi-tenant enclave",
-                            "Multi-provider carrier PBX gateway (Twilio, Genesys, Cisco CUBE)",
-                            "Ethan AI Real-Time Agent Co-Pilot HUD with dynamic policy prompts",
-                            "Ethan AI Call Records Vault (500 calls, speaker diarization, $32k/yr ROI analysis)",
-                            "Ethan AI 21-Vector Forensic Audit Engine & STIR/SHAKEN Level A attestation",
-                            "30-day enterprise evaluation access (100% rollover credit)"
+                            "Dedicated white-glove integration engineer",
+                            "Custom claims heuristics & actuarial rules engine",
+                            "Multi-tenant virtual enclave licensing",
+                            "Priority access to certified turn-key hardware deployment specifications",
+                            "30-day enterprise evaluation access"
                         ],
                         btnText: "Start Enterprise Pilot ($10,000)",
                         btnClass: "premium-btn"
@@ -9302,21 +9038,15 @@
                     {
                         class: 'basic',
                         title: 'Aviation Basic',
-                        desc: 'Commercial hull & regional logistics tracking with inbound pilot voice intake.',
-                        hardwareReqs: [
-                            "Workstation: Standard PC / Linux workstation on local network",
-                            "Avionics Tap: USB-to-ARINC 429 adapter (optically isolated) or ADS-B SDR",
-                            "Flight Audio: Dedicated ground-station SIP SBC bridge / VoIP ATA",
-                            "Storage: Standard USB SD/media dock for FDR maintenance logs"
-                        ],
+                        desc: 'Commercial hull & regional logistics tracking module.',
+                        hardwareReqs: ["Workstation: Standard PC / Linux workstation on local network", "Avionics Tap: USB-to-ARINC 429 adapter (optically isolated) or ADS-B SDR", "Storage: Standard USB SD/media dock for FDR maintenance logs"],
                         annualPriceValue: 85000,
                         monthlyPrice: 8854,
                         features: [
-                            'Single airframe telemetry tracking (ARINC 429 & ADS-B compatible)',
-                            '4 Cockpit & ground ops SIP trunks with E.164 caller ANI attestation',
-                            'Inbound pilot voice FNOL intake with tail & airport entity tagging',
-                            'Ethan AI Call Records Vault (5,000 flight hours, Ethan AI Voice VBR 24kbps)',
-                            'Turbine acoustic anomaly check & STIR/SHAKEN Level B attestation'
+                            'Single airframe telemetry tracking',
+                            'Aviation telemetry data feeds (ARINC 429 & ADS-B compatible)',
+                            'Standard structural integrity records',
+                            'Weekly hazard reporting & compliance alerts'
                         ],
                         btnText: 'Provision Node',
                         btnClass: 'basic-btn'
@@ -9324,22 +9054,16 @@
                     {
                         class: 'pro',
                         title: 'Aviation Professional',
-                        desc: 'Fleet operations with edge-computed risk models and air-to-ground telephony bridge.',
-                        hardwareReqs: [
-                            "Compute Station: 16GB+ RAM multi-stream workstation / 1U server",
-                            "Avionics Tap: Dual-channel ARINC 429 & ADS-B receiver interface",
-                            "Flight Telephony: Multi-channel VHF / SATCOM ground-station SIP bridge",
-                            "Security: Hardware FIDO2 security keys for airframe compliance sign-offs"
-                        ],
+                        desc: 'Fleet operations with edge-computed risk models.',
+                        hardwareReqs: ["Compute Station: 16GB+ RAM multi-stream workstation / 1U server", "Avionics Tap: Dual-channel ARINC 429 & ADS-B receiver interface", "Security: Hardware FIDO2 security keys for airframe compliance sign-offs"],
                         annualPriceValue: 195000,
                         monthlyPrice: 20312,
                         features: [
-                            'Fleet tracking (up to 12 airframes) with real-time sensor array',
-                            '15 Ground ops & VHF air-to-ground bridge SIP trunks with ITU-T MOS monitoring',
-                            'Ethan AI Emergency Co-Pilot HUD with FAA/NTSB live tagger chips',
-                            'Ethan AI Call Records Vault (25,000 flight hours with cockpit voice sync)',
-                            'Ethan AI 21-Vector Airframe Forensic Scan (Doppler anomaly, deepfake ATC check)',
-                            'Advanced 3D rotational airframe twin models & automated safety compliance'
+                            'Fleet tracking (up to 12 airframes)',
+                            'Real-time sensor-array integration (engine/cabin/hull telemetry)',
+                            'Cryptographic privacy shielding of proprietary flight metrics',
+                            'Advanced 3D rotational airframe twin models',
+                            'Continuous automated safety compliance monitoring'
                         ],
                         btnText: 'Provision Node',
                         btnClass: 'pro-btn'
@@ -9347,24 +9071,17 @@
                     {
                         class: 'premium',
                         title: 'Aviation Premium',
-                        desc: 'Aerospace & high-reliability mission risk command with instant $10M+ clearance.',
-                        hardwareReqs: [
-                            "Air-Gapped Node: Dedicated physical compute appliance with Secure Enclave",
-                            "Avionics Tap: Multi-channel ARINC 429 & MIL-STD-1553 passive tap",
-                            "Flight Audio Vault: MIL-STD-1553 bus tap or CVR optical write-blocker",
-                            "Carrier Mesh: Dedicated SATCOM / Inmarsat ground-station SIP SBC bridge",
-                            "Multi-Sig Auth: Dual biometric keycards for executive payout authorization"
-                        ],
+                        desc: 'Aerospace & high-reliability mission risk command.',
+                        hardwareReqs: ["Air-Gapped Node: Dedicated physical compute appliance with Secure Enclave", "Avionics Tap: Multi-channel ARINC 429 & MIL-STD-1553 passive tap", "Multi-Sig Auth: Dual biometric keycards for executive payout authorization"],
                         annualPriceValue: 450000,
                         monthlyPrice: 46875,
                         instapay: true,
                         features: [
-                            'Unlimited airframes & high-throughput aerospace telemetry stream processing',
-                            'Unlimited high-QoS SIP trunking with multi-airport PBX mesh',
-                            'Expedited Transmission & Heuristic Authorization Node (Instant $10M+ clearance)',
-                            'Unlimited Ethan AI Flight Vault with lossless black box audio synchronization',
-                            'Full Daubert & FRE 902(11)/(13)/(14) self-authenticating court dossiers',
-                            'Cryptographic multi-sig claim authorization workflow & dedicated HSM key gen'
+                            'Cryptographic multi-sig claim authorization workflow (Client treasury rails)',
+                            'Expedited Transmission & Heuristic Authorization Node',
+                            'High-throughput aerospace telemetry stream processing',
+                            'Deterministic acoustic & vibration anomaly analysis',
+                            'Dedicated cryptographic hardware secure enclave key generation'
                         ],
                         btnText: '⚡ Select License Tier',
                         btnClass: 'premium-btn'
@@ -9372,24 +9089,17 @@
                     {
                         class: 'jet',
                         title: 'Jet',
-                        desc: 'Private & charter jet telematics, SATCOM voice integration, and real-time hull valuation.',
-                        hardwareReqs: [
-                            "Edge Appliance: Ruggedized laptop or mini-PC with USB-C / PD",
-                            "Avionics Tap: USB ADS-B telemetry receiver & GPS antenna",
-                            "Cockpit Telephony: SATCOM Iridium / Inmarsat SIP ground-link interface",
-                            "Key Storage: Client-held TPM 2.0 / USB private key enclave"
-                        ],
+                        desc: 'Private & charter jet telematics with real-time hull valuation and risk scoring.',
+                        hardwareReqs: ["Edge Appliance: Ruggedized laptop or mini-PC with USB-C / PD", "Avionics Tap: USB ADS-B telemetry receiver & GPS antenna", "Key Storage: Client-held TPM 2.0 / USB private key enclave"],
                         annualPriceValue: 280000,
                         monthlyPrice: 29166,
                         instapay: true,
                         recommended: true,
                         features: [
-                            'Private Jet Telematics Tracking & Charter Risk Scoring Engine',
-                            '25 Executive SATCOM / Inmarsat ground-station SIP trunks',
-                            'Ethan AI Tail Deviation Co-Pilot HUD with charter exclusion checking',
-                            'Ethan AI Call Records Vault (50,000 encrypted hrs with live MRO & hull valuation)',
-                            'STIR/SHAKEN Level A cryptographic attestation & ghost speaker isolation',
-                            'Client-side end-to-end encrypted telemetry & hull loss settlement in <3 seconds'
+                            'Private Jet Telematics Tracking',
+                            'Charter Risk Scoring Engine',
+                            'Live MRO & Hull Valuation',
+                            'Client-Side End-to-End Encrypted Telemetry'
                         ],
                         btnText: '⚡ Select License Tier',
                         btnClass: 'premium-btn'
@@ -9399,22 +9109,15 @@
                     {
                         class: 'basic',
                         title: 'Standard Basic',
-                        desc: 'Entry-level biometric access control and telephony voice intake for single offices.',
-                        hardwareReqs: [
-                            "Terminals: Up to 5 USB/Bluetooth FIDO2 or Touch ID biometric reader terminals",
-                            "Carrier Telephony: Grandstream HT801 VoIP ATA or local SIP phone",
-                            "Network: Voice VLAN 20 switchport with LLDP-MED auto-discovery",
-                            "Workstation: Standard Windows 10/11 or Linux PC on local LAN",
-                            "Storage: External USB drive for encrypted daily local backups"
-                        ],
+                        desc: 'Entry-level biometric access control for single offices.',
+                        hardwareReqs: ["Terminals: Up to 5 USB/Bluetooth FIDO2 or Touch ID biometric reader terminals", "Workstation: Standard Windows 10/11 or Linux PC on local LAN", "Storage: External USB drive for encrypted daily local backups"],
                         annualPriceValue: 12000,
                         monthlyPrice: 1250,
                         features: [
                             'Up to 5 biometric terminal endpoints',
-                            '2 Concurrent SIP trunk channels with E.164 ANI verification',
-                            'Automated FNOL voice intake with entity chips extraction',
-                            'Ethan AI Call Records Vault (1,000 hrs archive, Ethan AI Voice VBR 24kbps)',
-                            'Daily encrypted local backups & STIR/SHAKEN Level B attestation'
+                            'Access control audit logs integration',
+                            'Daily encrypted local backups',
+                            'Standard customer support'
                         ],
                         btnText: 'Provision Node',
                         btnClass: 'basic-btn'
@@ -9422,23 +9125,15 @@
                     {
                         class: 'pro',
                         title: 'Standard Professional',
-                        desc: 'Multi-site secure portal networking, PBX gateway, and forensic audit for growing enterprises.',
-                        hardwareReqs: [
-                            "Terminals: Up to 25 biometric terminal endpoints / card readers",
-                            "Carrier Gateway: Cisco SPA112 / AudioCodes VoIP ATA gateway",
-                            "Switching: Voice VLAN 20 core switch with DSCP 46 (EF) QoS prioritization",
-                            "Central Server: Dedicated terminal enclave management node",
-                            "Backup: Encrypted NVMe SSD local backup array"
-                        ],
+                        desc: 'Multi-site secure portal networking for growing enterprises.',
+                        hardwareReqs: ["Terminals: Up to 25 biometric terminal endpoints / card readers", "Central Server: Dedicated terminal enclave management node", "Backup: Encrypted NVMe SSD local backup array"],
                         annualPriceValue: 35000,
                         monthlyPrice: 3645,
                         features: [
                             'Up to 25 biometric terminal endpoints',
-                            '10 Concurrent SIP trunks with ITU-T G.107 MOS score monitoring',
-                            'Ethan AI Real-Time Agent Co-Pilot HUD with dynamic policy prompts',
-                            'Ethan AI Call Records Vault (10,000 hrs, $32,840/yr egress savings, diarization)',
-                            'Ethan AI 21-Vector Forensic Scan (VSA vocal stress, deepfake scan, ENF 60Hz grid)',
-                            '24/7 priority support & supervisor call control (Barge *32 / Whisper *31)'
+                            'Centralized terminal enclave management',
+                            'Continuous tamper-evident audit logging',
+                            '24/7 priority support'
                         ],
                         btnText: 'Provision Node',
                         btnClass: 'pro-btn'
@@ -9446,24 +9141,16 @@
                     {
                         class: 'premium',
                         title: 'Standard Premium',
-                        desc: 'Global sovereign identity network, enterprise PBX routing, and automated settlement for large operations.',
-                        hardwareReqs: [
-                            "Terminals: Enterprise biometric terminal network (FIDO2 / WebAuthn)",
-                            "Carrier Core: Cisco CUBE / Genesys Cloud AudioHook SIP gateway",
-                            "Audio Tap: Optically isolated USB audio ADC tap (48kHz/24-bit PCM)",
-                            "High Availability: Dual-node server cluster on isolated LAN",
-                            "HSM Integration: Hardware HSM for multi-sig operational disbursements"
-                        ],
+                        desc: 'Global sovereign identity network for enterprise operations.',
+                        hardwareReqs: ["Terminals: Enterprise biometric terminal network (FIDO2 / WebAuthn)", "High Availability: Dual-node server cluster on isolated LAN", "HSM Integration: Hardware HSM for multi-sig operational disbursements"],
                         annualPriceValue: 95000,
                         monthlyPrice: 9895,
                         instapay: true,
                         features: [
-                            'Unlimited biometric terminal endpoints & multi-adjuster dispatch',
-                            '30 Concurrent SIP trunks with Cisco CUBE / Genesys integration',
+                            'Unlimited biometric terminal endpoints',
                             'Automated multi-sig operational disbursement authorization (Client treasury rails)',
-                            'Ethan AI Call Records Vault (50,000 hrs, dual-channel lossless + VBR archive)',
-                            'STIR/SHAKEN Level A cryptographic attestation & FRE 902 court dossiers',
-                            'Active heuristic risk scoring & high-availability database integration'
+                            'Active heuristic risk scoring engine',
+                            'High-availability database integration'
                         ],
                         btnText: '⚡ Select License Tier',
                         btnClass: 'premium-btn'
@@ -9471,25 +9158,17 @@
                     {
                         class: 'jet',
                         title: 'Enterprise Custom',
-                        desc: 'Sovereign tailored network, on-prem PBX core, and air-gapped forensic engine for custom integrations.',
-                        hardwareReqs: [
-                            "Infrastructure: Client-designated server rack / bare-metal hardware with SBC proxy",
-                            "Telecom Core: Dedicated on-prem PBX server with E1/T1/PRI or SIP trunking",
-                            "Storage Diode: FIPS 140-3 Level 3 NVMe write-only diode storage array",
-                            "HSM Hardware: Dedicated client-held HSM (YubiHSM 2 / PKCS#11)",
-                            "Terminals: Air-gapped biometric verification stations"
-                        ],
+                        desc: 'Sovereign tailored network for custom enterprise integrations.',
+                        hardwareReqs: ["Infrastructure: Client-designated server rack / bare-metal hardware", "HSM Hardware: Dedicated client-held HSM (YubiHSM 2 / PKCS#11)", "Terminals: Air-gapped biometric verification stations"],
                         annualPriceValue: 180000,
                         monthlyPrice: 18750,
                         instapay: true,
                         recommended: true,
                         features: [
-                            'Custom node & telemetry configurations with dedicated SBC proxy',
-                            'Unlimited PBX SIP trunks & custom CTI/JTAPI core integration',
-                            'Air-gapped on-prem Ethan AI NLP models & automated STP claim bus',
-                            'Unlimited Ethan AI Call Records Vault storage with write-only diode array',
-                            'Dedicated client-held HSM key generation & multi-tenant isolation',
-                            '24/7 dedicated system integration engineers & custom SIU legal suites'
+                            'Custom node & telemetry configurations',
+                            'Dedicated client-held HSM key generation',
+                            'Multi-tenant architecture isolation',
+                            '24/7 dedicated system integration engineers'
                         ],
                         btnText: '⚡ Select License Tier',
                         btnClass: 'premium-btn'
@@ -9499,18 +9178,12 @@
                     {
                         class: 'basic',
                         title: 'Auto Essentials',
-                        desc: 'Driver scoring, telematics attestation, and voice FNOL intake for regional carriers.',
-                        hardwareReqs: [
-                            "Workstation: Standard PC / Laptop on fleet dispatch LAN",
-                            "Voice Intake: USB headset / VoIP phone for driver intake",
-                            "Vehicle Tap: OBD-II USB datalink adapter (SAE J1962)",
-                            "Driver Auth: Touch ID / FIDO2 biometric key for driver sign-off"
-                        ],
+                        desc: 'Driver scoring and telematics attestation for regional carriers.',
+                        hardwareReqs: ["Workstation: Standard PC / Laptop on fleet dispatch LAN", "Vehicle Tap: OBD-II USB datalink adapter (SAE J1962)", "Driver Auth: Touch ID / FIDO2 biometric key for driver sign-off"],
                         annualPriceValue: 18000,
                         monthlyPrice: 1875,
                         features: [
                             'Up to 500 vehicles / policyholders',
-                            'Automated driver voice FNOL intake with entity extraction',
                             'Hardware-rooted driver identity verification',
                             'Cryptographically attested telematics risk scoring',
                             'Automated driving record & DMV schema cross-check'
@@ -9521,20 +9194,14 @@
                     {
                         class: 'pro',
                         title: 'Auto Professional',
-                        desc: 'Fleet-grade accident reconstruction, 21-vector audio forensics, and fraud detection nodes.',
-                        hardwareReqs: [
-                            "Telematics Tap: Dual-channel USB-to-CAN transceiver (Kvaser / PEAK / SocketCAN)",
-                            "Fleet Harness: Passive SAE J1939 heavy-duty Y-harness & OBD-II cable",
-                            "Telephony Gateway: Grandstream HT801 / Cisco VoIP ATA with Voice VLAN 20",
-                            "Forensic Ingestion: USB write-blocker dock for crash evidence SD cards & call audio"
-                        ],
+                        desc: 'Fleet-grade accident reconstruction and fraud detection nodes.',
+                        hardwareReqs: ["Telematics Tap: Dual-channel USB-to-CAN transceiver (Kvaser / PEAK / SocketCAN)", "Fleet Harness: Passive SAE J1939 heavy-duty Y-harness & OBD-II cable", "Forensic Ingestion: USB write-blocker dock for crash evidence SD cards"],
                         annualPriceValue: 65000,
                         monthlyPrice: 6770,
                         features: [
                             'Up to 5,000 vehicles',
                             'Real-time collision reconstruction telematics (J1939 & OBD-II)',
-                            'Ethan AI 21-Vector Forensic Scan (vocal stress, deepfake detection, 60Hz ENF)',
-                            'Ethan AI Call Records Vault (10,000 hrs, Ethan AI Voice VBR 24kbps)',
+                            'Deterministic telematics claims fraud detection',
                             'Automated FNOL processing with cryptographic ledger attestation',
                             'Continuous driver behavior & impact telemetry scoring'
                         ],
@@ -9544,21 +9211,15 @@
                     {
                         class: 'premium',
                         title: 'Auto Premium',
-                        desc: 'Carrier-level sovereign underwriting with automated claims triage and instant payout.',
-                        hardwareReqs: [
-                            "Sovereign Appliance: Dedicated 1U server or ruggedized edge PC",
-                            "Carrier Gateway: Enterprise SIP Session Border Controller with DSCP 46 QoS",
-                            "CAN Interface: Optically isolated listen-only transceivers (ISO 26262 compliant)",
-                            "Treasury Auth: Biometric HSM key for claims disbursement authorization"
-                        ],
+                        desc: 'Carrier-level sovereign underwriting with automated claims triage.',
+                        hardwareReqs: ["Sovereign Appliance: Dedicated 1U server or ruggedized edge PC", "CAN Interface: Optically isolated listen-only transceivers (ISO 26262 compliant)", "Treasury Auth: Biometric HSM key for claims disbursement authorization"],
                         annualPriceValue: 185000,
                         monthlyPrice: 19270,
                         instapay: true,
                         features: [
                             'Unlimited vehicles & policyholders',
-                            '30 Concurrent carrier SIP trunks with supervisor barge/whisper controls',
                             'Programmatic total loss settlement authorization dispatch (Client treasury rails)',
-                            'Ethan AI Real-Time Agent Co-Pilot HUD with dynamic policy prompts',
+                            'Staged accident physical sensor anomaly scoring',
                             'Subrogation evidence chain attestation & CIECA/EDI export',
                             'Hardware-isolated secure biometric enclaves'
                         ],
@@ -9568,22 +9229,15 @@
                     {
                         class: 'jet',
                         title: 'Auto Sovereign',
-                        desc: 'Full telematics auto underwriting pipeline, nationwide SIP routing, and custom SIU legal suites.',
-                        hardwareReqs: [
-                            "Cluster Node: 3-node physical server cluster with automated failover",
-                            "Carrier Mesh: High-capacity VoIP gateway with Voice VLAN 20 & LLDP-MED",
-                            "Cryptographic Core: Hardware TPM 2.0 / YubiHSM 2 accelerator",
-                            "Vehicle Bus: Multi-vehicle CAN-FD & Ethernet AVB interface array"
-                        ],
+                        desc: 'Full telematics auto underwriting pipeline for enterprise carriers.',
+                        hardwareReqs: ["Cluster Node: 3-node physical server cluster with automated failover", "Cryptographic Core: Hardware TPM 2.0 / YubiHSM 2 accelerator", "Vehicle Bus: Multi-vehicle CAN-FD & Ethernet AVB interface array"],
                         annualPriceValue: 420000,
                         monthlyPrice: 43750,
                         instapay: true,
                         recommended: true,
                         features: [
-                            'National-scale sovereign node deployment & unlimited SIP trunking',
+                            'National-scale sovereign node deployment',
                             'Multi-carrier consortium schema compatibility',
-                            'Ethan AI Call Records Vault (100,000+ hrs, $65k/yr egress savings)',
-                            'Full Daubert & FRE 902 court dossiers for litigation defense',
                             'Real-time total loss & diminished value calculation nodes',
                             'Executive adjuster client-side privacy enclaves'
                         ],
@@ -9595,22 +9249,15 @@
                     {
                         class: 'basic',
                         title: 'Home Essentials',
-                        desc: 'Drone inspection attestation, homeowner voice FNOL intake, and property risk verification for regional writers.',
-                        hardwareReqs: [
-                            "Workstation: Standard PC or Mac on local LAN (No specialized server needed)",
-                            "Carrier Bridge: Grandstream HT801 VoIP ATA or local SIP phone (44.1kHz)",
-                            "Media Ingestion: High-speed USB SD card reader for drone EXIF inspection",
-                            "Inspector Sign-Off: FIDO2 / Touch ID hardware sign-off key"
-                        ],
+                        desc: 'Drone inspection attestation and property risk verification for regional writers.',
+                        hardwareReqs: ["Workstation: Standard PC or Mac on local LAN (No specialized server needed)", "Media Ingestion: High-speed USB SD card reader for drone EXIF inspection", "Inspector Sign-Off: FIDO2 / Touch ID hardware sign-off key"],
                         annualPriceValue: 22000,
                         monthlyPrice: 2291,
                         features: [
                             'Up to 250 properties',
-                            '2 Concurrent SIP trunk channels with E.164 caller ANI attestation',
-                            'Automated homeowner voice FNOL intake with smart property entity extraction',
-                            'Ethan AI Call Records Vault (1,500 hrs, Ethan AI Voice VBR 24kbps)',
                             'Drone EXIF & flight telemetry inspection verification',
-                            'Cryptographic inspector digital signature sign-off'
+                            'Cryptographic inspector digital signature sign-off',
+                            'Automated property value & assessment cross-check'
                         ],
                         btnText: 'Provision Node',
                         btnClass: 'basic-btn'
@@ -9618,22 +9265,16 @@
                     {
                         class: 'pro',
                         title: 'Home Professional',
-                        desc: 'Portfolio-scale IoT sensor monitoring, carrier PBX gateway, and acoustic drywall/pipe stress analysis.',
-                        hardwareReqs: [
-                            "Gateway Node: Local edge gateway PC or rack node",
-                            "Carrier Telephony: Grandstream HT801 / Cisco SPA112 VoIP ATA with Voice VLAN 20",
-                            "IoT Interface: USB Zigbee / Z-Wave / MQTT IoT coordinator receiver",
-                            "Evidence Storage: USB write-blocker for contractor estimates & media"
-                        ],
+                        desc: 'Portfolio-scale IoT sensor monitoring and claims triage nodes.',
+                        hardwareReqs: ["Gateway Node: Local edge gateway PC or rack node", "IoT Interface: USB Zigbee / Z-Wave / MQTT IoT coordinator receiver", "Evidence Storage: USB write-blocker for contractor estimates & media"],
                         annualPriceValue: 72000,
                         monthlyPrice: 7500,
                         features: [
                             'Up to 2,500 properties',
-                            '10 Concurrent SIP trunks with carrier jitter buffer & MOS monitoring',
-                            'Ethan AI Property Adjuster Co-Pilot HUD with contractor estimate cross-check',
-                            'Ethan AI Call Records Vault (15,000 hrs, acoustic drywall/pipe stress analysis)',
                             'IoT sensor anomaly detection (water, fire, intrusion telemetry)',
-                            'Ethan AI 21-Vector Forensic Scan (audio ambient acoustics & contractor voice attestation)'
+                            'Contractor identity attestation for repair verification',
+                            'Edge-computed roof & foundation risk scoring',
+                            'Continuous property exposure monitoring'
                         ],
                         btnText: 'Provision Node',
                         btnClass: 'pro-btn'
@@ -9641,23 +9282,17 @@
                     {
                         class: 'premium',
                         title: 'Home Premium',
-                        desc: 'Carrier-level catastrophe response with automated claim triage, emergency SIP routing, and instant payout.',
-                        hardwareReqs: [
-                            "Command Node: Dedicated Sovereign CAT event command node (1U / Mini PC)",
-                            "Carrier Core: Enterprise SIP Session Border Controller with DSCP 46 QoS",
-                            "Sensor Aggregator: Multi-sensor IoT receiver + failover communications link",
-                            "Treasury Auth: Dual-custody biometric keys for emergency CAT disbursement"
-                        ],
+                        desc: 'Carrier-level catastrophe response with automated claim triage.',
+                        hardwareReqs: ["Command Node: Dedicated Sovereign CAT event command node (1U / Mini PC)", "Sensor Aggregator: Multi-sensor IoT receiver + failover communications link", "Treasury Auth: Dual-custody biometric keys for emergency CAT disbursement"],
                         annualPriceValue: 195000,
                         monthlyPrice: 20312,
                         instapay: true,
                         features: [
                             'Unlimited property portfolio',
-                            '30 Concurrent carrier SIP trunks with CAT emergency dispatch routing',
-                            'Ethan AI Catastrophe Call Center Engine with automated triage & queue priority',
-                            'Ethan AI Call Records Vault (50,000 hrs, dual-channel lossless + VBR archive)',
                             'Programmatic CAT claim disbursement authorization (Client treasury rails)',
-                            'Aerial post-storm damage assessment nodes & sovereign ledger attestation'
+                            'Aerial post-storm damage assessment nodes',
+                            'Contractor estimate verification via sovereign ledger',
+                            'Dedicated sovereign CAT event command node'
                         ],
                         btnText: '⚡ Select License Tier',
                         btnClass: 'premium-btn'
@@ -9665,24 +9300,17 @@
                     {
                         class: 'jet',
                         title: 'Home Sovereign',
-                        desc: 'Enterprise sovereign home underwriting, multi-state SIP peering, and catastrophe command.',
-                        hardwareReqs: [
-                            "Sovereign Cluster: Multi-state sovereign node cluster on private LAN",
-                            "Voice Vault: Petabyte-scale FIPS 140-3 Level 3 NVMe write-only diode storage array",
-                            "Carrier Mesh: High-capacity VoIP gateway with Voice VLAN 20 & LLDP-MED",
-                            "Executive Auth: Secure Enclave privacy workstations for underwriters"
-                        ],
+                        desc: 'Enterprise sovereign home underwriting and catastrophe command.',
+                        hardwareReqs: ["Sovereign Cluster: Multi-state sovereign node cluster on private LAN", "Sensor Mesh: Climate risk telemetry gateway & high-speed storage array", "Executive Auth: Secure Enclave privacy workstations for underwriters"],
                         annualPriceValue: 480000,
                         monthlyPrice: 50000,
                         instapay: true,
                         recommended: true,
                         features: [
-                            'Unlimited multi-state deployment & carrier SIP peering',
-                            'Automated CAT call flood protection & real-time queue priority',
-                            'Unlimited Ethan AI Call Records Vault with write-only diode storage array',
-                            'Full Daubert & FRE 902 court dossiers for high-exposure property litigation',
-                            'Climate risk telemetry attestation network & rebuilding cost index nodes',
-                            'Executive privacy enclaves for high-net-worth underwriting & multi-sig disbursement'
+                            'Unlimited multi-state deployment',
+                            'Climate risk telemetry attestation network',
+                            'Real-time rebuilding cost index calculation nodes',
+                            'Executive privacy enclaves for high-net-worth underwriting'
                         ],
                         btnText: '⚡ Select License Tier',
                         btnClass: 'premium-btn'
@@ -9691,102 +9319,77 @@
                 
                 fleet: [
                     {
-                        class: 'basic',
-                        title: 'Commercial Fleet Enclave Pack',
-                        desc: '5–19 Enclave Deployment for Commercial Auto, POS & Telemetry Fleets. Includes 7.5% volume discount.',
-                        hardwareReqs: [
-                            "Vehicle Harness: Passive SAE J1939 heavy fleet Y-harness & OBD-II cable",
-                            "Audio Ingestion: USB noise-canceling cabin microphone / ADC tap (44.1kHz)",
-                            "Telemetry Module: On-device ETSTHER telematics engine (pure BYOD mobile architecture)",
-                            "Enclave Security: Pre-flashed TPM 2.0 hardware state attestation"
-                        ],
+                        name: "Commercial Fleet Enclave Pack",
+                        monthly: 1850,
+                        annual: 1850,
                         capex: true,
                         capexPrice: 1850,
-                        slaPrice: 0,
+                        desc: "5–19 Enclave Deployment for Commercial Auto, POS & Telemetry Fleets. Includes 7.5% volume discount.",
                         features: [
                             "5–19 Hardware Enclave License Units ($1,850/ea)",
-                            "In-cabin driver voice FNOL intake with collision audio timestamping",
-                            "2 Voice channels per enclave unit with Ethan AI Voice VBR compression",
-                            "CAN-Bus / OBD-II / J1939 active passthrough parser",
-                            "Sub-100ms edge FNOL collision vectoring & crash acoustic detection",
-                            "High-frequency Newtonian dynamics telemetry ready & pre-flashed TPM 2.0"
+                            "CAN-Bus / OBD-II / J1939 Active Passthrough Parser",
+                            "Sub-100ms Edge FNOL Collision Vectoring",
+                            "Dual-SIM 5G / LTE Telemetry Integration Ready",
+                            "Pre-Flashed TPM 2.0 State Attestation Support",
+                            "30-Day Executive Price-Lock Guarantee"
                         ],
-                        btnText: "Provision Fleet Enclave ($1,850/unit)",
-                        btnClass: "basic-btn"
+                        badge: "7.5% VOLUME SAVINGS",
+                        cta: "Configure Fleet Deployment",
+                        ctaOnClick: "switchTab('fleet')"
                     },
                     {
-                        class: 'pro',
-                        title: 'Enterprise Fleet Rollout',
-                        desc: 'High-Density Fleet Infrastructure for Logistics, Municipal Transit & Utility Fleets. Includes 15% volume discount.',
-                        hardwareReqs: [
-                            "Fleet Gateways: 20–49 Hardware Enclave units with ISO 26262 functional safety wake",
-                            "Dispatch Bridge: Grandstream HT801 / Cisco VoIP ATA with Voice VLAN 20",
-                            "Evidence Ingestion: USB write-blocker dock for crash evidence SD cards & driver audio",
-                            "Key Enclave: Client-held TPM 2.0 / USB private key enclave"
-                        ],
+                        name: "Enterprise Fleet Rollout (20–49 Units)",
+                        monthly: 1700,
+                        annual: 1700,
                         capex: true,
                         capexPrice: 1700,
-                        slaPrice: 0,
-                        recommended: true,
-                        topTag: "15% VOLUME SAVINGS",
+                        desc: "High-Density Fleet Infrastructure for Logistics, Municipal Transit & Utility Fleets. Includes 15% volume discount.",
                         features: [
                             "20–49 Hardware Enclave License Units ($1,700/ea)",
-                            "Direct dispatch-to-driver SIP intercom bridge with STIR/SHAKEN Level A attestation",
-                            "Ethan AI Call Records Vault (25,000 hrs fleet audio archive, $46,512/yr egress savings)",
-                            "Sub-100ms Edge FNOL collision vectoring & acoustic crash impact detection",
-                            "Field deployment & vehicle harnessing guidance",
-                            "Net-30 corporate invoicing / PO terms & priority chain-of-custody delivery"
+                            "Field Deployment & Vehicle Harnessing Guidance",
+                            "Estimated ~$46,512/yr Cloud Telemetry Egress Savings",
+                            "Net-30 Corporate Invoicing / PO Terms",
+                            "Priority Chain-of-Custody Delivery",
+                            "24/7 Protocol Engineering Desk Access"
                         ],
-                        btnText: "Provision Fleet Rollout ($1,700/unit)",
-                        btnClass: "pro-btn"
+                        badge: "15% VOLUME SAVINGS",
+                        highlight: true,
+                        cta: "Configure Fleet Deployment",
+                        ctaOnClick: "switchTab('fleet')"
                     },
                     {
-                        class: 'premium',
-                        title: 'Strategic Scale Fleet',
-                        desc: 'Custom Multi-Location & Nationwide Fleet Deployments. Up to 22.5% strategic discount & hardware refresh covenants.',
-                        hardwareReqs: [
-                            "Cluster Gateway: High-throughput fleet telemetry concentrator rack appliance",
-                            "Carrier Mesh: Enterprise VoIP gateway with Voice VLAN 20 & LLDP-MED",
-                            "Vehicle Array: Multi-vehicle CAN-FD & Ethernet AVB interface array",
-                            "HSM Accelerator: Dedicated hardware TPM 2.0 / YubiHSM 2 cryptographic token"
-                        ],
+                        name: "Strategic Scale Fleet (50+ Units)",
+                        monthly: 1550,
+                        annual: 1550,
                         capex: true,
                         capexPrice: 1550,
-                        slaPrice: 0,
-                        instapay: true,
-                        topTag: "STRATEGIC SCALE",
+                        desc: "Custom Multi-Location & Nationwide Fleet Deployments. Up to 22.5% strategic discount & hardware refresh covenants.",
                         features: [
                             "50+ Hardware Enclave License Units ($1,550/ea)",
-                            "Unlimited fleet VoIP intercom channels & nationwide carrier SIP trunking",
-                            "Ethan AI Driver Co-Pilot HUD with hours-of-service (HOS) & route risk prompts",
-                            "Unlimited Ethan AI Fleet Vault with tamper-evident local NVMe diode storage",
-                            "Enterprise nationwide fleet harnessing integration & custom firmware stamping",
-                            "Direct executive SLA & client-held key custody with unlimited attestation"
+                            "Enterprise Nationwide Fleet Harnessing Integration",
+                            "Custom Cryptographic Firmware Stamping",
+                            "24-Month Corporate Financing / Lease Terms Available",
+                            "Direct Executive SLA & Client-Held Key Custody",
+                            "Unlimited Node Attestation Telemetry"
                         ],
-                        btnText: "⚡ Configure Strategic Fleet ($1,550/unit)",
-                        btnClass: "premium-btn"
+                        badge: "STRATEGIC SCALE",
+                        cta: "Configure Strategic Fleet",
+                        ctaOnClick: "switchTab('fleet')"
                     }
                 ],
                 wholesale: [
                     {
                         class: 'basic',
                         title: 'Enterprise Core',
-                        desc: 'High-value transaction processing, carrier SIP peering, and treasury workflow node.',
-                        hardwareReqs: [
-                            "Host Machine (Client-Supplied): Standard 64-bit server or workstation (macOS, Linux, Windows)",
-                            "Telephony: 50-Channel SIP Trunk Session Border Controller (Twilio/Genesys/Cisco)",
-                            "Switching: Voice VLAN 20 switchport with DSCP 46 (EF) QoS prioritization",
-                            "Deployment Architecture: Direct cloud software image download (.DMG / Container / BYOD)"
-                        ],
+                        desc: 'High-value transaction processing and treasury workflow node.',
+                        hardwareReqs: ["Appliance: 1U Server or Mac Studio / Mini PC appliance", "Interface Kit: USB-to-CAN & IoT multi-protocol adapter kit", "Authentication: FIPS 140-2 USB cryptographic tokens"],
                         annualPriceValue: 250000,
                         monthlyPrice: 26040,
                         features: [
-                            'Ether OS Enterprise Core License (Universal Zero-Egress Runtime or Direct Download)',
-                            'Up to 25 carrier branch deployments & 50 SIP trunks',
-                            '4 WASM Carrier Engines (Duck Creek, Applied Epic)',
-                            'Ethan AI Call Records Vault (100,000 hrs, $65k/yr egress savings)',
-                            'STIR/SHAKEN Level A cryptographic attestation',
-                            'Standard SLA (99.5% uptime)'
+                            'Up to 100 transaction channels',
+                            'Offline double-entry ledger settlement support',
+                            'Hardware-attested biometric security gateway',
+                            'Weekly automated compliance audit trails'
                         ],
                         btnText: 'Provision Node',
                         btnClass: 'basic-btn'
@@ -9794,22 +9397,15 @@
                     {
                         class: 'pro',
                         title: 'Enterprise Sovereign',
-                        desc: 'Advanced multi-signature network, 150 carrier trunks, and 21-vector forensic evidentiary engine.',
-                        hardwareReqs: [
-                            "Host Servers (Client-Supplied): Dual client-provided servers for failover redundancy",
-                            "Voice Infrastructure: Cisco Catalyst / Aruba CX switch with Voice VLAN 20 & LLDP-MED",
-                            "Forensic Audio (Client-Supplied): Optically isolated USB audio ADC tap (48kHz/24-bit PCM)",
-                            "Deployment Architecture: Direct cloud software image download (.DMG / Container / BYOD)"
-                        ],
+                        desc: 'Advanced multi-signature network for large treasury operations.',
+                        hardwareReqs: ["HSM Unit: Dedicated hardware HSM module (YubiHSM 2 / PKCS#11)", "Network: Dual-port 10GbE network interface cards (isolated LAN)", "Storage: Multi-drive NVMe write-only storage diode array"],
                         annualPriceValue: 600000,
                         monthlyPrice: 62500,
                         features: [
-                            'Ether OS Sovereign Multi-Site License (Universal Zero-Egress Runtime or Direct Download)',
-                            'Up to 100 carrier branch deployments & 150 SIP trunks',
-                            '8 Active WASM Engines (Duck Creek, Mitchell, ISO, V8/Wasm)',
-                            'Ethan AI Call Records Vault (300,000 hrs, regional data isolation)',
-                            'Ethan AI 21-Vector Evidentiary Forensics Suite',
-                            'FHE-wrapped ledger settlement engine & Priority SLA (99.9%)'
+                            'Unlimited transaction channels',
+                            'Custom zero-knowledge proof verification enclaves',
+                            'Dedicated HSM cryptographic key generation',
+                            'High-clearance operator terminal locks'
                         ],
                         btnText: 'Provision Node',
                         btnClass: 'pro-btn'
@@ -9817,23 +9413,16 @@
                     {
                         class: 'premium',
                         title: 'Global Command',
-                        desc: 'High-assurance compliance, worldwide SIP peering, and sovereign infrastructure command.',
-                        hardwareReqs: [
-                            "Compute Cluster (Client-Supplied): Client-supplied enterprise server cluster or cloud VMs",
-                            "Carrier Mesh: Worldwide SIP peering SBC array with carrier-grade jitter buffers",
-                            "Local Vault Storage (Client-Supplied): Enterprise NVMe SAN storage array",
-                            "Deployment Architecture: Direct cloud software image download (.DMG / Container / BYOD)"
-                        ],
+                        desc: 'High-assurance compliance & sovereign infrastructure command.',
+                        hardwareReqs: ["Compute Cluster: Multi-node sovereign server cluster + standby failover unit", "Sensor Array: Hardware acoustic sensor / vibration accelerometer array", "Executive Terminals: Dual-executive biometric authorization terminals"],
                         annualPriceValue: 1500000,
                         monthlyPrice: 156250,
                         instapay: true,
                         features: [
-                            'Ether OS Global Command License (Universal Zero-Egress Runtime or Direct Download)',
-                            'Unlimited global carrier deployments & worldwide SIP peering',
-                            'All 8 WASM Engines + custom WASM sandbox SDK',
-                            'Unlimited Ethan AI Global Call Records Vault (Petabyte-scale)',
-                            'Dedicated cryptographic HSM per region & FRE 902 court dossiers',
-                            '24/7 dedicated command ops team & zero-cloud sovereign rails'
+                            'Automated multi-sig treasury disbursement authorization (Client treasury rails)',
+                            'Full network deployment and monitoring',
+                            'High-throughput asset telemetry links',
+                            'Deterministic acoustic & sensor analysis nodes'
                         ],
                         btnText: '⚡ Select License Tier',
                         btnClass: 'premium-btn'
@@ -9841,24 +9430,17 @@
                     {
                         class: 'jet',
                         title: 'InstaPay Sovereign',
-                        desc: 'Consensus liquidity networks with automated disbursement pipelines and 200 high-volume trunks.',
-                        hardwareReqs: [
-                            "Client Terminals (Client-Supplied): 2+ physically separated biometric client workstations",
-                            "Telephony Gateway: 200 Concurrent SIP trunk channels with sub-10ms audio buffer",
-                            "Local Storage (Client-Supplied): Enterprise NVMe storage array for call vault",
-                            "Deployment Architecture: Direct cloud software image download (.DMG / Container / BYOD)"
-                        ],
+                        desc: 'Consensus liquidity networks with automated disbursement pipelines.',
+                        hardwareReqs: ["Client Terminals: 2+ physically separated biometric client terminals", "Cryptographic Store: Hardware-rooted Secure Enclave / TPM 2.0 key store", "Network Diode: Isolated Cat6 LAN drop with zero cloud egress"],
                         annualPriceValue: 950000,
                         monthlyPrice: 98950,
                         instapay: true,
                         recommended: true,
                         features: [
-                            'Ether OS InstaPay License (Universal Zero-Egress Runtime or Direct Download)',
-                            'Unlimited carrier branch deployments & 200 high-volume trunks',
-                            'All 8 Active WASM Engines & ETHAN InstaPay™ instant disbursement',
-                            'Sub-100ms settlement finality & automated STP claim bus',
-                            'Ethan AI Call Records Vault (500,000 hrs, $160k/yr egress savings)',
-                            'Air-gap Ed25519 dual-biometric quorum & white-glove onboarding'
+                            'Dual-person cryptographic consensus quorum',
+                            'Real-time asset valuation node',
+                            'Automated liquidity pool disbursement triggers',
+                            'Executive privacy enclaves'
                         ],
                         btnText: '⚡ Select License Tier',
                         btnClass: 'premium-btn'
@@ -9868,24 +9450,18 @@
                     {
                         class: "basic",
                         title: "30-Day Cloud Pilot Node",
-                        desc: "Downloadable 30-day evaluation node. Direct institutional access, local biometric gate, Ethan AI voice intake, and simulated carrier SIP trunk.",
-                        hardwareReqs: [
-                            "Host Machine (Client-Supplied): Standard PC, Mac, or Linux server (Min 8GB RAM, 4-core CPU)",
-                            "Audio / Headset: Standard USB headset or microphone for voice intake testing",
-                            "Biometric Sensor (Optional): Touch ID, Windows Hello, or FIDO2 key",
-                            "Network: Standard Internet or local LAN connection (No proprietary hardware needed)"
-                        ],
+                        desc: "Downloadable 30-day evaluation node. Direct institutional access. Test hardware-rooted biometric authentication, claims replay, and local zero-egress logic with zero cloud egress.",
+                        hardwareReqs: ["Workstation: Standard PC / Mac (8GB+ RAM, 4-core CPU)", "Biometric Gate: Touch ID / WebAuthn biometric sensor", "Telemetry Tap: Optional USB-CAN / OBD-II tap for live data replay"],
                         capex: true,
                         capexPrice: 5000,
                         slaPrice: 0,
                         topTag: "30-DAY PILOT EVALUATION",
                         features: [
-                            "Full downloadable Ether OS evaluation image (.DMG / Container) or optional pre-imaged drive",
-                            "1 Virtual Carrier SIP Trunk with E.164 ANI caller ID binding",
-                            "Ethan AI Voice Intake with real-time speech token extraction feed",
-                            "Ethan AI Master Call Records Vault (100 test calls, Ethan AI Voice VBR)",
-                            "Baseline acoustic spectral viewer & deepfake scan preview",
-                            "Local zero-egress execution (0.00 KB cloud telemetry egress)"
+                            "Full downloadable Ether OS evaluation image (.DMG / Container)",
+                            "Hardware-rooted biometric authentication gate",
+                            "Real-time First Notice of Loss (FNOL) claims replay",
+                            "Local zero-egress execution (0.00 KB cloud telemetry egress)",
+                            "Signed 30-day cryptographic operator license key"
                         ],
                         btnText: "Start Pilot Evaluation ($5,000)",
                         btnClass: "basic-btn"
@@ -9893,24 +9469,19 @@
                     {
                         class: 'pro',
                         title: 'Tier 1 Command Node',
-                        desc: 'Single-site zero-trust treasury gateway with 10 carrier SIP trunks, voice FNOL intake, and 21-vector forensic auditing.',
-                        hardwareReqs: [
-                            "Host Machine (Client-Supplied): 1x Dedicated PC, Mac, or Linux server (Min 16GB RAM, 4-core CPU)",
-                            "VoIP Equipment (Client-Supplied): Grandstream HT801 / Cisco SPA112 VoIP ATA or SIP softphone",
-                            "Local Network: Voice VLAN 20 or standard Ethernet switchport with QoS",
-                            "Deployment Architecture: Direct cloud software image download (.DMG / Container / BYOD)"
-                        ],
+                        desc: 'Single-site zero-trust treasury gateway. One CapEx purchase. No monthly SaaS. Runs on enterprise server hardware.',
+                        hardwareReqs: ["Dedicated Appliance: 1x Pre-imaged Ether Sovereign Appliance (Included)", "Security Module: Built-in TPM 2.0 / Secure Enclave cryptographic module", "Network Diode: Outbound-only TLS 1.3 physical network interface"],
                         capex: true,
                         capexPrice: 38500,
                         slaPrice: 5500,
                         features: [
-                            'Ether OS Single-Node Perpetual License (Universal Zero-Egress Runtime or Direct Download)',
-                            '10 Dedicated Carrier SIP Trunks with Cisco/Grandstream PBX gateway',
-                            'Automated First Notice of Loss (FNOL) voice intake with entity extraction',
-                            'Ethan AI Call Records Vault (10,000 hrs archive, Ethan AI Voice VBR 24kbps)',
-                            'Ethan AI 21-Vector Forensic Scan (VSA vocal stress, deepfake scan, ENF 60Hz grid)',
-                            'STIR/SHAKEN Level A cryptographic caller attestation & FRE 902 court dossiers',
-                            'Biometric security calibration for up to 5 authorized executives'
+                            'Dedicated Ether Sovereign Appliance / Pre-Imaged Node — cryptographically sealed',
+                            'Universal Sovereign Deployment — runs natively on macOS, Linux, and Windows server appliances',
+                            'Ether OS Perpetual License (cryptographically tied to hardware fingerprint)',
+                            'Biometric security calibration for up to 5 authorized executives',
+                            'Enterprise treasury & core banking API integration (Client-provided corporate banking rails)',
+                            '48-hr pre-imaged hardware replacement SLA',
+                            'Outbound-only TLS 1.3 tunnel patching included'
                         ],
                         btnText: 'Provision Tier 1',
                         btnClass: 'pro-btn'
@@ -9918,26 +9489,21 @@
                     {
                         class: 'premium',
                         title: 'Tier 2 Command Cluster',
-                        desc: '3-host multi-node consensus software license. 35 SIP trunks, Agent Co-Pilot HUD, and dual-channel lossless + VBR call records vault.',
-                        hardwareReqs: [
-                            "Consensus Hosts (Client-Supplied): 3x Standard server nodes or PCs on isolated local LAN",
-                            "VoIP Equipment (Client-Supplied): Enterprise VoIP ATA gateway or PBX with Voice VLAN 20",
-                            "Local Network: Standard isolated gigabit switch for Ed25519 consensus protocol",
-                            "Deployment Architecture: Direct cloud software image download (.DMG / Container / BYOD)"
-                        ],
+                        desc: '3-node physical consensus ring. 2-of-3 authorization required to move funds. Zero-egress cross-platform runtime.',
+                        hardwareReqs: ["Consensus Hardware: 3x Physical server nodes + 1x on-site hot-spare (4 units total)", "Inter-Node Link: Isolated gigabit switch for Ed25519 consensus protocol", "Multi-Sig Keys: Dual biometric keycards for 2-of-3 threshold payout execution"],
                         capex: true,
                         capexPrice: 141500,
                         slaPrice: 20900,
                         instapay: true,
                         recommended: true,
                         features: [
-                            'Ether OS 3-Node Consensus Cluster License (Universal Zero-Egress Runtime or Direct Download)',
-                            '35 High-Throughput Carrier SIP Trunks with multi-site failover SBC',
-                            'Ethan AI Real-Time Agent Co-Pilot HUD with dynamic policy prompts & whisper barge (*31/*32)',
-                            'Ethan AI Call Records Vault (50,000 hrs, dual-channel lossless + VBR archive, $32,840/yr egress savings)',
-                            'Multi-node consensus claims authorization & automated STP claim bus across client machines',
-                            'Full Daubert & FRE 902(11)/(13)/(14) self-authenticating audio evidence dossiers',
-                            '2-of-3 physical host threshold signature required per payout'
+                            '3-node Ether Sovereign Appliance consensus ring + 1 on-site hot-spare',
+                            'Ether OS Cluster License (multi-node cryptographic consensus binding)',
+                            'Zero-Egress Security Runtime — nodes run on macOS, Linux & Windows server appliances',
+                            '2-of-3 physical node threshold signature required per payout',
+                            'Biometric enrollment for up to 10 authorized executives',
+                            'Up to 5 multi-party corporate treasury account integrations',
+                            '4-hour failover SLA — hot-spare activates automatically'
                         ],
                         btnText: '⚡ Deploy Command Cluster',
                         btnClass: 'premium-btn'
@@ -9945,25 +9511,21 @@
                     {
                         class: 'jet',
                         title: 'Tier 3 Sovereign Network',
-                        desc: 'Enterprise sovereign software license for multinational institutions. Unlimited SIP peering, 500k-hr vault, and core banking integration.',
-                        hardwareReqs: [
-                            "Enterprise Datacenter (Client-Supplied): 8x Server nodes (datacenter rackmount or VM cluster)",
-                            "Carrier Telephony (Client-Supplied): Enterprise SIP Trunk SBC connection or carrier PBX bridge",
-                            "Local Storage (Client-Supplied): Client enterprise NVMe / SAN storage array for vault archives",
-                            "Deployment Architecture: Direct cloud software image download (.DMG / Container / BYOD)"
-                        ],
+                        desc: 'Enterprise sovereign network for multinational institutions. Partner bank SWIFT & Core Treasury API ready. Hardware-isolated enclaves.',
+                        hardwareReqs: ["Rack Infrastructure: 8x Rack-mounted sovereign server nodes + dual HSM modules", "Deployment Kit: Dedicated white-glove rack integration hardware", "Executive Keys: 50x Enterprise biometric keycards for global executive access"],
                         capex: true,
                         capexPrice: 510000,
                         slaPrice: 77000,
                         instapay: true,
                         features: [
-                            'Ether OS Enterprise-Wide Perpetual License (Universal Zero-Egress Runtime or Direct Download)',
-                            'Unlimited Global Carrier SIP Trunks & worldwide carrier PBX peering mesh',
-                            'Multi-channel air-gapped Ethan AI NLP models & automated STP claim bus',
-                            'Unlimited Ethan AI Sovereign Call Records Vault (500,000+ hrs, $160k/yr cloud egress savings)',
-                            'Full Daubert & FRE 902 court dossiers & custom SIU legal suites',
+                            '8-node Ether Sovereign Appliance rack + dual HSM cryptographic signing modules',
+                            'Ether OS Global Perpetual License (unlimited node capacity)',
+                            'Hardware-Enforced Cryptographic Core — zero cloud leakage on macOS, Linux & Windows',
+                            'Custom cryptographic proof engineering (30-day white-glove deployment)',
                             'Partner bank SWIFT / Corporate Wire / ISO 20022 core banking API integration',
-                            'Universal zero-egress runtime running natively on client macOS, Linux, and Windows servers'
+                            'Biometric enrollment for up to 50 global executives',
+                            '24-hr on-site engineer response SLA — worldwide',
+                            '24/7/365 dedicated engineering team on retainer'
                         ],
                         btnText: '⚡ Activate Sovereign Network',
                         btnClass: 'premium-btn'
@@ -10144,12 +9706,6 @@
                                         <div class="card-price">${capexStr}<span style="font-size:0.6em;"> CapEx</span></div>
                                         <div class="card-price-sub" style="color:var(--ether-cyan);font-size:0.8rem;margin-top:4px;">+ ${slaStr}/yr SLA after Year 1</div>
                                     </div>`;
-                            } else if (sector === 'fleet') {
-                                priceBlockHtml = `
-                                    <div class="card-price-block">
-                                        <div class="card-price">${capexStr}<span style="font-size:0.6em;"> / unit</span></div>
-                                        <div class="card-price-sub" style="color:var(--ether-cyan);font-size:0.8rem;margin-top:4px;">Volume Tier • Hardware Pre-Imaged</div>
-                                    </div>`;
                             } else {
                                 priceBlockHtml = `
                                     <div class="card-price-block">
@@ -10192,7 +9748,7 @@
                         }
                         let hwBlockHtml = `
                             <div class="card-hw-block">
-                                <div class="card-hw-title">🔌 CLIENT HARDWARE REQUIREMENTS (CLIENT-SUPPLIED HOSTS):</div>
+                                <div class="card-hw-title">🔌 HARDWARE &amp; INTERFACE REQUIREMENTS:</div>
                                 <ul class="card-hw-list">${hwListHtml}</ul>
                             </div>`;
 
@@ -10690,7 +10246,7 @@
             }
             
         /* ── FLEET & VOLUME DEPLOYMENT PORTAL JS ENGINE ── */
-        window.calculateFleetQuote = function(qty, hasInstallOrLegacy, maybeInstall, isOpex) {
+        window.calculateFleetQuote = function(qty, has5G, hasInstall, isOpex) {
             qty = Math.max(1, parseInt(qty) || 1);
             var basePrice = 2000;
             var discountRate = 0.0;
@@ -10709,10 +10265,7 @@
 
             var discountedUnitHardware = basePrice * (1 - discountRate);
             var discountTotal = (basePrice * discountRate) * qty;
-            // Legacy hardware dongle/SIM surcharge removed ($0 BYOD architecture)
-            var hasInstall = (typeof maybeInstall === 'boolean') ? maybeInstall : (typeof hasInstallOrLegacy === 'boolean' ? hasInstallOrLegacy : false);
-            var actualOpex = (typeof isOpex === 'boolean') ? isOpex : (typeof maybeInstall === 'boolean' ? maybeInstall : false);
-            var addonsPerUnit = (hasInstall ? 150 : 0);
+            var addonsPerUnit = (has5G ? 150 : 0) + (hasInstall ? 150 : 0);
             var effectiveUnitCost = discountedUnitHardware + addonsPerUnit;
             var totalCapex = effectiveUnitCost * qty;
             var monthlyOpex = (totalCapex / 24) * 1.08;
@@ -10729,7 +10282,7 @@
                 totalCapex: totalCapex,
                 effectiveUnitCost: effectiveUnitCost,
                 monthlyOpex: monthlyOpex,
-                isOpex: actualOpex
+                isOpex: isOpex
             };
         };
 
@@ -10779,9 +10332,10 @@
             if (ffPos) ffPos.classList.toggle("active", selectedFf === "pos");
             if (ffInd) ffInd.classList.toggle("active", selectedFf === "industrial");
 
+            var has5G = (document.getElementById("fleetAddon5G") || {}).checked || false;
             var hasInstall = (document.getElementById("fleetAddonInstall") || {}).checked || false;
 
-            var q = window.calculateFleetQuote(qty, false, hasInstall, isOpex);
+            var q = window.calculateFleetQuote(qty, has5G, hasInstall, isOpex);
 
             // Update Tier Banner
             var pill = document.getElementById("fleetTierPill");
@@ -10829,9 +10383,17 @@
                 }
             }
 
-            var bomByodRow = document.getElementById("bomByodRow");
-            if (bomByodRow) {
-                bomByodRow.style.display = "flex";
+            var bom5gRow = document.getElementById("bom5gRow");
+            var bom5gName = document.getElementById("bom5gName");
+            var bom5gVal = document.getElementById("bom5gVal");
+            if (bom5gRow && bom5gName && bom5gVal) {
+                if (has5G) {
+                    bom5gRow.style.display = "flex";
+                    bom5gName.textContent = "Dual-SIM 5G Failover (" + qty + " Units)";
+                    bom5gVal.textContent = "$" + (150 * qty).toLocaleString("en-US") + ".00";
+                } else {
+                    bom5gRow.style.display = "none";
+                }
             }
 
             var bomInstallRow = document.getElementById("bomInstallRow");
@@ -10906,8 +10468,9 @@
             if (savingsEl) savingsEl.textContent = "$" + annualSavings.toLocaleString("en-US") + " / yr";
             if (roiSavingsEl) roiSavingsEl.textContent = "$" + annualSavings.toLocaleString("en-US") + "/yr Projected Cloud Egress Savings";
 
+            var has5G = (document.getElementById("fleetAddon5G") || {}).checked || false;
             var hasInstall = (document.getElementById("fleetAddonInstall") || {}).checked || false;
-            var q = window.calculateFleetQuote(qty, false, hasInstall, false);
+            var q = window.calculateFleetQuote(qty, has5G, hasInstall, false);
             var paybackMonths = (q.totalCapex / Math.max(1, annualSavings)) * 12;
             if (paybackEl) paybackEl.textContent = (paybackMonths < 1 ? "< 1.0 month" : paybackMonths.toFixed(1) + " months");
         };
@@ -10945,6 +10508,7 @@
             var opexRadio = document.querySelector('input[name="fleetAcquisitionModel"]:checked');
             if (opexRadio && opexRadio.value === "opex") isOpex = true;
 
+            var has5G = (document.getElementById("fleetAddon5G") || {}).checked || false;
             var hasInstall = (document.getElementById("fleetAddonInstall") || {}).checked || false;
             var selectedFf = (document.querySelector('input[name="fleetFormFactor"]:checked') || {}).value || "auto";
 
@@ -10952,7 +10516,7 @@
             if (selectedFf === "pos") ffName = "Commercial POS Enclave";
             if (selectedFf === "industrial") ffName = "Rugged Industrial Substation (IP67)";
 
-            var q = window.calculateFleetQuote(qty, false, hasInstall, isOpex);
+            var q = window.calculateFleetQuote(qty, has5G, hasInstall, isOpex);
 
             // Pre-fill modal state
             window.__currentModalBasePrice = q.totalCapex;
@@ -10963,7 +10527,7 @@
             if (modal) {
                 var notesField = document.getElementById("demo-notes");
                 if (notesField) {
-                    notesField.value = "FLEET CONFIGURATION:\n• Quantity: " + qty + " Units\n• Acquisition: " + (isOpex ? "24-Month Lease" : "Outright Purchase (CAPEX)") + "\n• Form Factor: " + ffName + "\n• Telematics Architecture: Pure Mobile BYOD ($0 Hardware / $0 Dongles)\n• Turnkey Install: " + (hasInstall ? "Yes (+$150/ea)" : "No") + "\n• Effective Unit Cost: $" + q.effectiveUnitCost.toLocaleString("en-US") + "\n• Total Expected Settlement: $" + q.totalCapex.toLocaleString("en-US") + " USD";
+                    notesField.value = "FLEET CONFIGURATION:\n• Quantity: " + qty + " Units\n• Acquisition: " + (isOpex ? "24-Month Lease" : "Outright Purchase (CAPEX)") + "\n• Form Factor: " + ffName + "\n• 5G Failover: " + (has5G ? "Yes (+$150/ea)" : "No") + "\n• Turnkey Install: " + (hasInstall ? "Yes (+$150/ea)" : "No") + "\n• Effective Unit Cost: $" + q.effectiveUnitCost.toLocaleString("en-US") + "\n• Total Expected Settlement: $" + q.totalCapex.toLocaleString("en-US") + " USD";
                 }
                 modal.classList.add("open");
                 modal.setAttribute("aria-hidden", "false");
@@ -10988,7 +10552,7 @@
                             { name: "💰 Total Settlement", value: "$" + q.totalCapex.toLocaleString("en-US") + ".00 USD", inline: true },
                             { name: "🛠 Form Factor", value: ffName, inline: true },
                             { name: "💳 Acquisition Model", value: isOpex ? "24-Month Lease ($" + Math.round(q.monthlyOpex).toLocaleString("en-US") + "/mo)" : "CAPEX Outright", inline: true },
-                            { name: "📱 Telematics", value: "Mobile BYOD ($0 Hardware / $0 SIM Fees)" + (hasInstall ? "\nMobile Install (Yes)" : ""), inline: true },
+                            { name: "📡 Add-ons", value: (has5G ? "5G Failover (Yes)\n" : "") + (hasInstall ? "Mobile Install (Yes)" : (!has5G ? "None" : "")), inline: true },
                             { name: "📈 Egress Savings", value: "~$" + (qty * 340 * 12 * 0.95).toLocaleString("en-US") + "/yr", inline: true }
                         ],
                         footer: { text: "Ether Terminal LLC • Fleet Operations Grid" },
@@ -11005,6 +10569,7 @@
             var opexRadio = document.querySelector('input[name="fleetAcquisitionModel"]:checked');
             if (opexRadio && opexRadio.value === "opex") isOpex = true;
 
+            var has5G = (document.getElementById("fleetAddon5G") || {}).checked || false;
             var hasInstall = (document.getElementById("fleetAddonInstall") || {}).checked || false;
             var selectedFf = (document.querySelector('input[name="fleetFormFactor"]:checked') || {}).value || "auto";
 
@@ -11012,7 +10577,7 @@
             if (selectedFf === "pos") ffName = "Commercial POS Enclaves";
             if (selectedFf === "industrial") ffName = "Rugged Industrial Substation Enclaves";
 
-            var q = window.calculateFleetQuote(qty, false, hasInstall, isOpex);
+            var q = window.calculateFleetQuote(qty, has5G, hasInstall, isOpex);
 
             var params = new URLSearchParams({
                 company: "Enterprise Fleet Client",
@@ -11196,14 +10761,14 @@ Contact: contact@ether-terminal.com
                 if (cardEnc) cardEnc.classList.add("active");
                 if (nameEl) nameEl.textContent = "Sovereign Enclave (Enterprise)";
                 if (termEl) { termEl.textContent = "30-DAY ENTERPRISE PASS"; termEl.style.color = "#ffaa00"; termEl.style.borderColor = "#ffaa00"; }
-                if (depNoteEl) depNoteEl.textContent = "🛡️ 100% Rollover Credit toward Enterprise License";
+                if (depNoteEl) depNoteEl.textContent = "Enterprise evaluation access deposit";
                 if (tierInput) tierInput.value = "Sovereign Enclave (Enterprise)";
             } else {
                 window.__pilotBaseDeposit = 5000;
                 if (cardOp) cardOp.classList.add("active");
                 if (nameEl) nameEl.textContent = "Node Operator (Core Pilot)";
                 if (termEl) { termEl.textContent = "30-DAY CLOUD PASS"; termEl.style.color = "#00ff7f"; termEl.style.borderColor = "#00ff7f"; }
-                if (depNoteEl) depNoteEl.textContent = "🛡️ 100% Rollover Credit toward Year 1 Annual License";
+                if (depNoteEl) depNoteEl.textContent = "Direct evaluation access deposit";
                 if (tierInput) tierInput.value = "Node Operator (Core Pilot)";
             }
             window.updatePilotPricingTotal();
