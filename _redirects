@@ -1,0 +1,31 @@
+/checkout    /index.html   200
+/buy         /index.html   200
+/purchase    /index.html   200
+/wire        /index.html   200
+/admin       /portal.html  200
+/portal      /portal.html  200
+/activate    /activate.html 200
+/download    /releases/Ether_OS_Installer_v1.0.0.dmg 302
+/macos       /releases/Ether_OS_Installer_v1.0.0.dmg 302
+/dmg         /releases/Ether_OS_Installer_v1.0.0.dmg 302
+/pilot       /releases/Ether_OS_Installer_v1.0.0.dmg 302
+/download-zip /releases/Ether_Sovereign_Enterprise_Release_v1.0.0.zip 302
+/windows     /releases/Ether_Sovereign_Windows_Pilot.zip 302
+
+# Official Enterprise Documentation & AP Packet Redirects
+/w9              /docs/IRS_Form_W9_Vendor_Tax_Certification.pdf 302
+/wire-letter     /docs/Commercial_Bank_Wire_Disbursement_Letter.pdf 302
+/coi             /docs/Certificate_of_Insurance_ACORD_25_Summary.pdf 302
+/pilot-agreement /docs/Sovereign_Pilot_Evaluation_Agreement.pdf 302
+/pilot-contract  /docs/Sovereign_Pilot_Evaluation_Agreement.pdf 302
+/pilot-checklist /docs/Pilot_Deployment_And_Onboarding_Checklist.pdf 302
+/windows-guide   /docs/Windows_Preflight_And_AirGap_Guide.pdf 302
+/study-guide     /docs/Master_Sales_Architecture_Study_Guide.pdf 302
+/study-guide-dark /docs/Master_Sales_Architecture_Study_Guide_Mobile_Dark.pdf 302
+/playbook        /docs/Executive_Sales_Hooks_And_Pitch_Playbook.pdf 302
+/dossier         /signature.html 200
+/dossier-pdf     /docs/Executive_Settlement_Directive_Dossier.pdf 302
+/brochure        /docs/Ether_Terminal_DoubleSided.pdf 302
+/docs-directory  /docs/00_ETHER_OS_DOCUMENTS_DIRECTORY.txt 302
+
+

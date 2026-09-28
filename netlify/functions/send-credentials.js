@@ -122,8 +122,8 @@ exports.handler = async function(event, context) {
                   <td align="right" style="padding:6px 0; color:#4ce0ff; font-size:13px; font-weight:bold; font-family:monospace;">${wireMemo}</td>
                 </tr>
                 <tr>
-                  <td style="padding:6px 0; color:#94a3b8; font-size:13px;">Turnkey Dual-Drive Hardware Kit:</td>
-                  <td align="right" style="padding:6px 0; color:#ffffff; font-size:13px;">${includeHardware ? '4TB Samsung 990 PRO NVMe (4GB DRAM) + 256GB USB Key (+$2,000 USD)' : 'Software Only ($0)'}</td>
+                  <td style="padding:6px 0; color:#94a3b8; font-size:13px;">Deployment Architecture:</td>
+                  <td align="right" style="padding:6px 0; color:#00FF7F; font-size:13px;">100% Digital Air-Gapped Software ($0 Hardware CapEx)</td>
                 </tr>
                 <tr>
                   <td style="padding:6px 0; color:#94a3b8; font-size:13px; font-weight:bold;">Total Settlement Wire Amount:</td>
@@ -140,7 +140,7 @@ exports.handler = async function(event, context) {
                 Ether Sovereign OS — Air-Gapped High-Throughput Forensics & Underwriting
               </span>
               <span style="font-size:11px; color:#38bdf8; font-family:monospace;">
-                Treasury Support: etherterminal@proton.me
+                Treasury Support: contact@ether-terminal.com
               </span>
             </td>
           </tr>
@@ -163,7 +163,7 @@ exports.handler = async function(event, context) {
             phone: phone,
             assigned_tier: tier,
             billing_period: billing,
-            hardware_addon: includeHardware ? 'Yes ($2,000 Turnkey Dual-Drive Hardware Kit: 4TB NVMe + 256GB USB Key)' : 'No (Software Only)',
+            hardware_addon: 'No (100% Digital Air-Gapped Software — $0 Hardware CapEx)',
             license_key: licenseKey,
             operator_id: operatorId,
             wire_memo: wireMemo,

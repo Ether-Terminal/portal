@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Institutional Solvency & Capital Architecture | Ether Sovereign</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* CSS Reset & Design Tokens */
+    :root {
+      --slate-950: #020617;
+      --slate-900: #0f172a;
+      --slate-800: #1e293b;
+      --slate-700: #334155;
+      --slate-600: #475569;
+      --slate-500: #64748b;
+      --slate-400: #94a3b8;
+      --slate-300: #cbd5e1;
+      --slate-200: #e2e8f0;
+      --slate-100: #f1f5f9;
+      --slate-50: #f8fafc;
+      --indigo-700: #4338ca;
+      --indigo-600: #4f46e5;
+      --indigo-50: #eef2ff;
+      --emerald-700: #047857;
+      --emerald-600: #059669;
+      --emerald-50: #ecfdf5;
+      --amber-700: #b45309;
+      --amber-600: #d97706;
+      --amber-50: #fffbeb;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --font-mono: 'JetBrains Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    @page {
+      size: letter portrait;
+      margin: 0.32in 0.38in 0.32in 0.38in;
+    }
+
+    body {
+      background-color: #0b0f19;
+      font-family: var(--font-sans);
+      color: var(--slate-900);
+      line-height: 1.32;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px 0 35px;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Interactive Non-Printing Toolbar */
+    .print-toolbar {
+      width: 8.5in;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      padding: 7px 12px;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 6px;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+    }
+
+    .toolbar-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .toolbar-badge {
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      font-weight: 700;
+      color: #818cf8;
+      background: rgba(129, 140, 248, 0.12);
+      padding: 3px 8px;
+      border-radius: 4px;
+      border: 1px solid rgba(129, 140, 248, 0.3);
+    }
+
+    .toolbar-nav {
+      display: flex;
+      gap: 5px;
+      flex-wrap: wrap;
+    }
+
+    .nav-btn {
+      font-size: 9px;
+      font-weight: 600;
+      color: #94a3b8;
+      text-decoration: none;
+      padding: 3px 7px;
+      border-radius: 4px;
+      transition: all 0.15s ease;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid transparent;
+    }
+
+    .nav-btn:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .nav-btn.active {
+      color: #ffffff;
+      background: var(--indigo-700);
+      border-color: var(--indigo-600);
+    }
+
+    .print-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #4f46e5;
+      color: #ffffff;
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(79, 70, 229, 0.4);
+      transition: background 0.15s ease;
+    }
+
+    .print-btn:hover {
+      background: #4338ca;
+    }
+
+    /* Outer Letter Canvas (Fixed 8.5in x 11in) */
+    .page-sheet {
+      width: 8.5in;
+      height: 11in;
+      max-height: 11in;
+      background: #ffffff;
+      padding: 0.32in 0.38in;
+      box-shadow: 0 18px 48px rgba(0, 0, 0, 0.5);
+      border-radius: 4px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: 6px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Print Overrides */
+    @media print {
+      body {
+        background: transparent !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        display: block !important;
+        min-height: auto !important;
+      }
+      .no-print {
+        display: none !important;
+      }
+      .page-sheet {
+        width: 100% !important;
+        height: 100% !important;
+        max-height: 100% !important;
+        padding: 0 !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+        overflow: hidden !important;
+        page-break-after: avoid !important;
+        page-break-inside: avoid !important;
+      }
+    }
+
+    /* Header Bar */
+    .header-bar {
+      border-bottom: 2px solid var(--slate-900);
+      padding-bottom: 5px;
+    }
+
+    .top-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 3px;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand-logo-svg {
+      width: 20px;
+      height: 20px;
+      fill: none;
+      stroke: var(--slate-900);
+      stroke-width: 2;
+    }
+
+    .brand-name {
+      font-size: 10.5px;
+      font-weight: 800;
+      letter-spacing: 1.4px;
+      text-transform: uppercase;
+      color: var(--slate-900);
+    }
+
+    .brand-sub {
+      font-size: 8.5px;
+      color: var(--slate-500);
+      font-weight: 500;
+    }
+
+    .meta-badges {
+      display: flex;
+      gap: 5px;
+    }
+
+    .badge {
+      font-family: var(--font-mono);
+      font-size: 8px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 3px;
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+    }
+
+    .badge-dark {
+      background: var(--slate-900);
+      color: #ffffff;
+    }
+
+    .badge-indigo {
+      background: var(--indigo-50);
+      color: var(--indigo-700);
+      border: 1px solid rgba(79, 70, 229, 0.3);
+    }
+
+    .badge-green {
+      background: var(--emerald-50);
+      color: var(--emerald-700);
+      border: 1px solid rgba(4, 120, 87, 0.3);
+    }
+
+    .title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-top: 3px;
+    }
+
+    .doc-title {
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: -0.4px;
+      color: var(--slate-950);
+      line-height: 1.15;
+    }
+
+    .doc-subtitle {
+      font-size: 9.5px;
+      color: var(--slate-600);
+      font-weight: 500;
+      margin-top: 1px;
+    }
+
+    .doc-target {
+      text-align: right;
+      font-size: 8.5px;
+      color: var(--slate-500);
+      line-height: 1.25;
+    }
+
+    .doc-target strong {
+      color: var(--slate-900);
+    }
+
+    /* Executive Summary Banner */
+    .exec-summary-banner {
+      background: var(--indigo-50);
+      border-left: 3.5px solid var(--indigo-600);
+      border-radius: 0 4px 4px 0;
+      padding: 6px 9px;
+      border: 1px solid rgba(79, 70, 229, 0.2);
+      border-left-width: 3.5px;
+    }
+
+    .exec-summary-title {
+      font-size: 8.8px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--indigo-700);
+      margin-bottom: 2px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .exec-summary-text {
+      font-size: 8.3px;
+      color: var(--slate-700);
+      line-height: 1.34;
+      text-align: justify;
+    }
+
+    .exec-summary-text strong {
+      color: var(--slate-950);
+    }
+
+    /* 3 Pillars Grid */
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+    }
+
+    .pillar-card {
+      background: #ffffff;
+      border: 1px solid var(--slate-200);
+      border-radius: 4px;
+      padding: 6px 7px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    }
+
+    .pillar-cat { border-top: 2.5px solid var(--indigo-600); }
+    .pillar-treaty { border-top: 2.5px solid var(--emerald-600); }
+    .pillar-param { border-top: 2.5px solid var(--amber-600); }
+
+    .pillar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 4px;
+      padding-bottom: 3px;
+      border-bottom: 1px solid var(--slate-100);
+    }
+
+    .pillar-title {
+      font-size: 9.3px;
+      font-weight: 700;
+      color: var(--slate-900);
+      letter-spacing: -0.1px;
+    }
+
+    .pillar-num {
+      font-family: var(--font-mono);
+      font-size: 7.5px;
+      font-weight: 700;
+      color: var(--slate-400);
+      background: var(--slate-100);
+      padding: 1px 4px;
+      border-radius: 2px;
+    }
+
+    .pillar-list {
+      list-style: none;
+      font-size: 7.8px;
+      color: var(--slate-700);
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      line-height: 1.28;
+    }
+
+    .pillar-list li {
+      position: relative;
+      padding-left: 8px;
+    }
+
+    .pillar-list li::before {
+      content: "▪";
+      position: absolute;
+      left: 0;
+      color: var(--slate-400);
+      font-size: 8px;
+      line-height: 1;
+      top: 1px;
+    }
+
+    .pillar-list strong {
+      color: var(--slate-900);
+      font-weight: 600;
+    }
+
+    .callout-pill {
+      margin-top: 5px;
+      background: var(--slate-50);
+      border: 1px solid var(--slate-200);
+      border-radius: 3px;
+      padding: 3px 5px;
+      font-family: var(--font-mono);
+      font-size: 7.3px;
+      color: var(--slate-600);
+      line-height: 1.25;
+    }
+
+    .callout-pill strong {
+      color: var(--slate-900);
+    }
+
+    /* Comparative Table */
+    .table-section {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .section-headline {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+
+    .section-title {
+      font-size: 9.8px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--slate-900);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .section-title::before {
+      content: "";
+      display: inline-block;
+      width: 3px;
+      height: 9px;
+      background: var(--indigo-600);
+      border-radius: 1px;
+    }
+
+    .section-tag {
+      font-family: var(--font-mono);
+      font-size: 7.5px;
+      color: var(--slate-500);
+    }
+
+    .matrix-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 8.1px;
+      border: 1px solid var(--slate-200);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .matrix-table th {
+      background: var(--slate-900);
+      color: #ffffff;
+      padding: 3.5px 6px;
+      font-weight: 600;
+      text-align: left;
+      font-size: 7.8px;
+      letter-spacing: 0.3px;
+      border-right: 1px solid var(--slate-700);
+    }
+
+    .matrix-table th:last-child {
+      border-right: none;
+    }
+
+    .matrix-table td {
+      padding: 3.5px 6px;
+      border-bottom: 1px solid var(--slate-200);
+      border-right: 1px solid var(--slate-200);
+      color: var(--slate-700);
+      vertical-align: top;
+      line-height: 1.25;
+    }
+
+    .matrix-table td:last-child {
+      border-right: none;
+    }
+
+    .matrix-table tr:nth-child(even) td {
+      background-color: var(--slate-50);
+    }
+
+    .matrix-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .status-badge {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 7.2px;
+      font-weight: 700;
+      padding: 1px 4px;
+      border-radius: 2px;
+      margin-right: 3px;
+    }
+
+    .status-pass {
+      background: var(--emerald-50);
+      color: var(--emerald-700);
+      border: 1px solid rgba(4, 120, 87, 0.3);
+    }
+
+    /* Solvency Strip */
+    .forensic-strip {
+      background: #ffffff;
+      border: 1px solid var(--slate-200);
+      border-radius: 4px;
+      padding: 5px 8px;
+      display: grid;
+      grid-template-columns: 3.2fr 1.8fr;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .forensic-blocks {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 5px;
+      margin-top: 3px;
+    }
+
+    .forensic-item {
+      background: var(--slate-50);
+      border: 1px solid var(--slate-200);
+      border-radius: 3px;
+      padding: 3px 5px;
+    }
+
+    .forensic-label {
+      font-family: var(--font-mono);
+      font-size: 6.8px;
+      font-weight: 700;
+      color: var(--slate-500);
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .forensic-val {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 800;
+      color: var(--indigo-700);
+      margin: 1px 0;
+    }
+
+    .forensic-desc {
+      font-size: 6.8px;
+      color: var(--slate-600);
+      line-height: 1.15;
+    }
+
+    .forensic-box {
+      border-left: 1.5px solid var(--slate-200);
+      padding-left: 8px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .forensic-title {
+      font-size: 8px;
+      font-weight: 700;
+      color: var(--slate-900);
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      margin-bottom: 2px;
+    }
+
+    .forensic-steps {
+      font-size: 7.2px;
+      color: var(--slate-600);
+      line-height: 1.35;
+      font-family: var(--font-mono);
+    }
+
+    .forensic-highlight {
+      color: var(--indigo-700);
+      font-weight: 700;
+    }
+
+    /* Footer Bar */
+    .footer-bar {
+      border-top: 1px solid var(--slate-300);
+      padding-top: 4px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: auto;
+    }
+
+    .footer-seal-group {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .seal-icon {
+      font-family: var(--font-mono);
+      font-size: 7px;
+      font-weight: 800;
+      background: var(--slate-900);
+      color: #ffffff;
+      padding: 2px 4px;
+      border-radius: 2px;
+    }
+
+    .seal-text {
+      font-size: 7.3px;
+      color: var(--slate-500);
+      line-height: 1.2;
+    }
+
+    .seal-text strong {
+      color: var(--slate-800);
+    }
+
+    .hash-stamp {
+      text-align: right;
+      font-family: var(--font-mono);
+      font-size: 7px;
+      color: var(--slate-400);
+      line-height: 1.25;
+    }
+
+    .hash-stamp span {
+      color: var(--slate-900);
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Screen-Only Executive Navigation & Print Trigger -->
+  <div class="print-toolbar no-print">
+    <div class="toolbar-left">
+      <span class="toolbar-badge">ĒTHER SOVEREIGN // EXECUTIVE SUITE</span>
+      <nav class="toolbar-nav">
+        <a href="SECURITY_POSTURE.html" class="nav-btn">1. Security Posture</a>
+        <a href="VEHICLE_SAFETY_SPEC.html" class="nav-btn">2. Vehicle Safety</a>
+        <a href="EVIDENTIARY_INTEGRITY.html" class="nav-btn">3. Evidentiary Integrity</a>
+        <a href="OPTICAL_FORENSICS_SPEC.html" class="nav-btn">4. Optical Forensics</a>
+        <a href="INSTITUTIONAL_SOLVENCY_SPEC.html" class="nav-btn active">5. Institutional Solvency</a>
+        <a href="DATA_PRIVACY_AND_DPPA_SPEC.html" class="nav-btn">6. Data Privacy & DPPA</a>
+      </nav>
+    </div>
+    <button class="print-btn" onclick="window.print()">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+      Print / Save PDF (Cmd+P)
+    </button>
+  </div>
+
+  <div class="page-sheet">
+    
+    <!-- Top Header Bar -->
+    <header class="header-bar">
+      <div class="top-meta">
+        <div class="brand-group">
+          <!-- Geometric Sigil Emblem -->
+          <svg class="brand-logo-svg" viewBox="0 0 32 32">
+            <polygon points="16,2 30,9 30,23 16,30 2,23 2,9" fill="none" stroke="#0f172a" stroke-width="2.2" stroke-linejoin="round"/>
+            <circle cx="16" cy="16" r="5" fill="#4f46e5"/>
+            <line x1="16" y1="2" x2="16" y2="11" stroke="#0f172a" stroke-width="1.8"/>
+            <line x1="16" y1="21" x2="16" y2="30" stroke="#0f172a" stroke-width="1.8"/>
+            <line x1="2" y1="9" x2="11" y2="14" stroke="#0f172a" stroke-width="1.8"/>
+            <line x1="21" y1="18" x2="30" y2="23" stroke="#0f172a" stroke-width="1.8"/>
+          </svg>
+          <div>
+            <div class="brand-name">Ether Terminal LLC</div>
+            <div class="brand-sub">Ēther Sovereign OS • Institutional Risk & Actuarial Solvency Group</div>
+          </div>
+        </div>
+        <div class="meta-badges">
+          <span class="badge badge-dark">Ref: SOLV-INST-2026-V1</span>
+          <span class="badge badge-indigo">NAIC Schedule F / Solvency II</span>
+          <span class="badge badge-green">RMS / AIR Calibrated</span>
+        </div>
+      </div>
+
+      <div class="title-row">
+        <div>
+          <h1 class="doc-title">Institutional Solvency & Capital Architecture</h1>
+          <p class="doc-subtitle">Algorithmic capital preservation, automated reinsurance treaties, and microsecond parametric settlement.</p>
+        </div>
+        <div class="doc-target">
+          Target: <strong>CROs, Chief Actuaries, Reinsurance Syndicates & Capital Markets</strong><br>
+          Regulatory Basis: <strong>NAIC Risk-Based Capital (RBC) // Solvency II Pillar 1 // Fed SR 11-7</strong><br>
+          Engines: <strong>Tabs 40–44 • RMS/AIR Peril Sim • XOL Waterfall • ISO 20022 Parametric</strong>
+        </div>
+      </div>
+    </header>
+
+    <!-- Executive Summary Banner -->
+    <section class="exec-summary-banner">
+      <div class="exec-summary-title">
+        <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14h2v2h-2zm0-10h2v8h-2z"/></svg>
+        Capital Velocity & Solvency Protection: Closing the Catastrophe Ingestion Gap
+      </div>
+      <p class="exec-summary-text">
+        Modern risk syndicates face existential solvency threats from tail-risk accumulation, delayed reinsurance recoveries, and litigated bodily injury inflation. Sovereign Ether OS integrates institutional solvency engines directly into the runtime kernel (Tabs 40–44). By executing <strong>100,000-iteration Monte Carlo catastrophe simulations</strong> against a <strong>$14.85B TIV baseline</strong>, automating <strong>4-tier Excess-of-Loss reinsurance waterfalls</strong>, and adjudicating <strong>ISO 20022 parametric payouts in &lt;2.0ms</strong>, the OS mathematically guarantees capital adequacy under <strong>Solvency II 99.5% 1-in-200-year VaR</strong> requirements.
+      </p>
+    </section>
+
+    <!-- 3 Core Institutional Solvency Pillars -->
+    <section class="pillars-grid">
+      
+      <!-- Pillar 1: Catastrophe Peril Modeling -->
+      <article class="pillar-card pillar-cat">
+        <div class="pillar-header">
+          <span class="pillar-title">1. Stochastic Catastrophe Modeling</span>
+          <span class="pillar-num">Tab 40</span>
+        </div>
+        <ul class="pillar-list">
+          <li>
+            <strong>RMS / AIR Calibrated Engine:</strong> Ingests high-resolution event loss tables (ELT) across Hurricane, Earthquake, and Severe Convective Storm perils.
+          </li>
+          <li>
+            <strong>100k Monte Carlo Iterations:</strong> Generates empirical loss exceedance curves (OEP/AEP) over a <strong>$14.85 Billion Total Insured Value (TIV)</strong> baseline.
+          </li>
+          <li>
+            <strong>Solvency II 99.5% VaR:</strong> Solves 1-in-200-year Value at Risk (VaR) at <strong>$1.85 Billion</strong> and calculates Tail Value at Risk (TVaR / CVaR) with sub-second convergence.
+          </li>
+          <li>
+            <strong>Granular Exposure Geocoding:</strong> Continuous spatial density checks limit coastal wind and seismic fault concentration below syndicate underwriting caps.
+          </li>
+        </ul>
+        <div class="callout-pill">
+          <strong>Metrics:</strong> $14.85B TIV • $1.85B 99.5% VaR • 100k Monte Carlo • OEP/AEP Curves
+        </div>
+      </article>
+
+      <!-- Pillar 2: Reinsurance Treaty Automation -->
+      <article class="pillar-card pillar-treaty">
+        <div class="pillar-header">
+          <span class="pillar-title">2. Reinsurance Treaty Waterfall</span>
+          <span class="pillar-num">Tab 41</span>
+        </div>
+        <ul class="pillar-list">
+          <li>
+            <strong>4-Tier Automated Waterfall:</strong> Instantaneously cascades gross claims through primary retention, quota shares, working excess, and cat retrocessions.
+          </li>
+          <li>
+            <strong>Schedule F / Lloyd's MS9:</strong> Generates real-time regulatory ceded bordereaux and unearned premium reserve calculations compliant with statutory accounting.
+          </li>
+          <li>
+            <strong>Treaty Exhaustion Tracking:</strong> Monitors working XOL aggregate limits ($10M xs $5M) and triggers automated prepaid reinstatements at 100% additional premium.
+          </li>
+          <li>
+            <strong>Collateral Trust Lock:</strong> Enforces offshore and unauthorized reinsurer collateralization via cryptographic multi-signature escrow verification.
+          </li>
+        </ul>
+        <div class="callout-pill">
+          <strong>Waterfall:</strong> $1M Retain • 80/20 Quota • $10M xs $5M XOL • $100M Retro
+        </div>
+      </article>
+
+      <!-- Pillar 3: Parametric Settlement & Colossus Repricing -->
+      <article class="pillar-card pillar-param">
+        <div class="pillar-header">
+          <span class="pillar-title">3. Parametric & Bodily Injury Repricing</span>
+          <span class="pillar-num">Tabs 42–43</span>
+        </div>
+        <ul class="pillar-list">
+          <li>
+            <strong>Deterministic State Machine:</strong> Sub-second (<strong>&lt; 2.0 ms</strong>) transition latency triggers ISO 20022 <code>pacs.008</code> Fedwire settlement up to <strong>$2,500,000.00</strong>.
+          </li>
+          <li>
+            <strong>Dual-Oracle Consensus:</strong> Hardware-bound validation of USGS ShakeMap (≥0.40g PGA) and NOAA NHC sustained wind (≥120 kt) before funds release.
+          </li>
+          <li>
+            <strong>CMS NCCI & ODG Medical Audit:</strong> Enforces Official Disability Guidelines (18-session PT cap) and AMA Guides 6th Ed Whole Person Impairment (WPI) repricing.
+          </li>
+          <li>
+            <strong>Actuarial Reserving (Tab 44):</strong> Chain Ladder & Bornhuetter-Ferguson IBNR loss triangulation updating capital reserves in real time.
+          </li>
+        </ul>
+        <div class="callout-pill">
+          <strong>Settlement:</strong> &lt;2.0 ms Latency • $2.5M Limit • NCCI Unbundling • ODG PT Cap
+        </div>
+      </article>
+
+    </section>
+
+    <!-- Comparative Solvency Matrix Table -->
+    <section class="table-section">
+      <div class="section-headline">
+        <h2 class="section-title">Solvency Architecture: Legacy Actuarial Operations vs. Sovereign Ether OS</h2>
+        <span class="section-tag">CAPITAL BENCHMARK: NAIC RBC // SOLVENCY II PILLAR 1 // LLOYD'S MINIMUM STANDARDS</span>
+      </div>
+      <table class="matrix-table">
+        <thead>
+          <tr>
+            <th style="width: 20%;">Operational Vector</th>
+            <th style="width: 38%;">Traditional Insurer / Manual Broker Processes</th>
+            <th style="width: 42%;">Ether Sovereign Kernel-Native Solvency Engines</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Catastrophe Modeling</strong></td>
+            <td>Batch quarterly runs via third-party modeling firms; 30 to 90 day lag in understanding aggregate exposure shifts.</td>
+            <td><span class="status-badge status-pass">✔ REAL-TIME SIM:</span> 100,000-run Monte Carlo engine resolves OEP/AEP and Solvency II 99.5% 1-in-200yr VaR ($1.85B) dynamically.</td>
+          </tr>
+          <tr>
+            <td><strong>Reinsurance Cessions</strong></td>
+            <td>Spreadsheet bordereaux reconciled 60 days post-quarter; delayed recoveries tying up uncollateralized working capital.</td>
+            <td><span class="status-badge status-pass">✔ INSTANT CESSION:</span> Deterministic 4-tier waterfall calculates Schedule F/MS9 cessions upon claim adjudication.</td>
+          </tr>
+          <tr>
+            <td><strong>Parametric Execution</strong></td>
+            <td>Disputed manual oracle triggers taking weeks to audit and wire; high dispute overhead and basis risk.</td>
+            <td><span class="status-badge status-pass">✔ 2.0ms SETTLEMENT:</span> Dual-oracle cryptographic triggers dispatch ISO 20022 Fedwire payouts up to $2.5M in under 2 milliseconds.</td>
+          </tr>
+          <tr>
+            <td><strong>Bodily Injury Audit</strong></td>
+            <td>Subjective adjuster appraisals, unchecked medical unbundling, and excessive attorney-directed chiropractic treatments.</td>
+            <td><span class="status-badge status-pass">✔ COLOSSUS REPRICING:</span> Strict CMS NCCI unbundling, ODG 18-session therapy caps, and AMA Guides 6th Ed WPI scoring.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Solvency Verification Strip -->
+    <section class="forensic-strip">
+      <div>
+        <div class="exec-summary-title" style="margin-bottom: 2px;">
+          <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+          Actuarial Capital Resilience & Reinsurance Settlement Metrics
+        </div>
+        <div class="forensic-blocks">
+          <div class="forensic-item">
+            <div class="forensic-label">PORTFOLIO TIV</div>
+            <div class="forensic-val">$14.85 B</div>
+            <div class="forensic-desc">Baseline aggregate exposure under active stochastic simulation</div>
+          </div>
+          <div class="forensic-item">
+            <div class="forensic-label">99.5% 1-in-200 VaR</div>
+            <div class="forensic-val">$1.85 B</div>
+            <div class="forensic-desc">Solvency II Pillar 1 capital adequacy reserve benchmark</div>
+          </div>
+          <div class="forensic-item">
+            <div class="forensic-label">PARAMETRIC LATENCY</div>
+            <div class="forensic-val">&lt; 2.0 ms</div>
+            <div class="forensic-desc">Deterministic trigger verification to ISO 20022 wire dispatch</div>
+          </div>
+          <div class="forensic-item">
+            <div class="forensic-label">ZERO-TOUCH CAP</div>
+            <div class="forensic-val">$2.50 M</div>
+            <div class="forensic-desc">Maximum automated single parametric payment threshold</div>
+          </div>
+        </div>
+      </div>
+      <div class="forensic-box">
+        <div class="forensic-title">Capital Adequacy Sign-Off</div>
+        <div class="forensic-steps">
+          <div>Solvency II 99.5% Reserve: <span class="forensic-highlight">ADEQUATE</span></div>
+          <div>NAIC Schedule F Cessions: <span class="forensic-highlight">CERTIFIED</span></div>
+          <div>Actuarial Ledger Seal: <span class="forensic-highlight">ACTUARIAL-VAL-995</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Institutional Attestation Footer -->
+    <footer class="footer-bar">
+      <div class="footer-seal-group">
+        <div class="seal-icon">SOLV</div>
+        <div class="seal-text">
+          <strong>Ether Terminal LLC Institutional Capital Markets Division</strong><br>
+          Office of the Chief Actuary • Solvency II & NAIC Model Governance • Contact: contact@ether-terminal.com
+        </div>
+      </div>
+      <div class="hash-stamp">
+        ACTUARIAL DIGEST: <span>RMS-AIR-VAR // NAIC-SCHED-F-VALID</span><br>
+        SPECIFICATION: <span>ETH-SOLVENCY-SPEC-2026.09</span> • PAGE 1 OF 1
+      </div>
+    </footer>
+
+  </div>
+
+</body>
+</html>

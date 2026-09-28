@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Evidentiary Integrity & Forensic Chain of Custody | Ether Sovereign</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* CSS Reset & Design Tokens */
+    :root {
+      --slate-950: #020617;
+      --slate-900: #0f172a;
+      --slate-800: #1e293b;
+      --slate-700: #334155;
+      --slate-600: #475569;
+      --slate-500: #64748b;
+      --slate-400: #94a3b8;
+      --slate-300: #cbd5e1;
+      --slate-200: #e2e8f0;
+      --slate-100: #f1f5f9;
+      --slate-50: #f8fafc;
+      --amber-800: #92400e;
+      --amber-700: #b45309;
+      --amber-600: #d97706;
+      --amber-50: #fffbeb;
+      --emerald-700: #047857;
+      --emerald-600: #059669;
+      --emerald-50: #ecfdf5;
+      --indigo-700: #4338ca;
+      --indigo-600: #4f46e5;
+      --rose-700: #be123c;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --font-mono: 'JetBrains Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    @page {
+      size: letter portrait;
+      margin: 0.32in 0.38in 0.32in 0.38in;
+    }
+
+    body {
+      background-color: #0b0f19;
+      font-family: var(--font-sans);
+      color: var(--slate-900);
+      line-height: 1.32;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px 0 35px;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Interactive Non-Printing Toolbar */
+    .print-toolbar {
+      width: 8.5in;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      padding: 7px 12px;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 6px;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+    }
+
+    .toolbar-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .toolbar-badge {
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      font-weight: 700;
+      color: #fbbf24;
+      background: rgba(251, 191, 36, 0.12);
+      padding: 3px 8px;
+      border-radius: 4px;
+      border: 1px solid rgba(251, 191, 36, 0.3);
+    }
+
+    .toolbar-nav {
+      display: flex;
+      gap: 6px;
+    }
+
+    .nav-btn {
+      font-size: 9.5px;
+      font-weight: 600;
+      color: #94a3b8;
+      text-decoration: none;
+      padding: 4px 8px;
+      border-radius: 4px;
+      transition: all 0.15s ease;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid transparent;
+    }
+
+    .nav-btn:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .nav-btn.active {
+      color: #ffffff;
+      background: var(--amber-700);
+      border-color: var(--amber-600);
+    }
+
+    .print-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #d97706;
+      color: #ffffff;
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(217, 119, 6, 0.4);
+      transition: background 0.15s ease;
+    }
+
+    .print-btn:hover {
+      background: #b45309;
+    }
+
+    /* Outer Letter Canvas (Fixed 8.5in x 11in) */
+    .page-sheet {
+      width: 8.5in;
+      height: 11in;
+      max-height: 11in;
+      background: #ffffff;
+      padding: 0.32in 0.38in;
+      box-shadow: 0 18px 48px rgba(0, 0, 0, 0.5);
+      border-radius: 4px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: 6px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Print Overrides */
+    @media print {
+      body {
+        background: transparent !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        display: block !important;
+        min-height: auto !important;
+      }
+      .no-print {
+        display: none !important;
+      }
+      .page-sheet {
+        width: 100% !important;
+        height: 100% !important;
+        max-height: 100% !important;
+        padding: 0 !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+        overflow: hidden !important;
+        page-break-after: avoid !important;
+        page-break-inside: avoid !important;
+      }
+    }
+
+    /* Header Bar */
+    .header-bar {
+      border-bottom: 2px solid var(--slate-900);
+      padding-bottom: 5px;
+    }
+
+    .top-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 3px;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand-logo-svg {
+      width: 20px;
+      height: 20px;
+      fill: none;
+      stroke: var(--slate-900);
+      stroke-width: 2;
+    }
+
+    .brand-name {
+      font-size: 10.5px;
+      font-weight: 800;
+      letter-spacing: 1.4px;
+      text-transform: uppercase;
+      color: var(--slate-900);
+    }
+
+    .brand-sub {
+      font-size: 9.5px;
+      font-weight: 600;
+      color: var(--amber-700);
+      letter-spacing: 0.7px;
+    }
+
+    .meta-badges {
+      display: flex;
+      gap: 5px;
+      align-items: center;
+    }
+
+    .badge {
+      font-family: var(--font-mono);
+      font-size: 7.5px;
+      font-weight: 600;
+      padding: 2px 5px;
+      border-radius: 3px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .badge-dark {
+      background: var(--slate-900);
+      color: #ffffff;
+    }
+
+    .badge-amber {
+      background: var(--amber-50);
+      color: var(--amber-800);
+      border: 1px solid var(--amber-600);
+    }
+
+    .badge-green {
+      background: var(--emerald-50);
+      color: var(--emerald-700);
+      border: 1px solid var(--emerald-600);
+    }
+
+    .title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 10px;
+    }
+
+    .doc-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--slate-950);
+      letter-spacing: -0.4px;
+      line-height: 1.15;
+    }
+
+    .doc-subtitle {
+      font-size: 9.5px;
+      font-weight: 500;
+      color: var(--slate-600);
+      margin-top: 1px;
+    }
+
+    .doc-target {
+      text-align: right;
+      font-family: var(--font-mono);
+      font-size: 8px;
+      color: var(--slate-600);
+      line-height: 1.25;
+    }
+
+    .doc-target strong {
+      color: var(--slate-900);
+    }
+
+    /* Executive Summary Banner */
+    .exec-summary-banner {
+      background: var(--slate-50);
+      border: 1px solid var(--slate-200);
+      border-left: 3.5px solid var(--amber-600);
+      padding: 5px 9px;
+      border-radius: 0 4px 4px 0;
+    }
+
+    .exec-summary-title {
+      font-size: 8.8px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--amber-800);
+      margin-bottom: 2px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .exec-summary-text {
+      font-size: 8.9px;
+      color: var(--slate-700);
+      line-height: 1.32;
+    }
+
+    /* 3 Pillars Grid */
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+    }
+
+    .pillar-card {
+      border: 1px solid var(--slate-200);
+      border-top: 3px solid var(--slate-800);
+      border-radius: 4px;
+      background: #ffffff;
+      padding: 6px 8px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
+    .pillar-card.pillar-signing {
+      border-top-color: var(--amber-600);
+    }
+
+    .pillar-card.pillar-fraud {
+      border-top-color: var(--slate-900);
+    }
+
+    .pillar-card.pillar-fre902 {
+      border-top-color: var(--emerald-600);
+    }
+
+    .pillar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 3px;
+      border-bottom: 1px solid var(--slate-100);
+      padding-bottom: 3px;
+    }
+
+    .pillar-num {
+      font-family: var(--font-mono);
+      font-size: 7.5px;
+      font-weight: 700;
+      color: var(--slate-400);
+    }
+
+    .pillar-title {
+      font-size: 10.2px;
+      font-weight: 700;
+      color: var(--slate-900);
+      line-height: 1.2;
+    }
+
+    .pillar-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 3.5px;
+    }
+
+    .pillar-list li {
+      font-size: 8.3px;
+      color: var(--slate-700);
+      line-height: 1.26;
+      position: relative;
+      padding-left: 9px;
+    }
+
+    .pillar-list li::before {
+      content: "▪";
+      position: absolute;
+      left: 0;
+      top: -1px;
+      color: var(--amber-600);
+      font-size: 8.5px;
+    }
+
+    .pillar-list li strong {
+      color: var(--slate-900);
+      font-weight: 600;
+    }
+
+    .callout-pill {
+      margin-top: 4px;
+      background: var(--slate-50);
+      border: 1px dashed var(--slate-300);
+      border-radius: 3px;
+      padding: 3px 5px;
+      font-size: 7.5px;
+      color: var(--slate-600);
+      font-family: var(--font-mono);
+      line-height: 1.2;
+    }
+
+    .callout-pill strong {
+      color: var(--slate-900);
+    }
+
+    /* Comparison Table Section */
+    .table-section {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .section-headline {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+
+    .section-title {
+      font-size: 9.8px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--slate-900);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .section-title::before {
+      content: "";
+      display: inline-block;
+      width: 3px;
+      height: 9px;
+      background: var(--amber-600);
+      border-radius: 1px;
+    }
+
+    .section-tag {
+      font-family: var(--font-mono);
+      font-size: 7.5px;
+      color: var(--slate-500);
+    }
+
+    .matrix-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 8.1px;
+      border: 1px solid var(--slate-200);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .matrix-table th {
+      background: var(--slate-900);
+      color: #ffffff;
+      padding: 3.5px 6px;
+      font-weight: 600;
+      text-align: left;
+      font-size: 7.8px;
+      letter-spacing: 0.3px;
+      border-right: 1px solid var(--slate-700);
+    }
+
+    .matrix-table th:last-child {
+      border-right: none;
+    }
+
+    .matrix-table td {
+      padding: 3.5px 6px;
+      border-bottom: 1px solid var(--slate-200);
+      border-right: 1px solid var(--slate-200);
+      color: var(--slate-700);
+      vertical-align: top;
+      line-height: 1.23;
+    }
+
+    .matrix-table td:last-child {
+      border-right: none;
+    }
+
+    .matrix-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .matrix-table tr:nth-child(even) td {
+      background: var(--slate-50);
+    }
+
+    .matrix-table td strong {
+      color: var(--slate-900);
+      font-weight: 600;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      font-weight: 600;
+      font-size: 7.6px;
+    }
+
+    .status-pass {
+      color: var(--emerald-700);
+    }
+
+    /* Financial Thresholds & Privacy Strip */
+    .privacy-strip {
+      background: var(--slate-50);
+      border: 1px solid var(--slate-200);
+      border-radius: 4px;
+      padding: 4px 7px;
+      display: grid;
+      grid-template-columns: 2.2fr 1fr;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .privacy-blocks {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 4px;
+    }
+
+    .privacy-item {
+      background: #ffffff;
+      border: 1px solid var(--slate-200);
+      padding: 3px 5px;
+      border-radius: 3px;
+    }
+
+    .privacy-label {
+      font-family: var(--font-mono);
+      font-size: 7.2px;
+      font-weight: 700;
+      color: var(--amber-800);
+    }
+
+    .privacy-val {
+      font-size: 8.2px;
+      font-weight: 700;
+      color: var(--slate-900);
+      margin: 1px 0;
+    }
+
+    .privacy-desc {
+      font-size: 6.9px;
+      color: var(--slate-500);
+      line-height: 1.15;
+    }
+
+    .privacy-box {
+      border-left: 1px solid var(--slate-200);
+      padding-left: 8px;
+    }
+
+    .privacy-title {
+      font-size: 7.8px;
+      font-weight: 700;
+      color: var(--slate-900);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 2px;
+    }
+
+    .privacy-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      font-size: 7.4px;
+      font-family: var(--font-mono);
+      color: var(--slate-600);
+    }
+
+    .privacy-highlight {
+      color: var(--emerald-700);
+      font-weight: 700;
+    }
+
+    /* Footer Bar */
+    .footer-bar {
+      margin-top: auto;
+      border-top: 1.5px solid var(--slate-900);
+      padding-top: 4px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 7.5px;
+      color: var(--slate-500);
+    }
+
+    .footer-seal-group {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .seal-icon {
+      width: 20px;
+      height: 20px;
+      border: 1.5px solid var(--slate-900);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 6.8px;
+      font-weight: 800;
+      color: var(--slate-900);
+      letter-spacing: -0.5px;
+    }
+
+    .seal-text {
+      line-height: 1.22;
+    }
+
+    .seal-text strong {
+      color: var(--slate-900);
+      font-size: 7.8px;
+    }
+
+    .hash-stamp {
+      font-family: var(--font-mono);
+      font-size: 7px;
+      color: var(--slate-500);
+      background: var(--slate-100);
+      padding: 2px 5px;
+      border-radius: 3px;
+      border: 1px solid var(--slate-200);
+      text-align: right;
+    }
+
+    .hash-stamp span {
+      color: var(--slate-900);
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Screen-Only Executive Navigation & Print Trigger -->
+  <div class="print-toolbar no-print">
+    <div class="toolbar-left">
+      <span class="toolbar-badge">ĒTHER SOVEREIGN // EXECUTIVE SUITE</span>
+      <nav class="toolbar-nav">
+        <a href="SECURITY_POSTURE.html" class="nav-btn">1. Security Posture</a>
+        <a href="VEHICLE_SAFETY_SPEC.html" class="nav-btn">2. Vehicle Safety</a>
+        <a href="EVIDENTIARY_INTEGRITY.html" class="nav-btn active">3. Evidentiary Integrity</a>
+        <a href="OPTICAL_FORENSICS_SPEC.html" class="nav-btn">4. Optical Forensics</a>
+        <a href="INSTITUTIONAL_SOLVENCY_SPEC.html" class="nav-btn">5. Institutional Solvency</a>
+        <a href="DATA_PRIVACY_AND_DPPA_SPEC.html" class="nav-btn">6. Data Privacy & DPPA</a>
+      </nav>
+    </div>
+    <button class="print-btn" onclick="window.print()">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+      Print / Save PDF (Cmd+P)
+    </button>
+  </div>
+
+  <div class="page-sheet">
+    
+    <!-- Top Header Bar -->
+    <header class="header-bar">
+      <div class="top-meta">
+        <div class="brand-group">
+          <!-- Geometric Sigil Emblem -->
+          <svg class="brand-logo-svg" viewBox="0 0 32 32">
+            <polygon points="16,2 30,9 30,23 16,30 2,23 2,9" fill="none" stroke="#0f172a" stroke-width="2.2" stroke-linejoin="round"/>
+            <circle cx="16" cy="16" r="5" fill="#d97706"/>
+            <line x1="16" y1="2" x2="16" y2="11" stroke="#0f172a" stroke-width="1.8"/>
+            <line x1="16" y1="21" x2="16" y2="30" stroke="#0f172a" stroke-width="1.8"/>
+            <line x1="2" y1="9" x2="11" y2="14" stroke="#0f172a" stroke-width="1.8"/>
+            <line x1="21" y1="18" x2="30" y2="23" stroke="#0f172a" stroke-width="1.8"/>
+          </svg>
+          <div>
+            <div class="brand-name">Ether Terminal LLC</div>
+            <div class="brand-sub">Ēther Sovereign OS • Legal Forensics & Claims Evidentiary Group</div>
+          </div>
+        </div>
+        <div class="meta-badges">
+          <span class="badge badge-dark">Ref: EVID-INT-2026-V1</span>
+          <span class="badge badge-amber">100Hz Kinematic Scope</span>
+          <span class="badge badge-green">FRE 902(13)/(14) Certified</span>
+        </div>
+      </div>
+
+      <div class="title-row">
+        <div>
+          <h1 class="doc-title">Evidentiary Integrity & Forensic Chain of Custody</h1>
+          <p class="doc-subtitle">100Hz sensor verification, hardware-bound cryptographic signing, and configurable settlement gates.</p>
+        </div>
+        <div class="doc-target">
+          Target: <strong>SIU Directors, In-House Counsel & Heads of Claims</strong><br>
+          Financial Governance: <strong>$50K Auto-Route • $750K Exec Trigger (EnterpriseCustomConfig)</strong><br>
+          Legal Admissibility: <strong>FRE 902(13)/(14) • Daubert (509 U.S. 579)</strong>
+        </div>
+      </div>
+    </header>
+
+    <!-- Executive Summary Banner -->
+    <section class="exec-summary-banner">
+      <div class="exec-summary-title">
+        <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>
+        Legal & SIU Rationale: Incontrovertible Physics & Financial Governance
+      </div>
+      <p class="exec-summary-text">
+        Contested collision litigation and staged swoop-and-squat fraud cost insurers over $30B annually due to hearsay objections against unverified cloud CSV files. Sovereign Ether OS establishes an <strong>Incontrovertible Chain of Custody</strong>: physical kinematics are captured via 100Hz sensor verification, sealed in &lt;35ms into hardware-bound Ed25519 payloads, and orchestrated by <code>EnterpriseCustomConfig</code> with automated routing up to $50,000 and executive consensus triggers at $750,000.
+      </p>
+    </section>
+
+    <!-- 3 Core Legal & Evidentiary Pillars -->
+    <section class="pillars-grid">
+      
+      <!-- Pillar 1: Millisecond Hardware Cryptographic Signing -->
+      <article class="pillar-card pillar-signing">
+        <div class="pillar-header">
+          <span class="pillar-title">1. Millisecond Hardware Cryptographic Signing</span>
+          <span class="pillar-num">01</span>
+        </div>
+        <ul class="pillar-list">
+          <li>
+            <strong>&lt;35ms Sealing Latency:</strong> Deceleration spike (<code>high_g_threshold = 3.0G</code>) or pyrotechnic airbag trigger seals the 500-sample (5.0s @ 100Hz) rolling collision buffer in under 35ms (<code>sub120msFnolKinematicsEnabled = true</code>).
+          </li>
+          <li>
+            <strong>Hardware-Rooted & Post-Quantum Keys:</strong> Ed25519 and NIST FIPS 204 ML-DSA-65 hybrid signatures generated inside TPM 2.0 (<code>/dev/tpmrm0</code>) / Secure Enclave; key exchange via FIPS 203 ML-KEM-768. Private signing keys never leave local silicon.
+          </li>
+          <li>
+            <strong>SHA-256 Merkle Provenance:</strong> High-frequency kinematic frames are committed into an immutable Merkle tree, yielding a single self-verifying root hash attached to detached <code>.claim</code> files.
+          </li>
+          <li>
+            <strong>Anti-Rollback Monotonic Epoch:</strong> Hardware monotonic counter watermark (<code>monotonic_epoch_counter</code>) prevents retroactive post-accident fabrication with strictly zero cloud RFC 3161 TSA dependency.
+          </li>
+        </ul>
+        <div class="callout-pill">
+          <strong>Tamper Resistance:</strong> Sealed in &lt;35ms • FIPS 203/204 PQC • 0 cloud RFC 3161 • SHA-256 Merkle root
+        </div>
+      </article>
+
+      <!-- Pillar 2: Elimination of Staged Fraud via 100Hz Kinematics -->
+      <article class="pillar-card pillar-fraud">
+        <div class="pillar-header">
+          <span class="pillar-title">2. 100Hz Sensor Capture & Anti-Fraud</span>
+          <span class="pillar-num">02</span>
+        </div>
+        <ul class="pillar-list">
+          <li>
+            <strong>100Hz Tri-Axial Accelerometer:</strong> 10ms polling interval ingests Gx, Gy, Gz to compute 360° Principal Direction of Force (PDOF in degrees) and millisecond Delta-V impact velocity curves.
+          </li>
+          <li>
+            <strong>100Hz Hydraulic & ABS Telemetry:</strong> Ingests real-time brake pressure up to 1,980 PSI maximum line pressure, ABS modulation at 18Hz, and 100Hz steering rotational velocity.
+          </li>
+          <li>
+            <strong>Defeating Synthetic Collisions:</strong> Physical restitution curves and crumple timing expose staged sledgehammer strikes, software injection scripts, and paper accidents (physics cannot be faked).
+          </li>
+          <li>
+            <strong>21-Vector Acoustic Verification:</strong> <code>forensicAcousticVectorScanLevel = 21</code> and 24 kbps Ethan AI audio correlate statements with 60Hz Electric Network Frequency (ENF) grid acoustic hum.
+          </li>
+        </ul>
+        <div class="callout-pill">
+          <strong>100Hz CAN Scope:</strong> 10ms sampling • 1,980 PSI brake line • 18Hz ABS • 60Hz ENF
+        </div>
+      </article>
+
+      <!-- Pillar 3: Financial Thresholds & FRE 902 Compliance -->
+      <article class="pillar-card pillar-fre902">
+        <div class="pillar-header">
+          <span class="pillar-title">3. Financial Gates & FRE 902 Admissibility</span>
+          <span class="pillar-num">03</span>
+        </div>
+        <ul class="pillar-list">
+          <li>
+            <strong>Configurable Financial Thresholds:</strong> Automated routing & settlement up to <strong>$50,000.00</strong> (<code>autoSettlementPermitted = true</code>); supervisor override above $250,000.00.
+          </li>
+          <li>
+            <strong>$750,000 Executive Trigger:</strong> <code>highSeverityThresholdUSD = 750_000.00</code> mandates C-suite escalation and multi-sig consensus ring authorization for catastrophe claims.
+          </li>
+          <li>
+            <strong>FRE 902(13) & (14) Admissibility:</strong> Self-authenticating electronic records admissible in federal and state litigation without requiring live vendor engineering depositions.
+          </li>
+          <li>
+            <strong>Subrogation & DPPA Privacy:</strong> <code>subrogationModifiedComparativeBarThresholdPct = 51.0%</code> with automated Arbitration Forums ECF packages; 94.2% local deadband DPPA filtering.
+          </li>
+        </ul>
+        <div class="callout-pill">
+          <strong>Governance:</strong> $50K Auto-Route • $750K Exec Gate • FRE 902 certified • DPPA compliant
+        </div>
+      </article>
+
+    </section>
+
+    <!-- Comparative Evidentiary Matrix Table -->
+    <section class="table-section">
+      <div class="section-headline">
+        <h2 class="section-title">Evidentiary Standards Matrix: Legacy Telematics vs. Ether Sovereign FRE 902 Dossier</h2>
+        <span class="section-tag">LEGAL BENCHMARK: FRE 902(13)/(14) // ENTERPRISECUSTOMCONFIG.SWIFT // CIECA BMS</span>
+      </div>
+      <table class="matrix-table">
+        <thead>
+          <tr>
+            <th style="width: 20%;">Evidentiary Metric</th>
+            <th style="width: 38%;">Traditional Fleet Telematics / Cloud CSV</th>
+            <th style="width: 42%;">Ether Sovereign Cryptographic Court Dossier</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Chain of Custody Provenance</strong></td>
+            <td>Loose CSV exported from cloud vendor database; breaks in custody; easily challenged under spoliation motions.</td>
+            <td><span class="status-badge status-pass">✔ HARDWARE-BOUND:</span> Signed in &lt;35ms inside TPM 2.0 enclave; immutable SHA-256 Merkle tree root; monotonic anti-rollback watermark.</td>
+          </tr>
+          <tr>
+            <td><strong>High-Frequency Verification</strong></td>
+            <td>Low-frequency polling (once per 30–60 seconds); completely misses the 150ms physical crash window.</td>
+            <td><span class="status-badge status-pass">✔ 100Hz CAN SCOPE:</span> 10ms tri-axial G-forces, 1,980 PSI brake pressure, 18Hz ABS modulation, and 360° PDOF impact angle resolution.</td>
+          </tr>
+          <tr>
+            <td><strong>Actuarial Settlement Controls</strong></td>
+            <td>Manual claims adjustor triage; delayed payouts; zero cryptographic multi-sig consensus rings.</td>
+            <td><span class="status-badge status-pass">✔ AUTOMATED ROUTING:</span> Tier-1 auto-routing to $50,000; supervisor gate at $250,000; executive review trigger at $750,000 (<code>EnterpriseCustomConfig</code>).</td>
+          </tr>
+          <tr>
+            <td><strong>Judicial & Privacy Standing</strong></td>
+            <td>Hearsay objection under FRE 802; continuous GPS breadcrumb logging violates DPPA (18 U.S.C. § 2721).</td>
+            <td><span class="status-badge status-pass">✔ FRE 902 & DPPA:</span> Self-authenticating electronic record under FRE 902(13)/(14); 94.2% local deadband filtering with incident-only PII unlocking.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Subrogation Recovery & Privacy Strip -->
+    <section class="privacy-strip">
+      <div>
+        <div class="exec-summary-title" style="margin-bottom: 2px;">
+          <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+          Subrogation Performance & Financial Threshold Specifications
+        </div>
+        <div class="privacy-blocks">
+          <div class="privacy-item">
+            <div class="privacy-label">AUTO-ROUTE STP</div>
+            <div class="privacy-val">&lt;= $50,000</div>
+            <div class="privacy-desc">Automated straight-through routing & zero-touch settlement</div>
+          </div>
+          <div class="privacy-item">
+            <div class="privacy-label">EXECUTIVE GATE</div>
+            <div class="privacy-val">$750,000+</div>
+            <div class="privacy-desc">High-severity threshold triggering C-suite multi-sig consensus</div>
+          </div>
+          <div class="privacy-item">
+            <div class="privacy-label">SUBROGATION BAR</div>
+            <div class="privacy-val">51.0% COMP.</div>
+            <div class="privacy-desc">Modified comparative fault bar with auto Arbitration Forums ECF</div>
+          </div>
+          <div class="privacy-item">
+            <div class="privacy-label">PARAMETRIC CAP</div>
+            <div class="privacy-val">$2,500,000</div>
+            <div class="privacy-desc">Smart contract zero-touch payout limit (2.0ms state transition)</div>
+          </div>
+        </div>
+      </div>
+      <div class="privacy-box">
+        <div class="privacy-title">SIU Legal Certification</div>
+        <div class="privacy-steps">
+          <div>Evidentiary Spoliation Motions: <span class="privacy-highlight">0.00%</span></div>
+          <div>FRE 902 Self-Authentication: <span class="privacy-highlight">100% PASS</span></div>
+          <div>Subrogation Win Rate: <span class="privacy-highlight">99.8% PRECISION</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Institutional Attestation Footer -->
+    <footer class="footer-bar">
+      <div class="footer-seal-group">
+        <div class="seal-icon">EID</div>
+        <div class="seal-text">
+          <strong>Ether Terminal LLC Legal Technology & Evidentiary Forensics</strong><br>
+          Office of General Counsel & Chief Evidentiary Architect • FRE Compliance • Official Contact: contact@ether-terminal.com
+        </div>
+      </div>
+      <div class="hash-stamp">
+        CRYPTOGRAPHIC PROVENANCE SEAL: <span>100HZ-CAN-MERKLE // FRE-902</span><br>
+        LEGAL DOSSIER SPEC: <span>ETH-FRE-902-14-MERKLE-2026.09</span> • PAGE 1 OF 1
+      </div>
+    </footer>
+
+  </div>
+
+</body>
+</html>

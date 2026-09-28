@@ -1,0 +1,143 @@
+================================================================================
+ĒTHER TERMINAL LLC — OFFICIAL ENTERPRISE DOCUMENTATION DIRECTORY
+================================================================================
+
+Corporate Legal Entity: Ether Terminal LLC
+State of Formation:     North Carolina (NC SOS ID: 3300608)
+Federal Tax ID (EIN):   42-3015820
+IRS Form W-9 Mapping:   Individual/sole proprietor or single-member LLC
+                        Line 1: Carlos House | Line 2: Ether Terminal LLC
+Official Toll-Free:     1-888-861-9020 / (888) 861-9020
+Corporate Email:        contact@ether-terminal.com
+Web & Pilot Ingress:    https://ether-terminal.com/#pilot
+Web & Licensing:        https://ether-terminal.com/#licensing
+Corporate Headquarters: 1610 Old River Rd. Greenville, NC 27834-1173
+Signatory & Principal:  Carlos House, Managing Member & Chief Executive Officer
+
+================================================================================
+DIRECTORY CONTENTS & DOCUMENT SPECIFICATIONS
+================================================================================
+
+I. CORPORATE TREASURY, TAX & INSURANCE (ACCOUNTS PAYABLE ONBOARDING)
+--------------------------------------------------------------------------------
+1. IRS_Form_W9_Vendor_Tax_Certification.pdf
+   - Official IRS Form W-9 certification with Carlos House (Line 1) and Ether Terminal LLC (Line 2).
+   - Single-Member LLC tax classification and verified EIN: 42-3015820.
+   - Includes official phone (888) 861-9020 and web coordinates.
+
+2. Commercial_Bank_Wire_Disbursement_Letter.pdf
+   - Official corporate treasury disbursement instructions for Fedwire and domestic ACH.
+   - Depository routing numbers, SWIFT code, and required wire memo formatting.
+   - Authorized call-back verification protocol directly with Carlos House at (888) 861-9020.
+
+3. Certificate_of_Insurance_ACORD_25_Summary.pdf
+   - ACORD 25 commercial vendor insurance policy specification.
+   - Underwriters: Travelers Indemnity & Chubb Specialty Risk ($5M CGL, $5M Tech E&O, $5M Cyber, $10M Excess Umbrella).
+   - Instructions for requesting customized Additional Insured / Certificate Holder endorsements.
+
+
+II. BINDING LEGAL AGREEMENTS & SETTLEMENT INSTRUMENTS
+--------------------------------------------------------------------------------
+4. Sovereign_Pilot_Evaluation_Agreement.pdf
+   - 30-day air-gapped pilot evaluation contract with 100% rollover deposit credit.
+   - Objective technical SLA benchmarks (<5.0s local claim scoping, 0.00 KB cloud egress, certified CIECA BMS export).
+   - 100% refund remedy and North Carolina commercial arbitration covenant.
+
+5. Sovereign_Enterprise_License_Agreement.pdf
+   - Multi-year enterprise master software license agreement.
+   - Air-gapped local hardware enclave grant, perpetual local node usage rights, zero-egress data privacy covenant.
+
+6. Executive_Settlement_Directive_Dossier.pdf
+   - Comprehensive high-resolution executive procurement dossier.
+   - Unifies the evaluation charter, digital deployment architecture ($0 Hardware CapEx), treasury coordinates, and compliance covenants.
+
+7. PILOT_EVALUATION_AGREEMENT.md
+   - Editable Markdown source of the 30-day evaluation agreement with North Carolina execution block.
+
+8. SOVEREIGN_ENTERPRISE_LICENSE_AGREEMENT.md
+   - Editable Markdown source of the enterprise software license agreement.
+
+
+III. TECHNICAL DEPLOYMENT, AIR-GAP PREFLIGHT & SOFTWARE ONBOARDING
+--------------------------------------------------------------------------------
+9. Pilot_Deployment_And_Onboarding_Checklist.pdf
+   - 30-day chronological deployment checklist from digital staging to production transition.
+   - Days 01–03: Digital software staging & local cryptographic attestation.
+   - Days 04–14: Passive CAN bus / OBD-II and biometric FNOL claim triage.
+   - Days 15–25: Acoustic forensics stress-testing & air-gap disaster recovery drills.
+   - Days 26–30: Executive audit dossier generation and enterprise rollout.
+
+10. Windows_Preflight_And_AirGap_Guide.pdf
+    - Step-by-step setup manual for running the Sovereign Ether OS on Windows 10/11 enterprise laptops.
+    - Covers Option A (1-click zero-install mode), Option B (local Python backend), and Option C (Docker container mode).
+
+11. PILOT_DEPLOYMENT_AND_ONBOARDING_CHECKLIST.md
+    - Markdown source of the deployment checklist.
+
+12. WINDOWS_PREFLIGHT_GUIDE.md
+    - Markdown source of the Windows setup manual.
+
+
+IV. MASTER SALES ARCHITECTURE, ACTUARIAL TAXONOMY & STUDY GUIDES
+--------------------------------------------------------------------------------
+13. Master_Sales_Architecture_Study_Guide.pdf
+    - Comprehensive 140+ page enterprise master study guide.
+    - Exhaustive coverage of all 40 OS tabs, actuarial mathematics, telematics forensics, and defense architectures.
+
+14. Master_Sales_Architecture_Study_Guide_Mobile_Dark.pdf
+    - OLED black high-contrast mobile-optimized edition of the study guide.
+
+15. Master_Sales_Architecture_Study_Guide.html
+    - Standalone responsive offline web app edition of the study guide.
+
+16. Master_Sales_Architecture_Study_Guide_Mobile_Dark.html
+    - Dark-mode mobile edition with interactive search and tab navigation.
+
+
+V. REGULATORY, PRIVACY & INSTITUTIONAL GOVERNANCE SPECIFICATIONS
+--------------------------------------------------------------------------------
+17. DATA_PRIVACY_AND_DPPA_SPEC.html
+    - Compliance specification for the Driver's Privacy Protection Act (DPPA 18 U.S.C. § 2721) and GLBA.
+
+18. SECURITY_POSTURE.html
+    - Technical DevSecOps governance, SBOM attestation, and vulnerability disclosure posture.
+
+19. INSTITUTIONAL_SOLVENCY_SPEC.html
+    - Actuarial mathematical specification for Solvency II and NAIC RBC statutory reserve coverage.
+
+20. EVIDENTIARY_INTEGRITY.html
+    - Federal Rules of Evidence (FRE 902(13) & 902(14)) self-authenticating digital record specification.
+
+21. soc2_audit_dashboard.html
+    - SOC 2 Type II trust services criteria compliance audit dashboard.
+
+
+VI. INTERACTIVE EXECUTIVE RATIFICATION PORTAL
+--------------------------------------------------------------------------------
+22. signature.html
+    - Full interactive ratification web portal.
+    - Features stylus/finger canvas drawing, cursive auto-signature generator, SHA-256 cryptographic attestation sealing, and Treasury Section II wire coordinates with North Carolina SOS ID 3300608 and phone (888) 861-9020.
+
+
+VII. FOUNDER EXECUTIVE SALES HOOKS & VOCAL BATTLECARD PLAYBOOK
+--------------------------------------------------------------------------------
+23. Executive_Sales_Hooks_And_Pitch_Playbook.pdf
+    - High-resolution printable executive battlecard.
+    - Word-for-word scripts for the 5-second cold stop, 15-second elevator snapshot, and 45-second boardroom pitch.
+    - Tailored battlecards for VP Auto Claims, Chief Actuary, Commercial Fleet, CISO, and Procurement.
+    - 10 rapid-fire objection destroyers and physical business card presentation choreography.
+
+24. EXECUTIVE_SALES_HOOKS_AND_PITCH_PLAYBOOK.html
+    - Interactive dark-mode web application for iPhone, iPad, and laptop.
+    - Features:
+      • Drill Mode: Blurs answers with 1-tap reveal for rapid memorization.
+      • Speech Synthesis: Speaks pitches aloud with adjustable executive cadence (0.9x / 1.0x / 1.15x).
+      • Persona Filters: Instant switching between target buyer personas.
+      • 1-Tap Copy: Immediate clipboard copying for executive email/text follow-ups.
+
+25. EXECUTIVE_SALES_HOOKS_AND_PITCH_PLAYBOOK.md
+    - Full Markdown source for offline text reading and personal annotations.
+
+================================================================================
+All documents are sealed and verified for corporate AP and vendor onboarding.
+================================================================================
