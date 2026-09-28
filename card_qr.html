@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ether OS — Business Card QR</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Ether OS — Executive Booth & Card QR</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700;800&family=Cinzel:wght@700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
     <style>
@@ -13,15 +13,16 @@
 
         body {
             font-family: 'JetBrains Mono', monospace;
-            background: #060608;
+            background: #040711;
             color: #e2e8f0;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 28px;
-            padding: 40px 20px;
+            gap: 20px;
+            padding: 24px 16px;
+            text-align: center;
         }
 
         .logo-row {
@@ -31,112 +32,182 @@
         }
 
         .logo-mark {
-            width: 32px;
-            height: 32px;
-            background: linear-gradient(135deg, #10b981, #06b6d4);
-            border-radius: 7px;
+            width: 34px;
+            height: 34px;
+            background: linear-gradient(135deg, #00f0ff, #0077ff);
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 16px;
+            font-size: 18px;
             font-weight: 800;
             color: #000;
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
         }
 
         .logo-name {
-            font-size: 16px;
+            font-size: 17px;
             font-weight: 800;
-            letter-spacing: 0.28em;
-            color: #10b981;
+            letter-spacing: 0.24em;
+            color: #00f0ff;
         }
 
-        .title {
+        .toggle-container {
+            display: flex;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 30px;
+            padding: 4px;
+            gap: 4px;
+            max-width: 360px;
+            width: 100%;
+        }
+
+        .toggle-btn {
+            flex: 1;
+            padding: 10px 14px;
+            border-radius: 25px;
+            font-family: 'JetBrains Mono', monospace;
             font-size: 11px;
             font-weight: 700;
-            letter-spacing: 0.2em;
+            border: none;
+            background: transparent;
+            color: #94a3b8;
+            cursor: pointer;
+            transition: all 0.2s ease;
             text-transform: uppercase;
-            color: #64748b;
-            text-align: center;
+            letter-spacing: 0.05em;
+        }
+
+        .toggle-btn.active {
+            background: linear-gradient(135deg, #00f0ff 0%, #0077ff 100%);
+            color: #000;
+            font-weight: 800;
+            box-shadow: 0 4px 14px rgba(0, 240, 255, 0.35);
         }
 
         .qr-outer {
-            background: #fff;
-            border-radius: 14px;
-            padding: 16px;
+            background: #ffffff;
+            border-radius: 18px;
+            padding: 18px;
             box-shadow:
-                0 0 0 1px rgba(16,185,129,0.2),
-                0 0 40px rgba(16,185,129,0.12),
-                0 20px 60px rgba(0,0,0,0.7);
+                0 0 0 1px rgba(0, 240, 255, 0.3),
+                0 0 50px rgba(0, 240, 255, 0.18),
+                0 25px 70px rgba(0, 0, 0, 0.85);
+            transition: transform 0.2s ease;
         }
 
         #master-qr canvas,
         #master-qr img {
             display: block;
+            margin: 0 auto;
         }
 
-        .label {
-            font-size: 10px;
-            font-weight: 700;
-            letter-spacing: 0.18em;
-            color: #10b981;
-            text-align: center;
+        .action-title {
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 0.12em;
+            color: #00f0ff;
             text-transform: uppercase;
         }
 
-        .sublabel {
-            font-size: 8px;
-            color: #475569;
-            letter-spacing: 0.1em;
-            text-align: center;
-        }
-
-        .url-line {
-            font-size: 8px;
-            color: #334155;
-            letter-spacing: 0.06em;
-            text-align: center;
+        .action-subtitle {
+            font-size: 10px;
+            color: #64748b;
+            letter-spacing: 0.05em;
             max-width: 320px;
-            word-break: break-all;
-            line-height: 1.6;
+            line-height: 1.4;
         }
 
-        .divider {
-            width: 1px;
-            height: 1px;
+        .url-box {
+            font-size: 9px;
+            color: #38bdf8;
+            background: rgba(0, 240, 255, 0.08);
+            border: 1px dashed rgba(0, 240, 255, 0.3);
+            border-radius: 6px;
+            padding: 6px 12px;
+            letter-spacing: 0.06em;
+            word-break: break-all;
+        }
+
+        .footer-note {
+            font-size: 9px;
+            color: #475569;
+            letter-spacing: 0.05em;
         }
     </style>
 </head>
 <body>
 
     <div class="logo-row">
-        <div class="logo-mark">E</div>
-        <span class="logo-name">ETHER OS</span>
+        <div class="logo-mark">⚡</div>
+        <span class="logo-name">ETHER SOVEREIGN</span>
     </div>
 
-    <div class="title">Business Card QR Code</div>
+    <!-- Mode Selector -->
+    <div class="toggle-container">
+        <button class="toggle-btn active" id="btnSign" onclick="switchMode('sign')">⚡ Sign Directive</button>
+        <button class="toggle-btn" id="btnPortal" onclick="switchMode('portal')">🌐 Main Portal</button>
+    </div>
 
+    <!-- QR Code Container -->
     <div class="qr-outer">
         <div id="master-qr"></div>
     </div>
 
-    <div class="label">Scan to See All Coverage Plans</div>
-    <div class="sublabel">Ether Terminal LLC</div>
-    <div class="url-line" id="url-display"></div>
+    <!-- Dynamic Instruction Text -->
+    <div class="action-title" id="action-title">Scan to Sign 30-Day Pilot Directive</div>
+    <div class="action-subtitle" id="action-subtitle">Point phone camera to execute digital directive on the glass via your phone's cellular connection.</div>
+    <div class="url-box" id="url-display">https://ether-terminal.com/sign</div>
+
+    <div class="footer-note">Ēther Terminal LLC • Office of Sovereign Protocol Operations</div>
 
 <script>
+    var currentMode = 'sign';
+    var qrCodeInstance = null;
 
-    const PORTAL_URL = 'https://ether-terminal.com';
+    var MODES = {
+        sign: {
+            url: 'https://ether-terminal.com/sign',
+            title: 'Scan to Sign 30-Day Pilot Directive',
+            subtitle: 'Point phone camera to execute digital directive on the glass via your phone\'s cellular connection.'
+        },
+        portal: {
+            url: 'https://ether-terminal.com',
+            title: 'Scan to View Sovereign Portal & Specs',
+            subtitle: 'Directs phone browser to full architecture, benchmarks, and licensing specs.'
+        }
+    };
 
-    document.getElementById('url-display').textContent = PORTAL_URL;
+    function renderQR(url) {
+        var container = document.getElementById('master-qr');
+        container.innerHTML = '';
+        qrCodeInstance = new QRCode(container, {
+            text: url,
+            width: 230,
+            height: 230,
+            colorDark: '#040711',
+            colorLight: '#ffffff',
+            correctLevel: QRCode.CorrectLevel.H
+        });
+    }
 
-    new QRCode(document.getElementById('master-qr'), {
-        text: PORTAL_URL,
-        width: 220,
-        height: 220,
-        colorDark: '#000000',
-        colorLight: '#ffffff',
-        correctLevel: QRCode.CorrectLevel.H
-    });
+    function switchMode(mode) {
+        currentMode = mode;
+        var cfg = MODES[mode];
+
+        document.getElementById('btnSign').className = 'toggle-btn' + (mode === 'sign' ? ' active' : '');
+        document.getElementById('btnPortal').className = 'toggle-btn' + (mode === 'portal' ? ' active' : '');
+
+        document.getElementById('action-title').textContent = cfg.title;
+        document.getElementById('action-subtitle').textContent = cfg.subtitle;
+        document.getElementById('url-display').textContent = cfg.url;
+
+        renderQR(cfg.url);
+    }
+
+    // Initial render
+    renderQR(MODES.sign.url);
 </script>
 
 </body>
