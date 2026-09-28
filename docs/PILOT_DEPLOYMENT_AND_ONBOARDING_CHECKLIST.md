@@ -38,6 +38,10 @@ Before executing the pilot at carrier facilities, verify the digital delivery pa
   - Confirm presence of pre-loaded air-gapped forensic models and local cryptographic verification keys.
   - Confirm Accounts Payable wire settlement received with matched Wire Memo Code (`PILOT-ET-*****`).
 
+- [ ] **0.0B Legal Covenant & Reverse-Engineering Prohibition Ratification**
+  - Execute and countersign Sovereign Pilot Evaluation Agreement & Sovereign Enterprise Software License Agreement.
+  - Ratify binding covenants under Section 7: Strict Reverse-Engineering Ban, Zero Competitive Use / Copycat Covenant, AI/Neural Model Distillation Prohibition, and Trade Secret Injunction protection.
+
 - [ ] **0.1 Host Workstation & Interface Verification**
   - Verify host workstation meets enterprise minimums (macOS 13.0+ Ventura/Sonoma/Sequoia or Windows 10/11 64-bit).
   - Verify tamper-resistant local execution and zero external network egress dependencies.

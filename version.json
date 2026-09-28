@@ -26,7 +26,11 @@
     "enterprise_bundle_sha256": "ddf6ffec286743ad37621ed2df452082cf7c0e4dd25c8f53b7db018b3f8e83f3",
     "enterprise_bundle_size_bytes": 120671125,
     "dmg": "/releases/Ether_OS_Installer_v1.0.0.dmg",
-    "dmg_sha256": "01ebeadebea13f50cd0c6e7821b5f2b61b0fea97d004cc6e59eecb24c09023f2"
+    "dmg_sha256": "715b975caa15fb075e596fa51edaa6fb21fd40a327bb09003ad13773ab9b2250",
+    "dmg_size_bytes": 72449784,
+    "windows_pilot_zip": "/releases/Ether_Sovereign_Windows_Pilot.zip",
+    "windows_pilot_sha256": "3d46e98c0793c1588cb7b335c608608864fbcb1783ed0739df7e6d80558cc998",
+    "windows_pilot_size_bytes": 1695475
   },
   "enterprise": {
     "it_contact": "contact@ether-terminal.com",
