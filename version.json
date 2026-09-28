@@ -30,7 +30,12 @@
     "dmg_size_bytes": 72449784,
     "windows_pilot_zip": "/releases/Ether_Sovereign_Windows_Pilot.zip",
     "windows_pilot_sha256": "3d46e98c0793c1588cb7b335c608608864fbcb1783ed0739df7e6d80558cc998",
-    "windows_pilot_size_bytes": 1695475
+    "windows_pilot_size_bytes": 1695475,
+    "linux_pilot_zip": "/releases/Ether_Sovereign_Linux_Pilot.zip",
+    "linux_pilot_sha256": "45a07257a133d0189347bc1e67c5533e25505c2a76ede9797027368b921ff1b8",
+    "linux_pilot_size_bytes": 1695819,
+    "linux_pilot_tar": "/releases/Ether_Sovereign_Linux_Pilot.tar.gz",
+    "linux_pilot_tar_sha256": "9b0d4b77f87fddbf9e9e649d06729b11e7a6297db89128cd66197bc462528524"
   },
   "enterprise": {
     "it_contact": "contact@ether-terminal.com",
